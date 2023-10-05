@@ -1,18 +1,25 @@
+@import '../../styles/colors.scss';
+
 .headerContainer {
   width: 100vw;
+  padding: 2rem;
 
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
 
-  .topSection {
-    display: flex;
-    justify-content: space-between;
+  background: $blue-color-700;
+  color: $gray-color-100;
 
-    nav {
-      ul {
-        display: flex;
-        align-items: center;
-      }
+  .user {
+  }
+
+  nav {
+    ul {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+
+      list-style-type: none;
     }
   }
 }

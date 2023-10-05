@@ -1,14 +1,14 @@
+import '@/styles/global.scss'
 import { Footer } from '@/layout/Footer'
 import { Header } from '@/layout/Header'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import '@/styles/global.scss'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'RentX',
-  description: 'Alugue o seu carro.',
+  description: 'RENTX DESCRIPTION.',
 }
 
 type Props = {
