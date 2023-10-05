@@ -1,7 +1,9 @@
 import mongoose from 'mongoose'
+import * as dotenv from 'dotenv'
+dotenv.config()
 
-const MONGO_USERNAME = 'johnatanSO'
-const MONGO_PASSWORD = 'u72E1K8bxPcVgFhM'
+const MONGO_USERNAME = process.env.MONGO_USERNAME
+const MONGO_PASSWORD = process.env.MONGO_PASSWORD
 const mongoURL = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@clusterreactnative0.ct2fmit.mongodb.net/?retryWrites=true&w=majority`
 
 mongoose.connect(mongoURL)
