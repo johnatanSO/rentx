@@ -10,7 +10,11 @@ export class ListCategoriesController {
   async handle(req: Request, res: Response): Promise<Response> {
     try {
       const categories = await this.listCategoriesUseCase.execute()
-      return res.status(201).json(categories)
+      return res.status(201).json({
+        success: true,
+        title: 'Listagem concluída com sucesso',
+        items: categories,
+      })
     } catch (error) {
       return res.status(500).json({
         success: false,

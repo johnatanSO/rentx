@@ -1,7 +1,7 @@
 import mongoose, { Types } from 'mongoose'
 
 export interface Category {
-  _id?: string | Types.ObjectId
+  _id: Types.ObjectId
   name: string
   description: string
   createdAt: Date

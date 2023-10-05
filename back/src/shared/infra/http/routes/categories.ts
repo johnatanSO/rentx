@@ -19,9 +19,7 @@ categoriesRoutes.post(
   createCategoryController.handle,
 )
 
-categoriesRoutes.get('/', async (req, res) => {
-  return listCategoriesController.handle(req, res)
-})
+categoriesRoutes.get('/', listCategoriesController.handle)
 
 categoriesRoutes.post(
   '/import',
