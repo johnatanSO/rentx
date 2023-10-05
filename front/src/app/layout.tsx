@@ -2,9 +2,6 @@ import '@/styles/global.scss'
 import { Footer } from '@/layout/Footer'
 import { Header } from '@/layout/Header'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'RentX',
@@ -18,10 +15,10 @@ type Props = {
 export default function WithLayout({ children }: Props) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <Header />
 
-        {children}
+        <main>{children}</main>
 
         <Footer />
       </body>

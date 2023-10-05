@@ -1,4 +1,9 @@
+@import "../../styles/colors.scss";
+
 .footerContainer {
   width: 100vw;
-  background: gray;
+  padding: 2rem;
+
+  background: $blue-color-600;
+  color: $gray-color-100;
 }

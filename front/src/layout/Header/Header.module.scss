@@ -1,8 +1,9 @@
-@import '../../styles/colors.scss';
+@import "../../styles/colors.scss";
 
 .headerContainer {
   width: 100vw;
   padding: 2rem;
+  padding-bottom: calc(2rem + 35px);
 
   display: flex;
   justify-content: space-between;
