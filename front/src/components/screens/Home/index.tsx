@@ -1,3 +1,13 @@
+import { Filters } from './Filters'
+import style from './Home.module.scss'
+import { ListCars } from './ListCars'
+
 export function Home() {
-  return <h1>Home</h1>
+  return (
+    <div className={style.carsContainer}>
+      <h3>Dirija o carro dos seus sonhos</h3>
+      <Filters />
+      <ListCars />
+    </div>
+  )
 }
