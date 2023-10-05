@@ -5,8 +5,10 @@ import style from './Home.module.scss'
 import { ListCars } from './ListCars'
 import { Car } from './interfaces/Car'
 import { getAvaliableCarsService } from '@/services/cars/getAvaliableCars/GetAvaliableCarsService'
+import { useRouter } from 'next/router'
 
 export function Home() {
+  const router = useRouter()
   const [avaliableCars, setAvaliableCars] = useState<Car[]>([])
 
   async function getAvaliableCars() {
@@ -16,7 +18,7 @@ export function Home() {
 
   useEffect(() => {
     getAvaliableCars()
-  }, [])
+  }, [router.query])
 
   return (
     <div className={style.carsContainer}>
