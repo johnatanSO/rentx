@@ -16,21 +16,28 @@ button {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+
+  overflow-x: hidden;
+  min-height: 100vh;
+
   input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
   }
+
   input[type="number"] {
     -moz-appearance: textfield;
     appearance: textfield;
   }
-  display: flex;
-  flex-direction: column;
 
   main {
     margin-top: -35px;
     padding: 2rem;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
+
+    flex: 1;
 
     background: $white-color;
   }

@@ -1,11 +1,16 @@
+import { Car } from '../interfaces/Car'
 import style from './ListCars.module.scss'
 
-export function ListCars() {
+type Props = {
+  avaliableCars: Car[]
+}
+
+export function ListCars({ avaliableCars }: Props) {
   return (
     <ul className={style.listCarsContainer}>
-      <li>car 1</li>
-      <li>car 2</li>
-      <li>car 3</li>
+      {avaliableCars.map((car) => {
+        return <li key={car._id}>{car.name}</li>
+      })}
     </ul>
   )
 }
