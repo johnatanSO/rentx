@@ -34,8 +34,8 @@ describe('Autenticação do usuário', () => {
     expect(authInfos).toHaveProperty('token')
   })
 
-  it('Should not be able to authenticate an none existent user', () => {
-    expect(async () => {
+  it('Should not be able to authenticate an none existent user', async () => {
+    await expect(async () => {
       await authenticateUserUseCase.execute({
         email: 'reject@gmail.com',
         password: 'empty',
@@ -43,8 +43,8 @@ describe('Autenticação do usuário', () => {
     }).rejects.toBeInstanceOf(AppError)
   })
 
-  it('Should not be able to authenticate a incorrect password', () => {
-    expect(async () => {
+  it('Should not be able to authenticate a incorrect password', async () => {
+    await expect(async () => {
       const user: ICreateUserDTO = {
         email: 'user@test.com',
         password: '123456',

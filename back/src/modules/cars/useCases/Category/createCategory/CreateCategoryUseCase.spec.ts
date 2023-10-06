@@ -22,7 +22,7 @@ describe('Create category ', () => {
   })
 
   it('should not be able to create a new category with name exists', async () => {
-    expect(async () => {
+    await expect(async () => {
       await createCategoryUseCase.execute({
         name: 'Teste jest',
         description: 'Categoria com o mesmo nome',
