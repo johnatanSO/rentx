@@ -15,6 +15,7 @@ http.interceptors.request.use(
         Authorization: token,
       }
     }
+
     return config
   },
   (error) => {
