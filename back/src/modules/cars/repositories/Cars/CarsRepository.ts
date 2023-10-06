@@ -12,7 +12,6 @@ export class CarsRepository implements ICarsRepository {
     fineAmount,
     brand,
     categoryId,
-    specifications,
   }: ICreateNewCarDTO): Promise<Car> {
     const newCar = await this.model.create({
       name,
@@ -22,7 +21,6 @@ export class CarsRepository implements ICarsRepository {
       fineAmount,
       brand,
       categoryId,
-      specifications,
     })
 
     await newCar.save()
@@ -51,5 +49,9 @@ export class CarsRepository implements ICarsRepository {
 
   async findById(carId: string): Promise<Car> {
     return await this.model.findOne({ _id: carId })
+  }
+
+  async updateOne(_id: string, fields: any): Promise<void> {
+    await this.model.updateOne({ _id, $set: { ...fields } })
   }
 }

@@ -1,3 +1,4 @@
+import { CreateCarSpecificationController } from './../../../../modules/cars/useCases/Car/createCarSpecification/CreateCarSpecificationController'
 import { Router } from 'express'
 import { ListAvaliableCarsController } from '../../../../modules/cars/useCases/Car/listAvaliableCars/ListAvaliableCarsController'
 import { ensureAdmin } from '../middlewares/ensureAdmin'
@@ -7,6 +8,7 @@ import { CreateCarController } from './../../../../modules/cars/useCases/Car/cre
 const carsRoutes = Router()
 const createCarController = new CreateCarController()
 const listAvaliableCarsController = new ListAvaliableCarsController()
+const createCarSpecificationController = new CreateCarSpecificationController()
 
 carsRoutes.post(
   '/',
@@ -16,5 +18,12 @@ carsRoutes.post(
 )
 
 carsRoutes.get('/avaliable', listAvaliableCarsController.handle)
+
+carsRoutes.post(
+  '/specifications/:carId',
+  ensureAuthenticated,
+  ensureAdmin,
+  createCarSpecificationController.handle,
+)
 
 export { carsRoutes }

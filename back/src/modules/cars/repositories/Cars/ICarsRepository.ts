@@ -9,7 +9,6 @@ export interface ICreateNewCarDTO {
   fineAmount: number
   brand: string
   categoryId: string | Types.ObjectId
-  specifications?: Types.ObjectId[]
 }
 
 export interface ICarsRepository {
@@ -21,4 +20,5 @@ export interface ICarsRepository {
     name?: string,
   ) => Promise<Car[]>
   findById: (carId: string) => Promise<Car>
+  updateOne: (_id: string, fields: any) => Promise<void>
 }

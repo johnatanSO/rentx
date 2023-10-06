@@ -31,12 +31,22 @@ describe('Create car specification', () => {
       categoryId: new Types.ObjectId(),
     })
 
-    const specificationsIds = ['54321']
+    const newSpecification = await mockSpecificationsRepository.create({
+      name: 'Teste',
+      description: 'Teste',
+    })
+
+    const specificationsIds = [newSpecification._id.toString()]
 
     await createCarSpecificationUseCase.execute({
       carId: newCar._id.toString(),
       specificationsIds,
     })
+
+    const updatedCar = await mockCarsRepository.findById(newCar._id.toString())
+
+    expect(updatedCar).toHaveProperty('specifications')
+    expect(updatedCar.specifications.length).toBe(1)
   })
 
   it('should not be able to add a new specification in car if car none-existent', async () => {

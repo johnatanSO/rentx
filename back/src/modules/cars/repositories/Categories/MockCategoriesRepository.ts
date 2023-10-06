@@ -1,3 +1,4 @@
+import { Types } from 'mongoose'
 import { Category } from '../../infra/mongoose/entities/Category'
 import {
   ICategoriesRepository,
@@ -14,7 +15,7 @@ export class MockCategoriesRepository implements ICategoriesRepository {
     const newCategory = {
       name,
       description,
-      _id: (Math.random() * 75678).toString(),
+      _id: new Types.ObjectId(),
       createdAt: new Date(),
     }
 

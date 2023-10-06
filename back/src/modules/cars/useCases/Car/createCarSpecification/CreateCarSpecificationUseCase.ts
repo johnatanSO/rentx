@@ -35,10 +35,10 @@ export class CreateCarSpecificationUseCase {
       (specification) => specification._id,
     )
 
-    carExists.specifications = newSpecificationsIds
+    const fields = {
+      specifications: newSpecificationsIds,
+    }
 
-    await this.carsRepository.create(carExists)
-
-    console.log('carExists', carExists)
+    await this.carsRepository.updateOne(carId, fields)
   }
 }

@@ -13,7 +13,6 @@ export class MockCarsRepository implements ICarsRepository {
     fineAmount,
     brand,
     categoryId,
-    specifications,
   }: ICreateNewCarDTO): Promise<Car> {
     const newCar = {
       name,
@@ -26,7 +25,7 @@ export class MockCarsRepository implements ICarsRepository {
       _id: new Types.ObjectId(),
       createdAt: new Date(),
       avaliable: true,
-      specifications: specifications || null,
+      specifications: null,
     }
 
     this.cars.push(newCar)
@@ -58,5 +57,16 @@ export class MockCarsRepository implements ICarsRepository {
 
   async findById(carId: string): Promise<Car> {
     return this.cars.find((car) => car._id.toString() === carId)
+  }
+
+  async updateOne(_id: string, fields: any): Promise<void> {
+    const index = this.cars.findIndex((car) => car._id.toString() === _id)
+
+    if (index !== -1) {
+      this.cars[index] = {
+        ...this.cars[index],
+        ...fields,
+      }
+    }
   }
 }
