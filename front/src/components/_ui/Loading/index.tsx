@@ -1,5 +1,14 @@
-import style from './Loading.module.scss'
+import { Box, CircularProgress } from '@mui/material'
 
-export function Loading() {
-  return <>Loading...</>
+type Props = {
+  size?: number
+  color?: string
+}
+
+export function Loading({ size, color }: Props) {
+  return (
+    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <CircularProgress style={{ color: color || 'white' }} size={size || 15} />
+    </Box>
+  )
 }
