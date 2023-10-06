@@ -1,5 +1,4 @@
 import { AppError } from './../../../../../shared/errors/AppError'
-import { Types } from 'mongoose'
 import { inject, injectable } from 'tsyringe'
 import { Car } from '../../../infra/mongoose/entities/Car'
 import { ICarsRepository } from '../../../repositories/Cars/ICarsRepository'
@@ -11,7 +10,7 @@ interface IRequest {
   licensePlate: string
   fineAmount: number
   brand: string
-  categoryId: string | Types.ObjectId
+  categoryId: string
 }
 
 @injectable()

@@ -2,15 +2,19 @@ import { ICategoriesRepository } from '../../../repositories/Categories/ICategor
 import fs from 'fs'
 import { parse } from 'csv-parse'
 import { Category } from '../../../infra/mongoose/entities/Category'
+import { inject, injectable } from 'tsyringe'
 
 interface IImportCategory {
   name: string
   description: string
 }
 
+@injectable()
 export class ImportCategoryUseCase {
   categoriesRepository: ICategoriesRepository
-  constructor(categoriesRepository: ICategoriesRepository) {
+  constructor(
+    @inject('CategoriesRepository') categoriesRepository: ICategoriesRepository,
+  ) {
     this.categoriesRepository = categoriesRepository
   }
 

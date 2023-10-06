@@ -1,3 +1,4 @@
+import { Model } from 'mongoose'
 import {
   Specification,
   SpecificationModel,
@@ -8,27 +9,32 @@ import {
 } from './ISpecificationsRepository'
 
 export class SpecificationsRepository implements ISpecificationsRepository {
+  private model: Model<Specification>
+  constructor() {
+    this.model = SpecificationModel
+  }
+
   async create({
     name,
     description,
   }: ICreateSpecificationDTO): Promise<Specification> {
-    const specification = await SpecificationModel.create({ name, description })
+    const specification = await this.model.create({ name, description })
     await specification.save()
 
     return specification
   }
 
   async list(): Promise<Specification[]> {
-    const specifications = await SpecificationModel.find({})
+    const specifications = await this.model.find({})
     return specifications
   }
 
   async findByName(name: string): Promise<Specification> {
-    const specification = await SpecificationModel.findOne({ name })
+    const specification = await this.model.findOne({ name })
     return specification
   }
 
   async findByIds(ids: string[]): Promise<Specification[]> {
-    return await SpecificationModel.find({ _id: { $in: ids } })
+    return await this.model.find({ _id: { $in: ids } })
   }
 }

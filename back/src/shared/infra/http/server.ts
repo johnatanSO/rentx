@@ -6,6 +6,8 @@ import cors from 'cors'
 import dbConnection from '../mongodb'
 import '../../container'
 import { AppError } from '../../errors/AppError'
+import * as dotenv from 'dotenv'
+dotenv.config()
 
 interface CustomExpress extends Express {
   mongo?: any
@@ -13,6 +15,7 @@ interface CustomExpress extends Express {
 
 const app: CustomExpress = express()
 app.mongo = dbConnection
+const PORT = process.env.SERVER_PORT
 
 app.use(express.json())
 app.use(cors())
@@ -32,9 +35,10 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   })
 })
 
-app.listen(3333, () => {
-  console.log('Server is running!')
+app.listen(PORT, () => {
+  console.log(`Server is running in port ${PORT}`)
 })
+
 app.get('/', (req, res) => {
   res.send('Hello world')
 })

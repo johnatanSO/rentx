@@ -3,7 +3,11 @@ import { Car, CarModel } from '../../infra/mongoose/entities/Car'
 import { ICarsRepository, ICreateNewCarDTO } from './ICarsRepository'
 
 export class CarsRepository implements ICarsRepository {
-  model: Model<Car> = CarModel
+  private model: Model<Car>
+  constructor() {
+    this.model = CarModel
+  }
+
   async create({
     name,
     description,

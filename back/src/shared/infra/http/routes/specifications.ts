@@ -14,8 +14,6 @@ specificationsRoutes.post(
   createSpecificationController.handle,
 )
 
-specificationsRoutes.get('/', async (req, res) => {
-  return listSpecificationsController.handle(req, res)
-})
+specificationsRoutes.get('/', listSpecificationsController.handle)
 
 export { specificationsRoutes }

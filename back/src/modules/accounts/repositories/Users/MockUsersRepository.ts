@@ -1,3 +1,4 @@
+import { Types } from 'mongoose'
 import { IUser } from '../../infra/mongoose/entities/User'
 import { ICreateUserDTO, IUsersRepository } from './IUsersRepository'
 
@@ -10,7 +11,7 @@ export class MockUsersRepository implements IUsersRepository {
   async create(newUserData: ICreateUserDTO): Promise<IUser> {
     const newUser = {
       ...newUserData,
-      _id: (Math.random() * 67832768).toString(),
+      _id: new Types.ObjectId(),
       isAdmin: false,
       createdAt: new Date(),
       avatar: null,
@@ -26,18 +27,19 @@ export class MockUsersRepository implements IUsersRepository {
   }
 
   async findById(_id: string): Promise<IUser> {
-    return this.users.find((user) => user._id === _id)
+    return this.users.find((user) => user._id.toString() === _id)
   }
 
   async update(filters: any, updateFields: any): Promise<void> {
-    const fields = updateFields.$set
-    this.users.forEach((user) => {
-      if (user._id === filters._id) {
-        user = {
-          ...user,
-          ...fields,
-        }
+    const index = this.users.findIndex(
+      (user) => user._id.toString() === filters._id.toString(),
+    )
+
+    if (index !== -1) {
+      this.users[index] = {
+        ...this.users[index],
+        ...updateFields.$set,
       }
-    })
+    }
   }
 }

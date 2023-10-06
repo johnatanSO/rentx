@@ -20,7 +20,7 @@ export class CreateNewUserUseCase {
     password,
     driverLicense,
   }: ICreateUserDTO): Promise<IUser> {
-    const alreadyExistUser = !!(await this.usersRepository.findByEmail(email))
+    const alreadyExistUser = await this.usersRepository.findByEmail(email)
     if (alreadyExistUser) {
       throw new AppError('Já existe um usuário com este e-mail cadastrado')
     }

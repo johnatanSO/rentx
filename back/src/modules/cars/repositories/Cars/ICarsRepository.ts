@@ -1,4 +1,3 @@
-import { Types } from 'mongoose'
 import { Car } from '../../infra/mongoose/entities/Car'
 
 export interface ICreateNewCarDTO {
@@ -8,7 +7,7 @@ export interface ICreateNewCarDTO {
   licensePlate: string
   fineAmount: number
   brand: string
-  categoryId: string | Types.ObjectId
+  categoryId: string
 }
 
 export interface ICarsRepository {

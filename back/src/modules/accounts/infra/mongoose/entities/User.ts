@@ -1,7 +1,7 @@
 import mongoose, { Types } from 'mongoose'
 
 export interface IUser {
-  _id: string | Types.ObjectId
+  _id: Types.ObjectId
   name: string
   password: string
   email: string

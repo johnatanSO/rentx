@@ -1,9 +1,14 @@
+import { inject, injectable } from 'tsyringe'
 import { Specification } from '../../../infra/mongoose/entities/Specification'
-import { SpecificationsRepository } from './../../../repositories/Specifitacions/SpecificationsRepository'
+import { ISpecificationsRepository } from '../../../repositories/Specifitacions/ISpecificationsRepository'
 
+@injectable()
 export class ListSpecificationsUseCase {
-  specificationsRepository: SpecificationsRepository
-  constructor(specificationsRepository: SpecificationsRepository) {
+  specificationsRepository: ISpecificationsRepository
+  constructor(
+    @inject('SpecificationsRepository')
+    specificationsRepository: ISpecificationsRepository,
+  ) {
     this.specificationsRepository = specificationsRepository
   }
 

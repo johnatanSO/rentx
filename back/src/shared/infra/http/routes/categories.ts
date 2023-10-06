@@ -26,9 +26,7 @@ categoriesRoutes.post(
   ensureAuthenticated,
   ensureAdmin,
   upload.single('file'),
-  async (req, res) => {
-    return importCategoryController.handle(req, res)
-  },
+  importCategoryController.handle,
 )
 
 export { categoriesRoutes }

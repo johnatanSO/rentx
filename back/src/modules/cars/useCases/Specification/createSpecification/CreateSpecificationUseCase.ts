@@ -2,16 +2,16 @@ import { Specification } from '../../../infra/mongoose/entities/Specification'
 import { inject, injectable } from 'tsyringe'
 import {
   ICreateSpecificationDTO,
-  ISpecificationRepository,
+  ISpecificationsRepository,
 } from '../../../repositories/Specifitacions/ISpecificationsRepository'
 import { AppError } from '../../../../../shared/errors/AppError'
 
 @injectable()
 export class CreateSpecificationUseCase {
-  specificationsRepository: ISpecificationRepository
+  specificationsRepository: ISpecificationsRepository
   constructor(
     @inject('SpecificationsRepository')
-    specificationsRepository: ISpecificationRepository,
+    specificationsRepository: ISpecificationsRepository,
   ) {
     this.specificationsRepository = specificationsRepository
   }
@@ -21,11 +21,16 @@ export class CreateSpecificationUseCase {
     description,
   }: ICreateSpecificationDTO): Promise<Specification> {
     const alreadyExistSpecification =
-      !!(await this.specificationsRepository.findByName(name))
+      await this.specificationsRepository.findByName(name)
 
     if (alreadyExistSpecification)
       throw new AppError('Já existe uma especificação com este nome')
 
-    return this.specificationsRepository.create({ name, description })
+    const newSpecification = await this.specificationsRepository.create({
+      name,
+      description,
+    })
+
+    return newSpecification
   }
 }
