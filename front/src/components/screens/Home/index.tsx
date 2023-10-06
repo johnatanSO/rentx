@@ -8,8 +8,8 @@ import { getAvaliableCarsService } from '@/services/cars/getAvaliableCars/GetAva
 import { useRouter } from 'next/router'
 
 export function Home() {
-  const router = useRouter()
   const [avaliableCars, setAvaliableCars] = useState<Car[]>([])
+  const router = useRouter()
 
   async function getAvaliableCars() {
     const { data } = await getAvaliableCarsService()

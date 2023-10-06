@@ -1,4 +1,4 @@
-import { getTokenService } from '@/services/token/GetTokenService'
+import { getTokenService } from '@/services/token/getToken/GetTokenService'
 import axios from 'axios'
 
 const http = axios.create({

@@ -2,17 +2,17 @@ import { useEffect, useState, FormEvent } from 'react'
 import style from './Filters.module.scss'
 import { TextField, MenuItem } from '@mui/material'
 import { Category } from '../interfaces/Category'
-import { getAllCategoriesService } from '@/services/category/GetAllCategoriesService'
+import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
 import { useRouter } from 'next/router'
 import { Filters } from '../interfaces/Filters'
 
 export function Filters() {
-  const [categories, setCategories] = useState<Category[]>([])
   const defaultValuesFilter = {
     name: '',
     categoryId: '',
   }
   const [filters, setFilters] = useState<Filters>(defaultValuesFilter)
+  const [categories, setCategories] = useState<Category[]>([])
   const router = useRouter()
 
   function onFilterCars(event: FormEvent<HTMLFormElement>) {
