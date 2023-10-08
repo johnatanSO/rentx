@@ -41,12 +41,14 @@ export class CarsRepository implements ICarsRepository {
     brand?: string,
     name?: string,
   ): Promise<Car[]> {
-    const cars = await this.model.find({
-      avaliable: true,
-      ...(brand ? { brand } : {}),
-      ...(categoryId ? { categoryId } : {}),
-      ...(name ? { name } : {}),
-    })
+    const cars = await this.model
+      .find({
+        avaliable: true,
+        ...(brand ? { brand } : {}),
+        ...(categoryId ? { categoryId } : {}),
+        ...(name ? { name } : {}),
+      })
+      .populate('specifications')
 
     return cars
   }
@@ -56,6 +58,6 @@ export class CarsRepository implements ICarsRepository {
   }
 
   async updateOne(_id: string, fields: any): Promise<void> {
-    await this.model.updateOne({ _id, $set: { ...fields } })
+    await this.model.updateOne({ _id }, { $set: { ...fields } })
   }
 }

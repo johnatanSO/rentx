@@ -1,7 +1,7 @@
 import { CreateCategoryController } from '../../../../modules/cars/useCases/Category/createCategory/CreateCategoryController'
-import { importCategoryController } from '../../../../modules/cars/useCases/Category/importCategory/index'
+import { ImportCategoryController } from '../../../../modules/cars/useCases/Category/importCategory/ImportCategoryController'
 import { Router } from 'express'
-import { listCategoriesController } from '../../../../modules/cars/useCases/Category/listCategories'
+import { ListCategoriesController } from '../../../../modules/cars/useCases/Category/listCategories/ListCategoriesController'
 import multer from 'multer'
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated'
 import { ensureAdmin } from '../middlewares/ensureAdmin'
@@ -11,6 +11,8 @@ const upload = multer({
 
 const categoriesRoutes = Router()
 const createCategoryController = new CreateCategoryController()
+const importCategoryController = new ImportCategoryController()
+const listCategoriesController = new ListCategoriesController()
 
 categoriesRoutes.post(
   '/',
