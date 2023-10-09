@@ -20,13 +20,13 @@ export function AlertConfirm() {
 
         <div className={style.buttonsContainer}>
           <button
-            className={`${style.button} ${style.cancelButton}`}
+            className={style.cancelButton}
             onClick={alertConfirmConfigs.handleClose}
           >
             Cancelar
           </button>
           <button
-            className={`${style.button} ${style.confirmButton}`}
+            className={style.confirmButton}
             onClick={async () => {
               await alertConfirmConfigs.onClickAgree()
               alertConfirmConfigs.handleClose()
