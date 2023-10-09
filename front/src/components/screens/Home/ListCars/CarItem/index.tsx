@@ -24,8 +24,8 @@ export function CarItem({ images, name, dailyRate, carId }: Props) {
     <li className={style.carItem}>
       <Image
         className={style.carImage}
-        width={300}
-        height={350}
+        width={400}
+        height={200}
         alt="Imagem do carro"
         src={getImageUrl(images)}
       />
