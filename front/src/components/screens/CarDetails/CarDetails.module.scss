@@ -12,8 +12,11 @@
 
     button {
       border: none;
-      padding: 0.5rem;
+      padding: 0.5rem 0.7rem;
       border-radius: 10px;
+      line-height: 1;
+
+      background: $white-color;
 
       cursor: pointer;
       transition: filter 0.2s;
@@ -24,37 +27,46 @@
       }
 
       &:hover {
-        filter: brightness(0.8);
+        filter: brightness(0.9);
       }
     }
   }
 
-  main {
+  section {
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 2rem;
 
     .carImageContainer {
-      border: 1px solid black;
+      border: 1px solid $gray-color-200;
+      border-radius: 15px;
       max-height: 100%;
 
       .carImage {
         object-fit: contain;
         width: 100%;
+        min-width: 300px;
       }
     }
 
     .infosContainer {
       display: flex;
       flex-direction: column;
-      padding: 1rem;
+      padding: 1.5rem;
 
       .rentalButton {
         background: $blue-color-600;
         color: $white-color;
         box-shadow: 1px 3px 7px rgba(0 0 0 / 0.2);
+
         border: none;
         border-radius: 10px;
+        padding: 0.6rem;
+
+        margin-top: auto;
+
+        font-weight: 500;
+        font-size: 0.875rem;
 
         cursor: pointer;
         transition: filter 0.2s;

@@ -1,10 +1,11 @@
 import { useEffect, useState, FormEvent, useCallback } from 'react'
 import style from './Filters.module.scss'
-import { TextField, MenuItem } from '@mui/material'
+import { MenuItem } from '@mui/material'
 import { Category } from '../interfaces/Category'
 import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
 import { Filters } from '../interfaces/Filters'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { CustomTextField } from '@/components/_ui/CustomTextField'
 
 export function Filters() {
   const defaultValuesFilter = {
@@ -56,10 +57,11 @@ export function Filters() {
 
   return (
     <form className={style.filtersContainer} onSubmit={onFilterCars}>
-      <TextField
+      <CustomTextField
         size="small"
         label="Nome"
         type="text"
+        className={style.input}
         value={filters.name}
         onChange={(event) => {
           setFilters({
@@ -68,10 +70,11 @@ export function Filters() {
           })
         }}
       />
-      <TextField
+      <CustomTextField
         size="small"
         label="Categoria"
         select
+        className={style.input}
         value={filters.categoryId}
         onChange={(event) => {
           setFilters({
@@ -87,7 +90,7 @@ export function Filters() {
             </MenuItem>
           )
         })}
-      </TextField>
+      </CustomTextField>
       <button type="submit">Filtrar</button>
       <button onClick={handleClearFilters} type="button">
         Limpar

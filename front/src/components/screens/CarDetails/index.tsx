@@ -5,6 +5,8 @@ import style from './CarDetails.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
+import { CarImage } from '../Home/interfaces/CarImage'
+import unknownCarImage from '../../../../public/assets/images/cars/unknownCarImage.png'
 
 type Props = {
   car: Car
@@ -12,6 +14,13 @@ type Props = {
 
 export function CarDetails({ car }: Props) {
   const router = useRouter()
+
+  function getImageUrl(images: CarImage[]) {
+    if (images.length === 0) return unknownCarImage
+
+    return process.env.NEXT_PUBLIC_END_POINT + images[0]?.path
+  }
+
   return (
     <section className={style.carDetailsContainer}>
       <header className={style.titleContainer}>
@@ -27,25 +36,25 @@ export function CarDetails({ car }: Props) {
         <h2>{car.name}</h2>
       </header>
 
-      <main>
+      <section>
         <div className={style.carImageContainer}>
           <Image
             className={style.carImage}
             width={500}
             height={600}
-            src={''}
+            src={getImageUrl(car.images)}
             alt="Imagem do carro"
           />
         </div>
 
         <div className={style.infosContainer}>
-          - Categoria - Especificações - Descrição - Valor - Placa - Data
-          inicial/Data final - Descrição - Alugar
+          <span>_Esporivo_</span>- Especificações - Descrição - Valor - Placa -
+          Data inicial/Data final - Descrição - Alugar
           <button className={style.rentalButton} type="button">
             Alugar
           </button>
         </div>
-      </main>
+      </section>
     </section>
   )
 }

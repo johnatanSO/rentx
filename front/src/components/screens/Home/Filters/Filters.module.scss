@@ -1,1 +1,39 @@
-@import '@/styles/colors';
+@import "@/styles/colors";
+
+.filtersContainer {
+  display: flex;
+  gap: 1rem;
+
+  .input {
+    background: $gray-color-100;
+    width: 220px;
+    border-radius: 10px;
+  }
+
+  button {
+    border: none;
+    border-radius: 10px;
+
+    min-height: 100%;
+    padding: 0rem 1rem;
+    color: $white-color;
+
+    font-weight: 500;
+    font-size: 0.875rem;
+
+    cursor: pointer;
+    transition: filter 0.2s;
+
+    &:hover {
+      filter: brightness(0.9);
+    }
+
+    &[type="button"] {
+      background: $red-color-100;
+    }
+
+    &[type="submit"] {
+      background: $blue-color-600;
+    }
+  }
+}
