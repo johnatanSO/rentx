@@ -5,20 +5,23 @@ import style from './Home.module.scss'
 import { ListCars } from './ListCars'
 import { Car } from './interfaces/Car'
 import { getAvaliableCarsService } from '@/services/cars/getAvaliableCars/GetAvaliableCarsService'
-import { useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 
 export function Home() {
   const [avaliableCars, setAvaliableCars] = useState<Car[]>([])
-  const router = useRouter()
+  const searchParams = useSearchParams()
 
   async function getAvaliableCars() {
-    const { data } = await getAvaliableCarsService()
+    const name = searchParams.get('name') || ''
+    const categoryId = searchParams.get('categoryId') || ''
+
+    const { data } = await getAvaliableCarsService({ name, categoryId })
     setAvaliableCars(data.items)
   }
 
   useEffect(() => {
     getAvaliableCars()
-  }, [])
+  }, [searchParams])
 
   return (
     <div className={style.carsContainer}>
