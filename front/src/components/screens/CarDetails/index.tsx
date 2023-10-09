@@ -48,8 +48,18 @@ export function CarDetails({ car }: Props) {
         </div>
 
         <div className={style.infosContainer}>
-          <span>_Esporivo_</span>- Especificações - Descrição - Valor - Placa -
-          Data inicial/Data final - Descrição - Alugar
+          <span className={style.categoryTag}>_Esporivo_</span>
+          <ul className={style.specificationsList}>
+            {car.specifications.map((specification) => {
+              return (
+                <li key={specification._id}>
+                  <span>{specification.name}</span>
+                </li>
+              )
+            })}
+          </ul>
+          - Especificações - Descrição - Valor - Placa - Data inicial/Data final
+          - Descrição - Alugar
           <button className={style.rentalButton} type="button">
             Alugar
           </button>

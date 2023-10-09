@@ -54,6 +54,27 @@
       flex-direction: column;
       padding: 1.5rem;
 
+      .categoryTag {
+        background: $gray-color-100;
+        color: $gray-color-300;
+
+        font-weight: 500;
+        font-size: 0.875rem;
+      }
+
+      .specificationsList {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        li {
+          span {
+            font-weight: 500;
+            font-size: 0.785rem;
+          }
+        }
+      }
+
       .rentalButton {
         background: $blue-color-600;
         color: $white-color;
