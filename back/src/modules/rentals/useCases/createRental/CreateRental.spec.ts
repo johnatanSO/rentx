@@ -2,23 +2,30 @@ import { Types } from 'mongoose'
 import { AppError } from '../../../../shared/errors/AppError'
 import { MockRentalsRepository } from './../../repositories/MockRentalsRepository'
 import { CreateRentalUseCase } from './CreateRentalUseCase'
+import dayjs from 'dayjs'
+import { DayjsDateProvider } from '../../../../shared/container/providers/DateProvider/DayjsDateProvider'
 
 let mockRentalsRepository: MockRentalsRepository
 
 let createRentalUseCase: CreateRentalUseCase
+let dayjsDateProvider: DayjsDateProvider
 
 describe('Create rental', () => {
   beforeEach(() => {
     mockRentalsRepository = new MockRentalsRepository()
+    dayjsDateProvider = new DayjsDateProvider()
 
-    createRentalUseCase = new CreateRentalUseCase(mockRentalsRepository)
+    createRentalUseCase = new CreateRentalUseCase(
+      mockRentalsRepository,
+      dayjsDateProvider,
+    )
   })
 
   it('should be able create new rental', async () => {
     const newRental = await createRentalUseCase.execute({
       carId: '651b727ed2378291ec65392e',
       userId: '650cf6518adcd3da7764f338',
-      expectedReturnDate: new Date(),
+      expectedReturnDate: dayjs().add(1, 'day').toDate(),
     })
 
     expect(newRental).toHaveProperty('_id')
@@ -34,13 +41,13 @@ describe('Create rental', () => {
       await createRentalUseCase.execute({
         carId: fakeCarId1.toString(),
         userId: fakeUserId.toString(), // Same userId.
-        expectedReturnDate: new Date(),
+        expectedReturnDate: dayjs().add(1, 'day').toDate(),
       })
 
       await createRentalUseCase.execute({
         carId: fakeCarId2.toString(),
         userId: fakeUserId.toString(), // Same userId.
-        expectedReturnDate: new Date(),
+        expectedReturnDate: dayjs().add(1, 'day').toDate(),
       })
     }).rejects.toBeInstanceOf(AppError)
   })
@@ -54,13 +61,26 @@ describe('Create rental', () => {
       await createRentalUseCase.execute({
         carId: fakeCarId.toString(), // Same carId.
         userId: fakeUserId1.toString(),
-        expectedReturnDate: new Date(),
+        expectedReturnDate: dayjs().add(1, 'day').toDate(),
       })
 
       await createRentalUseCase.execute({
         carId: fakeCarId.toString(), // Same carId.
         userId: fakeUserId2.toString(),
-        expectedReturnDate: new Date(),
+        expectedReturnDate: dayjs().add(1, 'day').toDate(),
+      })
+    }).rejects.toBeInstanceOf(AppError)
+  })
+
+  it('should not be able to create new rental if expected return date less than 24 hours', async () => {
+    await expect(async () => {
+      const fakeUserId = new Types.ObjectId()
+      const fakeCarId = new Types.ObjectId()
+
+      await createRentalUseCase.execute({
+        carId: fakeCarId.toString(),
+        userId: fakeUserId.toString(),
+        expectedReturnDate: dayjs().add(5, 'hours').toDate(),
       })
     }).rejects.toBeInstanceOf(AppError)
   })

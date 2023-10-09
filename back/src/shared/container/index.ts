@@ -9,6 +9,9 @@ import CategoriesRepository from '../../modules/cars/repositories/Categories/Cat
 import { ICategoriesRepository } from '../../modules/cars/repositories/Categories/ICategoriesRepository'
 import { ISpecificationsRepository } from '../../modules/cars/repositories/Specifitacions/ISpecificationsRepository'
 import { SpecificationsRepository } from '../../modules/cars/repositories/Specifitacions/SpecificationsRepository'
+import { IRentalsRepository } from '../../modules/rentals/repositories/IRentalsRepository'
+import { RentalsRepository } from '../../modules/rentals/repositories/RentalsRepository'
+import './providers'
 
 container.registerSingleton<ICategoriesRepository>(
   'CategoriesRepository',
@@ -28,6 +31,11 @@ container.registerSingleton<IUsersRepository>(
 container.registerSingleton<ICarsImagesRepository>(
   'CarsImagesRepository',
   CarsImagesRepository,
+)
+
+container.registerSingleton<IRentalsRepository>(
+  'RentalsRepository',
+  RentalsRepository,
 )
 
 container.registerSingleton<ICarsRepository>('CarsRepository', CarsRepository)
