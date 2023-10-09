@@ -3,8 +3,8 @@ import style from './Filters.module.scss'
 import { TextField, MenuItem } from '@mui/material'
 import { Category } from '../interfaces/Category'
 import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
-import { useRouter } from 'next/router'
 import { Filters } from '../interfaces/Filters'
+import { useRouter } from 'next/navigation'
 
 export function Filters() {
   const defaultValuesFilter = {
@@ -18,13 +18,13 @@ export function Filters() {
   function onFilterCars(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    router.push({
+    /* router.push({
       pathname: router.route,
       query: {
         ...(filters.name ? { name: filters.name } : {}),
         ...(filters.categoryId ? { categoryId: filters.categoryId } : {}),
       },
-    })
+    }) */
   }
 
   async function getAllCategories() {
