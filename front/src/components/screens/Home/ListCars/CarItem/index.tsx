@@ -4,7 +4,7 @@ import style from './CarItem.module.scss'
 import { CarImage } from '../../interfaces/CarImage'
 import unknownCarImage from '../../../../../../public/assets/images/cars/unknownCarImage.png'
 import { formatCurrency } from '@/utils/format'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 type Props = {
   images: CarImage[]
@@ -14,15 +14,10 @@ type Props = {
 }
 
 export function CarItem({ images, name, dailyRate, carId }: Props) {
-  // const router = useRouter()
+  function getImageUrl(images: CarImage[]) {
+    if (images.length === 0) return unknownCarImage
 
-  function getImageUrl(imagePath: string) {
-    const imageUrl = 'http://localhost:3333/' + imagePath
-    return imageUrl
-  }
-
-  function handleShowDetailsCar() {
-    console.log('carDetails')
+    return process.env.NEXT_PUBLIC_END_POINT + images[0]?.path
   }
 
   return (
@@ -31,16 +26,19 @@ export function CarItem({ images, name, dailyRate, carId }: Props) {
         className={style.carImage}
         width={300}
         height={350}
-        key={images[0]?._id}
         alt="Imagem do carro"
-        src={getImageUrl(images[0]?.path)}
+        src={getImageUrl(images)}
       />
 
       <h4>{name || '--'}</h4>
       <span>{formatCurrency(dailyRate || 0)}</span>
-      <button onClick={handleShowDetailsCar} type="button">
+      <Link
+        className={style.linkToCarDetails}
+        href={`/cars/${carId}`}
+        type="button"
+      >
         Ver detalhes
-      </button>
+      </Link>
     </li>
   )
 }

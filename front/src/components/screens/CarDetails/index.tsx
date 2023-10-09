@@ -1,3 +1,5 @@
+'use client'
+import { useRouter } from 'next/navigation'
 import { Car } from '../Home/interfaces/Car'
 
 type Props = {
@@ -5,11 +7,19 @@ type Props = {
 }
 
 export function CarDetails({ car }: Props) {
-  console.log('car', car)
+  const router = useRouter()
   return (
     <>
-      <h1>Car details component</h1>
-      <span>{car.name}</span>
+      <button
+        type="button"
+        onClick={() => {
+          router.back()
+        }}
+      >
+        Voltar
+      </button>
+      <h1>{car.name}</h1>
+      <span>{car.dailyRate}</span>
     </>
   )
 }
