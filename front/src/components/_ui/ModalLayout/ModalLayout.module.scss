@@ -1,0 +1,86 @@
+@import "@/styles/colors";
+
+.overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .container {
+    background: $gray-color-100;
+    box-shadow: 1px 7px 15px rgb(0 0 0 / 0.3);
+    outline: none;
+
+    border-radius: 10px;
+    padding: 20px;
+
+    max-width: 80%;
+    min-width: 45%;
+    max-height: 85%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+
+      .closeButton {
+        height: 1.6rem;
+        color: $red-color-100;
+
+        cursor: pointer;
+        transition: filter 0.2s;
+
+        &:hover {
+          filter: brightness(0.8);
+        }
+      }
+    }
+
+    .mainContent {
+      background: $gray-color-200;
+      border-radius: 10px;
+      padding: 15px;
+    }
+
+    .footer {
+      button {
+        width: 100%;
+        text-align: center;
+        border-radius: 8px;
+        padding: 0.9rem;
+        font-weight: 500;
+        font-size: 0.8rem;
+
+        border: none;
+        box-shadow: 1px 3px 5px rgb(0 0 0 / 0.2);
+        background: $blue-color-600;
+        color: $white-color;
+
+        cursor: pointer;
+        transition: filter 0.2s;
+
+        &:not(:disabled):hover {
+          filter: brightness(0.8);
+        }
+        &:disabled {
+          cursor: not-allowed;
+          opacity: 0.4;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 980px) {
+  .overlay {
+    .container {
+      width: 90%;
+      min-width: 90%;
+      max-width: 90%;
+    }
+  }
+}
