@@ -37,4 +37,8 @@ export class MockRentalsRepository implements IRentalsRepository {
       (rental) => rental.userId.toString() === userId && !rental.endDate,
     )
   }
+
+  async list(userId: string): Promise<Rental[]> {
+    return this.rentals.filter((rental) => rental.userId.toString() === userId)
+  }
 }
