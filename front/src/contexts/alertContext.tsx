@@ -11,7 +11,7 @@ interface AlertConfirmConfigs {
   title: string
   text: string
   handleClose: () => void
-  onClickAgree: () => void
+  onClickAgree(): Promise<void>
 }
 
 interface AlertNotifyConfigs {
@@ -39,7 +39,7 @@ export function AlertContextComponent({
       title: '',
       text: '',
       handleClose: onCloseAlertConfirm,
-      onClickAgree: () => undefined,
+      onClickAgree: async () => undefined,
     })
 
   const [alertNotifyConfigs, setAlertNotifyConfigs] =
@@ -65,7 +65,7 @@ export function AlertContextComponent({
       open: false,
       title: '',
       text: '',
-      onClickAgree: () => undefined,
+      onClickAgree: async () => undefined,
     })
   }
 
