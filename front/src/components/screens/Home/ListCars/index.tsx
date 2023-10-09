@@ -1,4 +1,5 @@
 import { Car } from '../interfaces/Car'
+import { CarItem } from './CarItem'
 import style from './ListCars.module.scss'
 
 type Props = {
@@ -9,7 +10,7 @@ export function ListCars({ avaliableCars }: Props) {
   return (
     <ul className={style.listCarsContainer}>
       {avaliableCars.map((car) => {
-        return <li key={car._id}>{car.name}</li>
+        return <CarItem key={car._id} images={car.images} name={car.name} />
       })}
     </ul>
   )
