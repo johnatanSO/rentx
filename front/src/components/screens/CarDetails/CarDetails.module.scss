@@ -1,1 +1,68 @@
-@import '@/styles.colors';
+@import "@/styles.colors";
+
+.carDetailsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .titleContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    button {
+      border: none;
+      padding: 0.5rem;
+      border-radius: 10px;
+
+      cursor: pointer;
+      transition: filter 0.2s;
+
+      .icon {
+        height: 1.2rem;
+        color: $gray-color-300;
+      }
+
+      &:hover {
+        filter: brightness(0.8);
+      }
+    }
+  }
+
+  main {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+
+    .carImageContainer {
+      border: 1px solid black;
+      max-height: 100%;
+
+      .carImage {
+        object-fit: contain;
+        width: 100%;
+      }
+    }
+
+    .infosContainer {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+
+      .rentalButton {
+        background: $blue-color-600;
+        color: $white-color;
+        box-shadow: 1px 3px 7px rgba(0 0 0 / 0.2);
+        border: none;
+        border-radius: 10px;
+
+        cursor: pointer;
+        transition: filter 0.2s;
+
+        &:hover {
+          filter: brightness(0.8);
+        }
+      }
+    }
+  }
+}
