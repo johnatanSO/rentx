@@ -1,5 +1,4 @@
 import mongoose, { Types } from 'mongoose'
-import { CarImage } from './CarImage'
 
 export interface Car {
   _id: Types.ObjectId
