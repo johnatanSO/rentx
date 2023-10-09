@@ -1,6 +1,6 @@
 import { getCarDetailsService } from '@/services/cars/getCarDetails/GetCarDetailsService'
 
-export default function CarDetails({ props }) {
+export default function CarDetails({ props }: any) {
   return <CarDetails car={props.car} />
 }
 
