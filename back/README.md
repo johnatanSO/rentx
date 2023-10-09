@@ -56,3 +56,9 @@ Só seve ser possível fazer um aluguel se o usuário estiver autenticado;
 Não deve ser possível fazer um novo aluguel se já existir um outro aluguel aberto com mesmo usuário;
 Não deve ser possível fazer um novo aluguel se já existir um outro aluguel aberto com o mesmo carro;
 
+
+
+
+
+***OBSERVAÇÕES
+- Criar cluster no Mongo Atlas
