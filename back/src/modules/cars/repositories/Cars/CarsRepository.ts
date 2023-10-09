@@ -48,16 +48,22 @@ export class CarsRepository implements ICarsRepository {
         ...(categoryId ? { categoryId } : {}),
         ...(name ? { name } : {}),
       })
-      .populate('specifications')
+      .populate('specifications images')
 
     return cars
   }
 
   async findById(carId: string): Promise<Car> {
-    return await this.model.findOne({ _id: carId })
+    return await this.model
+      .findOne({ _id: carId })
+      .populate('specifications images')
   }
 
   async updateOne(_id: string, fields: any): Promise<void> {
     await this.model.updateOne({ _id }, { $set: { ...fields } })
+  }
+
+  async addImage(_id: string, imageId: string): Promise<void> {
+    await this.model.updateOne({ _id }, { $push: { images: imageId } })
   }
 }

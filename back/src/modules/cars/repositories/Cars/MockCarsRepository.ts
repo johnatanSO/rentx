@@ -26,6 +26,7 @@ export class MockCarsRepository implements ICarsRepository {
       createdAt: new Date(),
       avaliable: true,
       specifications: null,
+      images: null,
     }
 
     this.cars.push(newCar)
@@ -66,6 +67,17 @@ export class MockCarsRepository implements ICarsRepository {
       this.cars[index] = {
         ...this.cars[index],
         ...fields,
+      }
+    }
+  }
+
+  async addImage(_id: string, imageId: string): Promise<void> {
+    const index = this.cars.findIndex((car) => car._id.toString() === _id)
+
+    if (index !== -1) {
+      this.cars[index] = {
+        ...this.cars[index],
+        images: [...this.cars[index].images, new Types.ObjectId(imageId)],
       }
     }
   }

@@ -1,4 +1,5 @@
 import mongoose, { Types } from 'mongoose'
+import { CarImage } from './CarImage'
 
 export interface Car {
   _id: Types.ObjectId
@@ -11,6 +12,7 @@ export interface Car {
   brand: string
   categoryId: Types.ObjectId
   createdAt: Date
+  images: any[]
   specifications: Types.ObjectId[]
 }
 
@@ -25,6 +27,7 @@ const CarSchema = new mongoose.Schema({
   categoryId: { type: 'ObjectId', ref: 'Category', default: null },
   createdAt: { type: Date, default: Date.now },
   specifications: [{ type: 'ObjectId', ref: 'Specification', default: null }],
+  images: [{ type: 'ObjectId', ref: 'CarImage', default: null }],
 })
 
 export const CarModel = mongoose.model<Car>('Car', CarSchema)
