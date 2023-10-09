@@ -1,11 +1,11 @@
 'use client'
 import { useRouter } from 'next/navigation'
-import { Car } from '../Home/interfaces/Car'
+import { Car } from './interfaces/Car'
 import style from './CarDetails.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
-import { CarImage } from '../Home/interfaces/CarImage'
+import { CarImage } from './interfaces/CarImage'
 import unknownCarImage from '../../../../public/assets/images/cars/unknownCarImage.png'
 
 type Props = {
