@@ -16,7 +16,7 @@
 
   max-width: 90%;
 
-  color: white;
+  color: $white-color;
   line-height: 0;
 
   animation: slideUp 0.2s;
@@ -31,14 +31,14 @@
 
   button {
     line-height: 0;
+    margin-left: auto;
     border: none;
-    background: transparent;
 
-    color: white;
+    background: transparent;
+    color: $white-color;
+
     cursor: pointer;
     transition: filter 0.2s;
-
-    margin-left: auto;
 
     &:hover {
       filter: brightness(0.8);
@@ -47,11 +47,11 @@
 }
 
 .success {
-  background: $green-color-500;
+  background: $green-color-100;
 }
 
 .error {
-  background: $red-color-500;
+  background: $red-color-100;
 }
 
 @keyframes slideUp {
