@@ -1,3 +1,4 @@
+import { CustomAvatar } from './Avatar'
 import style from './Header.module.scss'
 
 export function Header() {
@@ -11,7 +12,9 @@ export function Header() {
         </ul>
       </nav>
 
-      <div className={style.user}>user</div>
+      <div className={style.user}>
+        <CustomAvatar />
+      </div>
     </header>
   )
 }
