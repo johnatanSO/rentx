@@ -30,13 +30,15 @@ export function CarItem({ images, name, dailyRate, carId }: Props) {
       </header>
 
       <main>
-        <Image
-          className={style.carImage}
-          width={400}
-          height={200}
-          alt="Imagem do carro"
-          src={getImageUrl(images)}
-        />
+        <Link href={`/cars/${carId}`}>
+          <Image
+            className={style.carImage}
+            width={400}
+            height={200}
+            alt="Imagem do carro"
+            src={getImageUrl(images)}
+          />
+        </Link>
       </main>
 
       <footer>
