@@ -1,5 +1,5 @@
-const tokenKey: string = process.env.TOKEN_KEY as string
+const TOKEN_KEY: string = process.env.TOKEN_KEY as string
 
-export function saveToken(token: string) {
-  localStorage.setItem(tokenKey, token)
+export function saveToken(token: string): void {
+  globalThis?.localStorage?.setItem(TOKEN_KEY, JSON.stringify(token))
 }

@@ -2,6 +2,8 @@ import '@/styles/global.scss'
 import { Footer } from '@/layout/Footer'
 import { Header } from '@/layout/Header'
 import type { Metadata } from 'next'
+import { AlertContextComponent } from '@/contexts/alertContext'
+import { UserContextComponent } from '@/contexts/userContext'
 
 export const metadata: Metadata = {
   title: 'RentX',
@@ -16,11 +18,15 @@ export default function WithLayout({ children }: Props) {
   return (
     <html lang="en">
       <body>
-        <Header />
+        <UserContextComponent>
+          <AlertContextComponent>
+            <Header />
 
-        <main className="main">{children}</main>
+            <main className="main">{children}</main>
 
-        <Footer />
+            <Footer />
+          </AlertContextComponent>
+        </UserContextComponent>
       </body>
     </html>
   )
