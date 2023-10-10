@@ -8,15 +8,23 @@ import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookmark } from '@fortawesome/free-regular-svg-icons'
 import { faArrowsRotate, faDroplet } from '@fortawesome/free-solid-svg-icons'
+import { Specification } from '../../interfaces/Specification'
 
 type Props = {
   images: CarImage[]
   name: string
   dailyRate: number
   carId: string
+  specifications: Specification[]
 }
 
-export function CarItem({ images, name, dailyRate, carId }: Props) {
+export function CarItem({
+  images,
+  name,
+  dailyRate,
+  carId,
+  specifications,
+}: Props) {
   function getImageUrl(images: CarImage[]) {
     if (images.length === 0) return unknownCarImage
 
@@ -26,7 +34,23 @@ export function CarItem({ images, name, dailyRate, carId }: Props) {
   return (
     <li className={style.carItem}>
       <header>
-        <h4>{name}</h4>
+        <div className={style.title}>
+          <h4>{name}</h4>
+          {specifications.length > 0 ? (
+            specifications.map((specification) => {
+              return (
+                <span
+                  className={style.specificationText}
+                  key={specification._id}
+                >
+                  {specification.name}
+                </span>
+              )
+            })
+          ) : (
+            <span className={style.specificationText}>Sem expecificações</span>
+          )}
+        </div>
         <FontAwesomeIcon className={style.bookmarkIcon} icon={faBookmark} />
       </header>
 

@@ -17,6 +17,7 @@ export function ListCars({ avaliableCars }: Props) {
             images={car.images}
             name={car.name}
             dailyRate={car.dailyRate}
+            specifications={car.specifications}
           />
         )
       })}

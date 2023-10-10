@@ -19,6 +19,15 @@
 
     padding: 12px 17px;
 
+    .specificationText {
+      font-weight: 500;
+      font-size: 0.875rem;
+
+      &:not(:last-child)::after {
+        content: ", ";
+      }
+    }
+
     .bookmarkIcon {
       height: 1rem;
     }
