@@ -5,6 +5,8 @@ import { CarImage } from '../../interfaces/CarImage'
 import unknownCarImage from '../../../../../../public/assets/images/cars/unknownCarImage.png'
 import { formatCurrency } from '@/utils/format'
 import Link from 'next/link'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBookmark } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   images: CarImage[]
@@ -23,7 +25,8 @@ export function CarItem({ images, name, dailyRate, carId }: Props) {
   return (
     <li className={style.carItem}>
       <header>
-        <h4>{name || '--'}</h4>
+        <h4>{name}</h4>
+        <FontAwesomeIcon className={style.bookmarkIcon} icon={faBookmark} />
       </header>
 
       <main>
@@ -37,7 +40,9 @@ export function CarItem({ images, name, dailyRate, carId }: Props) {
       </main>
 
       <footer>
-        <span>{formatCurrency(dailyRate || 0)}</span>
+        <span className={style.dailyRateText}>
+          <b>{formatCurrency(dailyRate || 0)}</b>/dia
+        </span>
       </footer>
     </li>
   )
