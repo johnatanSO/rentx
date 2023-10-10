@@ -6,7 +6,7 @@ import unknownCarImage from '../../../../../../public/assets/images/cars/unknown
 import { formatCurrency } from '@/utils/format'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBookmark } from '@fortawesome/free-solid-svg-icons'
+import { faBookmark } from '@fortawesome/free-regular-svg-icons'
 
 type Props = {
   images: CarImage[]
