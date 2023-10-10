@@ -7,6 +7,7 @@ import { formatCurrency } from '@/utils/format'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookmark } from '@fortawesome/free-regular-svg-icons'
+import { faArrowsRotate, faDroplet } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   images: CarImage[]
@@ -42,6 +43,14 @@ export function CarItem({ images, name, dailyRate, carId }: Props) {
       </main>
 
       <footer>
+        <span>
+          <FontAwesomeIcon icon={faArrowsRotate} />
+          Manual
+        </span>
+        <span>
+          <FontAwesomeIcon icon={faDroplet} />
+          200km/dia
+        </span>
         <span className={style.dailyRateText}>
           <b>{formatCurrency(dailyRate || 0)}</b>/dia
         </span>

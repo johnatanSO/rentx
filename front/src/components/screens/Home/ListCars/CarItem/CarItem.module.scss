@@ -41,7 +41,7 @@
 
       height: 130px;
       width: 100%;
-      transform: scale(0.75);
+      transform: scale(0.65);
     }
   }
 
@@ -51,11 +51,18 @@
 
     display: flex;
     align-items: center;
+    gap: 25px;
+
+    span {
+      font-size: 0.875rem;
+
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
 
     .dailyRateText {
-      font-size: 0.875rem;
       font-weight: 500;
-
       margin-left: auto;
 
       b {
