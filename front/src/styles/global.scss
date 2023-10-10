@@ -31,13 +31,13 @@ body {
     appearance: textfield;
   }
 
-  main {
+  .main {
     margin-top: -35px;
-    padding: 2rem;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
 
     flex: 1;
+    height: 100%;
 
     background: $white-color;
   }

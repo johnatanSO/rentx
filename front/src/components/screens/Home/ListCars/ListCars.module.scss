@@ -4,6 +4,10 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
+  padding: 2rem;
+  background: $gray-color-50;
+  flex: 1;
+  height: 100%;
 
   list-style-type: none;
 }

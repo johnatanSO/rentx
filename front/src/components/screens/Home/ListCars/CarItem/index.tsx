@@ -22,23 +22,23 @@ export function CarItem({ images, name, dailyRate, carId }: Props) {
 
   return (
     <li className={style.carItem}>
-      <Image
-        className={style.carImage}
-        width={400}
-        height={200}
-        alt="Imagem do carro"
-        src={getImageUrl(images)}
-      />
+      <header>
+        <h4>{name || '--'}</h4>
+      </header>
 
-      <h4>{name || '--'}</h4>
-      <span>{formatCurrency(dailyRate || 0)}</span>
-      <Link
-        className={style.linkToCarDetails}
-        href={`/cars/${carId}`}
-        type="button"
-      >
-        Ver detalhes
-      </Link>
+      <main>
+        <Image
+          className={style.carImage}
+          width={400}
+          height={200}
+          alt="Imagem do carro"
+          src={getImageUrl(images)}
+        />
+      </main>
+
+      <footer>
+        <span>{formatCurrency(dailyRate || 0)}</span>
+      </footer>
     </li>
   )
 }

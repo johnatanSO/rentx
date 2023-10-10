@@ -18,7 +18,7 @@ export default function WithLayout({ children }: Props) {
       <body>
         <Header />
 
-        <main>{children}</main>
+        <main className="main">{children}</main>
 
         <Footer />
       </body>

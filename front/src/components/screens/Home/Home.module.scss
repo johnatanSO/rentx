@@ -3,7 +3,8 @@
 .carsContainer {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  flex: 1;
+  height: 100%;
 
   h3 {
     color: $gray-color-400;
