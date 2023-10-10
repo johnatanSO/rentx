@@ -1,4 +1,6 @@
 import mongoose, { Types } from 'mongoose'
+import { CarImage } from './CarImage'
+import { Specification } from './Specification'
 
 export interface Car {
   _id: Types.ObjectId
@@ -11,8 +13,8 @@ export interface Car {
   brand: string
   categoryId: Types.ObjectId
   createdAt: Date
-  images: any[]
-  specifications: Types.ObjectId[]
+  images: Types.ObjectId[] | CarImage[]
+  specifications: Types.ObjectId[] | Specification[]
 }
 
 const CarSchema = new mongoose.Schema({
