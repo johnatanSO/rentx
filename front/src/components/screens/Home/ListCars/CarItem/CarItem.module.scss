@@ -29,7 +29,14 @@
     }
 
     .bookmarkIcon {
-      height: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      padding: 0.4rem 0.5rem;
+      border-radius: 50%;
+
+      &:hover {
+        background: $gray-color-200;
+      }
     }
   }
 

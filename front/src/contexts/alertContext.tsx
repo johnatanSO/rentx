@@ -1,6 +1,7 @@
+'use client'
 import { ReactNode, createContext, useState } from 'react'
-import { AlertConfirm } from '@/components/_ui/AlertConfirm'
-import { AlertNotify } from '@/components/_ui/AlertNotify'
+import { AlertConfirm } from '@/components/layout/AlertConfirm/index'
+import { AlertNotify } from '@/components/layout/AlertNotify/index'
 
 interface AlertContextComponentProps {
   children: ReactNode

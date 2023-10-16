@@ -1,6 +1,6 @@
 import '@/styles/global.scss'
-import { Footer } from '@/layout/Footer'
-import { Header } from '@/layout/Header'
+import { Footer } from '@/components/layout/Footer/index'
+import { Header } from '@/components/layout/Header/index'
 import type { Metadata } from 'next'
 import { AlertContextComponent } from '@/contexts/alertContext'
 import { UserContextComponent } from '@/contexts/userContext'

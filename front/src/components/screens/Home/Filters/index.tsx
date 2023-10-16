@@ -58,7 +58,7 @@ export function Filters() {
   return (
     <form className={style.filtersContainer} onSubmit={onFilterCars}>
       <CustomTextField
-        size="small"
+        size="medium"
         label="Nome"
         type="text"
         className={style.input}
@@ -71,7 +71,7 @@ export function Filters() {
         }}
       />
       <CustomTextField
-        size="small"
+        size="medium"
         label="Categoria"
         select
         className={style.input}
@@ -91,10 +91,12 @@ export function Filters() {
           )
         })}
       </CustomTextField>
-      <button type="submit">Filtrar</button>
-      <button onClick={handleClearFilters} type="button">
-        Limpar
-      </button>
+      <div className={style.buttonsContainer}>
+        <button type="submit">Procurar</button>
+        <button onClick={handleClearFilters} type="button">
+          Limpar
+        </button>
+      </div>
     </form>
   )
 }

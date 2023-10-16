@@ -1,5 +1,6 @@
+'use client'
 import { getLocalUserService } from '@/services/user/getLocalUser/GetLocalUserService'
-import { ReactNode, createContext, useState } from 'react'
+import { ReactNode, createContext, useState, useEffect } from 'react'
 
 interface UserInfo {
   _id: string
@@ -20,18 +21,18 @@ interface UserContextInterface {
 
 export const UserContext = createContext({} as UserContextInterface)
 
-export async function UserContextComponent({
-  children,
-}: UserContextComponentProps) {
+export function UserContextComponent({ children }: UserContextComponentProps) {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
 
-  async function getUserInfo() {
-    const userData = await getLocalUserService()
+  function getUserInfo() {
+    const userData = getLocalUserService()
 
     setUserInfo(userData)
   }
 
-  await getUserInfo()
+  useEffect(() => {
+    getUserInfo()
+  }, [])
 
   return (
     <UserContext.Provider

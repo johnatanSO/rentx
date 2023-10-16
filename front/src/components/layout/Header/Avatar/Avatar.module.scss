@@ -1,1 +1,19 @@
-@import '@/styles/colors';
+@import "@/styles/colors";
+
+.avatar {
+  cursor: pointer;
+  transition: filter 0.2s;
+
+  &:hover {
+    filter: brightness(0.8);
+  }
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+
+  color: $gray-color-400;
+}

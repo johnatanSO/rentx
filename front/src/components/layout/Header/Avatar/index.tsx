@@ -1,3 +1,6 @@
+'use client'
+
+import style from './Avatar.module.scss'
 import { UserContext } from '@/contexts/userContext'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -18,7 +21,12 @@ export function CustomAvatar() {
 
   return (
     <>
-      <Avatar onClick={handleClick} alt={userInfo?.name} src={avatarURL} />
+      <Avatar
+        className={style.avatar}
+        onClick={handleClick}
+        alt={userInfo?.name}
+        src={avatarURL}
+      />
       <Menu
         anchorEl={anchorEl}
         open={!!anchorEl}
@@ -30,9 +38,10 @@ export function CustomAvatar() {
             overflow: 'visible',
             filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
             mt: 1.5,
+            borderRadius: 3,
             '& .MuiAvatar-root': {
-              width: 32,
-              height: 32,
+              width: 27,
+              height: 27,
               ml: -0.5,
               mr: 1,
             },
@@ -61,17 +70,20 @@ export function CustomAvatar() {
           onClick={() => {
             setAnchorEl(null)
           }}
+          className={style.menuItem}
         >
-          <Avatar /> Sua conta
+          <Avatar />
+          <span>Sua conta</span>
         </MenuItem>
 
         <MenuItem
           onClick={() => {
             setAnchorEl(null)
           }}
+          className={style.menuItem}
         >
           <FontAwesomeIcon icon={faAngleLeft} />
-          Sair
+          <span>Sair</span>
         </MenuItem>
       </Menu>
     </>

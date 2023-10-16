@@ -7,9 +7,9 @@ import {
 
 export const CustomTextField = styled(TextField)({
   [`& .${outlinedInputClasses.root} .${outlinedInputClasses.notchedOutline}`]: {
-    borderRadius: '10px',
-    borderColor: '#323238',
-    color: '#323238',
+    borderRadius: '15px',
+    borderColor: '#b7b7b7',
+    color: '#f4f4f4',
     fontWeight: '500',
   },
   [`& .Mui-error .${outlinedInputClasses.notchedOutline}`]: {
@@ -29,7 +29,7 @@ export const CustomTextField = styled(TextField)({
   [`& .${outlinedInputClasses.root}.${outlinedInputClasses.focused} .${outlinedInputClasses.notchedOutline}`]:
     {
       // Style da borda do input quando estiver em foco.
-      borderColor: '#b49b85',
+      borderColor: '#536d88',
     },
   [`& .${outlinedInputClasses.input} `]: {
     // Style do valor dentro do input quando sair do foco
@@ -58,6 +58,6 @@ export const CustomTextField = styled(TextField)({
   },
   [`& .${inputLabelClasses.outlined}.${inputLabelClasses.focused}`]: {
     // Style da label em foco
-    color: '#b49b85',
+    color: '#536d88',
   },
 })
