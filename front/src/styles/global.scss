@@ -40,9 +40,20 @@ body {
     height: 100%;
 
     background: $white-color;
-    
+
     display: flex;
     flex-direction: column;
+  }
+
+  .authContainerPage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+     background: $gray-color-50;
+
+    height: 100vh;
+    width: 100vw;
   }
 }
 
