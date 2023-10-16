@@ -8,6 +8,7 @@ export interface ICreateNewCarDTO {
   fineAmount: number
   brand: string
   categoryId: string
+  transmission: string
 }
 
 export interface ICarsRepository {

@@ -29,6 +29,7 @@ const CarSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   specifications: [{ type: 'ObjectId', ref: 'Specification', default: null }],
   images: [{ type: 'ObjectId', ref: 'CarImage', default: null }],
+  transmission: { type: String, default: null },
 })
 
 export const CarModel = mongoose.model<Car>('Car', CarSchema)

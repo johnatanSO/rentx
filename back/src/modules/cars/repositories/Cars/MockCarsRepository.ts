@@ -13,6 +13,7 @@ export class MockCarsRepository implements ICarsRepository {
     fineAmount,
     brand,
     categoryId,
+    transmission,
   }: ICreateNewCarDTO): Promise<Car> {
     const newCar = {
       name,
@@ -21,6 +22,7 @@ export class MockCarsRepository implements ICarsRepository {
       licensePlate,
       fineAmount,
       brand,
+      transmission,
       categoryId: new Types.ObjectId(categoryId),
       _id: new Types.ObjectId(),
       createdAt: new Date(),

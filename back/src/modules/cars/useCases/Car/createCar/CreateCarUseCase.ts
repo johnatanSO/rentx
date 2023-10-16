@@ -11,6 +11,7 @@ interface IRequest {
   fineAmount: number
   brand: string
   categoryId: string
+  transmission: string
 }
 
 @injectable()
@@ -28,6 +29,7 @@ export class CreateCarUseCase {
     fineAmount,
     brand,
     categoryId,
+    transmission,
   }: IRequest): Promise<Car> {
     const carAlreadyExists =
       await this.carsRepository.findByLicensePlate(licensePlate)
@@ -42,6 +44,7 @@ export class CreateCarUseCase {
       fineAmount,
       brand,
       categoryId,
+      transmission,
     })
 
     return newCar

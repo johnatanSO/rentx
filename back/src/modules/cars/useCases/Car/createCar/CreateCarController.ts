@@ -12,6 +12,7 @@ export class CreateCarController {
       fineAmount,
       brand,
       categoryId,
+      transmission,
     } = req.body
 
     const createCarUserCase = container.resolve(CreateCarUseCase)
@@ -23,6 +24,7 @@ export class CreateCarController {
       fineAmount,
       brand,
       categoryId,
+      transmission,
     })
 
     return res.status(201).json({
