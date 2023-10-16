@@ -24,13 +24,7 @@ export function CarDetails({ car }: Props) {
   return (
     <section className={style.carDetailsContainer}>
       <header className={style.titleContainer}>
-        <button
-          type="button"
-          onClick={() => {
-            router.back()
-          }}
-          title="Voltar"
-        >
+        <button type="button" onClick={router.back} title="Voltar">
           <FontAwesomeIcon className={style.icon} icon={faAngleLeft} />
         </button>
         <h2>{car.name}</h2>
