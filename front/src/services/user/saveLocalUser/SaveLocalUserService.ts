@@ -4,6 +4,6 @@ interface IRequest {
   userData: any
 }
 
-export function saveLocalUser({ userData }: IRequest): void {
+export function saveLocalUserService({ userData }: IRequest): void {
   globalThis?.localStorage?.setItem(USER_KEY, JSON.stringify(userData))
 }

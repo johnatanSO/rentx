@@ -5,7 +5,7 @@ interface IRequest {
   password: string
 }
 
-export function getLocalUserService({ email, password }: IRequest) {
+export function authenticateUserService({ email, password }: IRequest) {
   return http.post('/sessions', {
     body: {
       email,
