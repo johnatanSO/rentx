@@ -26,7 +26,14 @@ export function CustomAvatar() {
   function logout() {
     deleteTokenService()
     deleteLocalUserService()
+
+    handleCloseMenu()
+
     router.push('/')
+  }
+
+  function handleCloseMenu() {
+    setAnchorEl(null)
   }
 
   return (
@@ -69,30 +76,15 @@ export function CustomAvatar() {
             },
           },
         }}
-        onClose={() => {
-          setAnchorEl(null)
-        }}
-        onClick={() => {
-          setAnchorEl(null)
-        }}
+        onClose={handleCloseMenu}
+        onClick={handleCloseMenu}
       >
-        <MenuItem
-          onClick={() => {
-            setAnchorEl(null)
-          }}
-          className={style.menuItem}
-        >
+        <MenuItem onClick={handleCloseMenu} className={style.menuItem}>
           <Avatar />
           <span>Sua conta</span>
         </MenuItem>
 
-        <MenuItem
-          onClick={() => {
-            setAnchorEl(null)
-            logout()
-          }}
-          className={style.menuItem}
-        >
+        <MenuItem onClick={logout} className={style.menuItem}>
           <FontAwesomeIcon icon={faAngleLeft} />
           <span>Sair</span>
         </MenuItem>
