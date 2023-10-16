@@ -10,9 +10,12 @@ import { AlertContext } from '@/contexts/alertContext'
 import { useRouter } from 'next/navigation'
 import { saveTokenService } from '@/services/token/saveToken/SaveTokenService'
 import { saveLocalUserService } from '@/services/user/saveLocalUser/SaveLocalUserService'
+import { Loading } from '@/components/_ui/Loading'
+import { UserContext } from '@/contexts/userContext'
 
 export function Login() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
+  const { setUserInfo } = useContext(UserContext)
 
   const defaultValuesAuthData = {
     email: '',
@@ -32,6 +35,7 @@ export function Login() {
       .then((res) => {
         saveTokenService(res.data.item.token)
         saveLocalUserService({ userData: res.data.item.user })
+        setUserInfo(res.data.item.user)
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
@@ -86,7 +90,9 @@ export function Login() {
         </main>
 
         <footer>
-          <button type="submit">Entrar</button>
+          <button type="submit">
+            {loadingAuthUser ? <Loading /> : 'Entrar'}
+          </button>
           <Link className={style.createAccountLink} href="/register">
             Criar conta
           </Link>
