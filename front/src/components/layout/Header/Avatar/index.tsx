@@ -2,13 +2,17 @@
 
 import style from './Avatar.module.scss'
 import { UserContext } from '@/contexts/userContext'
+import { deleteTokenService } from '@/services/token/deleteToken/DeleteTokenService'
+import { deleteLocalUserService } from '@/services/user/deleteLocalUser/DeleteLocalUserService'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Avatar, Menu, MenuItem } from '@mui/material'
+import { useRouter } from 'next/navigation'
 import { useContext, useState } from 'react'
 
 export function CustomAvatar() {
   const { userInfo } = useContext(UserContext)
+  const router = useRouter()
   const [anchorEl, setAnchorEl] = useState(null)
 
   const avatarURL = userInfo?.avatar
@@ -17,6 +21,12 @@ export function CustomAvatar() {
 
   function handleClick(event: any) {
     setAnchorEl(event.currentTarget)
+  }
+
+  function logout() {
+    deleteTokenService()
+    deleteLocalUserService()
+    router.push('/')
   }
 
   return (
@@ -79,6 +89,7 @@ export function CustomAvatar() {
         <MenuItem
           onClick={() => {
             setAnchorEl(null)
+            logout()
           }}
           className={style.menuItem}
         >
