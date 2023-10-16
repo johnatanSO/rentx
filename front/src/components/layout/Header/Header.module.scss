@@ -57,6 +57,18 @@
         &.menuActive {
           color: $brown-color-100;
         }
+
+        &.managementMenuItem {
+          background: $brown-color-100;
+          color: $blue-color-600;
+
+          border-radius: 15px;
+          padding: 0.7rem;
+
+          span {
+            font-weight: 500;
+          }
+        }
       }
     }
   }

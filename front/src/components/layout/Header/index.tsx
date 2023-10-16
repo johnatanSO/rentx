@@ -5,6 +5,7 @@ import {
   faHouse,
   faCircleInfo,
   faAddressCard,
+  faGears,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useState } from 'react'
@@ -61,6 +62,18 @@ export function Header() {
             <FontAwesomeIcon icon={faAddressCard} />
             <span>Contato</span>
           </li>
+
+          {true && (
+            <li
+              onClick={() => {
+                handleChangeMenuItem('management')
+              }}
+              className={style.managementMenuItem}
+            >
+              <FontAwesomeIcon icon={faGears} />
+              <span>Gestão</span>
+            </li>
+          )}
         </ul>
       </nav>
 
