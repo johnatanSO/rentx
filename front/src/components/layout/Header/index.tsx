@@ -63,7 +63,7 @@ export function Header() {
             <span>Contato</span>
           </li>
 
-          {true && (
+          {userInfo?.isAdmin && (
             <li
               onClick={() => {
                 handleChangeMenuItem('management')
