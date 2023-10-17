@@ -1,11 +1,11 @@
 @import "@/styles/colors";
 
 .asideContainer {
-  background: $white-color;
+  background: $blue-color-700;
   box-shadow: 1px 2px 8px rgba(0 0 0 / 0.1);
 
   border-radius: 15px;
-  padding: 1rem;
+  padding: 1.6rem 1rem;
 
   display: flex;
   flex-direction: column;
@@ -23,19 +23,19 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 25px;
+    gap: 35px;
 
     li {
       .icon {
-        color: $blue-color-600;
-        
-        font-size: 1.3rem;
+        color: $gray-color-100;
+
+        font-size: 1.4rem;
 
         cursor: pointer;
         transition: filter 0.2s;
 
         &:hover {
-          filter: drop-shadow(0px 0px 7px rgba(0 0 0 / 0.2));
+          filter: brightness(0.8);
         }
       }
     }
@@ -45,8 +45,8 @@
     background: none;
     border: none;
 
-    .angleIcon {
-      color: $gray-color-300;
+    .homeIcon {
+      color: $gray-color-100;
       font-size: 1.3rem;
 
       cursor: pointer;

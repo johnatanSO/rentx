@@ -46,6 +46,15 @@ export function Header() {
           </li>
           <li
             onClick={() => {
+              handleChangeMenuItem('rentals')
+            }}
+            className={getActiveMenu('rentals')}
+          >
+            <FontAwesomeIcon icon={faCircleInfo} />
+            <span>Alugueis</span>
+          </li>
+          <li
+            onClick={() => {
               handleChangeMenuItem('about')
             }}
             className={getActiveMenu('about')}

@@ -5,6 +5,8 @@ import { getAllCarsService } from '@/services/cars/getAllCars/GetAllCarsService'
 import { Car } from './interfaces/Car'
 import { AlertContext } from '@/contexts/alertContext'
 import { useColumns } from './hooks/useColumns'
+import { CustomTextField } from '@/components/_ui/CustomTextField'
+import style from './CarsManagement.module.scss'
 
 export function CarsManagement() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
@@ -16,7 +18,7 @@ export function CarsManagement() {
     setLoadingCars(true)
     getAllCarsService()
       .then((res) => {
-        setCars(res.data.item)
+        setCars(res.data.items)
       })
       .catch((err) => {
         setAlertNotifyConfigs({
@@ -39,7 +41,16 @@ export function CarsManagement() {
 
   return (
     <>
-      <TableComponent columns={columns} rows={cars} loading={loadingCars} />
+      <header className={style.header}>
+        <h2>Carros</h2>
+        <CustomTextField
+          className={style.searchInput}
+          label="Buscar pelo nome"
+        />
+      </header>
+      <section className={style.tableSection}>
+        <TableComponent columns={columns} rows={cars} loading={loadingCars} />
+      </section>
     </>
   )
 }

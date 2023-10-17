@@ -1,9 +1,9 @@
 'use client'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import style from './Sidebar.module.scss'
+import style from './SidebarManagement.module.scss'
 import {
-  faAngleLeft,
   faCar,
+  faHouse,
   faTag,
   faToolbox,
 } from '@fortawesome/free-solid-svg-icons'
@@ -23,17 +23,12 @@ export function SidebarManagement() {
 
   return (
     <aside className={style.asideContainer}>
-      <Avatar
-        sx={{ width: '1.5rem', height: '1.5rem' }}
-        className={style.avatar}
-      />
-
       <Link
         href="/"
         title="Voltar para a aplicação"
         className={style.returnSysLink}
       >
-        <FontAwesomeIcon className={style.angleIcon} icon={faAngleLeft} />
+        <FontAwesomeIcon className={style.homeIcon} icon={faHouse} />
       </Link>
 
       <ul>
@@ -59,6 +54,7 @@ export function SidebarManagement() {
           <FontAwesomeIcon className={style.icon} icon={faToolbox} />
         </li>
       </ul>
+      <Avatar sx={{ width: '2rem', height: '2rem' }} className={style.avatar} />
     </aside>
   )
 }

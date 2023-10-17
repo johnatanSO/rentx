@@ -1,0 +1,19 @@
+@import "@/styles/colors";
+
+.header {
+  display: flex;
+  align-items: center;
+
+  .searchInput {
+    margin-left: auto;
+    background: $white-color;
+    border-radius: 15px;
+  }
+}
+
+.tableSection{
+  background: $white-color;
+  border-radius: 15px;
+
+  padding: 2rem;
+}
