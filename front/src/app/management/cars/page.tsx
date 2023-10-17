@@ -1,3 +1,5 @@
+import { CarsManagement } from '@/components/screens/Management/CarsManagement'
+
 export default function CarsPage() {
-  return <h1>Configurações de carros</h1>
+  return <CarsManagement />
 }
