@@ -53,7 +53,7 @@ export function CustomAvatar() {
           elevation: 0,
           sx: {
             overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            filter: 'drop-shadow(1px 3px 8px rgba(0 0 0 / 0.2))',
             mt: 1.5,
             borderRadius: 3,
             '& .MuiAvatar-root': {
@@ -79,7 +79,13 @@ export function CustomAvatar() {
         onClose={handleCloseMenu}
         onClick={handleCloseMenu}
       >
-        <MenuItem onClick={handleCloseMenu} className={style.menuItem}>
+        <MenuItem
+          onClick={() => {
+            router.push('/management/accountConfigs')
+            handleCloseMenu()
+          }}
+          className={style.menuItem}
+        >
           <Avatar />
           <span>Sua conta</span>
         </MenuItem>
