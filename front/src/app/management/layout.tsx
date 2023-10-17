@@ -1,3 +1,4 @@
+import { SidebarManagement } from '@/components/layout/SidebarManagement'
 import { AlertContextComponent } from '@/contexts/alertContext'
 import { UserContextComponent } from '@/contexts/userContext'
 import '@/styles/global.scss'
@@ -17,7 +18,10 @@ export default function RootLayout({
       <body>
         <UserContextComponent>
           <AlertContextComponent>
-            <main className="managementContainer">{children}</main>
+            <main className="managementContainer">
+              <SidebarManagement />
+              <div className="managementSections">{children}</div>
+            </main>
           </AlertContextComponent>
         </UserContextComponent>
       </body>
