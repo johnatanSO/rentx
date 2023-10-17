@@ -68,4 +68,9 @@ export class CarsRepository implements ICarsRepository {
   async addImage(_id: string, imageId: string): Promise<void> {
     await this.model.updateOne({ _id }, { $push: { images: imageId } })
   }
+
+  async listAll(): Promise<Car[]> {
+    const allCars = await this.model.find()
+    return allCars
+  }
 }
