@@ -43,7 +43,7 @@ carsRoutes.get(
   listAllCarsController.handle,
 )
 
-carsRoutes.get('/avaliable/:carId', getCarInfoController.handle)
+carsRoutes.get('/:carId', getCarInfoController.handle)
 
 carsRoutes.post(
   '/specifications/:carId',
