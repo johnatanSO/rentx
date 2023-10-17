@@ -8,11 +8,20 @@ export class MockUsersRepository implements IUsersRepository {
     this.users = []
   }
 
-  async create(newUserData: ICreateUserDTO): Promise<IUser> {
+  async create({
+    name,
+    email,
+    password,
+    driverLicense,
+    isAdmin,
+  }: ICreateUserDTO): Promise<IUser> {
     const newUser = {
-      ...newUserData,
+      name,
+      email,
+      password,
+      driverLicense,
+      isAdmin: isAdmin || false,
       _id: new Types.ObjectId(),
-      isAdmin: false,
       createdAt: new Date(),
       avatar: null,
     }

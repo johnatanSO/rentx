@@ -79,7 +79,10 @@ export class MockCarsRepository implements ICarsRepository {
     if (index !== -1) {
       this.cars[index] = {
         ...this.cars[index],
-        images: [...this.cars[index].images, new Types.ObjectId(imageId)],
+        images: [
+          ...(this.cars[index].images as Types.ObjectId[]),
+          new Types.ObjectId(imageId),
+        ],
       }
     }
   }

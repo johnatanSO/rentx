@@ -5,7 +5,7 @@ export interface ICreateUserDTO {
   email: string
   password: string
   driverLicense: string
-  isAdmin: boolean
+  isAdmin?: boolean
 }
 
 export interface IUsersRepository {

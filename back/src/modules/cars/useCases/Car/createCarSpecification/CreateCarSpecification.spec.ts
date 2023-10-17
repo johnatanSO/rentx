@@ -29,6 +29,7 @@ describe('Create car specification', () => {
       fineAmount: 60,
       brand: 'Brand',
       categoryId: new Types.ObjectId().toString(),
+      transmission: 'auto',
     })
 
     const newSpecification = await mockSpecificationsRepository.create({

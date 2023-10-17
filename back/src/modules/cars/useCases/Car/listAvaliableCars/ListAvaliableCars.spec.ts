@@ -21,6 +21,7 @@ describe('List cars', () => {
       fineAmount: 100,
       brand: 'Audi',
       categoryId: '650cf6788adcd3da7764f340',
+      transmission: 'auto',
     })
 
     const cars = await listAvaliableCarsUseCase.execute({})
@@ -37,6 +38,7 @@ describe('List cars', () => {
       fineAmount: 100,
       brand: 'Viper',
       categoryId: '650cf6788adcd3da7764f340',
+      transmission: 'auto',
     })
 
     const cars = await listAvaliableCarsUseCase.execute({
@@ -55,6 +57,7 @@ describe('List cars', () => {
       fineAmount: 100,
       brand: 'Viper',
       categoryId: '650cf6788adcd3da7764f340',
+      transmission: 'auto',
     })
 
     const cars = await listAvaliableCarsUseCase.execute({
@@ -73,6 +76,7 @@ describe('List cars', () => {
       fineAmount: 100,
       brand: 'Viper',
       categoryId: '650cf6788adcd3da7764f340',
+      transmission: 'auto',
     })
 
     const cars = await listAvaliableCarsUseCase.execute({

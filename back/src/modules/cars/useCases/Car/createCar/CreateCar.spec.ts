@@ -24,6 +24,7 @@ describe('Create car', () => {
       fineAmount: 60,
       brand: 'Brand',
       categoryId: new Types.ObjectId().toString(),
+      transmission: 'auto',
     })
 
     expect(newCar).toHaveProperty('_id')
@@ -39,6 +40,7 @@ describe('Create car', () => {
         fineAmount: 60,
         brand: 'Brand',
         categoryId: new Types.ObjectId().toString(),
+        transmission: 'auto',
       })
 
       await createCarUseCase.execute({
@@ -49,6 +51,7 @@ describe('Create car', () => {
         fineAmount: 60,
         brand: 'Brand',
         categoryId: new Types.ObjectId().toString(),
+        transmission: 'auto',
       })
     }).rejects.toBeInstanceOf(AppError)
   })
@@ -62,6 +65,7 @@ describe('Create car', () => {
       fineAmount: 60,
       brand: 'Brand',
       categoryId: new Types.ObjectId().toString(),
+      transmission: 'auto',
     })
 
     expect(newCar.avaliable).toEqual(true)

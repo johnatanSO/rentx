@@ -8,9 +8,9 @@ interface IRequest {
   name: string
   email: string
   password: string
-  driverLicense: string
   confirmPassword: string
-  isAdmin: boolean
+  driverLicense: string
+  isAdmin?: boolean
 }
 
 @injectable()
@@ -24,8 +24,8 @@ export class CreateNewUserUseCase {
     name,
     email,
     password,
-    driverLicense,
     confirmPassword,
+    driverLicense,
     isAdmin,
   }: IRequest): Promise<IUser> {
     const alreadyExistUser = await this.usersRepository.findByEmail(email)
