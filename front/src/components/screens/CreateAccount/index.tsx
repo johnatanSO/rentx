@@ -45,7 +45,9 @@ export function CreateAccount() {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar realizar cadastro de usuário - ${err?.response?.data?.message}`,
+          text: `Erro ao tentar realizar cadastro de usuário - ${
+            err?.response?.data?.message || err?.message
+          }`,
           type: 'error',
         })
       })
