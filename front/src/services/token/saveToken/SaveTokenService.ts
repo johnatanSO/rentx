@@ -1,5 +1,5 @@
-const TOKEN_KEY: string = process.env.TOKEN_KEY as string
+const TOKEN_KEY = ':rental: [TOKEN]'
 
-export function saveTokenService(token: string): void {
+export function saveTokenService(token: string) {
   globalThis?.localStorage?.setItem(TOKEN_KEY, JSON.stringify(token))
 }

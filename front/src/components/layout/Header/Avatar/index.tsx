@@ -29,7 +29,7 @@ export function CustomAvatar() {
 
     handleCloseMenu()
 
-    router.push('/')
+    router.push('/authenticate')
   }
 
   function handleCloseMenu() {
@@ -81,7 +81,7 @@ export function CustomAvatar() {
       >
         <MenuItem
           onClick={() => {
-            router.push('/management/accountConfigs')
+            router.push('/management/account')
             handleCloseMenu()
           }}
           className={style.menuItem}

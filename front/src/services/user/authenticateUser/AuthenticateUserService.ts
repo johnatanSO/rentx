@@ -5,11 +5,9 @@ interface IRequest {
   password: string
 }
 
-export function authenticateUserService({ email, password }: IRequest) {
+export async function authenticateUserService({ email, password }: IRequest) {
   return http.post('/sessions', {
-    body: {
-      email,
-      password,
-    },
+    email,
+    password,
   })
 }

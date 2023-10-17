@@ -9,11 +9,10 @@ import { NewUser } from './interfaces/NewUser'
 import { createNewUserService } from '@/services/user/createNewUser/CreateNewUserService'
 import { AlertContext } from '@/contexts/alertContext'
 import { Loading } from '@/components/_ui/Loading'
-import { saveTokenService } from '@/services/token/saveToken/SaveTokenService'
 import { useRouter } from 'next/navigation'
 
 export function CreateAccount() {
-  const { setAlertNotifyConfigs, alertNotifyConfigs } = useContext(AlertContext)
+  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
   const defaultValuesNewUser = {
     name: '',
     email: '',

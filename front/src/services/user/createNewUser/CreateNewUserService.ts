@@ -18,13 +18,11 @@ export function createNewUserService({
   isAdmin,
 }: IRequest) {
   return http.post('/users', {
-    body: {
-      name,
-      email,
-      password,
-      confirmPassword,
-      driverLicense,
-      isAdmin,
-    },
+    name,
+    email,
+    password,
+    confirmPassword,
+    driverLicense,
+    isAdmin,
   })
 }

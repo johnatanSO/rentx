@@ -1,4 +1,4 @@
-const TOKEN_KEY: string = process.env.TOKEN_KEY as string
+const TOKEN_KEY = ':rental: [TOKEN]'
 
 export function getTokenService(): string | undefined {
   const token = globalThis?.localStorage?.getItem(TOKEN_KEY)

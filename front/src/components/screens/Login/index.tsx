@@ -33,9 +33,9 @@ export function Login() {
 
     authenticateUserService(authData)
       .then((res) => {
-        saveTokenService(res.data.item.token)
-        saveLocalUserService({ userData: res.data.item.user })
-        setUserInfo(res.data.item.user)
+        saveTokenService(res.data.token)
+        saveLocalUserService({ userData: res.data.user })
+        setUserInfo(res.data.user)
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
@@ -51,6 +51,7 @@ export function Login() {
           text: `Erro ao tentar realizar autenticação - ${err?.response?.data?.message}`,
           type: 'error',
         })
+        console.log('err', err)
       })
       .finally(() => {
         setLoadingAuthUser(false)
