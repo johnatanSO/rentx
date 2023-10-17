@@ -70,7 +70,7 @@ export class CarsRepository implements ICarsRepository {
   }
 
   async listAll(): Promise<Car[]> {
-    const allCars = await this.model.find()
+    const allCars = await this.model.find().populate('specifications images')
     return allCars
   }
 }
