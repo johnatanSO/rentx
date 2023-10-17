@@ -14,7 +14,7 @@ export interface Rental {
 
 const RentalSchema = new mongoose.Schema({
   carId: { type: 'ObjectId', ref: 'Car', default: null },
-  useId: { type: 'ObjectId', ref: 'User', default: null },
+  userId: { type: 'ObjectId', ref: 'User', default: null },
   startDate: { type: Date, default: Date.now },
   endDate: { type: Date, default: null },
   expectedReturnDate: { type: Date, default: null },

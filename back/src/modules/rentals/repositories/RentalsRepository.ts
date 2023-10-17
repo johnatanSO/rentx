@@ -33,6 +33,10 @@ export class RentalsRepository implements IRentalsRepository {
   }
 
   async list(userId: string): Promise<Rental[]> {
-    return this.model.find({ userId })
+    const rentals = await this.model.find({ userId })
+
+    console.log('rentals', rentals)
+
+    return rentals
   }
 }

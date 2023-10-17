@@ -7,7 +7,7 @@ export class ListCategoriesController {
     const listCategoriesUseCase = container.resolve(ListCategoriesUseCase)
     const categories = await listCategoriesUseCase.execute()
 
-    return res.status(201).json({
+    return res.status(200).json({
       success: true,
       title: 'Busca de categorias concluída com sucesso',
       items: categories,
