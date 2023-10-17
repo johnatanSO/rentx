@@ -4,9 +4,9 @@ import { TableComponent } from '@/components/_ui/TableComponent'
 import { getAllCarsService } from '@/services/cars/getAllCars/GetAllCarsService'
 import { Car } from './interfaces/Car'
 import { AlertContext } from '@/contexts/alertContext'
-import { useColumns } from './hooks/useColumns'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import style from './CarsManagement.module.scss'
+import { useColumns } from './hooks/useColumns'
 
 export function CarsManagement() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
