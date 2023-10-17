@@ -3,6 +3,7 @@ import { AppError } from '../../../../shared/errors/AppError'
 import { Rental } from '../../infra/mongoose/entities/Rental'
 import { IRentalsRepository } from '../../repositories/IRentalsRepository'
 import { IDateProvider } from '../../../../shared/container/providers/DateProvider/IDateProvider'
+import { ICarsRepository } from '../../../cars/repositories/Cars/ICarsRepository'
 
 interface IRequest {
   userId: string
@@ -14,12 +15,15 @@ interface IRequest {
 export class CreateRentalUseCase {
   rentalsRepository: IRentalsRepository
   dateProvider: IDateProvider
+  carsRepository: ICarsRepository
   constructor(
     @inject('RentalsRepository') rentalsRepository: IRentalsRepository,
     @inject('DayjsDateProvider') dateProvider: IDateProvider,
+    @inject('CarsRepository') carsRepository: ICarsRepository,
   ) {
     this.rentalsRepository = rentalsRepository
     this.dateProvider = dateProvider
+    this.carsRepository = carsRepository
   }
 
   async execute({
@@ -59,6 +63,8 @@ export class CreateRentalUseCase {
       carId,
       expectedReturnDate,
     })
+
+    await this.carsRepository.updateOne(carId, { avaliable: false })
 
     return newRental
   }
