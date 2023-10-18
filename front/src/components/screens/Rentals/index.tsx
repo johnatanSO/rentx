@@ -27,6 +27,7 @@ export function Rentals() {
           text: `Erro ao buscar alugueis - ${
             err?.response?.data?.message || err?.message
           }`,
+          type: 'error',
         })
       })
       .finally(() => {
