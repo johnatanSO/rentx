@@ -12,8 +12,12 @@
 .menuItem {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 10px;
+
+  gap: 20px;
 
   color: $gray-color-400;
+
+  span {
+    margin: 0px auto;
+  }
 }

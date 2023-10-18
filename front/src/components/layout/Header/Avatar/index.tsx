@@ -4,7 +4,7 @@ import style from './Avatar.module.scss'
 import { UserContext } from '@/contexts/userContext'
 import { deleteTokenService } from '@/services/token/deleteToken/DeleteTokenService'
 import { deleteLocalUserService } from '@/services/user/deleteLocalUser/DeleteLocalUserService'
-import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
+import { faAngleLeft, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Avatar, Menu, MenuItem } from '@mui/material'
 import { useRouter } from 'next/navigation'
@@ -86,12 +86,12 @@ export function CustomAvatar() {
           }}
           className={style.menuItem}
         >
-          <Avatar />
-          <span>Sua conta</span>
+          <FontAwesomeIcon className={style.icon} icon={faUser} />
+          <span>{userInfo?.name || 'Sua conta'}</span>
         </MenuItem>
 
         <MenuItem onClick={logout} className={style.menuItem}>
-          <FontAwesomeIcon icon={faAngleLeft} />
+          <FontAwesomeIcon className={style.icon} icon={faAngleLeft} />
           <span>Sair</span>
         </MenuItem>
       </Menu>
