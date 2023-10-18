@@ -20,5 +20,20 @@ export function useColumns() {
       valueFormatter: (params: CellFunctionParams) =>
         dayjs(params.value).format('DD/MM/YYYY - HH:mm'),
     },
+    {
+      headerName: 'Status',
+      field: 'endDate',
+      valueFormatter: (params: CellFunctionParams) => {
+        if (!params.value) return 'Em andamento'
+
+        return 'Finalizado'
+      },
+    },
+    {
+      headerName: 'Data de entrega',
+      field: 'endDate',
+      valueFormatter: (params: CellFunctionParams) =>
+        dayjs(params?.value).format('DD/MM/YYYY - HH:mm') || '--',
+    },
   ]
 }
