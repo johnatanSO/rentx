@@ -11,8 +11,8 @@ export function getAvaliableCarsService({
 }: IGetAvaliableCars) {
   return http.get('/cars/avaliable', {
     params: {
-      name,
-      categoryId,
+      ...(name ? { name } : {}),
+      ...(categoryId ? { categoryId } : {}),
     },
   })
 }
