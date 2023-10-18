@@ -3,11 +3,13 @@ import { TableComponent } from '@/components/_ui/TableComponent'
 import { Category } from './interfaces/Category'
 import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
 import { AlertContext } from '@/contexts/alertContext'
+import { useColumns } from './hooks/useColumns'
 
 export function CategoriesManagement() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
   const [categories, setCategories] = useState<Category[]>([])
   const [loadingCategories, setLoadingCategories] = useState<boolean>(true)
+  const columns = useColumns()
 
   function getCategories() {
     setLoadingCategories(true)
@@ -38,7 +40,7 @@ export function CategoriesManagement() {
   return (
     <TableComponent
       rows={categories}
-      columns={[]}
+      columns={columns}
       loading={loadingCategories}
     />
   )

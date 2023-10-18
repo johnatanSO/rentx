@@ -1,14 +1,14 @@
 import { ReactNode } from 'react'
 
-export interface CellFunctionParams {
-  data: any
-  value: any
+export interface CellFunctionParams<DataModel> {
+  data: DataModel
+  value: string | number
 }
 
 export interface Column {
   headerName: string
   field: string
-  valueFormatter?: (params: CellFunctionParams) => any
-  cellRenderer?: (params: CellFunctionParams) => ReactNode
-  cellClass?: (params: CellFunctionParams) => any
+  valueFormatter?: (params: CellFunctionParams<any>) => string | number
+  cellRenderer?: (params: CellFunctionParams<any>) => ReactNode
+  cellClass?: (params: CellFunctionParams<any>) => string | number
 }
