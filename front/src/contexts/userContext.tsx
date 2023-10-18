@@ -16,7 +16,7 @@ interface UserContextComponentProps {
 
 interface UserContextInterface {
   userInfo: UserInfo | null
-  setUserInfo: (userInfo: UserInfo) => void
+  setUserInfo: (userInfo: UserInfo | null) => void
 }
 
 export const UserContext = createContext({} as UserContextInterface)

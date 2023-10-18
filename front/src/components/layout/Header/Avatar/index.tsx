@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation'
 import { useContext, useState } from 'react'
 
 export function CustomAvatar() {
-  const { userInfo } = useContext(UserContext)
+  const { userInfo, setUserInfo } = useContext(UserContext)
   const router = useRouter()
   const [anchorEl, setAnchorEl] = useState(null)
 
@@ -26,10 +26,11 @@ export function CustomAvatar() {
   function logout() {
     deleteTokenService()
     deleteLocalUserService()
+    setUserInfo(null)
 
     handleCloseMenu()
 
-    router.push('/authenticate')
+    router.push('/')
   }
 
   function handleCloseMenu() {
