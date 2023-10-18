@@ -1,10 +1,8 @@
 import mongoose, { Types } from 'mongoose'
-import { Car } from '../../../../cars/infra/mongoose/entities/Car'
 
 export interface Rental {
   _id: Types.ObjectId
   carId: Types.ObjectId
-  car: Car | null
   userId: Types.ObjectId
   startDate: Date
   endDate: Date
@@ -15,8 +13,7 @@ export interface Rental {
 }
 
 const RentalSchema = new mongoose.Schema({
-  carId: { type: 'ObjectId', ref: 'Car', default: null },
-  car: { type: 'ObjectId', ref: 'Car', default: null },
+  carId: { type: 'ObjectId', default: null },
   userId: { type: 'ObjectId', ref: 'User', default: null },
   startDate: { type: Date, default: Date.now },
   endDate: { type: Date, default: null },
