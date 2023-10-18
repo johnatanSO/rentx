@@ -14,6 +14,7 @@ interface IResponse {
     name: string
     email: string
     isAdmin: boolean
+    avatar: string
   }
   token: string
 }
@@ -43,6 +44,7 @@ export class AuthenticateUserUseCase {
         name: user.name,
         email: user.email,
         isAdmin: user.isAdmin,
+        avatar: user.avatar,
       },
     }
   }
