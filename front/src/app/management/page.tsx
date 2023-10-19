@@ -1,3 +1,5 @@
+import { HomePageManagement } from '@/components/screens/Management'
+
 export default async function ManagementPage() {
-  return <h1>Gestão</h1>
+  return <HomePageManagement />
 }

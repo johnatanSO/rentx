@@ -157,7 +157,7 @@ export function CreateAccount() {
 
         <footer>
           <button type="submit">
-            {loadingCreateNewUser ? <Loading /> : 'Criar conta'}
+            {loadingCreateNewUser ? <Loading size={22} /> : 'Criar conta'}
           </button>
           <Link className={style.createAccountLink} href="/authenticate">
             Entrar com conta existente
