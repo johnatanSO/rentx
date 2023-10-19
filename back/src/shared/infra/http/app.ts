@@ -8,6 +8,7 @@ import '../../container'
 import { AppError } from '../../errors/AppError'
 import * as dotenv from 'dotenv'
 import { Mongoose } from 'mongoose'
+import path from 'path'
 dotenv.config()
 
 interface CustomExpress extends Express {
@@ -34,6 +35,11 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     message: `Erro interno do servidor - ${err.message}`,
   })
 })
+
+app.use(
+  '/',
+  express.static(path.join(__dirname, '..', '..', '..', '..', 'tmp', 'avatar')),
+)
 
 app.get('/', (req, res) => {
   res.send('Hello world')
