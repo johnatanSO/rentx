@@ -9,11 +9,11 @@ export class RentalsRepository implements IRentalsRepository {
   }
 
   async findOpenRentalByCar(carId: string): Promise<Rental> {
-    return await this.model.findOne({ carId })
+    return await this.model.findOne({ carId }).populate('car')
   }
 
   async findOpenRentalByUser(userId: string): Promise<Rental> {
-    return await this.model.findOne({ userId })
+    return await this.model.findOne({ userId }).populate('car')
   }
 
   async create({
@@ -22,7 +22,7 @@ export class RentalsRepository implements IRentalsRepository {
     expectedReturnDate,
   }: ICreateRentalDTO): Promise<Rental> {
     const newRental = await this.model.create({
-      carId,
+      car: carId,
       userId,
       expectedReturnDate,
     })
@@ -33,7 +33,7 @@ export class RentalsRepository implements IRentalsRepository {
   }
 
   async list(userId: string): Promise<Rental[]> {
-    const rentals = await this.model.find({ userId })
+    const rentals = await this.model.find({ userId }).populate('car')
 
     return rentals
   }
