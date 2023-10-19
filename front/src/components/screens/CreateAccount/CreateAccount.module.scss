@@ -3,7 +3,7 @@
 .loginContainer {
   padding: 2rem;
 
-  border-radius: 15px;
+  border-radius: 20px;
 
   animation: fadeIn 0.2s;
 
@@ -20,7 +20,7 @@
 
       .input {
         background: $gray-color-100;
-        border-radius: 15px;
+        border-radius: 20px;
       }
 
       .labelCheckboxContainer {
@@ -42,7 +42,7 @@
         width: 100%;
         padding: 1.1rem;
         border: none;
-        border-radius: 15px;
+        border-radius: 20px;
 
         font-size: 0.875rem;
         font-weight: 500;

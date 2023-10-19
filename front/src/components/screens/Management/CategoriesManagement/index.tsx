@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useEffect, useContext } from 'react'
 import { TableComponent } from '@/components/_ui/TableComponent'
 import { Category } from './interfaces/Category'

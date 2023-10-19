@@ -20,7 +20,7 @@ export function useColumns() {
       headerName: 'Previsão de entrega',
       field: 'expectedReturnDate',
       valueFormatter: (params: CellFunctionParams<Rental>) =>
-        dayjs(params.value).format('DD/MM/YYYY - HH:mm'),
+        dayjs(params.value).format('DD/MM/YYYY'),
     },
     {
       headerName: 'Status',
@@ -35,7 +35,9 @@ export function useColumns() {
       headerName: 'Data de entrega',
       field: 'endDate',
       valueFormatter: (params: CellFunctionParams<Rental>) =>
-        dayjs(params?.value).format('DD/MM/YYYY - HH:mm') || '--',
+        params?.value
+          ? dayjs(params?.value).format('DD/MM/YYYY - HH:mm')
+          : '--',
     },
   ]
 }

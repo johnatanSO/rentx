@@ -7,14 +7,14 @@ import {
 
 export const CustomTextField = styled(TextField)({
   [`& .${outlinedInputClasses.root} .${outlinedInputClasses.notchedOutline}`]: {
-    borderRadius: '15px',
+    borderRadius: '20px',
     borderColor: '#b7b7b7',
     color: '#f4f4f4',
     fontWeight: '500',
   },
   [`& .Mui-error .${outlinedInputClasses.notchedOutline}`]: {
     // Style da borda do input quando tem um erro
-    borderRadius: '0.7rem',
+    borderRadius: '20px',
     border: '2px solid #ff4646',
   },
   [`&:hover .${outlinedInputClasses.root} .${outlinedInputClasses.notchedOutline}`]:

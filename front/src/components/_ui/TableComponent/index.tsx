@@ -22,32 +22,40 @@ export function TableComponent({ columns, rows, loading }: Props) {
         </tr>
       </thead>
       <tbody>
-        {rows?.map((row) => {
-          return (
-            <tr key={row._id}>
-              {columns.map((column) => {
-                return (
-                  <td
-                    className={column?.cellClass?.({
-                      value: row[column.field],
-                      data: row,
-                    })}
-                    key={column.field}
-                  >
-                    {column?.valueFormatter?.({
-                      value: row[column.field],
-                      data: row,
-                    })}
-                    {column?.cellRenderer?.({
-                      value: row[column.field],
-                      data: row,
-                    })}
-                  </td>
-                )
-              })}
-            </tr>
-          )
-        })}
+        {rows.length > 0 &&
+          rows?.map((row) => {
+            return (
+              <tr key={row._id}>
+                {columns.map((column) => {
+                  return (
+                    <td
+                      className={column?.cellClass?.({
+                        value: row[column.field],
+                        data: row,
+                      })}
+                      key={column.field}
+                    >
+                      {column?.valueFormatter?.({
+                        value: row[column.field],
+                        data: row,
+                      })}
+                      {column?.cellRenderer?.({
+                        value: row[column.field],
+                        data: row,
+                      })}
+                    </td>
+                  )
+                })}
+              </tr>
+            )
+          })}
+        {rows.length === 0 && !loading && (
+          <tr>
+            <td className={style.emptyCell} colSpan={columns.length}>
+              <p>Nenhum item encontrado</p>
+            </td>
+          </tr>
+        )}
       </tbody>
     </table>
   )

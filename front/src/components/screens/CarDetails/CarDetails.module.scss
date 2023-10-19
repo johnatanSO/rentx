@@ -15,7 +15,7 @@
     button {
       border: none;
       padding: 0.5rem 0.7rem;
-      border-radius: 10px;
+      border-radius: 20px;
       line-height: 1;
 
       background: $white-color;
@@ -41,7 +41,7 @@
 
     .carImageContainer {
       border: 1px solid $gray-color-200;
-      border-radius: 15px;
+      border-radius: 20px;
       min-width: 500px;
       flex: 1;
 
@@ -85,7 +85,7 @@
         box-shadow: 1px 3px 7px rgba(0 0 0 / 0.2);
 
         border: none;
-        border-radius: 10px;
+        border-radius: 20px;
         padding: 0.6rem;
 
         margin-top: auto;

@@ -56,7 +56,7 @@ export function CustomAvatar() {
             overflow: 'visible',
             filter: 'drop-shadow(1px 3px 8px rgba(0 0 0 / 0.2))',
             mt: 1.5,
-            borderRadius: 3,
+            borderRadius: 4,
             '& .MuiAvatar-root': {
               width: 27,
               height: 27,

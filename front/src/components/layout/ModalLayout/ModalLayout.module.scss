@@ -10,7 +10,7 @@
     box-shadow: 1px 7px 15px rgb(0 0 0 / 0.3);
     outline: none;
 
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 20px;
 
     max-width: 80%;
@@ -42,7 +42,7 @@
 
     .mainContent {
       background: $gray-color-200;
-      border-radius: 10px;
+      border-radius: 20px;
       padding: 15px;
     }
 
@@ -50,7 +50,7 @@
       button {
         width: 100%;
         text-align: center;
-        border-radius: 8px;
+        border-radius: 20px;
         padding: 0.9rem;
         font-weight: 500;
         font-size: 0.8rem;

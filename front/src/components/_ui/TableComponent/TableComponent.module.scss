@@ -2,8 +2,6 @@
 
 .table {
   width: 100%;
-  margin-top: 20px;
-  position: relative;
 
   border-collapse: collapse;
   text-align: left;
@@ -47,4 +45,10 @@
       }
     }
   }
+}
+
+
+.emptyCell{
+  text-align: center;
+  margin-top: 2rem;
 }

@@ -2,6 +2,9 @@ import Image from 'next/image'
 import { CellFunctionParams } from '@/components/_ui/TableComponent/interfaces'
 import { CarImage } from '../interfaces/CarImage'
 import unknownCarImage from '../../../../../../public/assets/images/cars/unknownCarImage.png'
+import { Car } from '../interfaces/Car'
+import style from '../CarsManagement.module.scss'
+import { formatCurrency } from '@/utils/format'
 
 export function useColumns() {
   function getCarImageUrl(images: CarImage[]) {
@@ -12,23 +15,48 @@ export function useColumns() {
 
   return [
     {
-      headerName: 'Imagem',
+      headerName: 'Carro',
       field: 'images',
-      cellRenderer: (params: CellFunctionParams) => {
+      cellRenderer: (params: CellFunctionParams<Car>) => {
         return (
-          <Image
-            alt="Avatar do carro"
-            width={60}
-            height={60}
-            src={getCarImageUrl(params.value)}
-          />
+          <div className={style.carModelContainer}>
+            <Image
+              alt="Avatar do carro"
+              className={style.carImage}
+              width={500}
+              height={500}
+              src={getCarImageUrl(params.value)}
+            />
+            <b className={style.carName}>{params.data.name}</b>
+          </div>
         )
       },
     },
     {
-      headerName: 'Nome',
-      field: 'name',
-      valueFormatter: (params: CellFunctionParams) => params.value || '--',
+      headerName: 'Placa',
+      field: 'licensePlate',
+      valueFormatter: (params: CellFunctionParams<Car>) => params.value,
+    },
+    {
+      headerName: 'Valor diário',
+      field: 'dailyRate',
+      valueFormatter: (params: CellFunctionParams<Car>) =>
+        formatCurrency(params.value || 0),
+    },
+    {
+      headerName: 'Disponível',
+      field: 'avaliable',
+      valueFormatter: (params: CellFunctionParams<Car>) =>
+        params.value ? 'Sim' : 'Não',
+    },
+    {
+      headerName: '',
+      field: 'avaliable',
+      cellRenderer: (params: CellFunctionParams<Car>) => (
+        <button className={style.showDetailsButton} type="button">
+          Ver detalhes
+        </button>
+      ),
     },
   ]
 }
