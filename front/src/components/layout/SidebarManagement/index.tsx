@@ -8,13 +8,18 @@ import {
   faToolbox,
 } from '@fortawesome/free-solid-svg-icons'
 import { Avatar } from '@mui/material'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { UserContext } from '@/contexts/userContext'
 
 export function SidebarManagement() {
+  const { userInfo } = useContext(UserContext)
   const [activeMenu, setActiveMenu] = useState<string>('')
   const router = useRouter()
+  const avatarURL = userInfo?.avatar
+    ? process.env.NEXT_PUBLIC_END_POINT + userInfo?.avatar
+    : ''
 
   function handleChangeMenuItem(menuName: string) {
     setActiveMenu(menuName)
@@ -54,7 +59,11 @@ export function SidebarManagement() {
           <FontAwesomeIcon className={style.icon} icon={faToolbox} />
         </li>
       </ul>
-      <Avatar sx={{ width: '2rem', height: '2rem' }} className={style.avatar} />
+      <Avatar
+        src={avatarURL}
+        sx={{ width: '2rem', height: '2rem' }}
+        className={style.avatar}
+      />
     </aside>
   )
 }
