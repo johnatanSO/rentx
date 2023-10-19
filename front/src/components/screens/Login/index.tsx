@@ -15,7 +15,6 @@ import { UserContext } from '@/contexts/userContext'
 
 export function Login() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-  const { setUserInfo } = useContext(UserContext)
 
   const defaultValuesAuthData = {
     email: '',
@@ -35,7 +34,6 @@ export function Login() {
       .then((res) => {
         saveTokenService(res.data.token)
         saveLocalUserService({ userData: res.data.user })
-        setUserInfo(res.data.user)
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,

@@ -6,9 +6,6 @@
   border-collapse: collapse;
   text-align: left;
 
-  display: flex;
-  flex-direction: column;
-
   transition: opacity 0.2s;
 
   thead {
@@ -26,10 +23,6 @@
   }
 
   tbody {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-
     tr {
       display: flex;
       flex-direction: row;
@@ -47,8 +40,7 @@
   }
 }
 
-
-.emptyCell{
+.emptyCell {
   text-align: center;
   margin-top: 2rem;
 }

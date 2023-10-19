@@ -4,6 +4,7 @@ import { Header } from '@/components/layout/Header/index'
 import type { Metadata } from 'next'
 import { AlertContextComponent } from '@/contexts/alertContext'
 import { UserContextComponent } from '@/contexts/userContext'
+import { getLocalUserService } from '@/services/user/getLocalUser/GetLocalUserService'
 
 export const metadata: Metadata = {
   title: 'RentX',
@@ -14,11 +15,13 @@ type Props = {
   children: React.ReactNode
 }
 
-export default function WithLayout({ children }: Props) {
+export default async function WithLayout({ children }: Props) {
+  const serverUserInfo = await getLocalUserService()
+
   return (
     <html lang="en">
       <body>
-        <UserContextComponent>
+        <UserContextComponent serverUserInfo={serverUserInfo}>
           <AlertContextComponent>
             <Header />
 

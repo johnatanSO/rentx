@@ -12,6 +12,7 @@ interface UserInfo {
 
 interface UserContextComponentProps {
   children: ReactNode
+  serverUserInfo: UserInfo
 }
 
 interface UserContextInterface {
@@ -21,18 +22,13 @@ interface UserContextInterface {
 
 export const UserContext = createContext({} as UserContextInterface)
 
-export function UserContextComponent({ children }: UserContextComponentProps) {
-  const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
-
-  function getUserInfo() {
-    const userData = getLocalUserService()
-
-    setUserInfo(userData)
-  }
-
-  useEffect(() => {
-    getUserInfo()
-  }, [])
+export function UserContextComponent({
+  children,
+  serverUserInfo,
+}: UserContextComponentProps) {
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(
+    serverUserInfo || null,
+  )
 
   return (
     <UserContext.Provider
