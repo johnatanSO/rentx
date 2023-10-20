@@ -1,6 +1,6 @@
 'use client'
 import style from './Header.module.scss'
-import { CustomAvatar } from './Avatar'
+import { CustomAvatar } from '@/components/_ui/CustomAvatar'
 import {
   faHouse,
   faCircleInfo,
