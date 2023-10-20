@@ -1,6 +1,6 @@
 'use client'
 
-import style from './Avatar.module.scss'
+import style from './CustomAvatar.module.scss'
 import { UserContext } from '@/contexts/userContext'
 import { deleteTokenService } from '@/services/token/deleteToken/DeleteTokenService'
 import { deleteLocalUserService } from '@/services/user/deleteLocalUser/DeleteLocalUserService'
@@ -10,7 +10,11 @@ import { Avatar, Menu, MenuItem } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import { useContext, useState } from 'react'
 
-export function CustomAvatar() {
+type Props = {
+  direction?: string
+}
+
+export function CustomAvatar({ direction }: Props) {
   const { userInfo, setUserInfo } = useContext(UserContext)
   const router = useRouter()
   const [anchorEl, setAnchorEl] = useState(null)
