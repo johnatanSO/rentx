@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Modal, Box } from '@mui/material'
 import { ReactNode, FormEvent } from 'react'
 import style from './ModalLayout.module.scss'
-import { Loading } from '../Loading'
+import { Loading } from '@/components/_ui/Loading'
 
 interface Props {
   title: string
