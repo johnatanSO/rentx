@@ -26,16 +26,20 @@
     gap: 35px;
 
     li {
+      cursor: pointer;
+      transition: filter 0.2s;
+
+      &:not(.menuActive):hover {
+        filter: brightness(0.6);
+      }
       .icon {
         color: $gray-color-100;
 
         font-size: 1.4rem;
-
-        cursor: pointer;
-        transition: filter 0.2s;
-
-        &:hover {
-          filter: brightness(0.8);
+      }
+      &.menuActive {
+        .icon {
+          color: $brown-color-100;
         }
       }
     }

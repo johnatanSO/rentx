@@ -8,15 +8,16 @@ import {
   faGears,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useContext, useState } from 'react'
-import { useRouter } from '../../../../node_modules/next/navigation'
+import { useContext, useState, useEffect } from 'react'
 import { UserContext } from '@/contexts/userContext'
 import Link from '../../../../node_modules/next/link'
+import { usePathname, useRouter } from 'next/navigation'
 
 export function Header() {
   const { userInfo } = useContext(UserContext)
   const [activeMenu, setActiveMenu] = useState<string>('')
   const router = useRouter()
+  const pathname = usePathname()
 
   function getActiveMenu(menuName: string) {
     if (activeMenu === menuName) {
@@ -31,6 +32,10 @@ export function Header() {
     router.push(`/${menuName}`)
   }
 
+  useEffect(() => {
+    if (pathname === '/') setActiveMenu('')
+  }, [pathname])
+
   return (
     <header className={style.headerContainer}>
       <nav>
@@ -44,15 +49,17 @@ export function Header() {
             <FontAwesomeIcon icon={faHouse} />
             <span>Home</span>
           </li>
-          <li
-            onClick={() => {
-              handleChangeMenuItem('rentals')
-            }}
-            className={getActiveMenu('rentals')}
-          >
-            <FontAwesomeIcon icon={faCircleInfo} />
-            <span>Alugueis</span>
-          </li>
+          {userInfo && (
+            <li
+              onClick={() => {
+                handleChangeMenuItem('rentals')
+              }}
+              className={getActiveMenu('rentals')}
+            >
+              <FontAwesomeIcon icon={faCircleInfo} />
+              <span>Alugueis</span>
+            </li>
+          )}
           <li
             onClick={() => {
               handleChangeMenuItem('about')

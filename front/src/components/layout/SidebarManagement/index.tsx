@@ -26,6 +26,17 @@ export function SidebarManagement() {
     router.push(`/management/${menuName}`)
   }
 
+  function getActiveMenu(menuName: string) {
+    if (activeMenu === menuName) {
+      console.log('aaa')
+      return style.menuActive
+    }
+
+    return undefined
+  }
+
+  console.log(activeMenu)
+
   return (
     <aside className={style.asideContainer}>
       <Link
@@ -38,6 +49,7 @@ export function SidebarManagement() {
 
       <ul>
         <li
+          className={getActiveMenu('cars')}
           onClick={() => {
             handleChangeMenuItem('cars')
           }}
@@ -45,6 +57,7 @@ export function SidebarManagement() {
           <FontAwesomeIcon className={style.icon} icon={faCar} />
         </li>
         <li
+          className={getActiveMenu('categories')}
           onClick={() => {
             handleChangeMenuItem('categories')
           }}
@@ -52,6 +65,7 @@ export function SidebarManagement() {
           <FontAwesomeIcon className={style.icon} icon={faTag} />
         </li>
         <li
+          className={getActiveMenu('specifications')}
           onClick={() => {
             handleChangeMenuItem('specifications')
           }}

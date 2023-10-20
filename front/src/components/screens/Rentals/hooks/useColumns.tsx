@@ -34,6 +34,12 @@ export function useColumns() {
       },
     },
     {
+      headerName: 'Placa',
+      field: 'car',
+      valueFormatter: (params: CellFunctionParams<Rental>) =>
+        params.value.licensePlate,
+    },
+    {
       headerName: 'Inicio',
       field: 'startDate',
       valueFormatter: (params: CellFunctionParams<Rental>) =>
@@ -61,6 +67,15 @@ export function useColumns() {
         params?.value
           ? dayjs(params?.value).format('DD/MM/YYYY - HH:mm')
           : '--',
+    },
+    {
+      headerName: '',
+      field: 'endDate',
+      valueFormatter: (params: CellFunctionParams<Rental>) => (
+        <button className={style.showDetailsButton} type="button">
+          Ver detalhes
+        </button>
+      ),
     },
   ]
 }
