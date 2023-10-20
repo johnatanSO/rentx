@@ -22,15 +22,10 @@ export function SidebarManagement() {
   }
 
   function getActiveMenu(menuName: string) {
-    if (activeMenu === menuName) {
-      console.log('aaa')
-      return style.menuActive
-    }
+    if (activeMenu === menuName) return style.menuActive
 
     return undefined
   }
-
-  console.log(activeMenu)
 
   return (
     <aside className={style.asideContainer}>
