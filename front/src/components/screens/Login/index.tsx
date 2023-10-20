@@ -11,7 +11,6 @@ import { useRouter } from 'next/navigation'
 import { saveTokenService } from '@/services/token/saveToken/SaveTokenService'
 import { saveLocalUserService } from '@/services/user/saveLocalUser/SaveLocalUserService'
 import { Loading } from '@/components/_ui/Loading'
-import { UserContext } from '@/contexts/userContext'
 
 export function Login() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)

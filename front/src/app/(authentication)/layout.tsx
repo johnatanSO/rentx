@@ -1,5 +1,4 @@
 import { AlertContextComponent } from '@/contexts/alertContext'
-import { UserContextComponent } from '@/contexts/userContext'
 import '@/styles/global.scss'
 
 export const metadata = {
@@ -15,11 +14,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <UserContextComponent>
-          <AlertContextComponent>
-            <main className="authContainerPage">{children}</main>
-          </AlertContextComponent>
-        </UserContextComponent>
+        <AlertContextComponent>
+          <main className="authContainerPage">{children}</main>
+        </AlertContextComponent>
       </body>
     </html>
   )
