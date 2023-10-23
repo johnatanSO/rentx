@@ -7,9 +7,12 @@ import { AlertContext } from '@/contexts/alertContext'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import style from './CarsManagement.module.scss'
 import { useColumns } from './hooks/useColumns'
+import { usePathname, useRouter } from 'next/navigation'
 
 export function CarsManagement() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
+  const router = useRouter()
+  const pathname = usePathname()
   const [cars, setCars] = useState<Car[]>([])
   const [loadingCars, setLoadingCars] = useState<boolean>(false)
   const columns = useColumns()
@@ -35,6 +38,10 @@ export function CarsManagement() {
       })
   }
 
+  function handleOpenCreateNewCar() {
+    router.push(pathname + '/createNewCar')
+  }
+
   useEffect(() => {
     getCars()
   }, [])
@@ -43,6 +50,13 @@ export function CarsManagement() {
     <>
       <header className={style.header}>
         <h2>Carros</h2>
+        <button
+          onClick={handleOpenCreateNewCar}
+          className={style.createNewButton}
+          type="button"
+        >
+          Cadastrar novo
+        </button>
         <CustomTextField
           className={style.searchInput}
           label="Buscar pelo nome"

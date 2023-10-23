@@ -3,6 +3,35 @@
 .header {
   display: flex;
   align-items: center;
+  gap: 1rem;
+
+  .createNewButton {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 20px;
+
+    font-size: 0.875rem;
+    font-weight: 500;
+
+    cursor: pointer;
+    transition: filter 0.2s;
+
+    color: $white-color;
+    background: $brown-color-100;
+    box-shadow: 1px 3px 7px rgba(0 0 0 / 0.15);
+
+    display: flex;
+    justify-content: center;
+
+    &:hover {
+      filter: brightness(0.7);
+    }
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  }
 
   .searchInput {
     margin-left: auto;
