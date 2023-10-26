@@ -39,7 +39,7 @@ export function CarsManagement() {
   }
 
   function handleOpenCreateNewCar() {
-    router.push(pathname + '/createNewCar')
+    router.push(pathname + '/createNew')
   }
 
   useEffect(() => {
