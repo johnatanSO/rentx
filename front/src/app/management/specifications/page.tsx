@@ -1,3 +1,5 @@
-export default function SpecificationPage() {
-  return <h1> Configurações de especificações</h1>
+import { SpecificationsManagement } from '@/components/screens/Management/SpecificationsManagement'
+
+export default function SpecificationsPage() {
+  return <SpecificationsManagement />
 }

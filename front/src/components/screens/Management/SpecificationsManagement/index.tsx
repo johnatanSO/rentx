@@ -1,5 +1,5 @@
 'use client'
-import style from './CategoriesManagement.module.scss'
+import style from './SpecificationsManagement.module.scss'
 import { useState, useEffect, useContext } from 'react'
 import { TableComponent } from '@/components/_ui/TableComponent'
 import { Category } from './interfaces/Category'
@@ -7,7 +7,7 @@ import { getAllCategoriesService } from '@/services/category/getAllCategories/Ge
 import { AlertContext } from '@/contexts/alertContext'
 import { useColumns } from './hooks/useColumns'
 
-export function CategoriesManagement() {
+export function SpecificationsManagement() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
   const [categories, setCategories] = useState<Category[]>([])
   const [loadingCategories, setLoadingCategories] = useState<boolean>(true)
