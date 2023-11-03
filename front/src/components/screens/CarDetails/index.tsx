@@ -1,5 +1,7 @@
 'use client'
+
 import { useRouter } from 'next/navigation'
+import { FormEvent, useContext, useState } from 'react'
 import { Car } from './interfaces/Car'
 import style from './CarDetails.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,6 +9,12 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
 import { CarImage } from './interfaces/CarImage'
 import unknownCarImage from '../../../../public/assets/images/cars/unknownCarImage.png'
+import { createRentalService } from '@/services/rentals/createRental/CreateRentalService'
+import { CustomTextField } from '@/components/_ui/CustomTextField'
+import dayjs from 'dayjs'
+import { AlertContext } from '@/contexts/alertContext'
+import { Loading } from '@/components/_ui/Loading'
+import { getLocalUserService } from '@/services/user/getLocalUser/GetLocalUserService'
 
 type Props = {
   car: Car
@@ -14,11 +22,51 @@ type Props = {
 
 export function CarDetails({ car }: Props) {
   const router = useRouter()
+  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
+
+  const [loadingCreateRental, setLoadingCreateRental] = useState<boolean>(false)
+  const minExpectedReturnDate = dayjs().add(1, 'days').format('YYYY-MM-DD')
+  const [expectedReturnDate, setExpectedReturnDate] = useState<string>(
+    minExpectedReturnDate,
+  )
 
   function getImageUrl(images: CarImage[]) {
     if (images.length === 0) return unknownCarImage
 
     return process.env.NEXT_PUBLIC_END_POINT + images[0]?.path
+  }
+
+  async function onCreateNewRental(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+
+    const userInfo = await getLocalUserService()
+    if (!userInfo) {
+      router.push('/authenticate')
+      return
+    }
+
+    setLoadingCreateRental(true)
+
+    createRentalService({
+      carId: car._id,
+      expectedReturnDate,
+    })
+      .then(() => {
+        router.push('/rentals')
+      })
+      .catch((err) => {
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          open: true,
+          text: `Erro ao tentar cadastrar aluguel do carro - ${
+            err?.response?.data?.message || err?.message
+          }`,
+          type: 'error',
+        })
+      })
+      .finally(() => {
+        setLoadingCreateRental(false)
+      })
   }
 
   return (
@@ -54,9 +102,21 @@ export function CarDetails({ car }: Props) {
           </ul>
           <p>{car.description}</p>- Descrição - Valor - Placa - Data
           inicial/Data final - Descrição - Alugar
-          <button className={style.rentalButton} type="button">
-            Alugar
-          </button>
+          <form onSubmit={onCreateNewRental}>
+            <CustomTextField
+              size="small"
+              type="date"
+              InputLabelProps={{ shrink: true }}
+              label="Data de devolução"
+              value={expectedReturnDate}
+              onChange={(event) => {
+                setExpectedReturnDate(event?.target.value)
+              }}
+            />
+            <button className={style.rentalButton} type="submit">
+              {loadingCreateRental ? <Loading /> : 'Alugar'}
+            </button>
+          </form>
         </div>
       </section>
     </section>
