@@ -1,10 +1,8 @@
 import { HomePageManagement } from '@/components/screens/Management'
-import { getLocalUserService } from '@/services/user/getLocalUser/GetLocalUserService'
-import { redirect } from 'next/navigation'
+import { verifyUserIsAdminService } from '@/services/user/verifyUserIsAdmin/VerifyUserIsAdminService'
 
 export default async function ManagementPage() {
-  const userHasAdminPermission = (await getLocalUserService()).isAdmin
+  await verifyUserIsAdminService()
 
-  if (!userHasAdminPermission) redirect('/')
   return <HomePageManagement />
 }

@@ -17,7 +17,7 @@ type Props = {
 export function CustomAvatar({ direction }: Props) {
   const { userInfo, setUserInfo } = useContext(UserContext)
   const router = useRouter()
-  const [anchorEl, setAnchorEl] = useState(null)
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
 
   const avatarURL = userInfo?.avatar
     ? process.env.NEXT_PUBLIC_END_POINT + userInfo?.avatar
