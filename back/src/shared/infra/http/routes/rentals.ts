@@ -15,7 +15,7 @@ rentalsRoutes.post('/', ensureAuthenticated, createRentalController.handle)
 rentalsRoutes.get('/', ensureAuthenticated, listRentalsController.handle)
 
 rentalsRoutes.put(
-  '/finalizeRental/:idRentals',
+  '/finalizeRental/:rentalId',
   ensureAuthenticated,
   finalizeRentalController.handle,
 )

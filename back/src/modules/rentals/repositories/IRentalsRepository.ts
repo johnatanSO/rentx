@@ -9,6 +9,8 @@ export interface ICreateRentalDTO {
 export interface IRentalsRepository {
   findOpenRentalByCar(carId: string): Promise<Rental>
   findOpenRentalByUser(userId: string): Promise<Rental>
+  findById(rentalId: string): Promise<Rental>
   create(createRentalData: ICreateRentalDTO): Promise<Rental>
   list(userId: string): Promise<Rental[]>
+  finalizeRental(rentalId: string, totalVale: number): Promise<void>
 }

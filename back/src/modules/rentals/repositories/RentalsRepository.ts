@@ -9,7 +9,7 @@ export class RentalsRepository implements IRentalsRepository {
   }
 
   async findOpenRentalByCar(carId: string): Promise<Rental> {
-    return await this.model.findOne({ carId })
+    return await this.model.findOne({ car: carId })
   }
 
   async findOpenRentalByUser(userId: string): Promise<Rental> {
@@ -41,5 +41,18 @@ export class RentalsRepository implements IRentalsRepository {
     })
 
     return rentals
+  }
+
+  async finalizeRental(rentalId: string, totalValue: number): Promise<void> {
+    await this.model.updateOne(
+      { _id: rentalId },
+      { $set: { endDate: new Date(), total: totalValue } },
+    )
+  }
+
+  async findById(rentalId: string): Promise<Rental> {
+    const rental = await this.model.findOne({ _id: rentalId })
+
+    return rental
   }
 }
