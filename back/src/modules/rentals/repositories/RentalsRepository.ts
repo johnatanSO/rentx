@@ -33,12 +33,14 @@ export class RentalsRepository implements IRentalsRepository {
   }
 
   async list(userId: string): Promise<Rental[]> {
-    const rentals = await this.model.find({ userId }).populate({
-      path: 'car',
-      populate: {
-        path: 'images',
-      },
-    })
+    const rentals = await this.model
+      .find({ ...(userId ? { userId } : {}) })
+      .populate({
+        path: 'car',
+        populate: {
+          path: 'images',
+        },
+      })
 
     return rentals
   }
