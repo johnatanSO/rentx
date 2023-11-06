@@ -33,10 +33,13 @@ export class FinalizeRentalUseCase {
     }
 
     const car = await this.carsRepository.findById(rental.car.toString())
+
     const rentalDuration = dayjs(new Date()).diff(rental.startDate, 'day')
+    const extraDays = dayjs(new Date()).diff(rental.startDate, 'day')
+
     let rentalTotalValue = car.dailyRate * rentalDuration
 
-    if (dayjs(new Date()).diff(rental.startDate, 'day') > 0) {
+    if (extraDays > 0) {
       rentalTotalValue = rentalTotalValue + car.fineAmount
     }
 
