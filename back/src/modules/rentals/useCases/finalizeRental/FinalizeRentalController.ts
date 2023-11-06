@@ -5,10 +5,10 @@ import { FinalizeRentalUseCase } from './FinalizeRentalUseCase'
 export class FinalizeRentalController {
   async handle(req: Request, res: Response): Promise<Response> {
     const { rentalId } = req.params
-    console.log('rentalId', rentalId)
+    const { _id: userId } = req.user
 
     const finalizeRentalUseCase = container.resolve(FinalizeRentalUseCase)
-    await finalizeRentalUseCase.execute(rentalId)
+    await finalizeRentalUseCase.execute({ rentalId, userId })
 
     return res.status(200).json({
       success: true,

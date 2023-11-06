@@ -32,13 +32,18 @@ describe('Finalize rental', () => {
       transmission: 'auto',
     })
 
+    const userId = new Types.ObjectId().toString()
+
     const newRental = await mockRentalsRepository.create({
       carId: newCar._id.toString(),
       expectedReturnDate: dayjs().add(1, 'day').toDate(),
-      userId: new Types.ObjectId().toString(),
+      userId,
     })
 
-    await finalizeRentalUseCase.execute(newRental._id.toString())
+    await finalizeRentalUseCase.execute({
+      rentalId: newRental._id.toString(),
+      userId,
+    })
 
     const finalizedRental = await mockRentalsRepository.findById(
       newRental._id.toString(),
