@@ -7,6 +7,7 @@ import { Rental } from './interfaces/Rental'
 import { TableComponent } from '@/components/_ui/TableComponent'
 import { useColumns } from './hooks/useColumns'
 import { finalizeRentalService } from '@/services/rentals/finalizeRental/FinalizeRentalService'
+import { usePathname, useRouter } from 'next/navigation'
 
 export function Rentals() {
   const {
@@ -19,13 +20,35 @@ export function Rentals() {
   const [rentals, setRentals] = useState<Rental[]>([])
   const [loadingRentals, setLoadingRentals] = useState<boolean>(true)
   const columns = useColumns({ onFinalizeRental })
+  const router = useRouter()
+  const pathname = usePathname()
 
   function onFinalizeRental(rentalId: string) {
     setAlertConfirmConfigs({
       ...alertConfirmConfigs,
       open: true,
       onClickAgree: async () => {
-        await finalizeRentalService(rentalId)
+        finalizeRentalService(rentalId)
+          .then((res) => {
+            setAlertNotifyConfigs({
+              ...alertNotifyConfigs,
+              open: true,
+              text: 'Aluguel finalizado com sucesso',
+              type: 'success',
+            })
+
+            router.push(pathname)
+          })
+          .catch((err) => {
+            setAlertNotifyConfigs({
+              ...alertNotifyConfigs,
+              open: true,
+              text: `Erro ao tentar finalizar o aluguel - ${
+                err?.response?.data?.message || err?.message
+              }`,
+              type: 'error',
+            })
+          })
       },
       text: 'Tem certeza que deseja finalizar este aluguel?',
       title: 'Alerta de confirmação',

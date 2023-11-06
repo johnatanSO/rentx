@@ -67,6 +67,7 @@ export function Login() {
         <main>
           <CustomTextField
             label="E-mail"
+            type="email"
             className={style.input}
             value={authData.email}
             onChange={(event) => {
@@ -78,6 +79,7 @@ export function Login() {
           />
           <CustomTextField
             label="Senha"
+            type="password"
             className={style.input}
             value={authData.password}
             onChange={(event) => {

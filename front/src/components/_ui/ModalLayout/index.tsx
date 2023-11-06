@@ -15,6 +15,7 @@ interface Props {
   loading?: boolean
   customStyle?: any
 }
+
 export function ModalLayout({
   title,
   open,

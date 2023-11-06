@@ -16,7 +16,7 @@
   padding: 30px;
   gap: 25px;
 
-  background: $gray-color-100;
+  background: $white-color;
 }
 
 .title {
@@ -45,7 +45,6 @@
     border: none;
 
     color: $white-color;
-    box-shadow: 1px 2px 5px rgb(0 0 0 / 0.4);
 
     transition: filter 0.2s;
     cursor: pointer;

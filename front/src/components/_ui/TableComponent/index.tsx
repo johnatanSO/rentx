@@ -39,6 +39,7 @@ export function TableComponent({ columns, rows, loading }: Props) {
                         value: row[column.field],
                         data: row,
                       })}
+
                       {column?.cellRenderer?.({
                         value: row[column.field],
                         data: row,
@@ -49,6 +50,7 @@ export function TableComponent({ columns, rows, loading }: Props) {
               </tr>
             )
           })}
+
         {rows.length === 0 && !loading && (
           <tr>
             <td className={style.emptyCell} colSpan={columns.length}>

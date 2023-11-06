@@ -6,6 +6,7 @@ import style from '../Rentals.module.scss'
 import Image from 'next/image'
 import { CarImage } from '../interfaces/CarImage'
 import unknownCarImage from '../../../../../public/assets/images/cars/unknownCarImage.png'
+import { formatCurrency } from '@/utils/format'
 
 type Props = {
   onFinalizeRental: (rentalId: string) => void
@@ -73,19 +74,30 @@ export function useColumns({ onFinalizeRental }: Props) {
           : '--',
     },
     {
+      headerName: 'Valor total',
+      field: 'total',
+      valueFormatter: (params: CellFunctionParams<Rental>) =>
+        formatCurrency(params?.value || 0),
+    },
+    {
       headerName: '',
       field: 'returnCar',
-      valueFormatter: (params: CellFunctionParams<Rental>) => (
-        <button
-          onClick={() => {
-            onFinalizeRental(params.data._id)
-          }}
-          className={style.showDetailsButton}
-          type="button"
-        >
-          Devolver carro
-        </button>
-      ),
+      valueFormatter: (params: CellFunctionParams<Rental>) => {
+        if (!params.data.endDate) {
+          return (
+            <button
+              onClick={() => {
+                onFinalizeRental(params.data._id)
+              }}
+              className={style.showDetailsButton}
+              type="button"
+            >
+              Devolver carro
+            </button>
+          )
+        }
+        return <></>
+      },
     },
   ]
 }
