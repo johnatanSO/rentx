@@ -51,10 +51,12 @@ export class MockRentalsRepository implements IRentalsRepository {
       (rental) => rental._id.toString() === rentalId,
     )
 
-    this.rentals[rentalIndex] = {
-      ...this.rentals[rentalIndex],
-      total: totalValue,
-      endDate: new Date(),
+    if (rentalIndex !== -1) {
+      this.rentals[rentalIndex] = {
+        ...this.rentals[rentalIndex],
+        total: totalValue,
+        endDate: new Date(),
+      }
     }
   }
 }
