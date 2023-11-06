@@ -4,20 +4,24 @@ import { MockRentalsRepository } from './../../repositories/MockRentalsRepositor
 import { CreateRentalUseCase } from './CreateRentalUseCase'
 import dayjs from 'dayjs'
 import { DayjsDateProvider } from '../../../../shared/container/providers/DateProvider/DayjsDateProvider'
+import { MockCarsRepository } from '../../../cars/repositories/Cars/MockCarsRepository'
 
 let mockRentalsRepository: MockRentalsRepository
 
 let createRentalUseCase: CreateRentalUseCase
 let dayjsDateProvider: DayjsDateProvider
+let mockCarsRepository: MockCarsRepository
 
 describe('Create rental', () => {
   beforeEach(() => {
     mockRentalsRepository = new MockRentalsRepository()
     dayjsDateProvider = new DayjsDateProvider()
+    mockCarsRepository = new MockCarsRepository()
 
     createRentalUseCase = new CreateRentalUseCase(
       mockRentalsRepository,
       dayjsDateProvider,
+      mockCarsRepository,
     )
   })
 

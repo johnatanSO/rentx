@@ -58,6 +58,10 @@ export class MockCarsRepository implements ICarsRepository {
     })
   }
 
+  async listAll(): Promise<Car[]> {
+    return this.cars
+  }
+
   async findById(carId: string): Promise<Car> {
     return this.cars.find((car) => car._id.toString() === carId)
   }

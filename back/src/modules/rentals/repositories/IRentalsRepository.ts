@@ -12,5 +12,5 @@ export interface IRentalsRepository {
   findById(rentalId: string): Promise<Rental>
   create(createRentalData: ICreateRentalDTO): Promise<Rental>
   list(userId: string): Promise<Rental[]>
-  finalizeRental(rentalId: string, totalVale: number): Promise<void>
+  finalizeRental(rentalId: string, totalValue: number): Promise<void>
 }

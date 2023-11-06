@@ -12,7 +12,7 @@ export class MockRentalsRepository implements IRentalsRepository {
     const newRental = {
       _id: new Types.ObjectId(),
       userId: new Types.ObjectId(userId),
-      carId: new Types.ObjectId(carId),
+      car: new Types.ObjectId(carId),
       expectedReturnDate,
       startDate: new Date(),
       endDate: null,
@@ -28,7 +28,7 @@ export class MockRentalsRepository implements IRentalsRepository {
 
   async findOpenRentalByCar(carId: string): Promise<Rental> {
     return this.rentals.find(
-      (rental) => rental.carId.toString() === carId && !rental.endDate,
+      (rental) => rental.car.toString() === carId && !rental.endDate,
     )
   }
 
@@ -40,5 +40,21 @@ export class MockRentalsRepository implements IRentalsRepository {
 
   async list(userId: string): Promise<Rental[]> {
     return this.rentals.filter((rental) => rental.userId.toString() === userId)
+  }
+
+  async findById(rentalId: string): Promise<Rental> {
+    return this.rentals.find((rental) => rental._id.toString() === rentalId)
+  }
+
+  async finalizeRental(rentalId: string, totalValue: number): Promise<void> {
+    const rentalIndex = this.rentals.findIndex(
+      (rental) => rental._id.toString() === rentalId,
+    )
+
+    this.rentals[rentalIndex] = {
+      ...this.rentals[rentalIndex],
+      total: totalValue,
+      endDate: new Date(),
+    }
   }
 }
