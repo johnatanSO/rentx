@@ -57,7 +57,7 @@ export function Header() {
               className={getActiveMenu('rentals')}
             >
               <FontAwesomeIcon icon={faCircleInfo} />
-              <span>Alugueis</span>
+              <span>Meus alugueis</span>
             </li>
           )}
           <li
