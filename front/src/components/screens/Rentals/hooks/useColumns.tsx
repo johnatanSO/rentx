@@ -7,7 +7,11 @@ import Image from 'next/image'
 import { CarImage } from '../interfaces/CarImage'
 import unknownCarImage from '../../../../../public/assets/images/cars/unknownCarImage.png'
 
-export function useColumns() {
+type Props = {
+  onFinalizeRental: (rentalId: string) => void
+}
+
+export function useColumns({ onFinalizeRental }: Props) {
   function getCarImageUrl(images: CarImage[]) {
     if (images.length === 0) return unknownCarImage
 
@@ -70,10 +74,16 @@ export function useColumns() {
     },
     {
       headerName: '',
-      field: 'endDate',
+      field: 'returnCar',
       valueFormatter: (params: CellFunctionParams<Rental>) => (
-        <button className={style.showDetailsButton} type="button">
-          Ver detalhes
+        <button
+          onClick={() => {
+            onFinalizeRental(params.data._id)
+          }}
+          className={style.showDetailsButton}
+          type="button"
+        >
+          Devolver carro
         </button>
       ),
     },

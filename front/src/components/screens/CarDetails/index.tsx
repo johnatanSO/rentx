@@ -51,6 +51,9 @@ export function CarDetails({ car }: Props) {
       carId: car._id,
       expectedReturnDate,
     })
+      .then((res) => {
+        console.log('Aluguel cadastrado', res.data)
+      })
       .then(() => {
         router.push('/rentals')
       })

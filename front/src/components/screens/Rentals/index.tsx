@@ -6,13 +6,31 @@ import { AlertContext } from '@/contexts/alertContext'
 import { Rental } from './interfaces/Rental'
 import { TableComponent } from '@/components/_ui/TableComponent'
 import { useColumns } from './hooks/useColumns'
+import { finalizeRentalService } from '@/services/rentals/finalizeRental/FinalizeRentalService'
 
 export function Rentals() {
-  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
+  const {
+    alertNotifyConfigs,
+    setAlertNotifyConfigs,
+    alertConfirmConfigs,
+    setAlertConfirmConfigs,
+  } = useContext(AlertContext)
 
   const [rentals, setRentals] = useState<Rental[]>([])
   const [loadingRentals, setLoadingRentals] = useState<boolean>(true)
-  const columns = useColumns()
+  const columns = useColumns({ onFinalizeRental })
+
+  function onFinalizeRental(rentalId: string) {
+    setAlertConfirmConfigs({
+      ...alertConfirmConfigs,
+      open: true,
+      onClickAgree: async () => {
+        await finalizeRentalService(rentalId)
+      },
+      text: 'Tem certeza que deseja finalizar este aluguel?',
+      title: 'Alerta de confirmação',
+    })
+  }
 
   function getRentals() {
     setLoadingRentals(true)
