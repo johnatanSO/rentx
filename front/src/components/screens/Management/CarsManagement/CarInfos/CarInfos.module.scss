@@ -1,12 +1,72 @@
 @import "@/styles/colors";
 
+.header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  .backButton {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    
+
+    background: none;
+    border: none;
+    font-weight: 500;
+
+    cursor: pointer;
+    transition: filter 0.2s;
+
+    &:hover {
+      filter: brightness(0.8);
+    }
+  }
+}
+
 .listImages {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
 
   li {
-    border-radius: 15px;
-    width: 250px;
-    height: 180px;
+    border-radius: 20px;
+    width: 350px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: $white-color;
+
+    position: relative;
+
+    .image {
+      object-fit: contain;
+
+      height: 200px;
+      width: 100%;
+
+      transform: scale(0.65);
+    }
+
+    .removeImageButton {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+
+      color: $red-color-100;
+      background: none;
+      border: none;
+
+      font-size: 1.2rem;
+
+      cursor: pointer;
+      transition: filter 0.2s;
+
+      &:hover {
+        filter: brightness(0.8);
+      }
+    }
   }
 }

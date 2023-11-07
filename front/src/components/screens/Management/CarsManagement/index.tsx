@@ -50,18 +50,19 @@ export function CarsManagement() {
     <>
       <header className={style.header}>
         <h2>Carros</h2>
-        <button
-          onClick={handleOpenCreateNewCar}
-          className={style.createNewButton}
-          type="button"
-        >
-          Cadastrar novo
-        </button>
+
         <CustomTextField
           className={style.searchInput}
           label="Buscar pelo nome"
         />
       </header>
+      <button
+        onClick={handleOpenCreateNewCar}
+        className={style.createNewButton}
+        type="button"
+      >
+        Cadastrar novo
+      </button>
       <section className={style.tableSection}>
         <TableComponent columns={columns} rows={cars} loading={loadingCars} />
       </section>

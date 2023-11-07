@@ -6,10 +6,11 @@ import { CarImage } from './interfaces/CarImage'
 import unknownCarImage from '../../../../../../public/assets/images/cars/unknownCarImage.png'
 import style from './CarInfos.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faAngleLeft, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { removeCarImageService } from '@/services/cars/removeCarImage/RemoveCarImageService'
 import { useContext } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
+import { useRouter } from 'next/navigation'
 
 type Props = {
   car: Car
@@ -17,6 +18,9 @@ type Props = {
 
 export function CarInfos({ car }: Props) {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
+
+  const router = useRouter()
+
   function getCarImageUrl(carImage: CarImage) {
     if (!carImage) return unknownCarImage
 
@@ -52,7 +56,22 @@ export function CarInfos({ car }: Props) {
 
   return (
     <>
+      <header className={style.header}>
+        <button
+          className={style.backButton}
+          onClick={router.back}
+          type="button"
+        >
+          <FontAwesomeIcon icon={faAngleLeft} className={style.angleLeft} />
+          Voltar
+        </button>
+        <h2>
+          {car.name || 'Sem nome'} | {car.licensePlate}
+        </h2>
+      </header>
+
       <h3>Imagens</h3>
+
       <ul className={style.listImages}>
         <li>
           <Image
