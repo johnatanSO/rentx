@@ -2,10 +2,16 @@
 
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import style from './CreateNewCategory.module.scss'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useContext, useState } from 'react'
 import { NewCategory } from './interface/NewCategory'
+import { createCategoryService } from '@/services/category/createCategory/CreateCategoryService'
+import { AlertContext } from '@/contexts/alertContext'
+import { useRouter } from 'next/navigation'
+import { Loading } from '@/components/_ui/Loading'
 
 export function CreateNewCategory() {
+  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
+  const router = useRouter()
   const defaultValuesNewCategory = {
     name: '',
     description: '',
@@ -13,8 +19,43 @@ export function CreateNewCategory() {
   const [newCategoryData, setNewCategoryData] = useState<NewCategory>(
     defaultValuesNewCategory,
   )
+  const [loadingCreateNewCategory, setLoadingCreateNewCategory] =
+    useState<boolean>(false)
+
   function onCreateNewCategory(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+
+    setLoadingCreateNewCategory(true)
+
+    createCategoryService(newCategoryData)
+      .then((res) => {
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          open: true,
+          text: 'Categoria cadastrada com sucesso',
+          type: 'success',
+        })
+
+        router.back()
+      })
+      .catch((err) => {
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          open: true,
+          text: `Erro ao tentar cadastrar nova categoria - ${
+            err?.response?.data?.message || err?.message
+          }`,
+          type: 'error',
+        })
+        console.log(
+          `Erro ao tentar cadastrar nova categoria - ${
+            err?.response?.data?.message || err?.message
+          }`,
+        )
+      })
+      .finally(() => {
+        setLoadingCreateNewCategory(false)
+      })
   }
 
   return (
@@ -24,7 +65,7 @@ export function CreateNewCategory() {
         placeholder="Digite o nome"
         type="text"
         size="small"
-        label="Nome do carro"
+        label="Nome"
         value={newCategoryData.name}
         onChange={(event) => {
           setNewCategoryData({
@@ -46,6 +87,9 @@ export function CreateNewCategory() {
           })
         }}
       />
+      <button disabled={loadingCreateNewCategory} type="submit">
+        {loadingCreateNewCategory ? <Loading /> : 'Cadastrar'}
+      </button>
     </form>
   )
 }

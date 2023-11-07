@@ -1,4 +1,5 @@
 'use client'
+
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { MenuItem } from '@mui/material'
 import { FormEvent, useContext, useEffect, useState } from 'react'
@@ -8,13 +9,12 @@ import { getAllCategoriesService } from '@/services/category/getAllCategories/Ge
 import { AlertContext } from '@/contexts/alertContext'
 import style from './CreateNewCar.module.scss'
 import { createNewCarService } from '@/services/cars/createNewCar/CreateNewCarService'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { Loading } from '@/components/_ui/Loading'
 
 export function CreateNewCar() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
   const router = useRouter()
-  const pathname = usePathname()
   const defaultValuesNewCar = {
     name: '',
     description: '',
@@ -32,6 +32,9 @@ export function CreateNewCar() {
 
   function onCreateNewCar(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+
+    setLoadingCreateNewCar(true)
+
     createNewCarService(newCarData)
       .then((res) => {
         setAlertNotifyConfigs({
@@ -43,7 +46,7 @@ export function CreateNewCar() {
 
         setNewCarData(defaultValuesNewCar)
 
-        router.push(pathname)
+        router.back()
       })
       .catch((err) => {
         setAlertNotifyConfigs({
@@ -56,7 +59,7 @@ export function CreateNewCar() {
         })
       })
       .finally(() => {
-        setLoadingCreateNewCar(true)
+        setLoadingCreateNewCar(false)
       })
   }
 
@@ -205,7 +208,7 @@ export function CreateNewCar() {
         <MenuItem value="manual">Manual</MenuItem>
       </CustomTextField>
 
-      <button type="submit">
+      <button disabled={loadingCreateNewCar} type="submit">
         {loadingCreateNewCar ? <Loading /> : 'Cadastrar'}
       </button>
     </form>

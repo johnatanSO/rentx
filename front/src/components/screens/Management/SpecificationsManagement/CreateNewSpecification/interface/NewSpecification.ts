@@ -1,4 +1,4 @@
-export interface NewCategory {
+export interface NewSpecification {
   name: string
   description: string
 }

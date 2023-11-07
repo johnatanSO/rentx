@@ -1,5 +1,5 @@
 'use client'
-import style from './CategoriesManagement.module.scss'
+
 import { useState, useEffect, useContext } from 'react'
 import { TableComponent } from '@/components/_ui/TableComponent'
 import { Category } from './interfaces/Category'

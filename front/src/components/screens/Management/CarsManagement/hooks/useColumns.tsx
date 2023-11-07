@@ -5,6 +5,7 @@ import unknownCarImage from '../../../../../../public/assets/images/cars/unknown
 import { Car } from '../interfaces/Car'
 import style from '../CarsManagement.module.scss'
 import { formatCurrency } from '@/utils/format'
+import Link from 'next/link'
 
 export function useColumns() {
   function getCarImageUrl(images: CarImage[]) {
@@ -51,11 +52,14 @@ export function useColumns() {
     },
     {
       headerName: '',
-      field: 'avaliable',
+      field: 'actions',
       cellRenderer: (params: CellFunctionParams<Car>) => (
-        <button className={style.showDetailsButton} type="button">
+        <Link
+          href={`/management/cars/${params.data._id}`}
+          className={style.showDetailsButton}
+        >
           Ver detalhes
-        </button>
+        </Link>
       ),
     },
   ]
