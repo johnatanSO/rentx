@@ -23,4 +23,5 @@ export interface ICarsRepository {
   updateOne: (_id: string, fields: any) => Promise<void>
   addImage: (_id: string, imageId: string) => Promise<void>
   listAll: () => Promise<Car[]>
+  removeImage: (carId: string, imageId: string) => Promise<void>
 }

@@ -73,4 +73,8 @@ export class CarsRepository implements ICarsRepository {
     const allCars = await this.model.find().populate('specifications images')
     return allCars
   }
+
+  async removeImage(carId: string, imageId: string): Promise<void> {
+    await this.model.updateOne({ _id: carId }, { $pull: { images: imageId } })
+  }
 }

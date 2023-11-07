@@ -15,4 +15,8 @@ export class CarsImagesRepository implements ICarsImagesRepository {
     await newCarImage.save()
     return newCarImage
   }
+
+  async delete(imageId: string): Promise<void> {
+    await this.model.deleteOne({ _id: imageId })
+  }
 }
