@@ -45,6 +45,11 @@ export function CreateAccount() {
         router.push('/authenticate')
       })
       .catch((err) => {
+        console.log(
+          `Erro ao tentar realizar cadastro de usuário - ${
+            err?.response?.data?.message || err?.message
+          }`,
+        )
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
@@ -83,7 +88,7 @@ export function CreateAccount() {
           />
           <CustomTextField
             fullWidth
-            type="text"
+            type="email"
             label="E-mail"
             required
             className={style.input}
@@ -98,7 +103,7 @@ export function CreateAccount() {
           <div className={style.passwordContainer}>
             <CustomTextField
               fullWidth
-              type="text"
+              type="password"
               label="Senha"
               required
               className={style.input}
@@ -112,7 +117,7 @@ export function CreateAccount() {
             />
             <CustomTextField
               fullWidth
-              type="text"
+              type="password"
               label="Confirmar senha"
               required
               className={style.input}

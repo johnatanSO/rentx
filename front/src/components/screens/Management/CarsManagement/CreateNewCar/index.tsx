@@ -7,9 +7,14 @@ import { Category } from './interfaces/Category'
 import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
 import { AlertContext } from '@/contexts/alertContext'
 import style from './CreateNewCar.module.scss'
+import { createNewCarService } from '@/services/cars/createNewCar/CreateNewCarService'
+import { usePathname, useRouter } from 'next/navigation'
+import { Loading } from '@/components/_ui/Loading'
 
 export function CreateNewCar() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
+  const router = useRouter()
+  const pathname = usePathname()
   const defaultValuesNewCar = {
     name: '',
     description: '',
@@ -23,9 +28,36 @@ export function CreateNewCar() {
 
   const [newCarData, setNewCarData] = useState<NewCar>(defaultValuesNewCar)
   const [categoriesList, setCategoriesList] = useState<Category[]>([])
+  const [loadingCreateNewCar, setLoadingCreateNewCar] = useState<boolean>(false)
 
   function onCreateNewCar(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+    createNewCarService(newCarData)
+      .then((res) => {
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          open: true,
+          text: 'Carro cadastrado com sucesso',
+          type: 'success',
+        })
+
+        setNewCarData(defaultValuesNewCar)
+
+        router.push(pathname)
+      })
+      .catch((err) => {
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          open: true,
+          text: `Erro ao tentar cadastrar novo carro - ${
+            err?.reponse?.data?.message || err?.message
+          }`,
+          type: 'error',
+        })
+      })
+      .finally(() => {
+        setLoadingCreateNewCar(true)
+      })
   }
 
   function getCategoriesList() {
@@ -69,6 +101,8 @@ export function CreateNewCar() {
         placeholder="Digite a descrição"
         type="text"
         size="small"
+        multiline
+        rows={2}
         label="Descrição"
         value={newCarData.description}
         onChange={(event) => {
@@ -108,6 +142,7 @@ export function CreateNewCar() {
       <CustomTextField
         placeholder="Digite o valor da multa"
         type="number"
+        helperText="Valor da multa caso dia de retorno passe do dia esperado"
         size="small"
         label="Valor"
         value={newCarData.fineAmount}
@@ -169,6 +204,10 @@ export function CreateNewCar() {
         <MenuItem value="automatic">Automático</MenuItem>
         <MenuItem value="manual">Manual</MenuItem>
       </CustomTextField>
+
+      <button type="submit">
+        {loadingCreateNewCar ? <Loading /> : 'Cadastrar'}
+      </button>
     </form>
   )
 }
