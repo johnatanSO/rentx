@@ -11,6 +11,8 @@ import style from './CreateNewCar.module.scss'
 import { createNewCarService } from '@/services/cars/createNewCar/CreateNewCarService'
 import { useRouter } from 'next/navigation'
 import { Loading } from '@/components/_ui/Loading'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 export function CreateNewCar() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
@@ -94,7 +96,14 @@ export function CreateNewCar() {
           disabled={loadingCreateNewCar}
           type="submit"
         >
-          {loadingCreateNewCar ? <Loading /> : 'Finalizar'}
+          {loadingCreateNewCar ? (
+            <Loading />
+          ) : (
+            <>
+              Finalizar
+              <FontAwesomeIcon icon={faCheck} />
+            </>
+          )}
         </button>
       </header>
 

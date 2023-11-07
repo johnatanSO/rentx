@@ -17,7 +17,12 @@ type Props = {
 }
 
 export function CarInfos({ car }: Props) {
-  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
+  const {
+    alertNotifyConfigs,
+    setAlertNotifyConfigs,
+    alertConfirmConfigs,
+    setAlertConfirmConfigs,
+  } = useContext(AlertContext)
 
   const router = useRouter()
 
@@ -28,30 +33,38 @@ export function CarInfos({ car }: Props) {
   }
 
   function handleRemoveImage(imageId: string) {
-    removeCarImageService({ carId: car._id, imageId })
-      .then((res) => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: 'Imagem removida com sucesso',
-          type: 'success',
-        })
-      })
-      .catch((err) => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Erro ao tentar remover imagem - ${
-            err?.response?.data?.message || err?.message
-          }`,
-          type: 'success',
-        })
-        console.log(
-          `Erro ao tentar remover imagem - ${
-            err?.response?.data?.message || err?.message
-          }`,
-        )
-      })
+    setAlertConfirmConfigs({
+      ...alertConfirmConfigs,
+      open: true,
+      title: 'Alerta de confirmação',
+      text: 'Deseja realmente remover esta imagem?',
+      onClickAgree: async () => {
+        removeCarImageService({ carId: car._id, imageId })
+          .then((res) => {
+            setAlertNotifyConfigs({
+              ...alertNotifyConfigs,
+              open: true,
+              text: 'Imagem removida com sucesso',
+              type: 'success',
+            })
+          })
+          .catch((err) => {
+            setAlertNotifyConfigs({
+              ...alertNotifyConfigs,
+              open: true,
+              text: `Erro ao tentar remover imagem - ${
+                err?.response?.data?.message || err?.message
+              }`,
+              type: 'success',
+            })
+            console.log(
+              `Erro ao tentar remover imagem - ${
+                err?.response?.data?.message || err?.message
+              }`,
+            )
+          })
+      },
+    })
   }
 
   return (
