@@ -8,5 +8,11 @@ export function useColumns() {
       headerName: 'Nome',
       valueFormatter: (params: CellFunctionParams<Category>) => params.value,
     },
+    {
+      field: 'description',
+      headerName: 'Descrição',
+      valueFormatter: (params: CellFunctionParams<Category>) => params.value,
+      flex: 1,
+    },
   ]
 }

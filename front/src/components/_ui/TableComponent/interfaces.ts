@@ -11,4 +11,5 @@ export interface Column {
   valueFormatter?: (params: CellFunctionParams<any>) => any
   cellRenderer?: (params: CellFunctionParams<any>) => ReactNode
   cellClass?: (params: CellFunctionParams<any>) => string
+  flex?: number | string
 }

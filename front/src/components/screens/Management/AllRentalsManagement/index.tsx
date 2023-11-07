@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState, useContext } from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { TableComponent } from '@/components/_ui/TableComponent'
