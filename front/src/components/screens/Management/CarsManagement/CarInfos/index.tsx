@@ -70,55 +70,52 @@ export function CarInfos({ car }: Props) {
         </h2>
       </header>
 
-      <h3>Imagens</h3>
+      <section className={style.section}>
+        <h3>Imagens</h3>
 
-      <ul className={style.listImages}>
-        <li>
-          <Image
-            className={style.image}
-            alt="Car image"
-            width={500}
-            height={500}
-            src={getCarImageUrl(car.images[0])}
-          />
-          <button
-            onClick={() => {
-              handleRemoveImage(car.images[0]._id)
-            }}
-            className={style.removeImageButton}
-            type="button"
-          >
-            <FontAwesomeIcon className={style.icon} icon={faTrash} />
-          </button>
-        </li>
-        <li>
-          <Image
-            className={style.image}
-            alt="Car image"
-            width={500}
-            height={500}
-            src={getCarImageUrl(car.images[1])}
-          />
-        </li>
-        <li>
-          <Image
-            className={style.image}
-            alt="Car image"
-            width={500}
-            height={500}
-            src={getCarImageUrl(car.images[2])}
-          />
-        </li>
-        <li>
-          <Image
-            className={style.image}
-            alt="Car image"
-            width={500}
-            height={500}
-            src={getCarImageUrl(car.images[3])}
-          />
-        </li>
-      </ul>
+        <ul className={style.listImages}>
+          <li>
+            <Image
+              className={style.image}
+              alt="Car image"
+              width={400}
+              height={400}
+              src={getCarImageUrl(car.images[0])}
+            />
+            <button
+              onClick={() => {
+                handleRemoveImage(car.images[0]._id)
+              }}
+              className={style.removeImageButton}
+              type="button"
+            >
+              <FontAwesomeIcon className={style.icon} icon={faTrash} />
+            </button>
+          </li>
+          <li>
+            <Image
+              className={style.image}
+              alt="Car image"
+              width={400}
+              height={400}
+              src={getCarImageUrl(car.images[1])}
+            />
+          </li>
+          <li>
+            <Image
+              className={style.image}
+              alt="Car image"
+              width={400}
+              height={400}
+              src={getCarImageUrl(car.images[2])}
+            />
+          </li>
+        </ul>
+      </section>
+
+      <section className={style.section}>
+        <h3>Informações do carro</h3>
+      </section>
     </>
   )
 }

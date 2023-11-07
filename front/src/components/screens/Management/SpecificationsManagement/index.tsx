@@ -2,23 +2,24 @@
 import style from './SpecificationsManagement.module.scss'
 import { useState, useEffect, useContext } from 'react'
 import { TableComponent } from '@/components/_ui/TableComponent'
-import { Category } from './interfaces/Category'
-import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
 import { AlertContext } from '@/contexts/alertContext'
 import { useColumns } from './hooks/useColumns'
+import { listAllSpecificationsService } from '@/services/specifications/listAllSpecifications/ListAllSpecificationsService'
+import { Specification } from './interfaces/Specification'
 
 export function SpecificationsManagement() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-  const [categories, setCategories] = useState<Category[]>([])
-  const [loadingCategories, setLoadingCategories] = useState<boolean>(true)
+  const [specifications, setSpecifications] = useState<Specification[]>([])
+  const [loadingSpecifications, setLoadingSpecifications] =
+    useState<boolean>(true)
   const columns = useColumns()
 
-  function getCategories() {
-    setLoadingCategories(true)
+  function getSpecifications() {
+    setLoadingSpecifications(true)
 
-    getAllCategoriesService()
+    listAllSpecificationsService()
       .then((res) => {
-        setCategories(res.data.items)
+        setSpecifications(res.data.items)
       })
       .catch((err) => {
         setAlertNotifyConfigs({
@@ -31,19 +32,19 @@ export function SpecificationsManagement() {
         })
       })
       .finally(() => {
-        setLoadingCategories(false)
+        setLoadingSpecifications(false)
       })
   }
 
   useEffect(() => {
-    getCategories()
+    getSpecifications()
   }, [])
 
   return (
     <TableComponent
-      rows={categories}
+      rows={specifications}
       columns={columns}
-      loading={loadingCategories}
+      loading={loadingSpecifications}
     />
   )
 }
