@@ -1,1 +1,12 @@
-@import '@/styles/colors';
+@import "@/styles/colors";
+
+.listImages {
+  display: flex;
+  gap: 1rem;
+
+  li {
+    border-radius: 15px;
+    width: 250px;
+    height: 180px;
+  }
+}

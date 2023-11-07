@@ -12,7 +12,11 @@ export function useColumns() {
       field: 'description',
       headerName: 'Descrição',
       valueFormatter: (params: CellFunctionParams<Category>) => params.value,
-      flex: 1,
+    },
+    {
+      field: 'createdAt',
+      headerName: 'Data de cadastro',
+      valueFormatter: (params: CellFunctionParams<Category>) => params.value,
     },
   ]
 }
