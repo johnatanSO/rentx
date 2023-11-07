@@ -5,16 +5,49 @@ import { Car } from './interfaces/Car'
 import { CarImage } from './interfaces/CarImage'
 import unknownCarImage from '../../../../../../public/assets/images/cars/unknownCarImage.png'
 import style from './CarInfos.module.scss'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { removeCarImageService } from '@/services/cars/removeCarImage/RemoveCarImageService'
+import { useContext } from 'react'
+import { AlertContext } from '@/contexts/alertContext'
 
 type Props = {
   car: Car
 }
 
 export function CarInfos({ car }: Props) {
+  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
   function getCarImageUrl(carImage: CarImage) {
     if (!carImage) return unknownCarImage
 
     return process.env.NEXT_PUBLIC_END_POINT + carImage?.path
+  }
+
+  function handleRemoveImage(imageId: string) {
+    removeCarImageService({ carId: car._id, imageId })
+      .then((res) => {
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          open: true,
+          text: 'Imagem removida com sucesso',
+          type: 'success',
+        })
+      })
+      .catch((err) => {
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          open: true,
+          text: `Erro ao tentar remover imagem - ${
+            err?.response?.data?.message || err?.message
+          }`,
+          type: 'success',
+        })
+        console.log(
+          `Erro ao tentar remover imagem - ${
+            err?.response?.data?.message || err?.message
+          }`,
+        )
+      })
   }
 
   return (
@@ -29,6 +62,15 @@ export function CarInfos({ car }: Props) {
             height={500}
             src={getCarImageUrl(car.images[0])}
           />
+          <button
+            onClick={() => {
+              handleRemoveImage(car.images[0]._id)
+            }}
+            className={style.removeImageButton}
+            type="button"
+          >
+            <FontAwesomeIcon className={style.icon} icon={faTrash} />
+          </button>
         </li>
         <li>
           <Image
