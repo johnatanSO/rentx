@@ -86,131 +86,158 @@ export function CreateNewCar() {
 
   return (
     <form className={style.formContainer} onSubmit={onCreateNewCar}>
-      <h2>Cadastro de carro</h2>
-      <CustomTextField
-        placeholder="Digite o nome"
-        type="text"
-        size="small"
-        label="Nome do carro"
-        value={newCarData.name}
-        onChange={(event) => {
-          setNewCarData({
-            ...newCarData,
-            name: event?.target.value,
-          })
-        }}
-      />
-      <CustomTextField
-        placeholder="Digite a descrição"
-        type="text"
-        size="small"
-        multiline
-        rows={2}
-        label="Descrição"
-        value={newCarData.description}
-        onChange={(event) => {
-          setNewCarData({
-            ...newCarData,
-            description: event?.target.value,
-          })
-        }}
-      />
-      <CustomTextField
-        placeholder="Digite o valor da diária"
-        type="number"
-        size="small"
-        label="Valor"
-        value={newCarData.dailyRate}
-        onChange={(event) => {
-          const value = Number(event.target.value)
-          setNewCarData({
-            ...newCarData,
-            dailyRate: value,
-          })
-        }}
-      />
-      <CustomTextField
-        placeholder="Digite a placa"
-        type="text"
-        size="small"
-        label="Placa"
-        value={newCarData.licensePlate}
-        onChange={(event) => {
-          setNewCarData({
-            ...newCarData,
-            licensePlate: event?.target.value,
-          })
-        }}
-      />
-      <CustomTextField
-        placeholder="Digite o valor da multa"
-        type="number"
-        helperText="Valor da multa caso dia de retorno passe do dia esperado"
-        size="small"
-        label="Valor"
-        value={newCarData.fineAmount}
-        onChange={(event) => {
-          const value = Number(event.target.value)
-          setNewCarData({
-            ...newCarData,
-            fineAmount: value,
-          })
-        }}
-      />
-      <CustomTextField
-        placeholder="Digite a marca"
-        type="text"
-        size="small"
-        label="Marca"
-        value={newCarData.brand}
-        onChange={(event) => {
-          setNewCarData({
-            ...newCarData,
-            brand: event?.target.value,
-          })
-        }}
-      />
-      <CustomTextField
-        placeholder="Selecione a categoria"
-        select
-        size="small"
-        label="Categoria"
-        value={newCarData.categoryId}
-        onChange={(event) => {
-          setNewCarData({
-            ...newCarData,
-            categoryId: event.target.value,
-          })
-        }}
-      >
-        {categoriesList.map((category) => {
-          return (
-            <MenuItem key={category._id} value={category._id}>
-              {category.name}
-            </MenuItem>
-          )
-        })}
-      </CustomTextField>
-      <CustomTextField
-        placeholder="Selecione o tipo de transmissão"
-        select
-        size="small"
-        label="Transmissão"
-        value={newCarData.transmission}
-        onChange={(event) => {
-          setNewCarData({
-            ...newCarData,
-            transmission: event.target.value,
-          })
-        }}
-      >
-        <MenuItem value="automatic">Automático</MenuItem>
-        <MenuItem value="manual">Manual</MenuItem>
-      </CustomTextField>
+      <header className={style.header}>
+        <h2>Cadastro de um novo carro</h2>
 
-      <button disabled={loadingCreateNewCar} type="submit">
-        {loadingCreateNewCar ? <Loading /> : 'Cadastrar'}
-      </button>
+        <button
+          className={style.registerButton}
+          disabled={loadingCreateNewCar}
+          type="submit"
+        >
+          {loadingCreateNewCar ? <Loading /> : 'Finalizar'}
+        </button>
+      </header>
+
+      <section className={style.section}>
+        <h3>Informações</h3>
+
+        <div className={style.fields}>
+          <CustomTextField
+            className={style.input}
+            placeholder="Digite o nome"
+            type="text"
+            size="small"
+            label="Nome do carro"
+            value={newCarData.name}
+            onChange={(event) => {
+              setNewCarData({
+                ...newCarData,
+                name: event?.target.value,
+              })
+            }}
+          />
+
+          <CustomTextField
+            className={style.input}
+            placeholder="Digite a placa"
+            type="text"
+            size="small"
+            label="Placa"
+            value={newCarData.licensePlate}
+            onChange={(event) => {
+              setNewCarData({
+                ...newCarData,
+                licensePlate: event?.target.value,
+              })
+            }}
+          />
+
+          <CustomTextField
+            className={style.input}
+            placeholder="Digite o valor da diária"
+            type="number"
+            size="small"
+            label="Valor da diária"
+            value={newCarData.dailyRate}
+            onChange={(event) => {
+              const value = Number(event.target.value)
+              setNewCarData({
+                ...newCarData,
+                dailyRate: value,
+              })
+            }}
+          />
+
+          <CustomTextField
+            className={style.input}
+            placeholder="Digite o valor da multa"
+            type="number"
+            size="small"
+            label="Valor da multa"
+            value={newCarData.fineAmount}
+            onChange={(event) => {
+              const value = Number(event.target.value)
+              setNewCarData({
+                ...newCarData,
+                fineAmount: value,
+              })
+            }}
+          />
+          <CustomTextField
+            className={style.input}
+            placeholder="Digite a marca"
+            type="text"
+            size="small"
+            label="Marca"
+            value={newCarData.brand}
+            onChange={(event) => {
+              setNewCarData({
+                ...newCarData,
+                brand: event?.target.value,
+              })
+            }}
+          />
+
+          <CustomTextField
+            className={style.input}
+            placeholder="Selecione a categoria"
+            select
+            size="small"
+            label="Categoria"
+            value={newCarData.categoryId}
+            onChange={(event) => {
+              setNewCarData({
+                ...newCarData,
+                categoryId: event.target.value,
+              })
+            }}
+          >
+            {categoriesList.map((category) => {
+              return (
+                <MenuItem key={category._id} value={category._id}>
+                  {category.name}
+                </MenuItem>
+              )
+            })}
+          </CustomTextField>
+
+          <CustomTextField
+            className={style.input}
+            placeholder="Selecione o tipo de transmissão"
+            select
+            size="small"
+            label="Transmissão"
+            value={newCarData.transmission}
+            onChange={(event) => {
+              setNewCarData({
+                ...newCarData,
+                transmission: event.target.value,
+              })
+            }}
+          >
+            <MenuItem value="automatic">Automático</MenuItem>
+            <MenuItem value="manual">Manual</MenuItem>
+          </CustomTextField>
+
+          <CustomTextField
+            className={style.input}
+            placeholder="Escreva uma descrição para o carro"
+            type="text"
+            fullWidth
+            size="small"
+            multiline
+            rows={3}
+            label="Descrição"
+            value={newCarData.description}
+            onChange={(event) => {
+              setNewCarData({
+                ...newCarData,
+                description: event?.target.value,
+              })
+            }}
+          />
+        </div>
+      </section>
     </form>
   )
 }

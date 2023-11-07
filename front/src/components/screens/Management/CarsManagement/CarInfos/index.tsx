@@ -100,6 +100,15 @@ export function CarInfos({ car }: Props) {
               height={400}
               src={getCarImageUrl(car.images[1])}
             />
+            <button
+              onClick={() => {
+                handleRemoveImage(car.images[0]._id)
+              }}
+              className={style.removeImageButton}
+              type="button"
+            >
+              <FontAwesomeIcon className={style.icon} icon={faTrash} />
+            </button>
           </li>
           <li>
             <Image
@@ -109,6 +118,15 @@ export function CarInfos({ car }: Props) {
               height={400}
               src={getCarImageUrl(car.images[2])}
             />
+            <button
+              onClick={() => {
+                handleRemoveImage(car.images[0]._id)
+              }}
+              className={style.removeImageButton}
+              type="button"
+            >
+              <FontAwesomeIcon className={style.icon} icon={faTrash} />
+            </button>
           </li>
         </ul>
       </section>

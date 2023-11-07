@@ -1,2 +1,48 @@
-@import '@/styles/colors';
+@import "@/styles/colors";
 
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+
+  .registerButton {
+    margin-left: auto;
+
+    border-radius: 20px;
+    background: $green-color-100;
+    border: none;
+    color: $white-color;
+
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+
+    width: 170px;
+  }
+}
+
+.section {
+  padding: 2rem;
+  border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  background: $white-color;
+
+  .fields {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    .input {
+      min-width: 222px;
+    }
+  }
+}
