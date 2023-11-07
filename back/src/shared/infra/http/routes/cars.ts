@@ -10,6 +10,7 @@ import uploadConfig from '../../../../config/upload'
 import multer from 'multer'
 import { GetCarInfoController } from '../../../../modules/cars/useCases/Car/getCarInfo/GetCarInfoController'
 import { ListAllCarsController } from '../../../../modules/cars/useCases/Car/listAllCars/ListAllCarsController'
+import { RemoveCarImageController } from '../../../../modules/cars/useCases/Car/removeCarImage/RemoveCarImageController'
 
 const carsRoutes = Router()
 const upload = multer(uploadConfig.upload('./tmp/cars'))
@@ -19,6 +20,7 @@ const createCarSpecificationController = new CreateCarSpecificationController()
 const uploadCarImagesController = new UploadCarImagesController()
 const getCarInfoController = new GetCarInfoController()
 const listAllCarsController = new ListAllCarsController()
+const removeCarImageController = new RemoveCarImageController()
 
 carsRoutes.post(
   '/',
@@ -58,6 +60,13 @@ carsRoutes.post(
   ensureAdmin,
   upload.array('images'),
   uploadCarImagesController.handle,
+)
+
+carsRoutes.delete(
+  '/images/:carId/:imageId',
+  ensureAuthenticated,
+  ensureAdmin,
+  removeCarImageController.handle,
 )
 
 export { carsRoutes }
