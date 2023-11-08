@@ -6,6 +6,8 @@ import { AlertContext } from '@/contexts/alertContext'
 import { useColumns } from './hooks/useColumns'
 import { listAllSpecificationsService } from '@/services/specifications/listAllSpecifications/ListAllSpecificationsService'
 import { Specification } from './interfaces/Specification'
+import { CustomTextField } from '@/components/_ui/CustomTextField'
+import { CreateNewSpecification } from './CreateNewSpecification'
 
 export function SpecificationsManagement() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
@@ -41,10 +43,23 @@ export function SpecificationsManagement() {
   }, [])
 
   return (
-    <TableComponent
-      rows={specifications}
-      columns={columns}
-      loading={loadingSpecifications}
-    />
+    <>
+      <CreateNewSpecification />
+
+      <header className={style.header}>
+        <h2>Categorias</h2>
+        <CustomTextField
+          className={style.searchInput}
+          label="Buscar pelo nome"
+        />
+      </header>
+      <section className={style.tableSection}>
+        <TableComponent
+          rows={specifications}
+          columns={columns}
+          loading={loadingSpecifications}
+        />
+      </section>
+    </>
   )
 }

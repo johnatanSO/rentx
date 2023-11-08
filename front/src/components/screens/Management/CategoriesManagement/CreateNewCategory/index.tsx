@@ -6,12 +6,13 @@ import { FormEvent, useContext, useState } from 'react'
 import { NewCategory } from './interface/NewCategory'
 import { createCategoryService } from '@/services/category/createCategory/CreateCategoryService'
 import { AlertContext } from '@/contexts/alertContext'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { Loading } from '@/components/_ui/Loading'
 
 export function CreateNewCategory() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
   const router = useRouter()
+  const pathname = usePathname()
   const defaultValuesNewCategory = {
     name: '',
     description: '',
@@ -36,7 +37,7 @@ export function CreateNewCategory() {
           type: 'success',
         })
 
-        router.back()
+        router.push(pathname)
       })
       .catch((err) => {
         setAlertNotifyConfigs({

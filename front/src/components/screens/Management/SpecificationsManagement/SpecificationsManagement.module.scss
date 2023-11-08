@@ -1,1 +1,20 @@
-@import '@/styles/colors'
+@import "@/styles/colors";
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .searchInput {
+    margin-left: auto;
+    background: $white-color;
+    border-radius: 20px;
+  }
+}
+
+.tableSection {
+  background: $white-color;
+  border-radius: 20px;
+
+  padding: 2rem;
+}

@@ -6,12 +6,13 @@ import { FormEvent, useState, useContext } from 'react'
 import { NewSpecification } from './interface/NewSpecification'
 import { createSpecificationService } from '@/services/specifications/createSpecification/CreateSpecificationService'
 import { AlertContext } from '@/contexts/alertContext'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { Loading } from '@/components/_ui/Loading'
 
 export function CreateNewSpecification() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
   const router = useRouter()
+  const pathname = usePathname()
   const defaultValuesNewSpecification = {
     name: '',
     description: '',
@@ -35,7 +36,7 @@ export function CreateNewSpecification() {
           type: 'success',
         })
 
-        router.back()
+        router.push(pathname)
       })
       .catch((err) => {
         setAlertNotifyConfigs({
@@ -59,10 +60,10 @@ export function CreateNewSpecification() {
 
   return (
     <form className={style.formContainer} onSubmit={onCreateNewSpecification}>
-      <h2>Cadastro de carro</h2>
+      <h2>Nova especificação</h2>
 
       <CustomTextField
-        placeholder="Digite o nome da especificação"
+        placeholder="Digite o nome"
         type="text"
         size="small"
         label="Nome"
@@ -74,8 +75,10 @@ export function CreateNewSpecification() {
           })
         }}
       />
-
       <CustomTextField
+        multiline
+        rows={3}
+        fullWidth
         placeholder="Digite a descrição"
         type="text"
         size="small"
@@ -88,9 +91,8 @@ export function CreateNewSpecification() {
           })
         }}
       />
-
       <button disabled={loadingCreateNewSpecification} type="submit">
-        {loadingCreateNewSpecification ? <Loading /> : 'Cadastrar'}
+        {loadingCreateNewSpecification ? <Loading size={21} /> : 'Cadastrar'}
       </button>
     </form>
   )
