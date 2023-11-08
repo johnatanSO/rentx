@@ -72,6 +72,10 @@
         gap: 0.5rem;
 
         li {
+          background: $gray-color-100;
+          padding: 0.5rem 1rem;
+          border-radius: 15px;
+
           span {
             font-weight: 500;
             font-size: 0.785rem;

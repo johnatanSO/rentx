@@ -103,8 +103,13 @@ export function CarDetails({ car }: Props) {
               )
             })}
           </ul>
-          <p>{car.description}</p>- Descrição - Valor - Placa - Data
-          inicial/Data final - Descrição - Alugar
+
+          <p>Descrição {car.description}</p>
+
+          <p>Diária {car.dailyRate}</p>
+
+          <p>Placa {car.licensePlate}</p>
+
           <form onSubmit={onCreateNewRental}>
             <CustomTextField
               size="small"
