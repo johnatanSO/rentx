@@ -1,23 +1,23 @@
-<h1 align="center">🏫 Sistema Escolar</h1>
+<h1 align="center">🚗 Rentx</h1>
 
 <h3> 💻 Sobre o projeto</h3>
 
-<p>Esse é um sistema construído para auxiliar a administração de alunos de uma escola, feito com HTML, SASS, NextJS, Typescript/Javascript no FRONT END, Node, Express no BACK END e utilizando o MongoDB como banco de dados com a API Atlas MongoDB. </p>
+<p>Esse é um sistema construído para realizar/gerenciar os alugueis de carros de um estabelecimento, feito com NextJS 13, SASS, Javascript/Typescript no FRONT END e Node, Express no BACK END e utilizando o MongoDB como banco de dados. </p>
 
-<h3>📝 O sistema possui funcionalidades para o gerenciamento de:</h3>
- <li>Login/Cadastro de usuário;</li>
-<h4>Com a permissão de professor: </h4>
- <li>Cadastro e gerenciamento de alunos; </li>
- <li>Cadastro e gerenciamento de disciplinas com a opção de associar alunos a alguma disciplina; </li>
- <li>Gerenciamento de notas dos alunos;</li>
- <li>Gerenciamento de advertências;</li>
- <li>Gerenciamento de faltas (ainda em desenvolvimento...);</li>
- <br>
- <h5>Com a permissão de aluno: </h5>
- <li>Visualização de notas nas disciplinas; </li>
- <li>Visualização de advertências;</li>
- <li>Visualização de faltas (ainda em desenvolvimento...);</li>
- <br>
+<h3>📝 O sistema possui funcionalidades de:</h3>
+  <li>Login/Cadastro de usuário;</li>
+  <li>Listagem de carros disponíveis;</li>
+  <li>Tela com ;</li>
+
+<br />
+
+<h4>Com a permissão de administrador: </h4>
+  <li>Cadastro e gerenciamento de alunos; </li>
+  <li>Cadastro e gerenciamento de disciplinas com a opção de associar alunos a alguma disciplina; </li>
+  <li>Gerenciamento de notas dos alunos;</li>
+  <li>Gerenciamento de advertências;</li>
+  <li>Gerenciamento de faltas (ainda em desenvolvimento...);</li>
+ <br />
  
  <h2>🖼 Imagem da tela de login: </h2>
 <img width="80%" src="assets/images-for-show/screen-login.png">
