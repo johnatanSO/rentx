@@ -23,7 +23,7 @@ export class MockCarsRepository implements ICarsRepository {
       fineAmount,
       brand,
       transmission,
-      categoryId: new Types.ObjectId(categoryId),
+      category: new Types.ObjectId(categoryId),
       _id: new Types.ObjectId(),
       createdAt: new Date(),
       avaliable: true,
@@ -49,7 +49,7 @@ export class MockCarsRepository implements ICarsRepository {
       if (
         car.avaliable ||
         (brand && car.brand === brand) ||
-        (categoryId && car.categoryId.toString() === categoryId.toString()) ||
+        (categoryId && car.category.toString() === categoryId.toString()) ||
         (name && car.name === name)
       ) {
         return car
@@ -88,6 +88,20 @@ export class MockCarsRepository implements ICarsRepository {
           new Types.ObjectId(imageId),
         ],
       }
+    }
+  }
+
+  async removeImage(carId: string, imageId: string): Promise<void> {
+    const car = this.cars.find((car) => car._id.toString() === carId)
+    const newImages = car.images.filter(
+      (image) => image._id.toString() !== imageId,
+    )
+
+    const carIndex = this.cars.findIndex((car) => car._id.toString() === carId)
+
+    this.cars[carIndex] = {
+      ...this.cars[carIndex],
+      images: newImages.map((image) => image._id),
     }
   }
 }

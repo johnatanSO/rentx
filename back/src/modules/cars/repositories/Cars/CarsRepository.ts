@@ -25,7 +25,7 @@ export class CarsRepository implements ICarsRepository {
       licensePlate,
       fineAmount,
       brand,
-      categoryId,
+      category: categoryId,
       transmission,
     })
 
@@ -47,7 +47,7 @@ export class CarsRepository implements ICarsRepository {
       .find({
         avaliable: true,
         ...(brand ? { brand } : {}),
-        ...(categoryId ? { categoryId } : {}),
+        ...(categoryId ? { category: categoryId } : {}),
         ...(name ? { name } : {}),
       })
       .populate('specifications images')
@@ -58,7 +58,7 @@ export class CarsRepository implements ICarsRepository {
   async findById(carId: string): Promise<Car> {
     return await this.model
       .findOne({ _id: carId })
-      .populate('specifications images')
+      .populate('specifications images categories')
   }
 
   async updateOne(_id: string, fields: any): Promise<void> {
