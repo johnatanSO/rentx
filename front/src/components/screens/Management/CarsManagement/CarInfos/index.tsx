@@ -6,11 +6,16 @@ import { CarImage } from './interfaces/CarImage'
 import unknownCarImage from '../../../../../../public/assets/images/cars/unknownCarImage.png'
 import style from './CarInfos.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleLeft, faTrash } from '@fortawesome/free-solid-svg-icons'
+import {
+  faAngleLeft,
+  faCamera,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons'
 import { removeCarImageService } from '@/services/cars/removeCarImage/RemoveCarImageService'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import { updateCarImagesService } from '@/services/cars/updateCarImages/UpdateCarImagesService'
 
 type Props = {
   car: Car
@@ -25,6 +30,8 @@ export function CarInfos({ car }: Props) {
   } = useContext(AlertContext)
 
   const router = useRouter()
+  const pathname = usePathname()
+  const [carImage, setCarImage] = useState<any>(null)
 
   function getCarImageUrl(carImage: CarImage) {
     if (!carImage) return unknownCarImage
@@ -66,6 +73,35 @@ export function CarInfos({ car }: Props) {
       },
     })
   }
+
+  function handleAddImage() {
+    const inputFile = document.createElement('input')
+    inputFile.type = 'file'
+    inputFile.onchange = (event: any) => {
+      setCarImage(event.target.files[0])
+    }
+
+    inputFile.click()
+  }
+
+  useEffect(() => {
+    if (carImage) {
+      updateCarImagesService({ carImage, carId: car._id })
+        .then(() => {
+          router.push(pathname)
+        })
+        .catch((err) => {
+          setAlertNotifyConfigs({
+            ...alertNotifyConfigs,
+            open: true,
+            text: `Erro ao tentar adicionar imagem - ${
+              err?.response?.data?.message || err?.message
+            }`,
+            type: 'error',
+          })
+        })
+    }
+  }, [carImage])
 
   return (
     <>
@@ -142,6 +178,15 @@ export function CarInfos({ car }: Props) {
             </button>
           </li>
         </ul>
+
+        <button
+          className={style.addImageButton}
+          type="button"
+          onClick={handleAddImage}
+        >
+          <FontAwesomeIcon icon={faCamera} className={style.icon} />
+          Adicionar imagem
+        </button>
       </section>
 
       <section className={style.section}>

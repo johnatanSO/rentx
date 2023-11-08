@@ -9,18 +9,23 @@ type Props = {
 export function ListCars({ avaliableCars }: Props) {
   return (
     <ul className={style.listCarsContainer}>
-      {avaliableCars.map((car) => {
-        return (
-          <CarItem
-            key={car._id}
-            carId={car._id}
-            images={car.images}
-            name={car.name}
-            dailyRate={car.dailyRate}
-            specifications={car.specifications}
-          />
-        )
-      })}
+      {(!avaliableCars || avaliableCars.length === 0) && (
+        <p>Nenhum carro disponível</p>
+      )}
+
+      {avaliableCars.length > 0 &&
+        avaliableCars.map((car) => {
+          return (
+            <CarItem
+              key={car._id}
+              carId={car._id}
+              images={car.images}
+              name={car.name}
+              dailyRate={car.dailyRate}
+              specifications={car.specifications}
+            />
+          )
+        })}
     </ul>
   )
 }
