@@ -6,8 +6,8 @@ const http = axios.create({
 })
 
 http.interceptors.request.use(
-  (config: any) => {
-    const token = getTokenService()
+  async (config: any) => {
+    const token = await getTokenService()
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }

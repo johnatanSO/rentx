@@ -1,6 +1,6 @@
 'use client'
-import { getLocalUserService } from '@/services/user/getLocalUser/GetLocalUserService'
-import { ReactNode, createContext, useState, useEffect } from 'react'
+
+import { ReactNode, createContext, useState } from 'react'
 
 interface UserInfo {
   _id: string
