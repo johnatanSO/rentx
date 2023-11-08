@@ -60,7 +60,8 @@ export function CreateNewCategory() {
 
   return (
     <form className={style.formContainer} onSubmit={onCreateNewCategory}>
-      <h2>Cadastro de carro</h2>
+      <h2>Nova categoria</h2>
+
       <CustomTextField
         placeholder="Digite o nome"
         type="text"
@@ -75,6 +76,9 @@ export function CreateNewCategory() {
         }}
       />
       <CustomTextField
+        multiline
+        rows={3}
+        fullWidth
         placeholder="Digite a descrição"
         type="text"
         size="small"
@@ -88,7 +92,7 @@ export function CreateNewCategory() {
         }}
       />
       <button disabled={loadingCreateNewCategory} type="submit">
-        {loadingCreateNewCategory ? <Loading /> : 'Cadastrar'}
+        {loadingCreateNewCategory ? <Loading size={21} /> : 'Cadastrar'}
       </button>
     </form>
   )
