@@ -52,6 +52,7 @@ export function CategoriesManagement() {
           label="Buscar pelo nome"
         />
       </header>
+
       <section className={style.tableSection}>
         <TableComponent
           rows={categories}

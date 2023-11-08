@@ -190,7 +190,13 @@ export function CarInfos({ car }: Props) {
       </section>
 
       <section className={style.section}>
-        <h3>Informações do carro</h3>
+        <h2>Especificações</h2>
+
+        <ul>
+          {car.specifications.map((specification) => {
+            return <li key={specification._id}>{specification.name || '--'}</li>
+          })}
+        </ul>
       </section>
     </>
   )
