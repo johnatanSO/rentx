@@ -9,11 +9,11 @@ export class RentalsRepository implements IRentalsRepository {
   }
 
   async findOpenRentalByCar(carId: string): Promise<Rental> {
-    return await this.model.findOne({ car: carId })
+    return await this.model.findOne({ car: carId, endDate: null })
   }
 
   async findOpenRentalByUser(userId: string): Promise<Rental> {
-    return await this.model.findOne({ userId })
+    return await this.model.findOne({ userId, endDate: null })
   }
 
   async create({
