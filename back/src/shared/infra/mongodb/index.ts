@@ -4,7 +4,7 @@ dotenv.config()
 
 const MONGO_USERNAME = process.env.MONGO_USERNAME
 const MONGO_PASSWORD = process.env.MONGO_PASSWORD
-const mongoURL = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@clusterreactnative0.ct2fmit.mongodb.net/?retryWrites=true&w=majority`
+const mongoURL = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@cluster-rentx.ubhltyo.mongodb.net/`
 
 mongoose.connect(mongoURL)
 mongoose.connection
