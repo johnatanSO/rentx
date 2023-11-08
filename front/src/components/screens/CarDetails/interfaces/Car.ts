@@ -8,5 +8,9 @@ export interface Car {
   dailyRate: number
   specifications: Specification[]
   description: string
-  categoryId: string
+  category: {
+    _id: string
+    name: string
+    description: string
+  }
 }

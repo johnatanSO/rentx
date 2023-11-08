@@ -85,15 +85,15 @@ export function CarDetails({ car }: Props) {
         <div className={style.carImageContainer}>
           <Image
             className={style.carImage}
-            width={500}
-            height={600}
+            width={1280}
+            height={720}
             src={getImageUrl(car.images)}
             alt="Imagem do carro"
           />
         </div>
 
         <div className={style.infosContainer}>
-          <span className={style.categoryTag}>{car.categoryId}</span>
+          <span className={style.categoryTag}>{car.category.name}</span>
           <ul className={style.specificationsList}>
             {car.specifications.map((specification) => {
               return (
