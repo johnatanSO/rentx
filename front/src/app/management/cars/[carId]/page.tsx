@@ -9,6 +9,7 @@ type PageProps = {
 
 export default async function CarDetailsPage({ params }: PageProps) {
   const { data } = await getCarDetailsService(params.carId)
+
   const car = data.item
 
   return <CarInfos car={car} />

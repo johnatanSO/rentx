@@ -5,10 +5,10 @@ interface IRequest {
   carId: string
 }
 
-export function updateCarImagesService({ carImage, carId }: IRequest) {
+export async function updateCarImagesService({ carImage, carId }: IRequest) {
   const formData = new FormData()
 
-  formData.append('images', JSON.stringify([carImage]))
+  formData.append('images', carImage)
 
-  return http.post('/cars/images/' + carId, formData)
+  return await http.patch(`/cars/images/${carId}`, formData)
 }

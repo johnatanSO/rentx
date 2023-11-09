@@ -14,7 +14,7 @@ export function CarsManagement() {
   const router = useRouter()
   const pathname = usePathname()
   const [cars, setCars] = useState<Car[]>([])
-  const [loadingCars, setLoadingCars] = useState<boolean>(false)
+  const [loadingCars, setLoadingCars] = useState<boolean>(true)
   const columns = useColumns()
 
   async function getCars() {
@@ -27,7 +27,7 @@ export function CarsManagement() {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar realizar login - ${
+          text: `Erro ao buscar carros - ${
             err?.response?.data?.message || err?.message
           }`,
           type: 'error',

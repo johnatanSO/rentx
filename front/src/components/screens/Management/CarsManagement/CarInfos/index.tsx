@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faAngleLeft,
   faCamera,
+  faPlus,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons'
 import { removeCarImageService } from '@/services/cars/removeCarImage/RemoveCarImageService'
@@ -54,6 +55,8 @@ export function CarInfos({ car }: Props) {
               text: 'Imagem removida com sucesso',
               type: 'success',
             })
+
+            router.push(pathname)
           })
           .catch((err) => {
             setAlertNotifyConfigs({
@@ -74,7 +77,7 @@ export function CarInfos({ car }: Props) {
     })
   }
 
-  function handleAddImage() {
+  function handleSetImage() {
     const inputFile = document.createElement('input')
     inputFile.type = 'file'
     inputFile.onchange = (event: any) => {
@@ -84,22 +87,30 @@ export function CarInfos({ car }: Props) {
     inputFile.click()
   }
 
+  function updateImage() {
+    updateCarImagesService({ carImage, carId: car._id })
+      .then(() => {
+        router.push(pathname)
+      })
+      .catch((err) => {
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          open: true,
+          text: `Erro ao tentar adicionar imagem - ${
+            err?.response?.data?.message || err?.message
+          }`,
+          type: 'error',
+        })
+      })
+  }
+
+  function hanadleAddSpecification() {
+    console.log('a')
+  }
+
   useEffect(() => {
     if (carImage) {
-      updateCarImagesService({ carImage, carId: car._id })
-        .then(() => {
-          router.push(pathname)
-        })
-        .catch((err) => {
-          setAlertNotifyConfigs({
-            ...alertNotifyConfigs,
-            open: true,
-            text: `Erro ao tentar adicionar imagem - ${
-              err?.response?.data?.message || err?.message
-            }`,
-            type: 'error',
-          })
-        })
+      updateImage()
     }
   }, [carImage])
 
@@ -120,7 +131,17 @@ export function CarInfos({ car }: Props) {
       </header>
 
       <section className={style.section}>
-        <h3>Imagens</h3>
+        <header>
+          <h3>Imagens</h3>
+          <button
+            className={style.addImageButton}
+            type="button"
+            onClick={handleSetImage}
+          >
+            <FontAwesomeIcon icon={faCamera} className={style.icon} />
+            Adicionar imagem
+          </button>
+        </header>
 
         <ul className={style.listImages}>
           <li>
@@ -131,15 +152,17 @@ export function CarInfos({ car }: Props) {
               height={400}
               src={getCarImageUrl(car.images[0])}
             />
-            <button
-              onClick={() => {
-                handleRemoveImage(car.images[0]._id)
-              }}
-              className={style.removeImageButton}
-              type="button"
-            >
-              <FontAwesomeIcon className={style.icon} icon={faTrash} />
-            </button>
+            {car.images[0] && (
+              <button
+                onClick={() => {
+                  handleRemoveImage(car.images[0]._id)
+                }}
+                className={style.removeImageButton}
+                type="button"
+              >
+                <FontAwesomeIcon className={style.icon} icon={faTrash} />
+              </button>
+            )}
           </li>
           <li>
             <Image
@@ -149,15 +172,17 @@ export function CarInfos({ car }: Props) {
               height={400}
               src={getCarImageUrl(car.images[1])}
             />
-            <button
-              onClick={() => {
-                handleRemoveImage(car.images[0]._id)
-              }}
-              className={style.removeImageButton}
-              type="button"
-            >
-              <FontAwesomeIcon className={style.icon} icon={faTrash} />
-            </button>
+            {car.images[1] && (
+              <button
+                onClick={() => {
+                  handleRemoveImage(car.images[0]._id)
+                }}
+                className={style.removeImageButton}
+                type="button"
+              >
+                <FontAwesomeIcon className={style.icon} icon={faTrash} />
+              </button>
+            )}
           </li>
           <li>
             <Image
@@ -167,30 +192,33 @@ export function CarInfos({ car }: Props) {
               height={400}
               src={getCarImageUrl(car.images[2])}
             />
-            <button
-              onClick={() => {
-                handleRemoveImage(car.images[0]._id)
-              }}
-              className={style.removeImageButton}
-              type="button"
-            >
-              <FontAwesomeIcon className={style.icon} icon={faTrash} />
-            </button>
+            {car.images[2] && (
+              <button
+                onClick={() => {
+                  handleRemoveImage(car.images[0]._id)
+                }}
+                className={style.removeImageButton}
+                type="button"
+              >
+                <FontAwesomeIcon className={style.icon} icon={faTrash} />
+              </button>
+            )}
           </li>
         </ul>
-
-        <button
-          className={style.addImageButton}
-          type="button"
-          onClick={handleAddImage}
-        >
-          <FontAwesomeIcon icon={faCamera} className={style.icon} />
-          Adicionar imagem
-        </button>
       </section>
 
       <section className={style.section}>
-        <h2>Especificações</h2>
+        <header>
+          <h3>Especificações</h3>
+          <button
+            className={style.addImageButton}
+            type="button"
+            onClick={hanadleAddSpecification}
+          >
+            <FontAwesomeIcon icon={faPlus} className={style.icon} />
+            Adicionar especificação
+          </button>
+        </header>
 
         <ul>
           {car.specifications.map((specification) => {

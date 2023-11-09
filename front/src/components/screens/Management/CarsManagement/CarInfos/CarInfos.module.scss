@@ -9,7 +9,6 @@
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    
 
     background: none;
     border: none;
@@ -33,7 +32,12 @@
 
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.4rem;
+
+  header {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .listImages {
@@ -53,6 +57,8 @@
 
     border: 1px solid $gray-color-100;
 
+    cursor: pointer;
+
     .image {
       object-fit: contain;
 
@@ -66,6 +72,7 @@
       position: absolute;
       top: 15px;
       right: 15px;
+      display: none;
 
       color: $red-color-100;
       background: none;
@@ -75,10 +82,54 @@
 
       cursor: pointer;
       transition: filter 0.2s;
+      animation: fadeIn 0.2s;
 
       &:hover {
         filter: brightness(0.8);
       }
     }
+
+    &:hover {
+      .removeImageButton {
+        display: block;
+      }
+    }
+  }
+}
+
+.addImageButton {
+  background: none;
+  border-radius: 20px;
+  border: 1px solid $green-color-100;
+  color: $green-color-100;
+
+  font-size: 0.875rem;
+  font-weight: 500;
+
+  padding: 0.6rem 1rem;
+  margin-left: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+
+  &:not(:disabled):hover {
+    background: $green-color-100;
+    color: $white-color;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

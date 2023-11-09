@@ -97,7 +97,7 @@ export function CreateNewCar() {
           type="submit"
         >
           {loadingCreateNewCar ? (
-            <Loading />
+            <Loading size={21} />
           ) : (
             <>
               Finalizar
