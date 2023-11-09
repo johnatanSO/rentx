@@ -221,9 +221,17 @@ export function CarInfos({ car }: Props) {
         </header>
 
         <ul>
-          {car.specifications.map((specification) => {
-            return <li key={specification._id}>{specification.name || '--'}</li>
-          })}
+          {car.specifications.length > 0 &&
+            car.specifications.map((specification) => {
+              return (
+                <li key={specification._id}>{specification.name || '--'}</li>
+              )
+            })}
+          {car.specifications.length === 0 && (
+            <li>
+              <p>Nenhuma especificação encontrada</p>
+            </li>
+          )}
         </ul>
       </section>
     </>
