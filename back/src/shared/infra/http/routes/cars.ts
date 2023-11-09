@@ -54,7 +54,7 @@ carsRoutes.post(
   createCarSpecificationController.handle,
 )
 
-carsRoutes.post(
+carsRoutes.patch(
   '/images/:carId',
   ensureAuthenticated,
   ensureAdmin,

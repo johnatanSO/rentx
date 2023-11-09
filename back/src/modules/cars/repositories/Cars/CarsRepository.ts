@@ -58,7 +58,7 @@ export class CarsRepository implements ICarsRepository {
   async findById(carId: string): Promise<Car> {
     return await this.model
       .findOne({ _id: carId })
-      .populate('specifications images categories')
+      .populate('specifications images category')
   }
 
   async updateOne(_id: string, fields: any): Promise<void> {
