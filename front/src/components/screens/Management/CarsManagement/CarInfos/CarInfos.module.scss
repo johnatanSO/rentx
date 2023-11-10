@@ -54,6 +54,7 @@
     justify-content: center;
 
     position: relative;
+    
 
     border: 1px solid $gray-color-100;
 
@@ -90,6 +91,14 @@
     }
 
     &:hover {
+      &::after {
+        content: '';
+
+        position: fixed;
+        inset: 0;
+        
+        background: rgba(0 0 0 / 0.2);
+      }
       .removeImageButton {
         display: block;
       }
