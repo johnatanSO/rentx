@@ -15,7 +15,7 @@ describe('List all rentals', () => {
   })
 
   it('Should be able list all rentals', async () => {
-    const newRental = await mockRentalsRepository.create({
+    await mockRentalsRepository.create({
       carId: new Types.ObjectId().toString(),
       expectedReturnDate: dayjs().add(1, 'day').toDate(),
       userId: new Types.ObjectId().toString(),
