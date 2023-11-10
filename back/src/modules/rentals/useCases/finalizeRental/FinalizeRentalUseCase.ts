@@ -31,6 +31,7 @@ export class FinalizeRentalUseCase {
     if (rental.userId.toString() !== userId) {
       throw new AppError('O aluguel não pertence à este usuário')
     }
+    if (rental.endDate) throw new AppError('Aluguel já foi finalizado')
 
     const car = await this.carsRepository.findById(rental.car.toString())
 
