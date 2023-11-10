@@ -80,6 +80,10 @@ export function CarDetails({ car }: Props) {
     return expectedValue || 0
   }
 
+  function getLengthDays() {
+    return dayjs(expectedReturnDate).diff(new Date(), 'day')
+  }
+
   return (
     <section className={style.carDetailsContainer}>
       <header className={style.titleContainer}>
@@ -114,9 +118,11 @@ export function CarDetails({ car }: Props) {
 
           <p>Descrição {car.description}</p>
 
-          <p>Diária {car.dailyRate}</p>
-
           <p>Placa {car.licensePlate}</p>
+
+          <h5>Diária {car.dailyRate}</h5>
+
+          <h5>Quantidade de dias {getLengthDays()}</h5>
 
           <div className={style.valueContainer}>
             <h4>{formatCurrency(getExpectedValue())}</h4>
