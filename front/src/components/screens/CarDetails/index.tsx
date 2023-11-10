@@ -15,6 +15,7 @@ import dayjs from 'dayjs'
 import { AlertContext } from '@/contexts/alertContext'
 import { Loading } from '@/components/_ui/Loading'
 import { getLocalUserService } from '@/services/user/getLocalUser/GetLocalUserService'
+import { formatCurrency } from '@/utils/format'
 
 type Props = {
   car: Car
@@ -72,6 +73,13 @@ export function CarDetails({ car }: Props) {
       })
   }
 
+  function getExpectedValue() {
+    const duration = dayjs(expectedReturnDate).diff(new Date(), 'day')
+    const expectedValue = car.dailyRate * duration
+
+    return expectedValue || 0
+  }
+
   return (
     <section className={style.carDetailsContainer}>
       <header className={style.titleContainer}>
@@ -109,6 +117,8 @@ export function CarDetails({ car }: Props) {
           <p>Diária {car.dailyRate}</p>
 
           <p>Placa {car.licensePlate}</p>
+
+          <h4>{formatCurrency(getExpectedValue())}</h4>
 
           <form onSubmit={onCreateNewRental}>
             <CustomTextField
