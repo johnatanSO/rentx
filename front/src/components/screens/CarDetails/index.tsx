@@ -118,7 +118,13 @@ export function CarDetails({ car }: Props) {
 
           <p>Placa {car.licensePlate}</p>
 
-          <h4>{formatCurrency(getExpectedValue())}</h4>
+          <div className={style.valueContainer}>
+            <h4>{formatCurrency(getExpectedValue())}</h4>
+            <span className={style.alertText}>
+              *Caso aconteça atraso na data de retorno, será cobrado uma multa
+              no valor de {formatCurrency(car.fineAmount || 0)}
+            </span>
+          </div>
 
           <form onSubmit={onCreateNewRental}>
             <CustomTextField

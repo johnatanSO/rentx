@@ -6,6 +6,7 @@ export interface Car {
   name: string
   images: CarImage[]
   dailyRate: number
+  fineAmount: number
   specifications: Specification[]
   description: string
   licensePlate: string
