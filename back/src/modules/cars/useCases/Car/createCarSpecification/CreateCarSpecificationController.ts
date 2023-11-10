@@ -18,7 +18,7 @@ export class CreateCarSpecificationController {
 
     return res.status(201).json({
       success: true,
-      title: 'Especificação registrada com sucesso',
+      title: 'Especificações registrada com sucesso',
     })
   }
 }
