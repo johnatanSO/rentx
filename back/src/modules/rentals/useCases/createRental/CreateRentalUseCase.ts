@@ -50,17 +50,17 @@ export class CreateRentalUseCase {
 
     const dateNow = this.dateProvider.dateNow()
 
+    const expectedReturnDateEndDay =
+      this.dateProvider.endDay(expectedReturnDate)
+
     const compare = this.dateProvider.compareInHours(
       dateNow,
-      expectedReturnDate,
+      expectedReturnDateEndDay,
     )
 
     if (compare < minimumHour) {
       throw new AppError('Duração do aluguel deve ter no mínimo 24 horas')
     }
-
-    const expectedReturnDateEndDay =
-      this.dateProvider.endDay(expectedReturnDate)
 
     const newRental = await this.rentalsRepository.create({
       userId,
