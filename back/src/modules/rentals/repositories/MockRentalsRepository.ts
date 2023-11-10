@@ -39,7 +39,12 @@ export class MockRentalsRepository implements IRentalsRepository {
   }
 
   async list(userId: string): Promise<Rental[]> {
-    return this.rentals.filter((rental) => rental.userId.toString() === userId)
+    if (userId) {
+      return this.rentals.filter(
+        (rental) => rental.userId.toString() === userId,
+      )
+    }
+    return this.rentals
   }
 
   async findById(rentalId: string): Promise<Rental> {
