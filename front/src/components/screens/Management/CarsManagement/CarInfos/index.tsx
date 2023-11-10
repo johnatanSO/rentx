@@ -17,6 +17,7 @@ import { useContext, useEffect, useState } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
 import { usePathname, useRouter } from 'next/navigation'
 import { updateCarImagesService } from '@/services/cars/updateCarImages/UpdateCarImagesService'
+import { createCarSpecificationService } from '@/services/cars/createCarSpecification/CreateCarSpecificationService'
 
 type Props = {
   car: Car
@@ -106,6 +107,28 @@ export function CarInfos({ car }: Props) {
 
   function hanadleAddSpecification() {
     console.log('a')
+    createCarSpecificationService({
+      carId: car._id,
+      specificationsIds: [],
+    })
+      .then(() => {
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          open: true,
+          text: `Especificações adicionadas com sucesso`,
+          type: 'success',
+        })
+      })
+      .catch((err) => {
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          open: true,
+          text: `Erro ao tentar adicionar especificações - ${
+            err?.response?.data?.message || err?.message
+          }`,
+          type: 'error',
+        })
+      })
   }
 
   useEffect(() => {
