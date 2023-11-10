@@ -2,21 +2,25 @@
 
 <h3> 💻 Sobre o projeto</h3>
 
-<p>Esse é um sistema construído para realizar/gerenciar os alugueis de carros de um estabelecimento, feito com NextJS 13, SASS, Javascript/Typescript no FRONT END e Node, Express no BACK END e utilizando o MongoDB como banco de dados. </p>
+<p>Esse é um sistema construído para realizar/gerenciar os alugueis de carros de um estabelecimento, feito com NextJS 13, SASS, Javascript/Typescript no FRONT END e Node, Express, JWT, Bcrypt no BACK END e utilizando o MongoDB como banco de dados. </p>
 
-<h3>📝 O sistema possui funcionalidades de:</h3>
-  <li>Login/Cadastro de usuário;</li>
-  <li>Listagem de carros disponíveis;</li>
-  <li>Tela com ;</li>
-
+<h3>📝 O sistema possui funcionalidades de: </h3>
+  <h4>(Usuário comum)</h4>
+  <ul>
+    <li>Login/Cadastro de usuário;</li>
+    <li>Listagem de carros disponíveis para aluguel;</li>
+    <li>Tela com informações do carro escolhido e opção de realizar o aluguel do carro;</li>
+    <li>Listagem e gerenciamento de alugueis realizados e em andamento;</li>
+  </ul>
 <br />
 
-<h4>Com a permissão de administrador: </h4>
-  <li>Cadastro e gerenciamento de alunos; </li>
-  <li>Cadastro e gerenciamento de disciplinas com a opção de associar alunos a alguma disciplina; </li>
-  <li>Gerenciamento de notas dos alunos;</li>
-  <li>Gerenciamento de advertências;</li>
-  <li>Gerenciamento de faltas (ainda em desenvolvimento...);</li>
+  <h4>(Usuário administrador)</h4>
+  <ul>
+    <li>Cadastro e gerenciamento de todos os carros, disponíveis ou indisponíveis;</li>
+    <li>Cadastro e gerenciamento de categorias; </li>
+    <li>Cadastro e gerenciamento de especificações; </li>
+    <li>Gerenciamento de todos os alugueis; </li>
+  </ul>
  <br />
  
  <h2>🖼 Imagem da tela de login: </h2>
@@ -43,7 +47,7 @@
   <img align="center" alt="John-Express" height="50" width="50" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original.svg">
   <img align="center" alt="John-MongoDB" height="50" width="50" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg">
 </div>
-<p>(HTML, SASS, NextJS, Typescsript/Javascript, Node, Express, MongoDB, JWT, BCRYPT)</p>
+<p>(NextJS, SASS, Typescsript/Javascript, Node, Express, MongoDB, JWT, BCRYPT)</p>
 <br>
 <h2>👷 Como testar? </h2>
 <h3>Entre com o seguinte link: </h3>
