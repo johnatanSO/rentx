@@ -93,7 +93,7 @@ export function Login() {
 
         <footer>
           <button disabled={loadingAuthUser} type="submit">
-            {loadingAuthUser ? <Loading size={22} /> : 'Entrar'}
+            {loadingAuthUser ? <Loading size={21} /> : 'Entrar'}
           </button>
           <Link className={style.createAccountLink} href="/register">
             Criar conta

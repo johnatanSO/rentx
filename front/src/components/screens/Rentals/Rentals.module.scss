@@ -47,3 +47,21 @@
     cursor: pointer;
   }
 }
+
+.statusFinalized,
+.statusInProgress {
+  color: $white-color;
+
+  font-weight: 500;
+  font-size: 0.875rem;
+
+  border-radius: 20px;
+  padding: 0.6rem 1rem;
+}
+
+.statusInProgress {
+  background: $blue-color-400;
+}
+.statusFinalized {
+  background: $green-color-100;
+}

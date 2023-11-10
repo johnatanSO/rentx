@@ -112,7 +112,7 @@ export function CarDetails({ car }: Props) {
 
           <form onSubmit={onCreateNewRental}>
             <CustomTextField
-              size="small"
+              size="medium"
               type="date"
               InputLabelProps={{ shrink: true }}
               label="Data de devolução"

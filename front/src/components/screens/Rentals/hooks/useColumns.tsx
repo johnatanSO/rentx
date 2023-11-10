@@ -19,6 +19,11 @@ export function useColumns({ onFinalizeRental }: Props) {
     return process.env.NEXT_PUBLIC_END_POINT + images[0]?.path
   }
 
+  function getStatusTag(finalized: string) {
+    if (finalized) return style.statusFinalized
+    return style.statusInProgress
+  }
+
   return [
     {
       headerName: 'Carro',
@@ -59,10 +64,12 @@ export function useColumns({ onFinalizeRental }: Props) {
     {
       headerName: 'Status',
       field: 'endDate',
-      valueFormatter: (params: CellFunctionParams<Rental>) => {
-        if (!params.value) return 'Em andamento'
-
-        return 'Finalizado'
+      cellRenderer: (params: CellFunctionParams<Rental>) => {
+        return (
+          <span className={getStatusTag(params.value)}>
+            {!params.value ? 'Em andamento' : 'Finalizado'}
+          </span>
+        )
       },
     },
     {

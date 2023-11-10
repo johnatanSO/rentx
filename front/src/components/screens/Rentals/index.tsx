@@ -21,7 +21,6 @@ export function Rentals() {
   const [loadingRentals, setLoadingRentals] = useState<boolean>(true)
   const columns = useColumns({ onFinalizeRental })
   const router = useRouter()
-  const pathname = usePathname()
 
   function onFinalizeRental(rentalId: string) {
     setAlertConfirmConfigs({
@@ -37,7 +36,7 @@ export function Rentals() {
               type: 'success',
             })
 
-            router.push(pathname)
+            router.push('/rentals')
           })
           .catch((err) => {
             setAlertNotifyConfigs({
