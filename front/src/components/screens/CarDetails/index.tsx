@@ -74,14 +74,16 @@ export function CarDetails({ car }: Props) {
   }
 
   function getExpectedValue() {
-    const duration = dayjs(expectedReturnDate).diff(new Date(), 'day')
+    const expectedReturnDateEndDay = dayjs(expectedReturnDate).endOf('day')
+    const duration = dayjs(expectedReturnDateEndDay).diff(new Date(), 'day')
     const expectedValue = car.dailyRate * duration
 
     return expectedValue || 0
   }
 
   function getLengthDays() {
-    return dayjs(expectedReturnDate).diff(new Date(), 'day')
+    const expectedReturnDateEndDay = dayjs(expectedReturnDate).endOf('day')
+    return dayjs(expectedReturnDateEndDay).diff(new Date(), 'day')
   }
 
   return (
@@ -107,25 +109,27 @@ export function CarDetails({ car }: Props) {
         <div className={style.infosContainer}>
           <span className={style.categoryTag}>{car.category.name}</span>
           <ul className={style.specificationsList}>
-            {car.specifications.map((specification) => {
-              return (
-                <li key={specification._id}>
-                  <span>{specification.name}</span>
-                </li>
-              )
-            })}
+            {car.specifications.length > 0 &&
+              car.specifications.map((specification) => {
+                return (
+                  <li key={specification._id}>
+                    <span>{specification.name}</span>
+                  </li>
+                )
+              })}
           </ul>
+          {car.specifications.length === 0 && <p>Carro sem especificações</p>}
 
-          <p>Descrição {car.description}</p>
+          <p>{car.description}</p>
 
-          <p>Placa {car.licensePlate}</p>
+          <h5>Placa {car.licensePlate}</h5>
 
-          <h5>Diária {car.dailyRate}</h5>
+          <h5>Diária {formatCurrency(car.dailyRate || 0)}</h5>
 
           <h5>Quantidade de dias {getLengthDays()}</h5>
 
           <div className={style.valueContainer}>
-            <h4>{formatCurrency(getExpectedValue())}</h4>
+            <h4>Valor previsto {formatCurrency(getExpectedValue())}</h4>
             <span className={style.alertText}>
               *Caso aconteça atraso na data de retorno, será cobrado uma multa
               no valor de {formatCurrency(car.fineAmount || 0)}

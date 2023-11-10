@@ -54,9 +54,9 @@
     .infosContainer {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 2rem;
 
-      padding: 1.5rem;
+      padding: 0rem 1.5rem;
 
       .categoryTag {
         background: $gray-color-100;
@@ -64,6 +64,10 @@
 
         font-weight: 500;
         font-size: 0.875rem;
+        align-self: self-start;
+        padding: 0.3rem 0.9rem;
+
+        border-radius: 20px;
       }
 
       .specificationsList {
@@ -86,6 +90,7 @@
       form {
         display: flex;
         gap: 1rem;
+        margin-top: auto;
 
         input,
         button {
@@ -120,7 +125,7 @@
 }
 
 .alertText {
-  color: $red-color-100;
+  color: $gray-color-300;
   font-size: 0.785rem;
   font-weight: 400;
 }
