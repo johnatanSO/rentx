@@ -53,9 +53,13 @@ export function CarDetails({ car }: Props) {
       expectedReturnDate,
     })
       .then((res) => {
-        console.log('Aluguel cadastrado', res.data)
-      })
-      .then(() => {
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          open: true,
+          text: `Aluguel cadastrado com sucesso`,
+          type: 'success',
+        })
+
         router.push('/rentals')
       })
       .catch((err) => {

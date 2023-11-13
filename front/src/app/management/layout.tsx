@@ -6,7 +6,7 @@ import '@/styles/global.scss'
 
 export const metadata = {
   title: 'Gestão',
-  description: 'Seção de gestão do sistema',
+  description: 'Área para gestão do sistema',
 }
 
 type Props = {
