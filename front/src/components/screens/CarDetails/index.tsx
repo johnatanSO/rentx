@@ -52,7 +52,7 @@ export function CarDetails({ car }: Props) {
       carId: car._id,
       expectedReturnDate,
     })
-      .then((res) => {
+      .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
