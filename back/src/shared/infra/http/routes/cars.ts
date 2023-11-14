@@ -11,7 +11,7 @@ import multer from 'multer'
 import { GetCarInfoController } from '../../../../modules/cars/useCases/Car/getCarInfo/GetCarInfoController'
 import { ListAllCarsController } from '../../../../modules/cars/useCases/Car/listAllCars/ListAllCarsController'
 import { RemoveCarImageController } from '../../../../modules/cars/useCases/Car/removeCarImage/RemoveCarImageController'
-import { FavoriteCarController } from '../../../../modules/cars/useCases/Car/favoriteCar/FavoriteCarController'
+import { FavoriteCarController } from '../../../../modules/accounts/useCases/User/favoriteCar/FavoriteCarController'
 
 const carsRoutes = Router()
 const upload = multer(uploadConfig.upload('./tmp/cars'))

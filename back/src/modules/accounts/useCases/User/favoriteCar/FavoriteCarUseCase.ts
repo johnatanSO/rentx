@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe'
-import { IUsersRepository } from '../../../../accounts/repositories/Users/IUsersRepository'
+import { IUsersRepository } from '../../../repositories/Users/IUsersRepository'
 import { AppError } from '../../../../../shared/errors/AppError'
-import { IUser } from '../../../../accounts/infra/mongoose/entities/User'
+import { IUser } from '../../../infra/mongoose/entities/User'
 
 interface IRequest {
   carId: string
@@ -24,7 +24,7 @@ export class FavoriteCarUseCase {
     )
     if (carAlreadyFavorited) {
       await this.usersRepository.removeFavoritedCar(carId, userId)
-      return
+      return await this.usersRepository.findById(userId)
     }
 
     await this.usersRepository.addCarToFavorite(carId, userId)
