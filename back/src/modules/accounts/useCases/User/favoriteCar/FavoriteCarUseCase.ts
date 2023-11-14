@@ -24,10 +24,12 @@ export class FavoriteCarUseCase {
     )
     if (carAlreadyFavorited) {
       await this.usersRepository.removeFavoritedCar(carId, userId)
-      return await this.usersRepository.findById(userId)
+    } else {
+      await this.usersRepository.addCarToFavorite(carId, userId)
     }
 
-    await this.usersRepository.addCarToFavorite(carId, userId)
-    return await this.usersRepository.findById(userId)
+    const updatedUser = await this.usersRepository.findById(userId)
+
+    return updatedUser
   }
 }
