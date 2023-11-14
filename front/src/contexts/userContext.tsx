@@ -2,12 +2,17 @@
 
 import { ReactNode, createContext, useState } from 'react'
 
+interface Car {
+  _id: string
+}
+
 interface UserInfo {
   _id: string
   name: string
   email: string
   isAdmin: boolean
   avatar: string
+  favoriteCars: Car[]
 }
 
 interface UserContextComponentProps {

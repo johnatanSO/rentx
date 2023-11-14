@@ -1,4 +1,5 @@
 'use client'
+import { useContext } from 'react'
 import Image from 'next/image'
 import style from './CarItem.module.scss'
 import { CarImage } from '../../interfaces/CarImage'
@@ -7,8 +8,16 @@ import { formatCurrency } from '@/utils/format'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookmark } from '@fortawesome/free-regular-svg-icons'
-import { faArrowsRotate, faDroplet } from '@fortawesome/free-solid-svg-icons'
+import {
+  faArrowsRotate,
+  faBookBookmark,
+  faDroplet,
+} from '@fortawesome/free-solid-svg-icons'
 import { Specification } from '../../interfaces/Specification'
+import { favoriteCarService } from '@/services/cars/favoriteCar/FavoriteCarService'
+import { AlertContext } from '@/contexts/alertContext'
+import { saveLocalUserService } from '@/services/user/saveLocalUser/SaveLocalUserService'
+import { UserContext } from '@/contexts/userContext'
 
 type Props = {
   images: CarImage[]
@@ -25,10 +34,36 @@ export function CarItem({
   carId,
   specifications,
 }: Props) {
+  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
+  const { userInfo, setUserInfo } = useContext(UserContext)
+
+  const favorited = userInfo?.favoriteCars.find((car) => car._id === carId)
+
   function getImageUrl(images: CarImage[]) {
     if (images.length === 0) return unknownCarImage
 
     return process.env.NEXT_PUBLIC_END_POINT + images[0]?.path
+  }
+
+  function favoriteCar(carId: string) {
+    favoriteCarService(carId)
+      .then((res) => {
+        saveLocalUserService(res.data.user)
+        setUserInfo({
+          ...userInfo,
+          ...res.data.user,
+        })
+      })
+      .catch((err) => {
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          open: true,
+          text: `Erro ao tentar favoritar o carro - ${
+            err?.response?.data?.message || err?.message
+          }`,
+          type: 'error',
+        })
+      })
   }
 
   return (
@@ -51,7 +86,13 @@ export function CarItem({
             <span className={style.specificationText}>Sem expecificações</span>
           )}
         </div>
-        <FontAwesomeIcon className={style.bookmarkIcon} icon={faBookmark} />
+        <FontAwesomeIcon
+          onClick={() => {
+            favoriteCar(carId)
+          }}
+          className={style.bookmarkIcon}
+          icon={favorited ? faBookBookmark : faBookmark}
+        />
       </header>
 
       <Link href={`/cars/${carId}`}>

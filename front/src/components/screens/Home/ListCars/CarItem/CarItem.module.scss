@@ -29,17 +29,18 @@
     }
 
     .bookmarkIcon {
-      cursor: pointer;
-      transition: background-color 0.2s;
       padding: 0.4rem 0.5rem;
       border-radius: 50%;
 
+      cursor: pointer;
+      transition: background-color 0.2s;
+
       &:hover {
-        background: $gray-color-200;
+        background: $gray-color-100;
       }
     }
   }
-  
+
   main {
     display: flex;
     justify-content: center;
