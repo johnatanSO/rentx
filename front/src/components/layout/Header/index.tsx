@@ -6,6 +6,7 @@ import {
   faCircleInfo,
   faAddressCard,
   faGears,
+  faBookmark,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useState, useEffect } from 'react'
@@ -50,15 +51,26 @@ export function Header() {
             <span>Home</span>
           </li>
           {userInfo && (
-            <li
-              onClick={() => {
-                handleChangeMenuItem('rentals')
-              }}
-              className={getActiveMenu('rentals')}
-            >
-              <FontAwesomeIcon icon={faCircleInfo} />
-              <span>Meus alugueis</span>
-            </li>
+            <>
+              <li
+                onClick={() => {
+                  handleChangeMenuItem('rentals')
+                }}
+                className={getActiveMenu('rentals')}
+              >
+                <FontAwesomeIcon icon={faCircleInfo} />
+                <span>Meus alugueis</span>
+              </li>
+              <li
+                onClick={() => {
+                  handleChangeMenuItem('favoriteds')
+                }}
+                className={getActiveMenu('favoriteds')}
+              >
+                <FontAwesomeIcon icon={faBookmark} />
+                <span>Carros favoritos</span>
+              </li>
+            </>
           )}
           <li
             onClick={() => {
