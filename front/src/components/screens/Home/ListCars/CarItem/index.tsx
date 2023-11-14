@@ -7,12 +7,13 @@ import unknownCarImage from '../../../../../../public/assets/images/cars/unknown
 import { formatCurrency } from '@/utils/format'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBookmark } from '@fortawesome/free-regular-svg-icons'
+import { faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons'
 import {
+  faBookmark as faBookmarkSolid,
   faArrowsRotate,
-  faBookBookmark,
   faDroplet,
 } from '@fortawesome/free-solid-svg-icons'
+
 import { Specification } from '../../interfaces/Specification'
 import { favoriteCarService } from '@/services/cars/favoriteCar/FavoriteCarService'
 import { AlertContext } from '@/contexts/alertContext'
@@ -37,7 +38,9 @@ export function CarItem({
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
   const { userInfo, setUserInfo } = useContext(UserContext)
 
-  const favorited = userInfo?.favoriteCars.find((car) => car._id === carId)
+  const favorited = userInfo
+    ? userInfo?.favoriteCars?.find((car) => car._id === carId)
+    : false
 
   function getImageUrl(images: CarImage[]) {
     if (images.length === 0) return unknownCarImage
@@ -91,7 +94,7 @@ export function CarItem({
             favoriteCar(carId)
           }}
           className={style.bookmarkIcon}
-          icon={favorited ? faBookBookmark : faBookmark}
+          icon={favorited ? faBookmarkSolid : faBookmarkRegular}
         />
       </header>
 
