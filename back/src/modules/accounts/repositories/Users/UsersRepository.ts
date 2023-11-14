@@ -34,11 +34,25 @@ export class UsersRepository implements IUsersRepository {
   }
 
   async findById(_id: string): Promise<IUser> {
-    const user = await this.model.findOne({ _id })
+    const user = (await this.model.findOne({ _id })).populate('favoriteCars')
     return user
   }
 
   async update(filters: any, updateFields: any): Promise<void> {
     await this.model.updateMany(filters, updateFields)
+  }
+
+  async addCarToFavorite(carId: string, userId: string): Promise<void> {
+    await this.model.updateMany(
+      { _id: userId },
+      { $push: { favoriteCars: carId } },
+    )
+  }
+
+  async removeFavoritedCar(carId: string, userId: string): Promise<void> {
+    await this.model.updateMany(
+      { _id: userId },
+      { $pull: { favoriteCars: carId } },
+    )
   }
 }

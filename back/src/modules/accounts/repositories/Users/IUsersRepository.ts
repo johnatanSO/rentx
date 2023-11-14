@@ -13,4 +13,6 @@ export interface IUsersRepository {
   findByEmail: (email: string) => Promise<IUser>
   findById: (_id: string) => Promise<IUser>
   update: (filters: any, updateFields: any) => Promise<void>
+  addCarToFavorite: (carId: string, userId: string) => Promise<void>
+  removeFavoritedCar: (carId: string, userId: string) => Promise<void>
 }
