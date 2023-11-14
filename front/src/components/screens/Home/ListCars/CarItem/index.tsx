@@ -54,8 +54,8 @@ export function CarItem({
         <FontAwesomeIcon className={style.bookmarkIcon} icon={faBookmark} />
       </header>
 
-      <main>
-        <Link href={`/cars/${carId}`}>
+      <Link href={`/cars/${carId}`}>
+        <main>
           <Image
             className={style.carImage}
             width={400}
@@ -63,8 +63,8 @@ export function CarItem({
             alt="Imagem do carro"
             src={getImageUrl(images)}
           />
-        </Link>
-      </main>
+        </main>
+      </Link>
 
       <footer>
         <span>
