@@ -9,6 +9,8 @@ import { faCamera } from '@fortawesome/free-solid-svg-icons'
 import { UserContext } from '@/contexts/userContext'
 import { AlertContext } from '@/contexts/alertContext'
 import { updateUserInfosService } from '@/services/user/updateUserInfos/UpdateUserInfosService'
+import { NewValuesUserInfos } from './interfaces/NewValuesUserInfos'
+import { CustomTextField } from '../../CustomTextField'
 
 type Props = {
   open: boolean
@@ -22,10 +24,11 @@ export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
   const [loadingUpdateUserInfos, setLoadingUpdateUserInfos] =
     useState<boolean>(false)
   const [editMode, setEditMode] = useState<boolean>(false)
+  const [newValuesUserInfos, setNewValuesUserInfos] = useState<any>(userInfo)
 
   function onUpdateUserInfos(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    updateUserInfosService({ name: '', email: '' })
+    updateUserInfosService({ name: '', email: '', isAdmin: false })
       .then((res) => {
         console.log('res', res)
         setUserInfo({
@@ -110,8 +113,39 @@ export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
             Editar
           </button>
         </header>
-        <h5>{userInfo?.name || '--'}</h5>
-        <h5>{userInfo?.email || '--'}</h5>
+        {editMode ? (
+          <CustomTextField
+            required
+            label="Nome"
+            placeholder="Digite um nome"
+            value={newValuesUserInfos?.name}
+            onChange={(event) => {
+              setNewValuesUserInfos({
+                ...newValuesUserInfos,
+                name: event.target.value,
+              })
+            }}
+          />
+        ) : (
+          <h5>{userInfo?.name || '--'}</h5>
+        )}
+
+        {editMode ? (
+          <CustomTextField
+            required
+            label="E-mail"
+            placeholder="Digite o e-mail"
+            value={newValuesUserInfos?.email}
+            onChange={(event) => {
+              setNewValuesUserInfos({
+                ...newValuesUserInfos,
+                email: event.target.value,
+              })
+            }}
+          />
+        ) : (
+          <h5>{userInfo?.email || '--'}</h5>
+        )}
       </section>
     </ModalLayout>
   )
