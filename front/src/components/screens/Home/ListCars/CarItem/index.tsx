@@ -17,7 +17,6 @@ import {
 import { Specification } from '../../interfaces/Specification'
 import { favoriteCarService } from '@/services/cars/favoriteCar/FavoriteCarService'
 import { AlertContext } from '@/contexts/alertContext'
-import { saveLocalUserService } from '@/services/user/saveLocalUser/SaveLocalUserService'
 import { UserContext } from '@/contexts/userContext'
 
 type Props = {
@@ -39,7 +38,7 @@ export function CarItem({
   const { userInfo, setUserInfo } = useContext(UserContext)
 
   const favorited = userInfo
-    ? userInfo?.favoriteCars?.find((car) => car._id === carId)
+    ? !!userInfo?.favoriteCars?.find((car) => car._id === carId)
     : false
 
   function getImageUrl(images: CarImage[]) {
@@ -51,7 +50,6 @@ export function CarItem({
   function favoriteCar(carId: string) {
     favoriteCarService(carId)
       .then((res) => {
-        saveLocalUserService(res.data.user)
         setUserInfo({
           ...userInfo,
           ...res.data.user,

@@ -9,11 +9,12 @@ import { authenticateUserService } from '@/services/user/authenticateUser/Authen
 import { AlertContext } from '@/contexts/alertContext'
 import { useRouter } from 'next/navigation'
 import { saveTokenService } from '@/services/token/saveToken/SaveTokenService'
-import { saveLocalUserService } from '@/services/user/saveLocalUser/SaveLocalUserService'
 import { Loading } from '@/components/_ui/Loading'
+import { UserContext } from '@/contexts/userContext'
 
 export function Login() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
+  const { userInfo, setUserInfo } = useContext(UserContext)
 
   const defaultValuesAuthData = {
     email: '',
@@ -32,7 +33,10 @@ export function Login() {
     authenticateUserService(authData)
       .then((res) => {
         saveTokenService(res.data.token)
-        saveLocalUserService({ userData: res.data.user })
+        setUserInfo({
+          ...userInfo,
+          ...res.data.user,
+        })
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,

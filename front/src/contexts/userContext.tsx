@@ -1,6 +1,8 @@
 'use client'
 
-import { ReactNode, createContext, useState } from 'react'
+import { getLocalUserService } from '@/services/user/getLocalUser/GetLocalUserService'
+import { saveLocalUserService } from '@/services/user/saveLocalUser/SaveLocalUserService'
+import { ReactNode, createContext, useState, useEffect } from 'react'
 
 interface Car {
   _id: string
@@ -34,6 +36,17 @@ export function UserContextComponent({
   const [userInfo, setUserInfo] = useState<UserInfo | null>(
     serverUserInfo || null,
   )
+
+  async function saveUserHandler(updatedInfos: any) {
+    const localUser: any = await getLocalUserService()
+    saveLocalUserService({
+      userData: { ...localUser, ...updatedInfos },
+    })
+  }
+
+  useEffect(() => {
+    saveUserHandler(userInfo)
+  }, [userInfo])
 
   return (
     <UserContext.Provider
