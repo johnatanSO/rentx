@@ -33,7 +33,6 @@ export function CarInfos({ car }: Props) {
 
   const router = useRouter()
   const pathname = usePathname()
-  const [carImage, setCarImage] = useState<any>(null)
 
   function getCarImageUrl(carImage: CarImage) {
     if (!carImage) return unknownCarImage
@@ -82,13 +81,13 @@ export function CarInfos({ car }: Props) {
     const inputFile = document.createElement('input')
     inputFile.type = 'file'
     inputFile.onchange = (event: any) => {
-      setCarImage(event.target.files[0])
+      updateImage(event.target.files[0])
     }
 
     inputFile.click()
   }
 
-  function updateImage() {
+  function updateImage(carImage: any) {
     updateCarImagesService({ carImage, carId: car._id })
       .then(() => {
         router.push(pathname)
@@ -106,7 +105,6 @@ export function CarInfos({ car }: Props) {
   }
 
   function hanadleAddSpecification() {
-    console.log('a')
     createCarSpecificationService({
       carId: car._id,
       specificationsIds: [],
@@ -130,12 +128,6 @@ export function CarInfos({ car }: Props) {
         })
       })
   }
-
-  useEffect(() => {
-    if (carImage) {
-      updateImage()
-    }
-  }, [carImage])
 
   return (
     <>

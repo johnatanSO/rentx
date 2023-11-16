@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Avatar, Menu, MenuItem } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import { useContext, useState } from 'react'
+import { ModalAccountConfigs } from './ModalAccountConfigs'
 
 type Props = {
   direction?: string
@@ -18,6 +19,8 @@ export function CustomAvatar({ direction }: Props) {
   const { userInfo, setUserInfo } = useContext(UserContext)
   const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
+  const [modalAccountConfigsOpened, setModalAccountConfigsOpened] =
+    useState<boolean>(false)
 
   const avatarURL = userInfo?.avatar
     ? process.env.NEXT_PUBLIC_END_POINT + userInfo?.avatar
@@ -49,6 +52,7 @@ export function CustomAvatar({ direction }: Props) {
         alt={userInfo?.name}
         src={avatarURL}
       />
+
       <Menu
         anchorEl={anchorEl}
         open={!!anchorEl}
@@ -86,7 +90,7 @@ export function CustomAvatar({ direction }: Props) {
       >
         <MenuItem
           onClick={() => {
-            router.push('/management/account')
+            setModalAccountConfigsOpened(true)
             handleCloseMenu()
           }}
           className={style.menuItem}
@@ -100,6 +104,14 @@ export function CustomAvatar({ direction }: Props) {
           <span>Sair</span>
         </MenuItem>
       </Menu>
+
+      <ModalAccountConfigs
+        open={modalAccountConfigsOpened}
+        avatarURL={avatarURL}
+        handleClose={() => {
+          setModalAccountConfigsOpened(false)
+        }}
+      />
     </>
   )
 }

@@ -1,0 +1,41 @@
+@import "@/styles/colors";
+
+.section {
+  border-bottom: 1px solid $gray-color-200;
+}
+
+.avatarSection {
+  @extend .section;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  .updateAvatarButton {
+    background: none;
+    border-radius: 20px;
+    border: 1px solid $green-color-100;
+    color: $green-color-100;
+
+    font-size: 0.875rem;
+    font-weight: 500;
+
+    padding: 0.6rem 1rem;
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+
+    cursor: pointer;
+    transition:
+      background-color 0.2s,
+      color 0.2s;
+
+    &:not(:disabled):hover {
+      background: $green-color-100;
+      color: $white-color;
+    }
+  }
+}
