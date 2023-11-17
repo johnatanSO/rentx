@@ -34,7 +34,12 @@ export class UsersRepository implements IUsersRepository {
   }
 
   async findById(_id: string): Promise<IUser> {
-    const user = (await this.model.findOne({ _id })).populate('favoriteCars')
+    const user = await this.model.findOne({ _id }).populate({
+      path: 'favoriteCars',
+      populate: {
+        path: 'images',
+      },
+    })
     return user
   }
 
