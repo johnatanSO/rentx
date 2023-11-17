@@ -1,8 +1,5 @@
-import { Favoriteds } from '@/components/screens/Favoriteds'
-import { getLocalUserService } from '@/services/user/getLocalUser/GetLocalUserService'
+import { FavoritedCars } from '@/components/screens/FavoritedCars'
 
 export default async function FavoritedsPage() {
-  const favoriteds = (await getLocalUserService()).favoriteCars || []
-
-  return <Favoriteds favoriteds={favoriteds} />
+  return <FavoritedCars />
 }

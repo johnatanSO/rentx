@@ -1,0 +1,14 @@
+@import "@/styles/colors";
+
+.carsContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  .headerPage {
+    padding: 2.85rem 2rem;
+    h3 {
+      color: $gray-color-400;
+    }
+  }
+}

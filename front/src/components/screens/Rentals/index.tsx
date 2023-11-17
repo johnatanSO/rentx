@@ -9,7 +9,11 @@ import { useColumns } from './hooks/useColumns'
 import { finalizeRentalService } from '@/services/rentals/finalizeRental/FinalizeRentalService'
 import { useRouter } from 'next/navigation'
 
-export function Rentals() {
+interface Props {
+  rentals: Rental[]
+}
+
+export function Rentals({ rentals }: Props) {
   const {
     alertNotifyConfigs,
     setAlertNotifyConfigs,
@@ -17,8 +21,6 @@ export function Rentals() {
     setAlertConfirmConfigs,
   } = useContext(AlertContext)
 
-  const [rentals, setRentals] = useState<Rental[]>([])
-  const [loadingRentals, setLoadingRentals] = useState<boolean>(true)
   const columns = useColumns({ onFinalizeRental })
   const router = useRouter()
 
@@ -54,38 +56,9 @@ export function Rentals() {
     })
   }
 
-  function getRentals() {
-    setLoadingRentals(true)
-    getRentalsService()
-      .then((res) => {
-        setRentals(res.data.items)
-      })
-      .catch((err) => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Erro ao buscar alugueis - ${
-            err?.response?.data?.message || err?.message
-          }`,
-          type: 'error',
-        })
-      })
-      .finally(() => {
-        setLoadingRentals(false)
-      })
-  }
-
-  useEffect(() => {
-    getRentals()
-  }, [])
-
   return (
     <div className={style.rentalsContainer}>
-      <TableComponent
-        columns={columns}
-        rows={rentals}
-        loading={loadingRentals}
-      />
+      <TableComponent columns={columns} rows={rentals} loading={false} />
     </div>
   )
 }

@@ -45,9 +45,9 @@ export function useColumns({ onFinalizeRental }: Props) {
     },
     {
       headerName: 'Placa',
-      field: 'car',
+      field: 'licensePlate',
       valueFormatter: (params: CellFunctionParams<Rental>) =>
-        params.value.licensePlate,
+        params.data.car.licensePlate,
     },
     {
       headerName: 'Inicio',
@@ -63,11 +63,11 @@ export function useColumns({ onFinalizeRental }: Props) {
     },
     {
       headerName: 'Status',
-      field: 'endDate',
+      field: 'status',
       cellRenderer: (params: CellFunctionParams<Rental>) => {
         return (
-          <span className={getStatusTag(params.value)}>
-            {!params.value ? 'Em andamento' : 'Finalizado'}
+          <span className={getStatusTag(params?.data?.endDate?.toString())}>
+            {!params?.data?.endDate ? 'Em andamento' : 'Finalizado'}
           </span>
         )
       },

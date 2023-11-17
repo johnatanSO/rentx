@@ -1,0 +1,119 @@
+@import "@/styles/colors";
+
+.carItem {
+  display: flex;
+  flex-direction: column;
+
+  width: 400px;
+  background: $white-color;
+
+  color: $gray-color-400;
+
+  border-radius: 20px;
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    padding: 12px 17px;
+
+    .specificationText {
+      font-weight: 500;
+      font-size: 0.875rem;
+
+      &:not(:last-child)::after {
+        content: ", ";
+      }
+    }
+
+    .bookmarkIcon {
+      padding: 0.4rem 0.5rem;
+      border-radius: 50%;
+
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background: $gray-color-100;
+      }
+    }
+  }
+
+  main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    position: relative;
+
+    &:hover {
+      &::after {
+        content: "";
+
+        animation: fadeIn 0.2s;
+
+        position: absolute;
+        inset: 0;
+
+        background: rgba(0 0 0 / 0.1);
+      }
+    }
+
+    .carImage {
+      object-fit: contain;
+
+      height: 130px;
+      width: 100%;
+      transform: scale(0.65);
+    }
+  }
+
+  footer {
+    border-top: 1px solid $gray-color-100;
+    padding: 12px 17px;
+
+    display: flex;
+    align-items: center;
+    gap: 25px;
+
+    span {
+      font-size: 0.875rem;
+
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dailyRateText {
+      font-weight: 500;
+      margin-left: auto;
+
+      b {
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 805px) {
+  .carItem {
+    width: 100%;
+
+    .carImage {
+      max-height: 250px;
+    }
+  }
+}
