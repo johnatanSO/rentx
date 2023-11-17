@@ -29,7 +29,6 @@ export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
     event.preventDefault()
     updateUserInfosService(newValuesUserInfos)
       .then((res) => {
-        console.log('res', res)
         setUserInfo({
           ...userInfo,
           ...res.data.user,
@@ -54,7 +53,10 @@ export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
   function onUpdateAvatar(avatarImage: any) {
     updateAvatarService(avatarImage)
       .then((res) => {
-        console.log('RES', res)
+        setUserInfo({
+          ...userInfo,
+          ...res.data.user,
+        })
       })
       .catch((err) => {
         setAlertNotifyConfigs({
