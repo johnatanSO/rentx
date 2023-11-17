@@ -7,7 +7,7 @@ export class UpdateUserAvatarController {
     const avatar = req.file.filename
 
     const updateUserAvatarUseCase = container.resolve(UpdateUserAvatarUseCase)
-    await updateUserAvatarUseCase.execute({
+    const updatedUser = await updateUserAvatarUseCase.execute({
       userId: req.user._id,
       avatarFile: avatar,
     })
@@ -15,6 +15,7 @@ export class UpdateUserAvatarController {
     return res.status(200).json({
       success: true,
       message: 'Avatar atualizado com sucesso',
+      user: updatedUser,
     })
   }
 }
