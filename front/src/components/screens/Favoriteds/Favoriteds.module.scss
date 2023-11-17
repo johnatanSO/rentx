@@ -1,5 +1,11 @@
-@import '@/styles/colors';
+@import "@/styles/colors";
 
 .favoritedsContainer {
-  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  header {
+    padding: 2.85rem  2rem;
+  }
 }

@@ -3,18 +3,17 @@ import { CarItem } from './CarItem'
 import style from './ListCars.module.scss'
 
 type Props = {
-  avaliableCars: Car[]
+  cars: Car[]
 }
 
-export function ListCars({ avaliableCars }: Props) {
+export function ListCars({ cars }: Props) {
+  console.log('cars', cars)
   return (
     <ul className={style.listCarsContainer}>
-      {(!avaliableCars || avaliableCars.length === 0) && (
-        <p>Nenhum carro disponível</p>
-      )}
+      {(!cars || cars.length === 0) && <p>Nenhum carro encontrado</p>}
 
-      {avaliableCars.length > 0 &&
-        avaliableCars.map((car) => {
+      {cars.length > 0 &&
+        cars.map((car) => {
           return (
             <CarItem
               key={car._id}

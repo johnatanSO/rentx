@@ -18,6 +18,7 @@ import { Specification } from '../../interfaces/Specification'
 import { favoriteCarService } from '@/services/cars/favoriteCar/FavoriteCarService'
 import { AlertContext } from '@/contexts/alertContext'
 import { UserContext } from '@/contexts/userContext'
+import { useRouter } from 'next/navigation'
 
 type Props = {
   images: CarImage[]
@@ -36,6 +37,7 @@ export function CarItem({
 }: Props) {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
   const { userInfo, setUserInfo } = useContext(UserContext)
+  const router = useRouter()
 
   const favorited = userInfo
     ? !!userInfo?.favoriteCars?.find((car) => car._id === carId)
@@ -48,6 +50,11 @@ export function CarItem({
   }
 
   function favoriteCar(carId: string) {
+    if (!userInfo) {
+      router.push('/authenticate')
+      return
+    }
+
     favoriteCarService(carId)
       .then((res) => {
         setUserInfo({
