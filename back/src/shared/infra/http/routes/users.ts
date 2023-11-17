@@ -14,7 +14,7 @@ const updateUserInfosController = new UpdateUserInfosController()
 
 usersRoutes.post('/', createNewUserController.handle)
 
-usersRoutes.put('/', updateUserInfosController.handle)
+usersRoutes.put('/', ensureAuthenticated, updateUserInfosController.handle)
 
 usersRoutes.patch(
   '/avatar',
