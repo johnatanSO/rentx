@@ -7,7 +7,6 @@ type Props = {
 }
 
 export function ListCars({ cars }: Props) {
-  console.log('cars', cars)
   return (
     <ul className={style.listCarsContainer}>
       {(!cars || cars.length === 0) && <p>Nenhum carro encontrado</p>}

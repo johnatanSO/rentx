@@ -8,7 +8,6 @@ interface ServerProps {
 }
 
 export function Favoriteds({ favoriteds }: ServerProps) {
-  console.log('favoriteds', favoriteds)
   return (
     <div className={style.favoritedsContainer}>
       <header>
