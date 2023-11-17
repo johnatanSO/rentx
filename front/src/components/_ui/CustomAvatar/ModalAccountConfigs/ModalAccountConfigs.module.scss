@@ -1,7 +1,27 @@
 @import "@/styles/colors";
 
 .section {
-  border-bottom: 1px solid $gray-color-200;
+  &:not(:last-child) {
+    border-bottom: 1px solid $gray-color-200;
+  }
+  padding: 2rem 1rem;
+}
+
+.buttonModel {
+  border-radius: 20px;
+
+  font-size: 0.875rem;
+  font-weight: 500;
+
+  padding: 0.6rem 1rem;
+  margin-left: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+
+  cursor: pointer;
 }
 
 .avatarSection {
@@ -12,30 +32,56 @@
   gap: 1rem;
 
   .updateAvatarButton {
-    background: none;
-    border-radius: 20px;
-    border: 1px solid $green-color-100;
-    color: $green-color-100;
+    @extend .buttonModel;
 
-    font-size: 0.875rem;
-    font-weight: 500;
+    background: $green-color-100;
+    color: $white-color;
+    border: none;
 
-    padding: 0.6rem 1rem;
-    margin-left: auto;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-
-    cursor: pointer;
-    transition:
-      background-color 0.2s,
-      color 0.2s;
+    transition: filter 0.2s;
 
     &:not(:disabled):hover {
-      background: $green-color-100;
+      filter: brightness(0.8);
+    }
+  }
+}
+
+.userInfosSection {
+  @extend .section;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .editButton {
+      @extend .buttonModel;
+
+      background: $blue-color-100;
       color: $white-color;
+      border: none;
+
+      transition: filter 0.2s;
+
+      &:not(:disabled):hover {
+        filter: brightness(0.8);
+      }
+    }
+    .cancelButton {
+      @extend .buttonModel;
+
+      background: $red-color-100;
+      color: $white-color;
+      border: none;
+
+      transition: filter 0.2s;
+
+      &:not(:disabled):hover {
+        filter: brightness(0.8);
+      }
     }
   }
 }

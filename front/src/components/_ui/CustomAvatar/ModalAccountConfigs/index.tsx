@@ -5,11 +5,10 @@ import { ModalLayout } from '../../ModalLayout'
 import { updateAvatarService } from '@/services/user/updateAvatar/UpdateAvatarService'
 import { Avatar } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCamera } from '@fortawesome/free-solid-svg-icons'
+import { faCamera, faCancel, faPen } from '@fortawesome/free-solid-svg-icons'
 import { UserContext } from '@/contexts/userContext'
 import { AlertContext } from '@/contexts/alertContext'
 import { updateUserInfosService } from '@/services/user/updateUserInfos/UpdateUserInfosService'
-import { NewValuesUserInfos } from './interfaces/NewValuesUserInfos'
 import { CustomTextField } from '../../CustomTextField'
 
 type Props = {
@@ -28,7 +27,7 @@ export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
 
   function onUpdateUserInfos(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    updateUserInfosService({ name: '', email: '', isAdmin: false })
+    updateUserInfosService(newValuesUserInfos)
       .then((res) => {
         console.log('res', res)
         setUserInfo({
@@ -89,7 +88,6 @@ export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
       onSubmit={editMode ? onUpdateUserInfos : undefined}
     >
       <section className={style.avatarSection}>
-        <h3>Avatar</h3>
         <Avatar className={style.avatar} alt="Avatar" src={avatarURL} />
         <button
           className={style.updateAvatarButton}
@@ -104,14 +102,29 @@ export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
       <section className={style.userInfosSection}>
         <header>
           <h3>Informações do usuário</h3>
-          <button
-            onClick={() => {
-              setEditMode(true)
-            }}
-            type="button"
-          >
-            Editar
-          </button>
+          {editMode ? (
+            <button
+              onClick={() => {
+                setEditMode(false)
+              }}
+              type="button"
+              className={style.cancelButton}
+            >
+              <FontAwesomeIcon icon={faCancel} className={style.icon} />
+              Cancelar
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                setEditMode(true)
+              }}
+              type="button"
+              className={style.editButton}
+            >
+              <FontAwesomeIcon icon={faPen} className={style.icon} />
+              Editar
+            </button>
+          )}
         </header>
         {editMode ? (
           <CustomTextField
@@ -127,7 +140,7 @@ export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
             }}
           />
         ) : (
-          <h5>{userInfo?.name || '--'}</h5>
+          <h5>Nome: {userInfo?.name || '--'}</h5>
         )}
 
         {editMode ? (
@@ -144,7 +157,7 @@ export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
             }}
           />
         ) : (
-          <h5>{userInfo?.email || '--'}</h5>
+          <h5>E-mail: {userInfo?.email || '--'}</h5>
         )}
       </section>
     </ModalLayout>
