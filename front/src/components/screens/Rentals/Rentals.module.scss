@@ -54,8 +54,7 @@
   }
 }
 
-.statusFinalized,
-.statusInProgress {
+.status {
   color: $white-color;
 
   font-weight: 500;
@@ -66,8 +65,11 @@
 }
 
 .statusInProgress {
+  @extend .status;
   background: $blue-color-400;
 }
+
 .statusFinalized {
+  @extend .status;
   background: $green-color-100;
 }

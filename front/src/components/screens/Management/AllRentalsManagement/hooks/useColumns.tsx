@@ -27,7 +27,7 @@ export function useColumns() {
       field: 'car',
       cellRenderer: (params: CellFunctionParams<Car>) => {
         return (
-          <Link href={`/cars/${params.value._id}`}>
+          <Link href={`/management/cars/${params.value._id}`}>
             <div className={style.carModelContainer}>
               <Image
                 alt="Avatar do carro"
@@ -89,7 +89,7 @@ export function useColumns() {
       headerName: 'Valor total',
       field: 'total',
       valueFormatter: (params: CellFunctionParams<Rental>) =>
-        formatCurrency(params?.value || 0),
+        params?.value ? formatCurrency(params?.value || 0) : '--',
     },
   ]
 }

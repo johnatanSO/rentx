@@ -24,6 +24,8 @@
   align-items: center;
   gap: 1rem;
 
+  transition: filter 0.2s;
+
   .carImage {
     object-fit: contain;
 
@@ -36,6 +38,10 @@
 
   b {
     color: $gray-color-300;
+  }
+
+  &:hover {
+    filter: brightness(0.9);
   }
 }
 
@@ -61,4 +67,25 @@
     opacity: 0.7;
     cursor: pointer;
   }
+}
+
+
+.status {
+  color: $white-color;
+
+  font-weight: 500;
+  font-size: 0.875rem;
+
+  border-radius: 20px;
+  padding: 0.6rem 1rem;
+}
+
+.statusInProgress {
+  @extend .status;
+  background: $blue-color-400;
+}
+
+.statusFinalized {
+  @extend .status;
+  background: $green-color-100;
 }

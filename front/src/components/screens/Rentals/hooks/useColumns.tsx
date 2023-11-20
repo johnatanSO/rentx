@@ -87,7 +87,7 @@ export function useColumns({ onFinalizeRental }: Props) {
       headerName: 'Valor total',
       field: 'total',
       valueFormatter: (params: CellFunctionParams<Rental>) =>
-        formatCurrency(params?.value || 0),
+        params?.value ? formatCurrency(params?.value || 0) : '--',
     },
     {
       headerName: '',
