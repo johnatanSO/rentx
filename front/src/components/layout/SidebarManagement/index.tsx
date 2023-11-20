@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import style from './SidebarManagement.module.scss'
 import {
   faCar,
+  faHandHoldingDollar,
   faHouse,
   faTag,
   faToolbox,
@@ -61,6 +62,14 @@ export function SidebarManagement() {
           }}
         >
           <FontAwesomeIcon className={style.icon} icon={faToolbox} />
+        </li>
+        <li
+          className={getActiveMenu('rentals')}
+          onClick={() => {
+            handleChangeMenuItem('rentals')
+          }}
+        >
+          <FontAwesomeIcon className={style.icon} icon={faHandHoldingDollar} />
         </li>
       </ul>
 

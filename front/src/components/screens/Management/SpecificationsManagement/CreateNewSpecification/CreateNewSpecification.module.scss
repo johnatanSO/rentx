@@ -1,2 +1,41 @@
-@import '@/styles/colors';
+@import "@/styles/colors";
 
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 1rem;
+
+  button[type="submit"] {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 20px;
+    height: 100%;
+    width: 160px;
+
+    font-size: 0.875rem;
+    font-weight: 500;
+
+    cursor: pointer;
+    transition: filter 0.2s;
+
+    color: $white-color;
+    background: $green-color-100;
+
+    display: flex;
+    justify-content: center;
+    align-self: flex-start;
+
+    &:not(:disabled):hover {
+      filter: brightness(0.7);
+    }
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  }
+  .descriptionInput {
+    width: 50%;
+  }
+}

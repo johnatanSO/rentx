@@ -79,12 +79,12 @@ export function CreateNewCategory() {
       <CustomTextField
         multiline
         rows={3}
-        fullWidth
         placeholder="Digite a descrição"
         type="text"
         size="small"
         label="Descrição"
         value={newCategoryData.description}
+        className={style.descriptionInput}
         onChange={(event) => {
           setNewCategoryData({
             ...newCategoryData,

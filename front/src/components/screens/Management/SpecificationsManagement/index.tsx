@@ -9,45 +9,19 @@ import { Specification } from './interfaces/Specification'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { CreateNewSpecification } from './CreateNewSpecification'
 
-export function SpecificationsManagement() {
-  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-  const [specifications, setSpecifications] = useState<Specification[]>([])
-  const [loadingSpecifications, setLoadingSpecifications] =
-    useState<boolean>(true)
+type Props = {
+  specifications: Specification[]
+}
+
+export function SpecificationsManagement({ specifications }: Props) {
   const columns = useColumns()
-
-  function getSpecifications() {
-    setLoadingSpecifications(true)
-
-    listAllSpecificationsService()
-      .then((res) => {
-        setSpecifications(res.data.items)
-      })
-      .catch((err) => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Erro ao buscar categorias - ${
-            err?.response?.data?.message || err?.message
-          }`,
-          type: 'error',
-        })
-      })
-      .finally(() => {
-        setLoadingSpecifications(false)
-      })
-  }
-
-  useEffect(() => {
-    getSpecifications()
-  }, [])
 
   return (
     <>
       <CreateNewSpecification />
 
       <header className={style.header}>
-        <h2>Categorias</h2>
+        <h2>Especificações</h2>
         <CustomTextField
           className={style.searchInput}
           label="Buscar pelo nome"
@@ -57,7 +31,7 @@ export function SpecificationsManagement() {
         <TableComponent
           rows={specifications}
           columns={columns}
-          loading={loadingSpecifications}
+          loading={false}
         />
       </section>
     </>

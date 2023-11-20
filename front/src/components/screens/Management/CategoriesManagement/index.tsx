@@ -9,37 +9,12 @@ import { useColumns } from './hooks/useColumns'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { CreateNewCategory } from './CreateNewCategory'
 
-export function CategoriesManagement() {
-  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-  const [categories, setCategories] = useState<Category[]>([])
-  const [loadingCategories, setLoadingCategories] = useState<boolean>(true)
+type Props = {
+  categories: Category[]
+}
+
+export function CategoriesManagement({ categories }: Props) {
   const columns = useColumns()
-
-  function getCategories() {
-    setLoadingCategories(true)
-
-    getAllCategoriesService()
-      .then((res) => {
-        setCategories(res.data.items)
-      })
-      .catch((err) => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Erro ao buscar categorias - ${
-            err?.response?.data?.message || err?.message
-          }`,
-          type: 'error',
-        })
-      })
-      .finally(() => {
-        setLoadingCategories(false)
-      })
-  }
-
-  useEffect(() => {
-    getCategories()
-  }, [])
 
   return (
     <>
@@ -54,11 +29,7 @@ export function CategoriesManagement() {
       </header>
 
       <section className={style.tableSection}>
-        <TableComponent
-          rows={categories}
-          columns={columns}
-          loading={loadingCategories}
-        />
+        <TableComponent rows={categories} columns={columns} loading={false} />
       </section>
     </>
   )

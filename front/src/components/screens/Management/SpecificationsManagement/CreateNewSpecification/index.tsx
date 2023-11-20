@@ -78,12 +78,12 @@ export function CreateNewSpecification() {
       <CustomTextField
         multiline
         rows={3}
-        fullWidth
         placeholder="Digite a descrição"
         type="text"
         size="small"
         label="Descrição"
         value={newSpecificationData.description}
+        className={style.descriptionInput}
         onChange={(event) => {
           setNewSpecificationData({
             ...newSpecificationData,

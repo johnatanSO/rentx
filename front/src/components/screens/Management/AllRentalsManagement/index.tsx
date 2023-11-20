@@ -1,42 +1,17 @@
 'use client'
-
-import { useEffect, useState, useContext } from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { TableComponent } from '@/components/_ui/TableComponent'
 import style from './AllRentalsManagement.module.scss'
 import { Rental } from './interfaces/Rental'
-import { AlertContext } from '@/contexts/alertContext'
-import { getAllRentalsService } from '@/services/rentals/getAllRentals/GetAllRentalsService'
+import { useColumns } from './hooks/useColumns'
 
-export function AllRentalsManagement() {
-  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-  const [loadingRentals, setLoadingRentals] = useState<boolean>(true)
-  const [rentals, setRentals] = useState<Rental[]>([])
+type Props = {
+  rentals: Rental[]
+}
 
-  function getAllRentals() {
-    setLoadingRentals(true)
-    getAllRentalsService()
-      .then((res) => {
-        setRentals(res.data.items)
-      })
-      .catch((err) => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Erro ao buscar alugueis - ${
-            err?.response?.data?.message || err?.message
-          }`,
-          type: 'error',
-        })
-      })
-      .finally(() => {
-        setLoadingRentals(false)
-      })
-  }
-
-  useEffect(() => {
-    getAllRentals()
-  }, [])
+export function AllRentalsManagement({ rentals }: Props) {
+  console.log('rentals', rentals)
+  const columns = useColumns()
 
   return (
     <>
@@ -50,7 +25,7 @@ export function AllRentalsManagement() {
         />
       </header>
       <section className={style.tableSection}>
-        <TableComponent columns={[]} rows={rentals} loading={loadingRentals} />
+        <TableComponent columns={columns} rows={rentals} loading={false} />
       </section>
     </>
   )

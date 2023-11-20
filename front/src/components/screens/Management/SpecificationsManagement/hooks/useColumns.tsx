@@ -1,5 +1,6 @@
 import { CellFunctionParams } from '@/components/_ui/TableComponent/interfaces'
 import { Specification } from '../interfaces/Specification'
+import dayjs from 'dayjs'
 
 export function useColumns() {
   return [
@@ -19,7 +20,7 @@ export function useColumns() {
       field: 'createdAt',
       headerName: 'Data de cadastro',
       valueFormatter: (params: CellFunctionParams<Specification>) =>
-        params.value,
+        dayjs(params.value).format('DD/MM/YYYY - HH:mm'),
     },
   ]
 }
