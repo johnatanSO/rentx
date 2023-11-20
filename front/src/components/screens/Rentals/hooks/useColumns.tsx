@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { CarImage } from '../interfaces/CarImage'
 import unknownCarImage from '../../../../../public/assets/images/cars/unknownCarImage.png'
 import { formatCurrency } from '@/utils/format'
+import Link from 'next/link'
 
 type Props = {
   onFinalizeRental: (rentalId: string) => void
@@ -30,16 +31,18 @@ export function useColumns({ onFinalizeRental }: Props) {
       field: 'car',
       cellRenderer: (params: CellFunctionParams<Car>) => {
         return (
-          <div className={style.carModelContainer}>
-            <Image
-              alt="Avatar do carro"
-              className={style.carImage}
-              width={500}
-              height={500}
-              src={getCarImageUrl(params.value.images)}
-            />
-            <b className={style.carName}>{params.value.name}</b>
-          </div>
+          <Link href={`/cars/${params.value._id}`}>
+            <div className={style.carModelContainer}>
+              <Image
+                alt="Avatar do carro"
+                className={style.carImage}
+                width={500}
+                height={500}
+                src={getCarImageUrl(params.value.images)}
+              />
+              <b className={style.carName}>{params.value.name}</b>
+            </div>
+          </Link>
         )
       },
     },

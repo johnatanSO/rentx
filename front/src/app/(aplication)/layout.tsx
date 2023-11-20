@@ -5,6 +5,10 @@ import type { Metadata } from 'next'
 import { AlertContextComponent } from '@/contexts/alertContext'
 import { UserContextComponent } from '@/contexts/userContext'
 import { getLocalUserService } from '@/services/user/getLocalUser/GetLocalUserService'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+import { config } from '@fortawesome/fontawesome-svg-core'
+
+config.autoAddCss = false
 
 export const metadata: Metadata = {
   title: 'RentX',
