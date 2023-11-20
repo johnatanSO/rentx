@@ -10,129 +10,22 @@
     align-items: center;
     gap: 0.4rem;
 
+    padding: 0.4rem 0.7rem;
+    border-radius: 20px;
+
     background: none;
     border: none;
     font-weight: 500;
 
     cursor: pointer;
-    transition: filter 0.2s;
+    transition: background-color 0.2s;
 
     &:hover {
-      filter: brightness(0.8);
+      background: $gray-color-100;
     }
   }
 }
 
-.section {
-  background: $white-color;
-
-  border-radius: 20px;
-
-  padding: 2rem;
-
-  display: flex;
-  flex-direction: column;
-  gap: 1.4rem;
-
-  header {
-    display: flex;
-    align-items: center;
-  }
-}
-
-.listImages {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-
-  li {
-    border-radius: 20px;
-    width: 300px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    position: relative;
-    
-
-    border: 1px solid $gray-color-100;
-
-    cursor: pointer;
-
-    .image {
-      object-fit: contain;
-
-      height: 150px;
-      width: 100%;
-
-      transform: scale(0.65);
-    }
-
-    .removeImageButton {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      display: none;
-
-      color: $red-color-100;
-      background: none;
-      border: none;
-
-      font-size: 1.2rem;
-
-      cursor: pointer;
-      transition: filter 0.2s;
-      animation: fadeIn 0.2s;
-
-      &:hover {
-        filter: brightness(0.8);
-      }
-    }
-
-    &:hover {
-      &::after {
-        content: '';
-
-        position: fixed;
-        inset: 0;
-        
-        background: rgba(0 0 0 / 0.2);
-      }
-      .removeImageButton {
-        display: block;
-      }
-    }
-  }
-}
-
-.addImageButton {
-  background: none;
-  border-radius: 20px;
-  border: 1px solid $green-color-100;
-  color: $green-color-100;
-
-  font-size: 0.875rem;
-  font-weight: 500;
-
-  padding: 0.6rem 1rem;
-  margin-left: auto;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-
-  cursor: pointer;
-  transition:
-    background-color 0.2s,
-    color 0.2s;
-
-  &:not(:disabled):hover {
-    background: $green-color-100;
-    color: $white-color;
-  }
-}
 
 @keyframes fadeIn {
   from {

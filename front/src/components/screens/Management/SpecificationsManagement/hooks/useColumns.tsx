@@ -7,6 +7,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { AlertContext } from '@/contexts/alertContext'
 import { useContext } from 'react'
 import { deleteSpecificationService } from '@/services/specifications/deleteSpecification/DeleteSpecificationService'
+import { usePathname, useRouter } from 'next/navigation'
 
 export function useColumns() {
   const {
@@ -15,6 +16,9 @@ export function useColumns() {
     alertConfirmConfigs,
     setAlertConfirmConfigs,
   } = useContext(AlertContext)
+
+  const router = useRouter()
+  const pathname = usePathname()
 
   function handleDeleteSpecification(specificationId: string) {
     setAlertConfirmConfigs({
@@ -31,6 +35,7 @@ export function useColumns() {
               text: 'Especificação deletada com sucesso',
               type: 'success',
             })
+            router.push(pathname)
           })
           .catch((err) => {
             setAlertNotifyConfigs({
@@ -69,6 +74,7 @@ export function useColumns() {
     {
       field: 'actions',
       headerName: '',
+      flex: 1,
       cellRenderer: (params: CellFunctionParams<Specification>) => {
         return (
           <button

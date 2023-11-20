@@ -18,3 +18,20 @@
 
   padding: 2rem;
 }
+
+.deleteButton {
+  background: none;
+  border: none;
+  color: $red-color-100;
+
+  font-size: 1.1rem;
+
+  margin-left: auto;
+
+  transition: filter 0.2s;
+  cursor: pointer;
+
+  &:not(:disabled):hover {
+    filter: brightness(0.8);
+  }
+}

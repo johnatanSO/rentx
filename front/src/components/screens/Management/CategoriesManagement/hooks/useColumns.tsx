@@ -7,6 +7,7 @@ import style from '../CategoriesManagement.module.scss'
 import { deleteCategoryService } from '@/services/category/deleteCategory/DeleteCategoryService'
 import { useContext } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
+import { usePathname, useRouter } from 'next/navigation'
 
 export function useColumns() {
   const {
@@ -15,6 +16,9 @@ export function useColumns() {
     alertConfirmConfigs,
     setAlertConfirmConfigs,
   } = useContext(AlertContext)
+  const router = useRouter()
+  const pathname = usePathname()
+
   function handleDeleteCategory(categoryId: string) {
     setAlertConfirmConfigs({
       ...alertConfirmConfigs,
@@ -30,6 +34,7 @@ export function useColumns() {
               text: 'Categoria deletada com sucesso',
               type: 'success',
             })
+            router.push(pathname)
           })
           .catch((err) => {
             setAlertNotifyConfigs({
@@ -66,6 +71,10 @@ export function useColumns() {
     {
       field: 'actions',
       headerName: '',
+      flex: 1,
+      cellStyle: (params: any) => {
+        return style.cell
+      },
       cellRenderer: (params: CellFunctionParams<Category>) => {
         return (
           <button
