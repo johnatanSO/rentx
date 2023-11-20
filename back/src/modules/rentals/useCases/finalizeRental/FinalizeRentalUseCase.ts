@@ -28,7 +28,7 @@ export class FinalizeRentalUseCase {
     const rental = await this.rentalsRepository.findById(rentalId)
 
     if (!rental) throw new AppError('Aluguel não encontrado')
-    if (rental.userId.toString() !== userId) {
+    if (rental.user.toString() !== userId) {
       throw new AppError('O aluguel não pertence à este usuário')
     }
     if (rental.endDate) throw new AppError('Aluguel já foi finalizado')
