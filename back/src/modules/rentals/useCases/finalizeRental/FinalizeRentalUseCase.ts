@@ -38,7 +38,8 @@ export class FinalizeRentalUseCase {
     const rentalDuration = dayjs(new Date()).diff(rental.startDate, 'day')
     const extraDays = dayjs(new Date()).diff(rental.expectedReturnDate, 'day')
 
-    let rentalTotalValue = car.dailyRate * rentalDuration
+    let rentalTotalValue =
+      rentalDuration > 0 ? car.dailyRate * rentalDuration : car.dailyRate
 
     if (extraDays > 0) {
       rentalTotalValue = rentalTotalValue + car.fineAmount
