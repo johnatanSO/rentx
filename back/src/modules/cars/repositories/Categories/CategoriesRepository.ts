@@ -33,4 +33,8 @@ export default class CategoriesRepository implements ICategoriesRepository {
     })
     return category
   }
+
+  async delete(categoryId: string): Promise<void> {
+    await this.model.deleteOne({ _id: categoryId })
+  }
 }

@@ -10,4 +10,5 @@ export interface ISpecificationsRepository {
   list(): Promise<Specification[]>
   findByName(name: string): Promise<Specification>
   findByIds(ids: string[]): Promise<Specification[]>
+  delete(specificationId: string): Promise<void>
 }
