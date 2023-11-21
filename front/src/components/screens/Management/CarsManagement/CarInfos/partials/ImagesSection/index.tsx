@@ -5,11 +5,12 @@ import Image from 'next/image'
 import { Car } from '../../interfaces/Car'
 import unknownCarImage from '../../../../../../../../public/assets/images/cars/unknownCarImage.png'
 import { CarImage } from '../../interfaces/CarImage'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
 import { removeCarImageService } from '@/services/cars/removeCarImage/RemoveCarImageService'
 import { usePathname, useRouter } from 'next/navigation'
 import { updateCarImagesService } from '@/services/cars/updateCarImages/UpdateCarImagesService'
+import { ModalZoomImage } from './ModalZoomImage'
 
 type Props = {
   car: Car
@@ -25,6 +26,10 @@ export function ImagesSection({ car }: Props) {
 
   const router = useRouter()
   const pathname = usePathname()
+
+  const [modalZoomImageOpened, setModalZoomImageOpened] =
+    useState<boolean>(false)
+  const [imagePath, setImagePath] = useState<string | undefined>(undefined)
 
   function getCarImageUrl(carImage: CarImage) {
     if (!carImage) return unknownCarImage
@@ -79,7 +84,7 @@ export function ImagesSection({ car }: Props) {
     inputFile.click()
   }
 
-  function updateImage(carImage: any) {
+  function updateImage(carImage: string) {
     updateCarImagesService({ carImage, carId: car._id })
       .then(() => {
         router.push(pathname)
@@ -96,82 +101,105 @@ export function ImagesSection({ car }: Props) {
       })
   }
 
-  return (
-    <section className={style.section}>
-      <header>
-        <h3>Imagens</h3>
-        <button
-          className={style.addImageButton}
-          type="button"
-          onClick={handleSetImage}
-        >
-          <FontAwesomeIcon icon={faCamera} className={style.icon} />
-          Adicionar imagem
-        </button>
-      </header>
+  function handleClickImage(image: CarImage) {
+    setModalZoomImageOpened(true)
+    setImagePath(image.path)
+  }
 
-      <ul className={style.listImages}>
-        <li>
-          <Image
-            className={style.image}
-            alt="Car image"
-            width={400}
-            height={400}
-            src={getCarImageUrl(car.images[0])}
-          />
-          {car.images[0] && (
-            <button
-              onClick={() => {
-                handleRemoveImage(car.images[0]._id)
-              }}
-              className={style.removeImageButton}
-              type="button"
-            >
-              <FontAwesomeIcon className={style.icon} icon={faTrash} />
-            </button>
-          )}
-        </li>
-        <li>
-          <Image
-            className={style.image}
-            alt="Car image"
-            width={400}
-            height={400}
-            src={getCarImageUrl(car.images[1])}
-          />
-          {car.images[1] && (
-            <button
-              onClick={() => {
-                handleRemoveImage(car.images[0]._id)
-              }}
-              className={style.removeImageButton}
-              type="button"
-            >
-              <FontAwesomeIcon className={style.icon} icon={faTrash} />
-            </button>
-          )}
-        </li>
-        <li>
-          <Image
-            className={style.image}
-            alt="Car image"
-            width={400}
-            height={400}
-            src={getCarImageUrl(car.images[2])}
-          />
-          {car.images[2] && (
-            <button
-              onClick={() => {
-                handleRemoveImage(car.images[0]._id)
-              }}
-              className={style.removeImageButton}
-              type="button"
-            >
-              <FontAwesomeIcon className={style.icon} icon={faTrash} />
-            </button>
-          )}
-        </li>
-      </ul>
-    </section>
+  return (
+    <>
+      <section className={style.section}>
+        <header>
+          <h3>Imagens</h3>
+          <button
+            className={style.addImageButton}
+            type="button"
+            onClick={handleSetImage}
+          >
+            <FontAwesomeIcon icon={faCamera} className={style.icon} />
+            Adicionar imagem
+          </button>
+        </header>
+
+        <ul className={style.listImages}>
+          <li
+            onClick={() => {
+              handleClickImage(car.images[0])
+            }}
+          >
+            <Image
+              className={style.image}
+              alt="Car image"
+              width={400}
+              height={400}
+              src={getCarImageUrl(car.images[0])}
+            />
+            {car.images[0] && (
+              <button
+                onClick={(event) => {
+                  event.stopPropagation()
+                  handleRemoveImage(car.images[0]._id)
+                }}
+                className={style.removeImageButton}
+                type="button"
+              >
+                <FontAwesomeIcon className={style.icon} icon={faTrash} />
+              </button>
+            )}
+          </li>
+          <li>
+            <Image
+              className={style.image}
+              alt="Car image"
+              width={400}
+              height={400}
+              src={getCarImageUrl(car.images[1])}
+            />
+            {car.images[1] && (
+              <button
+                onClick={() => {
+                  handleRemoveImage(car.images[0]._id)
+                }}
+                className={style.removeImageButton}
+                type="button"
+              >
+                <FontAwesomeIcon className={style.icon} icon={faTrash} />
+              </button>
+            )}
+          </li>
+          <li>
+            <Image
+              className={style.image}
+              alt="Car image"
+              width={400}
+              height={400}
+              src={getCarImageUrl(car.images[2])}
+            />
+            {car.images[2] && (
+              <button
+                onClick={() => {
+                  handleRemoveImage(car.images[0]._id)
+                }}
+                className={style.removeImageButton}
+                type="button"
+              >
+                <FontAwesomeIcon className={style.icon} icon={faTrash} />
+              </button>
+            )}
+          </li>
+        </ul>
+      </section>
+
+      {imagePath && (
+        <ModalZoomImage
+          imagePath={imagePath}
+          open={modalZoomImageOpened}
+          handleClose={() => {
+            setModalZoomImageOpened(false)
+            setImagePath(undefined)
+          }}
+        />
+      )}
+    </>
   )
 }
