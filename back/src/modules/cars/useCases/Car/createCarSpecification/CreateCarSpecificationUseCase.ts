@@ -23,24 +23,20 @@ export class CreateCarSpecificationUseCase {
 
   async execute({ carId, specificationsIds }: IRequest): Promise<void> {
     if (!carId) throw new AppError('_id do carro não informado')
-    if (!specificationsIds || specificationsIds.length === 0)
-      throw new AppError('Nenhuma especificação informada')
+    if (!specificationsIds) {
+      throw new AppError('Especificações não informadas')
+    }
 
     const carExists = await this.carsRepository.findById(carId)
 
     if (!carExists) throw new AppError('Carro não existente')
 
     const specifications =
-      await this.specificationsRepository.findByIds(specificationsIds)
+      (await this.specificationsRepository.findByIds(specificationsIds)) || []
 
     const newSpecificationsIds = specifications.map(
       (specification) => specification._id,
     )
-
-    if (!specifications || specifications.length === 0)
-      throw new AppError(
-        'Nenhuma especificação encontrada a partir dos ids informados',
-      )
 
     const fields = {
       specifications: newSpecificationsIds,
