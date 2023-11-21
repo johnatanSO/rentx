@@ -48,8 +48,8 @@ export function ModalSpecifications({ open, handleClose, car }: Props) {
           text: `Especificações adicionadas com sucesso`,
           type: 'success',
         })
-        handleClose()
         router.push(pathname)
+        handleClose()
       })
       .catch((err) => {
         setAlertNotifyConfigs({
