@@ -1,2 +1,10 @@
-@import '@/styles/colors';
+@import "@/styles/colors";
 
+.imageContainer {
+  width: 100%;
+  
+  .image {
+    max-width: 100%;
+    object-fit: contain;
+  }
+}

@@ -19,6 +19,7 @@ export function ModalZoomImage({ imagePath, open, handleClose }: Props) {
           width={1280}
           height={720}
           src={formatedPath}
+          className={style.image}
         />
       </div>
     </ModalLayout>

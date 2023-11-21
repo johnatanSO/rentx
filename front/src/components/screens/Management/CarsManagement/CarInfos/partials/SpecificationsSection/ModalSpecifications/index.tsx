@@ -41,7 +41,8 @@ export function ModalSpecifications({ open, handleClose, car }: Props) {
       carId: car._id,
       specificationsIds: selectedSpecificationsIds,
     })
-      .then(() => {
+      .then(({ data }) => {
+        console.log('Data:', data)
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
