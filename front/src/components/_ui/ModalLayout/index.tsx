@@ -49,7 +49,11 @@ export function ModalLayout({
         {onSubmit && (
           <Box className={style.footer} component="footer">
             <button disabled={loading} type="submit">
-              {loading ? <Loading /> : submitButtonText || 'Confirmar'}
+              {loading ? (
+                <Loading size={22} />
+              ) : (
+                submitButtonText || 'Confirmar'
+              )}
             </button>
           </Box>
         )}

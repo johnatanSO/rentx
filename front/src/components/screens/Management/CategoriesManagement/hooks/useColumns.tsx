@@ -71,10 +71,6 @@ export function useColumns() {
     {
       field: 'actions',
       headerName: '',
-      flex: 1,
-      cellStyle: (params: any) => {
-        return style.cell
-      },
       cellRenderer: (params: CellFunctionParams<Category>) => {
         return (
           <button

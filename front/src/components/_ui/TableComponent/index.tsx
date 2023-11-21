@@ -34,7 +34,7 @@ export function TableComponent({ columns, rows, loading }: Props) {
                         data: row,
                       })}
                       key={column.field}
-                      // style={{ flex: column.flex ? column.flex : 0 }}
+                      style={{ flex: 1 }}
                     >
                       {column?.valueFormatter?.({
                         value: row[column.field],

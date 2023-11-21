@@ -3,70 +3,61 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import style from './SpecificationsSection.module.scss'
 import { Car } from '../../interfaces/Car'
 import { createCarSpecificationService } from '@/services/cars/createCarSpecification/CreateCarSpecificationService'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
+import { ModalSpecifications } from './ModalSpecifications'
 
 type Props = {
   car: Car
 }
 
 export function SpecificationsSection({ car }: Props) {
-  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
+  const [modalAddSpecificationsOpened, setModalAddSpecificationsOpened] =
+    useState<boolean>(false)
 
   function handleAddSpecification() {
-    createCarSpecificationService({
-      carId: car._id,
-      specificationsIds: [],
-    })
-      .then(() => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Especificações adicionadas com sucesso`,
-          type: 'success',
-        })
-      })
-      .catch((err) => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Erro ao tentar adicionar especificações - ${
-            err?.response?.data?.message || err?.message
-          }`,
-          type: 'error',
-        })
-      })
+    setModalAddSpecificationsOpened(true)
   }
 
   return (
-    <section className={style.section}>
-      <header>
-        <h3>Especificações</h3>
-        <button
-          className={style.editSpecificationsButton}
-          type="button"
-          onClick={handleAddSpecification}
-        >
-          <FontAwesomeIcon icon={faPlus} className={style.icon} />
-          Editar especificações
-        </button>
-      </header>
+    <>
+      <section className={style.section}>
+        <header>
+          <h3>Especificações</h3>
+          <button
+            className={style.editSpecificationsButton}
+            type="button"
+            onClick={handleAddSpecification}
+          >
+            <FontAwesomeIcon icon={faPlus} className={style.icon} />
+            Editar especificações
+          </button>
+        </header>
 
-      <ul className={style.listCarSpecifications}>
-        {car.specifications.length > 0 &&
-          car.specifications.map((specification) => {
-            return (
-              <li key={specification._id}>
-                <span>{specification.name || '--'}</span>
-              </li>
-            )
-          })}
-        {car.specifications.length === 0 && (
-          <li>
-            <p>Nenhuma especificação encontrada</p>
-          </li>
-        )}
-      </ul>
-    </section>
+        <ul className={style.listCarSpecifications}>
+          {car.specifications.length > 0 &&
+            car.specifications.map((specification) => {
+              return (
+                <li key={specification._id}>
+                  <span>{specification.name || '--'}</span>
+                </li>
+              )
+            })}
+          {car.specifications.length === 0 && (
+            <li>
+              <p>Nenhuma especificação encontrada</p>
+            </li>
+          )}
+        </ul>
+      </section>
+
+      <ModalSpecifications
+        car={car}
+        open={modalAddSpecificationsOpened}
+        handleClose={() => {
+          setModalAddSpecificationsOpened(false)
+        }}
+      />
+    </>
   )
 }
