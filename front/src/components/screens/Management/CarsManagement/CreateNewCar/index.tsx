@@ -12,7 +12,7 @@ import { createNewCarService } from '@/services/cars/createNewCar/CreateNewCarSe
 import { useRouter } from 'next/navigation'
 import { Loading } from '@/components/_ui/Loading'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faAngleLeft, faCheck } from '@fortawesome/free-solid-svg-icons'
 
 export function CreateNewCar() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
@@ -89,6 +89,14 @@ export function CreateNewCar() {
   return (
     <form className={style.formContainer} onSubmit={onCreateNewCar}>
       <header className={style.header}>
+        <button
+          className={style.backButton}
+          type="button"
+          onClick={router.back}
+          title="Voltar"
+        >
+          <FontAwesomeIcon className={style.icon} icon={faAngleLeft} />
+        </button>
         <h2>Cadastro de um novo carro</h2>
 
         <button

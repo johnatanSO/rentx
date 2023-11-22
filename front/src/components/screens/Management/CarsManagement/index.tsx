@@ -8,6 +8,8 @@ import { CustomTextField } from '@/components/_ui/CustomTextField'
 import style from './CarsManagement.module.scss'
 import { useColumns } from './hooks/useColumns'
 import { usePathname, useRouter } from 'next/navigation'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 export function CarsManagement() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
@@ -50,19 +52,16 @@ export function CarsManagement() {
     <>
       <header className={style.header}>
         <h2>Carros</h2>
-
-        <CustomTextField
-          className={style.searchInput}
-          label="Buscar pelo nome"
-        />
+        <button
+          onClick={handleOpenCreateNewCar}
+          className={style.createNewButton}
+          type="button"
+        >
+          <FontAwesomeIcon className={style.icon} icon={faPlus} />
+          Cadastrar novo
+        </button>
       </header>
-      <button
-        onClick={handleOpenCreateNewCar}
-        className={style.createNewButton}
-        type="button"
-      >
-        Cadastrar novo
-      </button>
+      <CustomTextField className={style.searchInput} label="Buscar pelo nome" />
       <section className={style.tableSection}>
         <TableComponent columns={columns} rows={cars} loading={loadingCars} />
       </section>

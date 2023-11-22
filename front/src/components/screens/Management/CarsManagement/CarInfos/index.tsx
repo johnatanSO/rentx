@@ -24,8 +24,7 @@ export function CarInfos({ car }: Props) {
           onClick={router.back}
           type="button"
         >
-          <FontAwesomeIcon icon={faAngleLeft} className={style.angleLeft} />
-          Voltar
+          <FontAwesomeIcon icon={faAngleLeft} className={style.icon} />
         </button>
         <h2>
           {car.name || 'Sem nome'} | {car.licensePlate}

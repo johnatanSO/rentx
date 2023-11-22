@@ -9,6 +9,28 @@
 .header {
   display: flex;
   align-items: center;
+  gap: 1rem;
+
+  .backButton {
+    border: none;
+    padding: 0.5rem 0.7rem;
+    border-radius: 20px;
+    line-height: 1;
+
+    background: none;
+
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    .icon {
+      height: 1.2rem;
+      color: $gray-color-300;
+    }
+
+    &:hover {
+      background: $gray-color-100;
+    }
+  }
 
   .registerButton {
     margin-left: auto;

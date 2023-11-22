@@ -44,7 +44,13 @@
     }
   }
 
-  ul {
-    list-style-type: none;
+  .fields {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    .input {
+      min-width: 222px;
+    }
   }
 }

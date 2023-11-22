@@ -17,19 +17,19 @@
       padding: 0.5rem 0.7rem;
       border-radius: 20px;
       line-height: 1;
-
-      background: $white-color;
-
+  
+      background: none;
+  
       cursor: pointer;
-      transition: filter 0.2s;
-
+      transition: background-color 0.2s;
+  
       .icon {
         height: 1.2rem;
         color: $gray-color-300;
       }
-
+  
       &:hover {
-        filter: brightness(0.9);
+        background: $gray-color-100;
       }
     }
   }

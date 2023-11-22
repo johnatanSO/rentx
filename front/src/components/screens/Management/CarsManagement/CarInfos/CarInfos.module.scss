@@ -3,22 +3,23 @@
 .header {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
 
   .backButton {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-
-    padding: 0.4rem 0.7rem;
+    border: none;
+    padding: 0.5rem 0.7rem;
     border-radius: 20px;
+    line-height: 1;
 
     background: none;
-    border: none;
-    font-weight: 500;
 
     cursor: pointer;
     transition: background-color 0.2s;
+
+    .icon {
+      height: 1.2rem;
+      color: $gray-color-300;
+    }
 
     &:hover {
       background: $gray-color-100;
