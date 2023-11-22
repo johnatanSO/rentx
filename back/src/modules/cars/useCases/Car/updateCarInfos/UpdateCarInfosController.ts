@@ -31,7 +31,7 @@ export class UpdateCarInfosController {
 
     return res.status(201).json({
       success: true,
-      message: 'Informações atualizadas com sucesso',
+      message: 'Informações do carro atualizadas com sucesso',
     })
   }
 }
