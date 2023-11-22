@@ -7,6 +7,7 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'next/navigation'
 import { ImagesSection } from './partials/ImagesSection'
 import { SpecificationsSection } from './partials/SpecificationsSection'
+import { EditInfosSection } from './partials/EditInfosSection'
 
 type Props = {
   car: Car
@@ -32,6 +33,8 @@ export function CarInfos({ car }: Props) {
       </header>
 
       <ImagesSection car={car} />
+
+      <EditInfosSection car={car} />
 
       <SpecificationsSection car={car} />
     </>

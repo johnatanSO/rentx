@@ -2,9 +2,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import style from './SpecificationsSection.module.scss'
 import { Car } from '../../interfaces/Car'
-import { createCarSpecificationService } from '@/services/cars/createCarSpecification/CreateCarSpecificationService'
-import { useContext, useState } from 'react'
-import { AlertContext } from '@/contexts/alertContext'
+import { useState } from 'react'
 import { ModalSpecifications } from './ModalSpecifications'
 
 type Props = {
