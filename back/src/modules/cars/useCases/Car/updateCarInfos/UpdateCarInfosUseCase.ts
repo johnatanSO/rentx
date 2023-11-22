@@ -6,6 +6,12 @@ interface IRequest {
   carId: string
   name: string
   description: string
+  dailyRate: number
+  avaliable: boolean
+  licensePlate: string
+  fineAmount: number
+  brand: string
+  categoryId: string
 }
 
 @injectable()
@@ -15,12 +21,28 @@ export class UpdateCarInfosUseCase {
     this.carsRepository = carsRepository
   }
 
-  async execute({ carId, name, description }: IRequest): Promise<void> {
+  async execute({
+    carId,
+    name,
+    description,
+    dailyRate,
+    avaliable,
+    licensePlate,
+    fineAmount,
+    brand,
+    categoryId,
+  }: IRequest): Promise<void> {
     if (!carId) throw new AppError('_id do carro não enviado')
 
     const fields = {
       name,
       description,
+      dailyRate,
+      avaliable,
+      licensePlate,
+      fineAmount,
+      brand,
+      category: categoryId,
     }
 
     await this.carsRepository.updateOne(carId, fields)
