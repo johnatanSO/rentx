@@ -41,6 +41,11 @@
         background: $green-color-100;
         color: $white-color;
       }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
     }
   }
 

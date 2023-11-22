@@ -10,21 +10,55 @@ import { FormEvent, useContext, useEffect, useState } from 'react'
 import { Category } from '../../interfaces/Category'
 import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
 import { AlertContext } from '@/contexts/alertContext'
+import { updateCarInfosService } from '@/services/cars/updateCarInfos/UpdateCarInfosService'
+import { usePathname, useRouter } from 'next/navigation'
+import { Loading } from '@/components/_ui/Loading'
 
 type Props = {
   car: Car
 }
 export function EditInfosSection({ car }: Props) {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
+
+  const router = useRouter()
+  const pathname = usePathname()
+
   const [carData, setCarData] = useState<Car>({
     ...car,
     categoryId: car.category._id,
   })
   const [categoriesList, setCategoriesList] = useState<Category[]>([])
+  const [loadingUpdateInfos, setLoadingUpdateInfos] = useState<boolean>(false)
 
   function onUpdateCarInfos(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    console.log('UPDATE CAR INFOS')
+
+    setLoadingUpdateInfos(true)
+
+    updateCarInfosService(carData)
+      .then((res) => {
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          open: true,
+          text: 'Informações do carro atualizadas com sucesso',
+          type: 'success',
+        })
+
+        router.push(pathname)
+      })
+      .catch((err) => {
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          open: true,
+          text: `Erro ao tentar atualizar informações do carro - ${
+            err?.response?.data?.message || err?.message
+          }`,
+          type: 'error',
+        })
+      })
+      .finally(() => {
+        setLoadingUpdateInfos(true)
+      })
   }
 
   function getCategoriesList() {
@@ -54,12 +88,18 @@ export function EditInfosSection({ car }: Props) {
         <h3>Informações</h3>
 
         <button
+          disabled={loadingUpdateInfos}
           className={style.saveInfosButton}
           type="submit"
-          onClick={() => undefined}
         >
-          <FontAwesomeIcon icon={faSave} className={style.icon} />
-          Salvar
+          {loadingUpdateInfos ? (
+            <Loading size={21} />
+          ) : (
+            <>
+              <FontAwesomeIcon icon={faSave} className={style.icon} />
+              Salvar
+            </>
+          )}
         </button>
       </header>
 
