@@ -6,7 +6,7 @@ import style from './EditInfosSection.module.scss'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { MenuItem } from '@mui/material'
-import { FormEvent, useContext, useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
 import { Category } from '../../interfaces/Category'
 import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
 import { AlertContext } from '@/contexts/alertContext'
@@ -84,6 +84,16 @@ export function EditInfosSection({ car }: Props) {
       })
   }
 
+  function inputValueHandler(event: ChangeEvent<HTMLInputElement>) {
+    const value = event.target.value
+    const name = event.target.name
+
+    setCarData({
+      ...carData,
+      [name]: value,
+    })
+  }
+
   useEffect(() => {
     getCategoriesList()
   }, [])
@@ -115,14 +125,10 @@ export function EditInfosSection({ car }: Props) {
           placeholder="Digite o nome"
           type="text"
           size="small"
+          name="name"
           label="Nome do carro"
           value={carData.name}
-          onChange={(event) => {
-            setCarData({
-              ...carData,
-              name: event?.target.value,
-            })
-          }}
+          onChange={inputValueHandler}
         />
 
         <CustomTextField
@@ -131,13 +137,9 @@ export function EditInfosSection({ car }: Props) {
           type="text"
           size="small"
           label="Placa"
+          name="licensePlate"
           value={carData.licensePlate}
-          onChange={(event) => {
-            setCarData({
-              ...carData,
-              licensePlate: event?.target.value,
-            })
-          }}
+          onChange={inputValueHandler}
         />
 
         <CustomTextField
@@ -147,13 +149,8 @@ export function EditInfosSection({ car }: Props) {
           size="small"
           label="Valor da diária"
           value={carData.dailyRate}
-          onChange={(event) => {
-            const value = Number(event.target.value)
-            setCarData({
-              ...carData,
-              dailyRate: value,
-            })
-          }}
+          name="dailyRate"
+          onChange={inputValueHandler}
         />
 
         <CustomTextField
@@ -163,13 +160,8 @@ export function EditInfosSection({ car }: Props) {
           size="small"
           label="Valor da multa"
           value={carData.fineAmount}
-          onChange={(event) => {
-            const value = Number(event.target.value)
-            setCarData({
-              ...carData,
-              fineAmount: value,
-            })
-          }}
+          name="fineAmount"
+          onChange={inputValueHandler}
         />
         <CustomTextField
           className={style.input}
@@ -178,12 +170,8 @@ export function EditInfosSection({ car }: Props) {
           size="small"
           label="Marca"
           value={carData.brand}
-          onChange={(event) => {
-            setCarData({
-              ...carData,
-              brand: event?.target.value,
-            })
-          }}
+          name="brand"
+          onChange={inputValueHandler}
         />
 
         <CustomTextField
@@ -193,12 +181,8 @@ export function EditInfosSection({ car }: Props) {
           size="small"
           label="Categoria"
           value={carData.categoryId}
-          onChange={(event) => {
-            setCarData({
-              ...carData,
-              categoryId: event.target.value,
-            })
-          }}
+          name="categoryId"
+          onChange={inputValueHandler}
         >
           {categoriesList.map((category) => {
             return (
@@ -216,12 +200,8 @@ export function EditInfosSection({ car }: Props) {
           size="small"
           label="Transmissão"
           value={carData.transmission}
-          onChange={(event) => {
-            setCarData({
-              ...carData,
-              transmission: event.target.value,
-            })
-          }}
+          name="transmission"
+          onChange={inputValueHandler}
         >
           <MenuItem value="automatic">Automático</MenuItem>
           <MenuItem value="manual">Manual</MenuItem>
@@ -237,12 +217,8 @@ export function EditInfosSection({ car }: Props) {
           rows={3}
           label="Descrição"
           value={carData.description}
-          onChange={(event) => {
-            setCarData({
-              ...carData,
-              description: event?.target.value,
-            })
-          }}
+          name="description"
+          onChange={inputValueHandler}
         />
       </div>
     </form>
