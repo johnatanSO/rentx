@@ -30,11 +30,6 @@ export function EditInfosSection({ car }: Props) {
               </li>
             )
           })}
-        {car.specifications.length === 0 && (
-          <li>
-            <p>Nenhuma especificação encontrada</p>
-          </li>
-        )}
       </ul>
     </section>
   )
