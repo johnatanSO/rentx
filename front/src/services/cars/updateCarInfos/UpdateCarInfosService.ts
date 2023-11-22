@@ -4,12 +4,34 @@ interface IRequest {
   _id: string
   name: string
   description: string
+  dailyRate: number
+  avaliable: boolean
+  licensePlate: string
+  fineAmount: number
+  brand: string
+  categoryId: string
 }
 
-export function updateCarInfosService({ _id, name, description }: IRequest) {
+export function updateCarInfosService({
+  _id,
+  name,
+  description,
+  dailyRate,
+  avaliable,
+  licensePlate,
+  fineAmount,
+  brand,
+  categoryId,
+}: IRequest) {
   const body = {
     name,
     description,
+    dailyRate,
+    avaliable,
+    licensePlate,
+    fineAmount,
+    brand,
+    categoryId,
   }
 
   return http.put(`/cars/${_id}`, body)

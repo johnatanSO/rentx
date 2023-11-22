@@ -15,4 +15,5 @@ export interface Car {
   categoryId: string
   transmission: string
   description: string
+  avaliable: boolean
 }
