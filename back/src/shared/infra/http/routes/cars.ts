@@ -13,6 +13,7 @@ import { ListAllCarsController } from '../../../../modules/cars/useCases/Car/lis
 import { RemoveCarImageController } from '../../../../modules/cars/useCases/Car/removeCarImage/RemoveCarImageController'
 import { FavoriteCarController } from '../../../../modules/accounts/useCases/User/favoriteCar/FavoriteCarController'
 import { ListFavoritedCarsController } from '../../../../modules/accounts/useCases/User/listFavoritedCars/ListFavoritedCarsController'
+import { UpdateCarInfosController } from '../../../../modules/cars/useCases/Car/updateCarInfos/UpdateCarInfosController'
 
 const carsRoutes = Router()
 const upload = multer(uploadConfig.upload('./tmp/cars'))
@@ -25,6 +26,7 @@ const listAllCarsController = new ListAllCarsController()
 const removeCarImageController = new RemoveCarImageController()
 const favoriteCarController = new FavoriteCarController()
 const listFavoritedCarsController = new ListFavoritedCarsController()
+const updateCarInfosController = new UpdateCarInfosController()
 
 carsRoutes.post(
   '/',
@@ -62,6 +64,13 @@ carsRoutes.post(
   '/favorite/:carId',
   ensureAuthenticated,
   favoriteCarController.handle,
+)
+
+carsRoutes.put(
+  '/:carId',
+  ensureAdmin,
+  ensureAuthenticated,
+  updateCarInfosController.handle,
 )
 
 carsRoutes.get(
