@@ -48,14 +48,14 @@ export class UsersRepository implements IUsersRepository {
   }
 
   async addCarToFavorite(carId: string, userId: string): Promise<void> {
-    await this.model.updateMany(
+    await this.model.updateOne(
       { _id: userId },
       { $push: { favoriteCars: carId } },
     )
   }
 
   async removeFavoritedCar(carId: string, userId: string): Promise<void> {
-    await this.model.updateMany(
+    await this.model.updateOne(
       { _id: userId },
       { $pull: { favoriteCars: carId } },
     )

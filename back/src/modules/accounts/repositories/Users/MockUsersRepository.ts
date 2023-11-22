@@ -8,6 +8,41 @@ export class MockUsersRepository implements IUsersRepository {
     this.users = []
   }
 
+  async addCarToFavorite(carId: string, userId: string): Promise<void> {
+    const index = this.users.findIndex(
+      (user) => user._id.toString() === userId.toString(),
+    )
+
+    const newFavoriteCars = [
+      ...(this.users[index].favoriteCars as Types.ObjectId[]),
+      new Types.ObjectId(carId),
+    ]
+
+    if (index !== -1) {
+      this.users[index] = {
+        ...this.users[index],
+        favoriteCars: newFavoriteCars,
+      }
+    }
+  }
+
+  async removeFavoritedCar(carId: string, userId: string): Promise<void> {
+    const index = this.users.findIndex(
+      (user) => user._id.toString() === userId.toString(),
+    )
+
+    const newFavoriteCars = this.users[index].favoriteCars.filter(
+      (favCarId) => favCarId.toString() !== carId,
+    )
+
+    if (index !== -1) {
+      this.users[index] = {
+        ...this.users[index],
+        favoriteCars: newFavoriteCars as Types.ObjectId[],
+      }
+    }
+  }
+
   async create({
     name,
     email,
@@ -20,6 +55,7 @@ export class MockUsersRepository implements IUsersRepository {
       email,
       password,
       driverLicense,
+      favoriteCars: [],
       isAdmin: isAdmin || false,
       _id: new Types.ObjectId(),
       createdAt: new Date(),
