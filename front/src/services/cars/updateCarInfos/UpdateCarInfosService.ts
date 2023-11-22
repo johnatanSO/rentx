@@ -1,11 +1,13 @@
 import http from '@/http/axios'
 
 interface IRequest {
+  _id: string
   name: string
 }
 
-export function updateCarInfosService({ name }: IRequest) {
+export function updateCarInfosService({ name, _id }: IRequest) {
   const body = {
+    _id,
     name,
   }
 
