@@ -12,7 +12,6 @@ export interface Car {
   fineAmount: number
   brand: string
   category: Category
-  categoryId: string
   transmission: string
   description: string
   avaliable: boolean

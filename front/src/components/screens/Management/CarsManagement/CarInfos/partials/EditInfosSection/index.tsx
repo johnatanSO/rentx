@@ -17,15 +17,21 @@ import { Loading } from '@/components/_ui/Loading'
 type Props = {
   car: Car
 }
+
+interface CarData extends Omit<Car, 'category'> {
+  categoryId: string
+}
+
 export function EditInfosSection({ car }: Props) {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
 
   const router = useRouter()
   const pathname = usePathname()
 
-  const [carData, setCarData] = useState<Car>({
-    ...car,
-    categoryId: car.category._id,
+  const { category, ...restCar } = car
+  const [carData, setCarData] = useState<CarData>({
+    ...restCar,
+    categoryId: category._id,
   })
   const [categoriesList, setCategoriesList] = useState<Category[]>([])
   const [loadingUpdateInfos, setLoadingUpdateInfos] = useState<boolean>(false)
