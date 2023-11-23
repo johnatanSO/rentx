@@ -3,6 +3,7 @@ import { IRentalsRepository } from '../../repositories/IRentalsRepository'
 import { ICarsRepository } from '../../../cars/repositories/Cars/ICarsRepository'
 import { AppError } from '../../../../shared/errors/AppError'
 import dayjs from 'dayjs'
+import { IUsersRepository } from '../../../accounts/repositories/Users/IUsersRepository'
 
 interface IRequest {
   rentalId: string
@@ -13,13 +14,16 @@ interface IRequest {
 export class FinalizeRentalUseCase {
   rentalsRepository: IRentalsRepository
   carsRepository: ICarsRepository
+  usersRepository: IUsersRepository
 
   constructor(
     @inject('RentalsRepository') rentalsRepository: IRentalsRepository,
     @inject('CarsRepository') carsRepository: ICarsRepository,
+    @inject('UsersRepository') usersRepository: IUsersRepository,
   ) {
     this.rentalsRepository = rentalsRepository
     this.carsRepository = carsRepository
+    this.usersRepository = usersRepository
   }
 
   async execute({ rentalId, userId }: IRequest) {
@@ -28,9 +32,13 @@ export class FinalizeRentalUseCase {
     const rental = await this.rentalsRepository.findById(rentalId)
 
     if (!rental) throw new AppError('Aluguel não encontrado')
-    if (rental.user.toString() !== userId) {
+
+    const user = await this.usersRepository.findById(userId)
+
+    if (!user.isAdmin && rental.user.toString() !== userId) {
       throw new AppError('O aluguel não pertence à este usuário')
     }
+
     if (rental.endDate) throw new AppError('Aluguel já foi finalizado')
 
     const car = await this.carsRepository.findById(rental.car.toString())
