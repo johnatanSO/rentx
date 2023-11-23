@@ -29,16 +29,17 @@ export class UsersRepository implements IUsersRepository {
   }
 
   async findByEmail(email: string): Promise<IUser> {
-    const user = await this.model.findOne({ email })
+    const user = await this.model.findOne({ email }).populate({
+      path: 'favoriteCars',
+      populate: [{ path: 'specifications' }, { path: 'images' }],
+    })
     return user
   }
 
   async findById(_id: string): Promise<IUser> {
     const user = await this.model.findOne({ _id }).populate({
       path: 'favoriteCars',
-      populate: {
-        path: 'images',
-      },
+      populate: [{ path: 'specifications' }, { path: 'images' }],
     })
     return user
   }

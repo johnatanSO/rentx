@@ -3,6 +3,7 @@ import { sign } from 'jsonwebtoken'
 import { inject, injectable } from 'tsyringe'
 import { AppError } from '../../../../../shared/errors/AppError'
 import { IUsersRepository } from '../../../repositories/Users/IUsersRepository'
+import { Car } from '../../../../cars/infra/mongoose/entities/Car'
 
 interface IRequest {
   email: string
@@ -15,6 +16,7 @@ interface IResponse {
     email: string
     isAdmin: boolean
     avatar: string
+    favoriteCars: Car[]
   }
   token: string
 }
@@ -45,6 +47,7 @@ export class AuthenticateUserUseCase {
         email: user.email,
         isAdmin: user.isAdmin,
         avatar: user.avatar,
+        favoriteCars: user.favoriteCars,
       },
     }
   }
