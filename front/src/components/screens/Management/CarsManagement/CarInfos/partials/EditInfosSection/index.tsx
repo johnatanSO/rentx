@@ -63,7 +63,7 @@ export function EditInfosSection({ car }: Props) {
         })
       })
       .finally(() => {
-        setLoadingUpdateInfos(true)
+        setLoadingUpdateInfos(false)
       })
   }
 
@@ -109,7 +109,7 @@ export function EditInfosSection({ car }: Props) {
           type="submit"
         >
           {loadingUpdateInfos ? (
-            <Loading size={21} />
+            <Loading color="#00b37e" size={21} />
           ) : (
             <>
               <FontAwesomeIcon icon={faSave} className={style.icon} />
