@@ -99,7 +99,7 @@ export function useColumns({ onFinalizeRental }: Props) {
               onClick={() => {
                 onFinalizeRental(params.data._id)
               }}
-              className={style.showDetailsButton}
+              className={style.finalizeRentalButton}
               type="button"
             >
               Devolver carro

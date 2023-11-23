@@ -9,7 +9,11 @@ import { CarImage } from '../interfaces/CarImage'
 import unknownCarImage from '../../../../../../public/assets/images/cars/unknownCarImage.png'
 import Image from 'next/image'
 
-export function useColumns() {
+type Props = {
+  onFinalizeRental: (rentalId: string) => void
+}
+
+export function useColumns({ onFinalizeRental }: Props) {
   function getCarImageUrl(images: CarImage[]) {
     if (images.length === 0) return unknownCarImage
 
@@ -90,6 +94,26 @@ export function useColumns() {
       field: 'total',
       valueFormatter: (params: CellFunctionParams<Rental>) =>
         params?.value ? formatCurrency(params?.value || 0) : '--',
+    },
+    {
+      headerName: '',
+      field: 'returnCar',
+      valueFormatter: (params: CellFunctionParams<Rental>) => {
+        if (!params.data.endDate) {
+          return (
+            <button
+              onClick={() => {
+                onFinalizeRental(params.data._id)
+              }}
+              className={style.finalizeRentalButton}
+              type="button"
+            >
+              Devolver carro
+            </button>
+          )
+        }
+        return <></>
+      },
     },
   ]
 }

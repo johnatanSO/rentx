@@ -1,7 +1,7 @@
 'use client'
+
 import style from './Rentals.module.scss'
-import { useEffect, useState, useContext } from 'react'
-import { getRentalsService } from '@/services/rentals/getRentals/GetRentalsService'
+import { useContext } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
 import { Rental } from './interfaces/Rental'
 import { TableComponent } from '@/components/_ui/TableComponent'
