@@ -36,7 +36,7 @@ export function AllRentalsManagement({ rentals }: Props) {
               type: 'success',
             })
 
-            router.push('/rentals')
+            router.push('/management/rentals')
           })
           .catch((err) => {
             setAlertNotifyConfigs({
