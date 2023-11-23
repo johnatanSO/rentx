@@ -151,7 +151,11 @@ export function CarDetails({ car }: Props) {
                 setExpectedReturnDate(event?.target.value)
               }}
             />
-            <button className={style.rentalButton} type="submit">
+            <button
+              disabled={loadingCreateRental}
+              className={style.rentalButton}
+              type="submit"
+            >
               {loadingCreateRental ? <Loading /> : 'Alugar'}
             </button>
           </form>
