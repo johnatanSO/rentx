@@ -68,8 +68,8 @@ carsRoutes.post(
 
 carsRoutes.put(
   '/:carId',
-  ensureAdmin,
   ensureAuthenticated,
+  ensureAdmin,
   updateCarInfosController.handle,
 )
 
