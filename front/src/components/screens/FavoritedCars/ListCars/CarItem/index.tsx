@@ -79,7 +79,7 @@ export function CarItem({
       <header>
         <div className={style.title}>
           <h4>{name}</h4>
-          {specifications.length > 0 ? (
+          {specifications?.length > 0 ? (
             specifications.map((specification) => {
               return (
                 <span
