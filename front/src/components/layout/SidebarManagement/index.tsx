@@ -9,13 +9,22 @@ import {
   faToolbox,
 } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { CustomAvatar } from '@/components/_ui/CustomAvatar'
 
 export function SidebarManagement() {
-  const [activeMenu, setActiveMenu] = useState<string>('')
+  const pathname = usePathname()
+  const [activeMenu, setActiveMenu] = useState<string>(getDefaultMenu())
   const router = useRouter()
+
+  function getDefaultMenu() {
+    if (pathname.includes('/cars')) return 'cars'
+    if (pathname.includes('/categories')) return 'categories'
+    if (pathname.includes('/specifications')) return 'specifications'
+    if (pathname.includes('/rentals')) return 'rentals'
+    return ''
+  }
 
   function handleChangeMenuItem(menuName: string) {
     setActiveMenu(menuName)

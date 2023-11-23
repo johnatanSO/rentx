@@ -8,6 +8,7 @@ import { UserContext } from '@/contexts/userContext'
 export function FavoritedCars() {
   const { userInfo } = useContext(UserContext)
   const favoritedCars: any[] = userInfo?.favoriteCars || []
+  console.log('FAV CARS', favoritedCars)
 
   return (
     <div className={style.carsContainer}>

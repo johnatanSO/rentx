@@ -16,9 +16,18 @@ import { usePathname, useRouter } from 'next/navigation'
 
 export function Header() {
   const { userInfo } = useContext(UserContext)
-  const [activeMenu, setActiveMenu] = useState<string>('')
-  const router = useRouter()
   const pathname = usePathname()
+  const [activeMenu, setActiveMenu] = useState<string>(getDefaultMenu())
+  const router = useRouter()
+
+  function getDefaultMenu() {
+    if (pathname.includes('/rentals')) return 'rentals'
+    if (pathname.includes('/favoriteds')) return 'favoriteds'
+    if (pathname.includes('/about')) return 'about'
+    if (pathname.includes('/contact')) return 'contact'
+    if (pathname.includes('/management')) return 'management'
+    return ''
+  }
 
   function getActiveMenu(menuName: string) {
     if (activeMenu === menuName) {
