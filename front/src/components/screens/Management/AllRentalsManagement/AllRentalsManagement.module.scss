@@ -5,10 +5,17 @@
   align-items: center;
   gap: 1rem;
 
-  .searchInput {
+  .filterDateContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
     margin-left: auto;
-    background: $white-color;
-    border-radius: 20px;
+
+    .input {
+      background: $white-color;
+      border-radius: 20px;
+      width: 200px;
+    }
   }
 }
 
