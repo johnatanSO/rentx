@@ -4,6 +4,7 @@ import { verifyUserIsAdminService } from '@/services/user/verifyUserIsAdmin/Veri
 
 export default async function SpecificationsPage() {
   await verifyUserIsAdminService()
+
   const { data } = await listAllSpecificationsService()
   const allSpecifications = data.items
 

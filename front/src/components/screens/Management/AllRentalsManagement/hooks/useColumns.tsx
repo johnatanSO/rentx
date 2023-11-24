@@ -108,7 +108,7 @@ export function useColumns({ onFinalizeRental }: Props) {
               className={style.finalizeRentalButton}
               type="button"
             >
-              Devolver carro
+              Finalizar aluguel
             </button>
           )
         }

@@ -1,6 +1,6 @@
 'use server'
 import { cookies } from 'next/headers'
-const USER_KEY = ':user: [INFO]'
+const USER_KEY = ':rental: [USER_INFO]'
 
 export async function getLocalUserService() {
   const userLocalByStorage = globalThis?.localStorage?.getItem(USER_KEY)

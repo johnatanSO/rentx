@@ -1,10 +1,8 @@
 import { redirect } from 'next/navigation'
-import { getLocalUserService } from '../getLocalUser/GetLocalUserService'
+import { verifyUserSessionService } from '../verifyUserSession/VerifyUserSessionService'
 
 export async function verifyUserIsAdminService() {
-  const user = await getLocalUserService()
-
-  if (!user) redirect('/')
+  const user = await verifyUserSessionService()
 
   const userHasAdminPermission = !!user.isAdmin
 
