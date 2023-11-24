@@ -12,6 +12,7 @@ interface IRequest {
   fineAmount: number
   brand: string
   categoryId: string
+  reasonUnavaliable?: string
 }
 
 @injectable()
@@ -31,6 +32,7 @@ export class UpdateCarInfosUseCase {
     fineAmount,
     brand,
     categoryId,
+    reasonUnavaliable,
   }: IRequest): Promise<void> {
     if (!carId) throw new AppError('_id do carro não enviado')
 
@@ -43,6 +45,7 @@ export class UpdateCarInfosUseCase {
       fineAmount,
       brand,
       category: categoryId,
+      reasonUnavaliable,
     }
 
     await this.carsRepository.updateOne(carId, fields)
