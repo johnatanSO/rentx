@@ -10,6 +10,7 @@ interface IRequest {
   fineAmount: number
   brand: string
   categoryId: string
+  reasonUnavaliable?: string
 }
 
 export function updateCarInfosService({
@@ -22,6 +23,7 @@ export function updateCarInfosService({
   fineAmount,
   brand,
   categoryId,
+  reasonUnavaliable,
 }: IRequest) {
   const body = {
     name,
@@ -32,6 +34,7 @@ export function updateCarInfosService({
     fineAmount,
     brand,
     categoryId,
+    reasonUnavaliable,
   }
 
   return http.put(`/cars/${_id}`, body)

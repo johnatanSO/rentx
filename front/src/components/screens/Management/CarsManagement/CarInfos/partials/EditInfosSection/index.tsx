@@ -219,6 +219,7 @@ export function EditInfosSection({ car }: Props) {
                 setCarData({
                   ...carData,
                   avaliable: event.target.checked,
+                  reasonUnavaliable: '',
                 })
               }}
               checked={carData.avaliable}
@@ -244,7 +245,7 @@ export function EditInfosSection({ car }: Props) {
             }}
             label="Motivo da indisponibilidade"
             value={carData.reasonUnavaliable}
-            name="reasonDisabled"
+            name="reasonUnavaliable"
             onChange={inputValueHandler}
           />
 
