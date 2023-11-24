@@ -5,7 +5,7 @@ import { Car } from '../../interfaces/Car'
 import style from './EditInfosSection.module.scss'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
-import { MenuItem } from '@mui/material'
+import { Checkbox, FormControlLabel, FormGroup, MenuItem } from '@mui/material'
 import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
 import { Category } from '../../interfaces/Category'
 import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
@@ -207,19 +207,61 @@ export function EditInfosSection({ car }: Props) {
           <MenuItem value="manual">Manual</MenuItem>
         </CustomTextField>
 
-        <CustomTextField
-          className={style.input}
-          placeholder="Escreva uma descrição para o carro"
-          type="text"
-          fullWidth
-          size="small"
-          multiline
-          rows={3}
-          label="Descrição"
-          value={carData.description}
-          name="description"
-          onChange={inputValueHandler}
+        <FormControlLabel
+          label="Disponível"
+          control={
+            <Checkbox
+              sx={{
+                marginLeft: '0.4rem',
+                '&.Mui-checked': { color: '#536d88' },
+              }}
+              onChange={(event) => {
+                setCarData({
+                  ...carData,
+                  avaliable: event.target.checked,
+                })
+              }}
+              checked={carData.avaliable}
+            />
+          }
         />
+
+        <FormGroup className={style.textAreaContainer}>
+          <CustomTextField
+            disabled={carData.avaliable}
+            className={style.input}
+            placeholder="Motivo do carro estar indisponível"
+            type="text"
+            size="small"
+            multiline
+            rows={3}
+            sx={{
+              display: 'flex',
+              flex: 1,
+              ...(carData.avaliable
+                ? { opacity: '0.4', cursor: 'not-allowed' }
+                : {}),
+            }}
+            label="Motivo da indisponibilidade"
+            value={carData.reasonUnavaliable}
+            name="reasonDisabled"
+            onChange={inputValueHandler}
+          />
+
+          <CustomTextField
+            className={style.input}
+            placeholder="Escreva uma descrição para o carro"
+            type="text"
+            size="small"
+            multiline
+            rows={3}
+            sx={{ display: 'flex', flex: 1 }}
+            label="Descrição"
+            value={carData.description}
+            name="description"
+            onChange={inputValueHandler}
+          />
+        </FormGroup>
       </div>
     </form>
   )

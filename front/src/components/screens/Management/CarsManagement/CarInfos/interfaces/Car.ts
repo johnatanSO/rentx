@@ -15,4 +15,5 @@ export interface Car {
   transmission: string
   description: string
   avaliable: boolean
+  reasonUnavaliable?: string
 }
