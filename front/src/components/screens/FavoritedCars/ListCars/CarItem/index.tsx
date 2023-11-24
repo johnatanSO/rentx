@@ -26,6 +26,7 @@ type Props = {
   dailyRate: number
   carId: string
   specifications: Specification[]
+  avaliable: boolean
 }
 
 export function CarItem({
@@ -34,6 +35,7 @@ export function CarItem({
   dailyRate,
   carId,
   specifications,
+  avaliable,
 }: Props) {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
   const { userInfo, setUserInfo } = useContext(UserContext)
@@ -74,8 +76,10 @@ export function CarItem({
       })
   }
 
+  console.log(`${name}:${avaliable}`)
+
   return (
-    <li className={style.carItem}>
+    <li className={`${!avaliable ? style.disabled : ''} ${style.carItem}`}>
       <header>
         <div className={style.title}>
           <h4>{name}</h4>
