@@ -8,5 +8,5 @@ export default async function CategoriesPage() {
   const { data } = await getAllCategoriesService()
   const allCategories = data.items
 
-  return <CategoriesManagement categories={allCategories} />
+  return <CategoriesManagement allCategories={allCategories} />
 }

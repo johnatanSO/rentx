@@ -1,20 +1,34 @@
 'use client'
 import style from './CategoriesManagement.module.scss'
-import { useState, useEffect, useContext } from 'react'
 import { TableComponent } from '@/components/_ui/TableComponent'
 import { Category } from './interfaces/Category'
-import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
-import { AlertContext } from '@/contexts/alertContext'
 import { useColumns } from './hooks/useColumns'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { CreateNewCategory } from './CreateNewCategory'
+import { useEffect, useState } from 'react'
 
 type Props = {
-  categories: Category[]
+  allCategories: Category[]
 }
 
-export function CategoriesManagement({ categories }: Props) {
+export function CategoriesManagement({ allCategories }: Props) {
   const columns = useColumns()
+  const [categories, setCategories] = useState<Category[]>(allCategories)
+  const [searchString, setSearchString] = useState<string>('')
+
+  function filterByName() {
+    const filteredCategories = allCategories.filter((category) =>
+      category.name
+        .toLowerCase()
+        .trim()
+        .includes(searchString.toLowerCase().trim()),
+    )
+    setCategories(filteredCategories)
+  }
+
+  useEffect(() => {
+    filterByName()
+  }, [searchString])
 
   return (
     <>
@@ -25,6 +39,10 @@ export function CategoriesManagement({ categories }: Props) {
         <CustomTextField
           className={style.searchInput}
           label="Buscar pelo nome"
+          value={searchString}
+          onChange={(event) => {
+            setSearchString(event?.target.value)
+          }}
         />
       </header>
 

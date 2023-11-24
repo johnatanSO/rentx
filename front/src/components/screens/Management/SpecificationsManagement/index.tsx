@@ -1,20 +1,36 @@
 'use client'
+
 import style from './SpecificationsManagement.module.scss'
-import { useState, useEffect, useContext } from 'react'
 import { TableComponent } from '@/components/_ui/TableComponent'
-import { AlertContext } from '@/contexts/alertContext'
 import { useColumns } from './hooks/useColumns'
-import { listAllSpecificationsService } from '@/services/specifications/listAllSpecifications/ListAllSpecificationsService'
 import { Specification } from './interfaces/Specification'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { CreateNewSpecification } from './CreateNewSpecification'
+import { useEffect, useState } from 'react'
 
 type Props = {
-  specifications: Specification[]
+  allSpecifications: Specification[]
 }
 
-export function SpecificationsManagement({ specifications }: Props) {
+export function SpecificationsManagement({ allSpecifications }: Props) {
   const columns = useColumns()
+  const [specifications, setSpecifications] =
+    useState<Specification[]>(allSpecifications)
+  const [searchString, setSearchString] = useState<string>('')
+
+  function filterByName() {
+    const filteredSpecifications = allSpecifications.filter((specification) =>
+      specification.name
+        .toLowerCase()
+        .trim()
+        .includes(searchString.toLowerCase().trim()),
+    )
+    setSpecifications(filteredSpecifications)
+  }
+
+  useEffect(() => {
+    filterByName()
+  }, [searchString])
 
   return (
     <>
@@ -25,6 +41,10 @@ export function SpecificationsManagement({ specifications }: Props) {
         <CustomTextField
           className={style.searchInput}
           label="Buscar pelo nome"
+          value={searchString}
+          onChange={(event) => {
+            setSearchString(event?.target.value)
+          }}
         />
       </header>
       <section className={style.tableSection}>

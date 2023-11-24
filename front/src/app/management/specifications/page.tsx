@@ -8,5 +8,5 @@ export default async function SpecificationsPage() {
   const { data } = await listAllSpecificationsService()
   const allSpecifications = data.items
 
-  return <SpecificationsManagement specifications={allSpecifications} />
+  return <SpecificationsManagement allSpecifications={allSpecifications} />
 }
