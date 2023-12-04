@@ -1,15 +1,19 @@
+import { EmptyItems } from '@/components/_ui/EmptyItems'
 import { Car } from '../interfaces/Car'
 import { CarItem } from './CarItem'
 import style from './ListCars.module.scss'
 
 type Props = {
   cars: Car[]
+  loading: boolean
 }
 
-export function ListCars({ cars }: Props) {
+export function ListCars({ cars, loading }: Props) {
   return (
     <ul className={style.listCarsContainer}>
-      {(!cars || cars.length === 0) && <p>Nenhum carro encontrado</p>}
+      {(!cars || cars.length === 0) && !loading && (
+        <EmptyItems text="Nenhum carro disponível" />
+      )}
 
       {cars.length > 0 &&
         cars.map((car) => {
