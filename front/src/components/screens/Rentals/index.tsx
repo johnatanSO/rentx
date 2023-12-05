@@ -30,7 +30,7 @@ export function Rentals({ rentals }: Props) {
       open: true,
       onClickAgree: async () => {
         finalizeRentalService(rentalId)
-          .then((res) => {
+          .then(() => {
             setAlertNotifyConfigs({
               ...alertNotifyConfigs,
               open: true,
@@ -39,7 +39,6 @@ export function Rentals({ rentals }: Props) {
             })
 
             router.refresh()
-            router.push('/rentals')
           })
           .catch((err) => {
             setAlertNotifyConfigs({

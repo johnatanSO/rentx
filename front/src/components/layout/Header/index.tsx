@@ -43,7 +43,11 @@ export function Header() {
   }
 
   useEffect(() => {
-    if (pathname === '/') setActiveMenu('')
+    if (pathname === '/') {
+      setActiveMenu('')
+      return
+    }
+    setActiveMenu(getDefaultMenu())
   }, [pathname])
 
   return (
