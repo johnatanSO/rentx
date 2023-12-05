@@ -39,6 +39,7 @@ export function AllRentalsManagement({ rentals }: Props) {
               type: 'success',
             })
 
+            router.refresh()
             router.push('/management/rentals')
           })
           .catch((err) => {

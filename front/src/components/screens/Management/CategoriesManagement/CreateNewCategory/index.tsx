@@ -37,6 +37,7 @@ export function CreateNewCategory() {
           type: 'success',
         })
 
+        router.refresh()
         router.push(pathname)
       })
       .catch((err) => {

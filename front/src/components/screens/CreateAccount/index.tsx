@@ -42,6 +42,8 @@ export function CreateAccount() {
           text: 'Usuário cadastrado com sucesso',
           type: 'success',
         })
+
+        router.refresh()
         router.push('/authenticate')
       })
       .catch((err) => {

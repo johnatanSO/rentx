@@ -50,6 +50,7 @@ export function EditInfosSection({ car }: Props) {
           type: 'success',
         })
 
+        router.refresh()
         router.push(pathname)
       })
       .catch((err) => {

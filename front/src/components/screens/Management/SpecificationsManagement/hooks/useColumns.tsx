@@ -35,6 +35,8 @@ export function useColumns() {
               text: 'Especificação deletada com sucesso',
               type: 'success',
             })
+
+            router.refresh()
             router.push(pathname)
           })
           .catch((err) => {

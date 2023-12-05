@@ -45,7 +45,7 @@ export function ImagesSection({ car }: Props) {
       text: 'Deseja realmente remover esta imagem?',
       onClickAgree: async () => {
         removeCarImageService({ carId: car._id, imageId })
-          .then((res) => {
+          .then(() => {
             setAlertNotifyConfigs({
               ...alertNotifyConfigs,
               open: true,
@@ -53,6 +53,7 @@ export function ImagesSection({ car }: Props) {
               type: 'success',
             })
 
+            router.refresh()
             router.push(pathname)
           })
           .catch((err) => {
@@ -77,16 +78,17 @@ export function ImagesSection({ car }: Props) {
   function handleSetImage() {
     const inputFile = document.createElement('input')
     inputFile.type = 'file'
-    inputFile.onchange = (event: any) => {
-      updateImage(event.target.files[0])
+    inputFile.onchange = async (event: any) => {
+      await updateImage(event.target.files[0])
     }
 
     inputFile.click()
   }
 
-  function updateImage(carImage: string) {
+  async function updateImage(carImage: string) {
     updateCarImagesService({ carImage, carId: car._id })
       .then(() => {
+        router.refresh()
         router.push(pathname)
       })
       .catch((err) => {

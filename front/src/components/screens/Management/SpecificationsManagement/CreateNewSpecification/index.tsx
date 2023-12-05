@@ -36,6 +36,7 @@ export function CreateNewSpecification() {
           type: 'success',
         })
 
+        router.refresh()
         router.push(pathname)
       })
       .catch((err) => {

@@ -49,6 +49,8 @@ export function ModalSpecifications({ open, handleClose, car }: Props) {
           text: `Especificações adicionadas com sucesso`,
           type: 'success',
         })
+
+        router.refresh()
         router.push(pathname)
         handleClose()
       })

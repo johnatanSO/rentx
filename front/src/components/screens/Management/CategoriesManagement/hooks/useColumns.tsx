@@ -34,6 +34,7 @@ export function useColumns() {
               text: 'Categoria deletada com sucesso',
               type: 'success',
             })
+            router.refresh()
             router.push(pathname)
           })
           .catch((err) => {
