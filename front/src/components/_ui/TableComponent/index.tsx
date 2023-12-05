@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import style from './TableComponent.module.scss'
 import { Column } from './interfaces'
 
@@ -8,58 +9,71 @@ interface Props {
 }
 
 export function TableComponent({ columns, rows, loading }: Props) {
+  function loadServices() {
+    console.log('Service 1')
+    console.log('Service 2')
+    console.log('Service 3')
+    console.log('Service 4')
+  }
+
+  useEffect(() => {
+    loadServices()
+  }, [])
+
   return (
-    <table style={loading ? { opacity: 0.5 } : {}} className={style.table}>
-      <thead>
-        <tr>
-          {columns?.map((column) => {
-            return (
-              <th key={column.field}>
-                <p>{column?.headerName || ''}</p>
-              </th>
-            )
-          })}
-        </tr>
-      </thead>
-      <tbody>
-        {rows.length > 0 &&
-          rows?.map((row) => {
-            return (
-              <tr key={row._id}>
-                {columns.map((column) => {
-                  return (
-                    <td
-                      className={column?.cellClass?.({
-                        value: row[column.field],
-                        data: row,
-                      })}
-                      key={column.field}
-                      style={{ flex: 1 }}
-                    >
-                      {column?.valueFormatter?.({
-                        value: row[column.field],
-                        data: row,
-                      })}
-
-                      {column?.cellRenderer?.({
-                        value: row[column.field],
-                        data: row,
-                      })}
-                    </td>
-                  )
-                })}
-              </tr>
-            )
-          })}
-
-        {rows.length === 0 && !loading && (
+    <>
+      <table style={loading ? { opacity: 0.5 } : {}} className={style.table}>
+        <thead>
           <tr>
-            <td className={style.emptyCell} colSpan={columns.length}>
-              <p>Nenhum item encontrado</p>
-            </td>
+            {columns?.map((column) => {
+              return (
+                <th key={column.field}>
+                  <p>{column?.headerName || ''}</p>
+                </th>
+              )
+            })}
           </tr>
-        )}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {rows.length > 0 &&
+            rows?.map((row) => {
+              return (
+                <tr key={row._id}>
+                  {columns.map((column) => {
+                    return (
+                      <td
+                        className={column?.cellClass?.({
+                          value: row[column.field],
+                          data: row,
+                        })}
+                        key={column.field}
+                        style={{ flex: 1 }}
+                      >
+                        {column?.valueFormatter?.({
+                          value: row[column.field],
+                          data: row,
+                        })}
+
+                        {column?.cellRenderer?.({
+                          value: row[column.field],
+                          data: row,
+                        })}
+                      </td>
+                    )
+                  })}
+                </tr>
+              )
+            })}
+
+          {rows.length === 0 && !loading && (
+            <tr>
+              <td className={style.emptyCell} colSpan={columns.length}>
+                <p>Nenhum item encontrado</p>
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </>
   )
 }

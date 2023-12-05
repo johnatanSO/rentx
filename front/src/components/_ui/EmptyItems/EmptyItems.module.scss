@@ -1,6 +1,11 @@
 @import "@/styles/colors";
 
 .container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
   .icon {
+    font-size: 1.2rem;
   }
 }

@@ -1,14 +1,14 @@
 'use client'
 
-import { useContext } from 'react'
 import style from './FavoritedCars.module.scss'
 import { ListCars } from './ListCars'
-import { UserContext } from '@/contexts/userContext'
+import { Car } from './interfaces/Car'
 
-export function FavoritedCars() {
-  const { userInfo } = useContext(UserContext)
-  const favoritedCars: any[] = userInfo?.favoriteCars || []
+interface Props {
+  favoritedCars: Car[]
+}
 
+export function FavoritedCars({ favoritedCars }: Props) {
   return (
     <div className={style.carsContainer}>
       <header className={style.headerPage}>

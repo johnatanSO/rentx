@@ -236,6 +236,7 @@ export function EditInfosSection({ car }: Props) {
             size="small"
             multiline
             rows={3}
+            required
             sx={{
               display: 'flex',
               flex: 1,
