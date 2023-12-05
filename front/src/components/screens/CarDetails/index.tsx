@@ -60,6 +60,7 @@ export function CarDetails({ car }: Props) {
           type: 'success',
         })
 
+        router.refresh()
         router.push('/rentals')
       })
       .catch((err) => {

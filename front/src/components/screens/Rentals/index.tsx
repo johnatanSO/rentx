@@ -38,6 +38,7 @@ export function Rentals({ rentals }: Props) {
               type: 'success',
             })
 
+            router.refresh()
             router.push('/rentals')
           })
           .catch((err) => {
