@@ -13,7 +13,10 @@
     object-fit: contain;
 
     width: 50px;
+    min-width: 50px;
+
     height: 50px;
+    
     border-radius: 50%;
     background: $gray-color-50;
     padding: 0.2rem;

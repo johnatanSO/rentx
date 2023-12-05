@@ -1,7 +1,7 @@
 @import "@/styles/colors";
 
 .alertContainer {
-  position: absolute;
+  position: fixed;
   bottom: 15px;
   left: 50%;
   z-index: 99999999;
