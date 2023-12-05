@@ -25,7 +25,6 @@ const getCarInfoController = new GetCarInfoController()
 const listAllCarsController = new ListAllCarsController()
 const removeCarImageController = new RemoveCarImageController()
 const favoriteCarController = new FavoriteCarController()
-const listFavoritedCarsController = new ListFavoritedCarsController()
 const updateCarInfosController = new UpdateCarInfosController()
 
 carsRoutes.post(
@@ -71,12 +70,6 @@ carsRoutes.put(
   ensureAuthenticated,
   ensureAdmin,
   updateCarInfosController.handle,
-)
-
-carsRoutes.get(
-  '/favorite/list',
-  ensureAuthenticated,
-  listFavoritedCarsController.handle,
 )
 
 carsRoutes.patch(
