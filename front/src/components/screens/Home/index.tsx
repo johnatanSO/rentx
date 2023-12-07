@@ -3,11 +3,11 @@
 import { useContext, useEffect, useState } from 'react'
 import { Filters } from './Filters'
 import style from './Home.module.scss'
-import { ListCars } from './ListCars'
 import { Car } from './interfaces/Car'
 import { useSearchParams } from 'next/navigation'
 import { getAvaliableCarsService } from '@/services/cars/getAvaliableCars/GetAvaliableCarsService'
 import { AlertContext } from '@/contexts/alertContext'
+import { ListCars } from '@/components/_ui/ListCars'
 
 interface Props {
   cars: Car[]

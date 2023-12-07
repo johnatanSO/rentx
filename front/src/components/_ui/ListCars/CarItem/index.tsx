@@ -2,8 +2,8 @@
 import { useContext } from 'react'
 import Image from 'next/image'
 import style from './CarItem.module.scss'
-import { CarImage } from '../../interfaces/CarImage'
-import unknownCarImage from '../../../../../../public/assets/images/cars/unknownCarImage.png'
+import { CarImage } from '../interfaces/CarImage'
+import unknownCarImage from '../../../../../public/assets/images/cars/unknownCarImage.png'
 import { formatCurrency } from '@/utils/format'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -14,7 +14,7 @@ import {
   faDroplet,
 } from '@fortawesome/free-solid-svg-icons'
 
-import { Specification } from '../../interfaces/Specification'
+import { Specification } from '../interfaces/Specification'
 import { favoriteCarService } from '@/services/cars/favoriteCar/FavoriteCarService'
 import { AlertContext } from '@/contexts/alertContext'
 import { UserContext } from '@/contexts/userContext'

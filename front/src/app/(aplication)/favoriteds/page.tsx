@@ -4,10 +4,10 @@ import { verifyUserSessionService } from '@/services/user/verifyUserSession/Veri
 
 export default async function FavoritedsPage() {
   await verifyUserSessionService()
-  console.log('user geted')
+
   const { data } = await getFavoritedCarsService()
+
   const favoritedCars = data?.items
-  console.log('favorites geted')
 
   return <FavoritedCars favoritedCars={favoritedCars} />
 }

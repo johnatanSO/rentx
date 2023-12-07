@@ -1,7 +1,7 @@
 'use client'
 
+import { ListCars } from '@/components/_ui/ListCars'
 import style from './FavoritedCars.module.scss'
-import { ListCars } from './ListCars'
 import { Car } from './interfaces/Car'
 
 interface Props {
@@ -14,7 +14,8 @@ export function FavoritedCars({ favoritedCars }: Props) {
       <header className={style.headerPage}>
         <h3>Carros favoritos</h3>
       </header>
-      <ListCars cars={favoritedCars} />
+
+      <ListCars cars={favoritedCars} loading={false} />
     </div>
   )
 }
