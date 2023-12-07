@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import style from './TableComponent.module.scss'
 import { Column } from './interfaces'
 
@@ -9,17 +8,6 @@ interface Props {
 }
 
 export function TableComponent({ columns, rows, loading }: Props) {
-  function loadServices() {
-    console.log('Service 1')
-    console.log('Service 2')
-    console.log('Service 3')
-    console.log('Service 4')
-  }
-
-  useEffect(() => {
-    loadServices()
-  }, [])
-
   return (
     <>
       <table style={loading ? { opacity: 0.5 } : {}} className={style.table}>
