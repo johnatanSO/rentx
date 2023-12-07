@@ -5,8 +5,17 @@ const nextConfig = {
       'http://localhost:3333',
       'localhost',
       'https://rentx-webservice.onrender.com',
-      'rentx-webservice.onrender',
-      'rentx-webservice',
+    ],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'rentx-webservice.onrender.com',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3333',
+      },
     ],
   },
   experimental: {
