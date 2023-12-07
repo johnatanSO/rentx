@@ -149,7 +149,11 @@ export function ImagesSection({ car }: Props) {
               </button>
             )}
           </li>
-          <li>
+          <li
+            onClick={() => {
+              handleClickImage(car.images[1])
+            }}
+          >
             <Image
               className={style.image}
               alt="Car image"
@@ -159,7 +163,8 @@ export function ImagesSection({ car }: Props) {
             />
             {car.images[1] && (
               <button
-                onClick={() => {
+                onClick={(event) => {
+                  event.stopPropagation()
                   handleRemoveImage(car.images[0]._id)
                 }}
                 className={style.removeImageButton}
@@ -169,7 +174,11 @@ export function ImagesSection({ car }: Props) {
               </button>
             )}
           </li>
-          <li>
+          <li
+            onClick={() => {
+              handleClickImage(car.images[2])
+            }}
+          >
             <Image
               className={style.image}
               alt="Car image"
@@ -179,7 +188,8 @@ export function ImagesSection({ car }: Props) {
             />
             {car.images[2] && (
               <button
-                onClick={() => {
+                onClick={(event) => {
+                  event.stopPropagation()
                   handleRemoveImage(car.images[0]._id)
                 }}
                 className={style.removeImageButton}
