@@ -64,11 +64,10 @@
     }
 
     .carImage {
-      object-fit: contain;
+      object-fit: cover;
 
-      height: 130px;
+      height: 140px;
       width: 100%;
-      transform: scale(0.65);
     }
   }
 
