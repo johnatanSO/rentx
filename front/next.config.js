@@ -7,9 +7,9 @@ const nextConfig = {
       'https://rentx-webservice.onrender.com',
     ],
   },
-  experimental: {
+  /* experimental: {
     serverActions: true,
-  },
+  }, */
 }
 
 module.exports = nextConfig
