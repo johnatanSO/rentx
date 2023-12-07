@@ -4,8 +4,10 @@ import { verifyUserSessionService } from '@/services/user/verifyUserSession/Veri
 
 export default async function RentalsPage() {
   await verifyUserSessionService()
+  console.log('user geted')
   const { data } = await getRentalsService()
-  const allRentals = data.items
+  const allRentals = data?.items
+  console.log('rentals geted')
 
   return <Rentals rentals={allRentals} />
 }
