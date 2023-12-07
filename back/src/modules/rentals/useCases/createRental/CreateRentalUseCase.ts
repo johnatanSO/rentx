@@ -68,7 +68,10 @@ export class CreateRentalUseCase {
       expectedReturnDate: expectedReturnDateEndDay,
     })
 
-    await this.carsRepository.updateOne(carId, { avaliable: false })
+    await this.carsRepository.updateOne(carId, {
+      avaliable: false,
+      reasonUnavaliable: 'Carro está alugado no momento',
+    })
 
     return newRental
   }
