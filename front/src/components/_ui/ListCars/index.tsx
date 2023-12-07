@@ -1,5 +1,5 @@
 import { EmptyItems } from '@/components/_ui/EmptyItems'
-import { Car } from '../interfaces/Car'
+import { Car } from './interfaces/Car'
 import { CarItem } from './CarItem'
 import style from './ListCars.module.scss'
 
