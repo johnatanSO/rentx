@@ -12,7 +12,16 @@ import { useContext, useState } from 'react'
 import { ModalAccountConfigs } from './ModalAccountConfigs'
 
 type Props = {
-  direction?: string
+  direction?: {
+    position: {
+      horizontal: number | 'center' | 'right' | 'left'
+      vertical: number | 'center' | 'top' | 'bottom'
+    }
+    origin: {
+      horizontal: number | 'center' | 'right' | 'left'
+      vertical: number | 'center' | 'top' | 'bottom'
+    }
+  }
 }
 
 export function CustomAvatar({ direction }: Props) {
@@ -56,8 +65,16 @@ export function CustomAvatar({ direction }: Props) {
       <Menu
         anchorEl={anchorEl}
         open={!!anchorEl}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        transformOrigin={
+          direction
+            ? direction.position
+            : { horizontal: 'right', vertical: 'top' }
+        }
+        anchorOrigin={
+          direction
+            ? direction.origin
+            : { horizontal: 'right', vertical: 'bottom' }
+        }
         PaperProps={{
           elevation: 0,
           sx: {

@@ -82,7 +82,18 @@ export function SidebarManagement() {
         </li>
       </ul>
 
-      <CustomAvatar />
+      <CustomAvatar
+        direction={{
+          position: {
+            horizontal: 'right',
+            vertical: 'center',
+          },
+          origin: {
+            horizontal: 'left',
+            vertical: 'center',
+          },
+        }}
+      />
     </aside>
   )
 }

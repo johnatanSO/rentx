@@ -119,7 +119,18 @@ export function Header() {
       </nav>
 
       {userInfo ? (
-        <CustomAvatar />
+        <CustomAvatar
+          direction={{
+            position: {
+              horizontal: 'left',
+              vertical: 'bottom',
+            },
+            origin: {
+              horizontal: 'right',
+              vertical: 'top',
+            },
+          }}
+        />
       ) : (
         <Link className={style.loginButton} href="/authenticate">
           Log in
