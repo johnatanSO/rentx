@@ -52,5 +52,18 @@
 
   ul {
     list-style-type: none;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    li {
+      border-bottom: 1px solid $gray-color-100;
+      padding: 0.5rem;
+
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
   }
 }

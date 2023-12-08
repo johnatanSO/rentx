@@ -4,6 +4,7 @@ import style from './SpecificationsSection.module.scss'
 import { Car } from '../../interfaces/Car'
 import { useState } from 'react'
 import { ModalSpecifications } from './ModalSpecifications'
+import { Divider } from '@mui/material'
 
 type Props = {
   car: Car
@@ -38,6 +39,10 @@ export function SpecificationsSection({ car }: Props) {
               return (
                 <li key={specification._id}>
                   <span>{specification.name || '--'}</span>
+
+                  <Divider orientation="vertical" />
+
+                  <span>{specification.description || '--'}</span>
                 </li>
               )
             })}

@@ -20,16 +20,18 @@ export function useColumns() {
       field: 'images',
       cellRenderer: (params: CellFunctionParams<Car>) => {
         return (
-          <div className={style.carModelContainer}>
-            <Image
-              alt="Avatar do carro"
-              className={style.carImage}
-              width={500}
-              height={500}
-              src={getCarImageUrl(params.value)}
-            />
-            <b className={style.carName}>{params.data.name}</b>
-          </div>
+          <Link href={`/management/cars/${params.data._id}`}>
+            <div className={style.carModelContainer}>
+              <Image
+                alt="Avatar do carro"
+                className={style.carImage}
+                width={500}
+                height={500}
+                src={getCarImageUrl(params.value)}
+              />
+              <b className={style.carName}>{params.data.name}</b>
+            </div>
+          </Link>
         )
       },
     },
