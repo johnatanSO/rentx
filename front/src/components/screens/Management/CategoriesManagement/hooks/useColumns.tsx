@@ -2,7 +2,7 @@ import { CellFunctionParams } from '@/components/_ui/TableComponent/interfaces'
 import { Category } from '../interfaces/Category'
 import dayjs from 'dayjs'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 import style from '../CategoriesManagement.module.scss'
 import { deleteCategoryService } from '@/services/category/deleteCategory/DeleteCategoryService'
 import { useContext } from 'react'
@@ -52,6 +52,10 @@ export function useColumns() {
     })
   }
 
+  function handleEditCategory(category: Category) {
+    console.log('Editar categoria', category)
+  }
+
   return [
     {
       field: 'name',
@@ -74,15 +78,26 @@ export function useColumns() {
       headerName: '',
       cellRenderer: (params: CellFunctionParams<Category>) => {
         return (
-          <button
-            onClick={() => {
-              handleDeleteCategory(params.data._id)
-            }}
-            className={style.deleteButton}
-            type="button"
-          >
-            <FontAwesomeIcon className={style.icon} icon={faTrash} />
-          </button>
+          <div className={style.actionsContainer}>
+            <button
+              onClick={() => {
+                handleEditCategory(params.data)
+              }}
+              className={style.editButton}
+              type="button"
+            >
+              <FontAwesomeIcon className={style.icon} icon={faPen} />
+            </button>
+            <button
+              onClick={() => {
+                handleDeleteCategory(params.data._id)
+              }}
+              className={style.deleteButton}
+              type="button"
+            >
+              <FontAwesomeIcon className={style.icon} icon={faTrash} />
+            </button>
+          </div>
         )
       },
     },

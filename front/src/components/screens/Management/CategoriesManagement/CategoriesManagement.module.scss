@@ -19,19 +19,34 @@
   padding: 2rem;
 }
 
-.deleteButton {
-  background: none;
-  border: none;
-  color: $red-color-100;
+.actionsContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 
-  font-size: 1.1rem;
+  .actionButton {
+    background: none;
+    border: none;
 
-  margin-left: auto;
+    font-size: 1.1rem;
 
-  transition: filter 0.2s;
-  cursor: pointer;
+    margin-left: auto;
 
-  &:not(:disabled):hover {
-    filter: brightness(0.8);
+    transition: filter 0.2s;
+    cursor: pointer;
+
+    &:not(:disabled):hover {
+      filter: brightness(0.8);
+    }
+  }
+
+  .deleteButton {
+    @extend .actionButton;
+    color: $red-color-100;
+  }
+
+  .editButton {
+    @extend .actionButton;
+    color: $blue-color-100;
   }
 }
