@@ -8,6 +8,8 @@ export interface ICreateCategoryDTO {
 export interface ICategoriesRepository {
   create({ name, description }: ICreateCategoryDTO): Promise<Category>
   list(): Promise<Category[]>
-  findByName(name: string): Promise<Category>
   delete(categoryId: string): Promise<void>
+  findByName(name: string): Promise<Category>
+  findById(categoryId: string): Promise<Category>
+  update(categoryId: string, fields: any): Promise<void>
 }

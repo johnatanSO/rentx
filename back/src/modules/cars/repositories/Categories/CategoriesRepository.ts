@@ -27,6 +27,10 @@ export default class CategoriesRepository implements ICategoriesRepository {
     return await this.model.find({})
   }
 
+  async delete(categoryId: string): Promise<void> {
+    await this.model.deleteOne({ _id: categoryId })
+  }
+
   async findByName(name: string): Promise<Category> {
     const category = await this.model.findOne({
       name,
@@ -34,7 +38,12 @@ export default class CategoriesRepository implements ICategoriesRepository {
     return category
   }
 
-  async delete(categoryId: string): Promise<void> {
-    await this.model.deleteOne({ _id: categoryId })
+  async findById(categoryId: string): Promise<Category> {
+    const category = await this.model.findById(categoryId)
+    return category
+  }
+
+  async update(categoryId: string, fields: any): Promise<void> {
+    await this.model.updateOne({ _id: categoryId }, fields)
   }
 }
