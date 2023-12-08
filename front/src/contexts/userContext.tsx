@@ -4,17 +4,13 @@ import { getLocalUserService } from '@/services/user/getLocalUser/GetLocalUserSe
 import { saveLocalUserService } from '@/services/user/saveLocalUser/SaveLocalUserService'
 import { ReactNode, createContext, useState, useEffect } from 'react'
 
-interface Car {
-  _id: string
-}
-
 interface UserInfo {
   _id: string
   name: string
   email: string
   isAdmin: boolean
   avatar: string
-  favoriteCars: Car[]
+  favoriteCars: string[]
 }
 
 interface UserContextComponentProps {

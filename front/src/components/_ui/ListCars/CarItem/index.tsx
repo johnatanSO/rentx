@@ -40,7 +40,7 @@ export function CarItem({
   const router = useRouter()
 
   const favorited = userInfo
-    ? !!userInfo?.favoriteCars?.find((car) => car._id === carId)
+    ? !!userInfo?.favoriteCars?.find((favoriteCarId) => favoriteCarId === carId)
     : false
 
   function getImageUrl(images: CarImage[]) {
