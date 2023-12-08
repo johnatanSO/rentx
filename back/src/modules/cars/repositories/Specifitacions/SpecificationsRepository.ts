@@ -38,7 +38,15 @@ export class SpecificationsRepository implements ISpecificationsRepository {
     return await this.model.find({ _id: { $in: ids } })
   }
 
+  async findById(specificationId: string): Promise<Specification> {
+    return await this.model.findById(specificationId)
+  }
+
   async delete(specificationId: string): Promise<void> {
     await this.model.deleteOne({ _id: specificationId })
+  }
+
+  async update(specificationId: string, fields: any): Promise<void> {
+    await this.model.updateOne({ _id: specificationId }, fields)
   }
 }
