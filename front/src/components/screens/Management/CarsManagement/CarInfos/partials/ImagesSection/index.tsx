@@ -11,6 +11,7 @@ import { removeCarImageService } from '@/services/cars/removeCarImage/RemoveCarI
 import { usePathname, useRouter } from 'next/navigation'
 import { updateCarImagesService } from '@/services/cars/updateCarImages/UpdateCarImagesService'
 import { ModalZoomImage } from './ModalZoomImage'
+import { Divider } from '@mui/material'
 
 type Props = {
   car: Car
@@ -137,6 +138,8 @@ export function ImagesSection({ car }: Props) {
               src={getCarImageUrl(car.defaultImage)}
             />
           </li>
+
+          <Divider orientation="vertical" flexItem />
 
           {car.images.map((carImage) => {
             return (
