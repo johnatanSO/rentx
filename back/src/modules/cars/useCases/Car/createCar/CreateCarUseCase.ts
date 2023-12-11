@@ -2,6 +2,8 @@ import { AppError } from './../../../../../shared/errors/AppError'
 import { inject, injectable } from 'tsyringe'
 import { Car } from '../../../infra/mongoose/entities/Car'
 import { ICarsRepository } from '../../../repositories/Cars/ICarsRepository'
+import { ICarsImagesRepository } from '../../../repositories/CarsImages/ICarsImagesRepository'
+import { CarImage } from '../../../infra/mongoose/entities/CarImage'
 
 interface IRequest {
   name: string
@@ -12,13 +14,19 @@ interface IRequest {
   brand: string
   categoryId: string
   transmission: string
+  imageName: string
 }
 
 @injectable()
 export class CreateCarUseCase {
   carsRepository: ICarsRepository
-  constructor(@inject('CarsRepository') carsRepository: ICarsRepository) {
+  carsImagesRepository: ICarsImagesRepository
+  constructor(
+    @inject('CarsRepository') carsRepository: ICarsRepository,
+    @inject('CarsImagesRepository') carsImagesRepository: ICarsImagesRepository,
+  ) {
     this.carsRepository = carsRepository
+    this.carsImagesRepository = carsImagesRepository
   }
 
   async execute({
@@ -30,6 +38,7 @@ export class CreateCarUseCase {
     brand,
     categoryId,
     transmission,
+    imageName,
   }: IRequest): Promise<Car> {
     const carAlreadyExists =
       await this.carsRepository.findByLicensePlate(licensePlate)
@@ -46,6 +55,19 @@ export class CreateCarUseCase {
       categoryId,
       transmission,
     })
+
+    if (imageName) {
+      const path = `cars/images/${imageName}`
+      const carImage = await this.carsImagesRepository.create({
+        carId: newCar._id.toString(),
+        imageName,
+        path,
+      })
+
+      await this.carsRepository.updateOne(newCar._id.toString(), {
+        defaultImage: carImage._id,
+      })
+    }
 
     return newCar
   }

@@ -15,6 +15,7 @@ export interface Car {
   category: Types.ObjectId | Category
   createdAt: Date
   images: Types.ObjectId[] | CarImage[]
+  defaultImage: Types.ObjectId | CarImage
   specifications: Types.ObjectId[] | Specification[]
   reasonUnavaliable?: string
 }
@@ -31,6 +32,7 @@ const CarSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   specifications: [{ type: 'ObjectId', ref: 'Specification', default: null }],
   images: [{ type: 'ObjectId', ref: 'CarImage', default: null }],
+  defaultImage: { type: 'ObjectId', ref: 'CarImage', default: null },
   transmission: { type: String, default: null },
   reasonUnavaliable: { type: String, default: null },
 })
