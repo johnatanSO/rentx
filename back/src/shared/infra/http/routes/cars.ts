@@ -12,8 +12,8 @@ import { GetCarInfoController } from '../../../../modules/cars/useCases/Car/getC
 import { ListAllCarsController } from '../../../../modules/cars/useCases/Car/listAllCars/ListAllCarsController'
 import { RemoveCarImageController } from '../../../../modules/cars/useCases/Car/removeCarImage/RemoveCarImageController'
 import { FavoriteCarController } from '../../../../modules/accounts/useCases/User/favoriteCar/FavoriteCarController'
-import { ListFavoritedCarsController } from '../../../../modules/accounts/useCases/User/listFavoritedCars/ListFavoritedCarsController'
 import { UpdateCarInfosController } from '../../../../modules/cars/useCases/Car/updateCarInfos/UpdateCarInfosController'
+import { UpdateDefaultCarImageController } from '../../../../modules/cars/useCases/Car/updateDefaultCarImage/UpdateDefaultCarImageController'
 
 const carsRoutes = Router()
 const upload = multer(uploadConfig.upload('./tmp/cars'))
@@ -21,6 +21,7 @@ const createCarController = new CreateCarController()
 const listAvaliableCarsController = new ListAvaliableCarsController()
 const createCarSpecificationController = new CreateCarSpecificationController()
 const uploadCarImagesController = new UploadCarImagesController()
+const updateDefaultCarImageController = new UpdateDefaultCarImageController()
 const getCarInfoController = new GetCarInfoController()
 const listAllCarsController = new ListAllCarsController()
 const removeCarImageController = new RemoveCarImageController()
@@ -79,6 +80,14 @@ carsRoutes.patch(
   ensureAdmin,
   upload.array('images'),
   uploadCarImagesController.handle,
+)
+
+carsRoutes.patch(
+  '/images/default/:carId',
+  ensureAuthenticated,
+  ensureAdmin,
+  upload.single('defaultImage'),
+  updateDefaultCarImageController.handle,
 )
 
 carsRoutes.delete(
