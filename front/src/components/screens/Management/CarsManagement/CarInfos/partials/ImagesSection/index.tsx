@@ -112,7 +112,7 @@ export function ImagesSection({ car }: Props) {
     <>
       <section className={style.section}>
         <header>
-          <h3>Imagens</h3>
+          <h3>Outras imagens</h3>
           <button
             className={style.addImageButton}
             type="button"
@@ -124,81 +124,34 @@ export function ImagesSection({ car }: Props) {
         </header>
 
         <ul className={style.listImages}>
-          <li
-            onClick={() => {
-              handleClickImage(car.images[0])
-            }}
-          >
-            <Image
-              className={style.image}
-              alt="Car image"
-              width={400}
-              height={400}
-              src={getCarImageUrl(car.images[0])}
-            />
-            {car.images[0] && (
-              <button
-                onClick={(event) => {
-                  event.stopPropagation()
-                  handleRemoveImage(car.images[0]._id)
+          {car.images.map((carImage) => {
+            return (
+              <li
+                key={carImage._id}
+                onClick={() => {
+                  handleClickImage(carImage)
                 }}
-                className={style.removeImageButton}
-                type="button"
               >
-                <FontAwesomeIcon className={style.icon} icon={faTrash} />
-              </button>
-            )}
-          </li>
-          <li
-            onClick={() => {
-              handleClickImage(car.images[1])
-            }}
-          >
-            <Image
-              className={style.image}
-              alt="Car image"
-              width={400}
-              height={400}
-              src={getCarImageUrl(car.images[1])}
-            />
-            {car.images[1] && (
-              <button
-                onClick={(event) => {
-                  event.stopPropagation()
-                  handleRemoveImage(car.images[0]._id)
-                }}
-                className={style.removeImageButton}
-                type="button"
-              >
-                <FontAwesomeIcon className={style.icon} icon={faTrash} />
-              </button>
-            )}
-          </li>
-          <li
-            onClick={() => {
-              handleClickImage(car.images[2])
-            }}
-          >
-            <Image
-              className={style.image}
-              alt="Car image"
-              width={400}
-              height={400}
-              src={getCarImageUrl(car.images[2])}
-            />
-            {car.images[2] && (
-              <button
-                onClick={(event) => {
-                  event.stopPropagation()
-                  handleRemoveImage(car.images[0]._id)
-                }}
-                className={style.removeImageButton}
-                type="button"
-              >
-                <FontAwesomeIcon className={style.icon} icon={faTrash} />
-              </button>
-            )}
-          </li>
+                <Image
+                  className={style.image}
+                  alt="Car image"
+                  width={400}
+                  height={400}
+                  src={getCarImageUrl(carImage)}
+                />
+                <button
+                  onClick={(event) => {
+                    event.stopPropagation()
+                    handleRemoveImage(carImage._id)
+                  }}
+                  className={style.removeImageButton}
+                  type="button"
+                >
+                  <FontAwesomeIcon className={style.icon} icon={faTrash} />
+                </button>
+              </li>
+            )
+          })}
         </ul>
       </section>
 
