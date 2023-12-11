@@ -6,6 +6,7 @@ export interface Car {
   _id: string
   name: string
   images: CarImage[]
+  defaultImage: CarImage
   licensePlate: string
   specifications: Specification[]
   dailyRate: number

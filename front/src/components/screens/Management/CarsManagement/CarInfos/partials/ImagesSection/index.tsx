@@ -124,6 +124,20 @@ export function ImagesSection({ car }: Props) {
         </header>
 
         <ul className={style.listImages}>
+          <li
+            onClick={() => {
+              handleClickImage(car.defaultImage)
+            }}
+          >
+            <Image
+              className={style.image}
+              alt="Car default image"
+              width={300}
+              height={150}
+              src={getCarImageUrl(car.defaultImage)}
+            />
+          </li>
+
           {car.images.map((carImage) => {
             return (
               <li
@@ -135,8 +149,8 @@ export function ImagesSection({ car }: Props) {
                 <Image
                   className={style.image}
                   alt="Car image"
-                  width={400}
-                  height={400}
+                  width={300}
+                  height={150}
                   src={getCarImageUrl(carImage)}
                 />
                 <button
