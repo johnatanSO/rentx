@@ -6,15 +6,25 @@ import { useColumns } from './hooks/useColumns'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { CreateNewCategory } from './CreateNewCategory'
 import { useEffect, useState } from 'react'
+import { ModalEditCategory } from './partials/ModalEditCategory'
 
 type Props = {
   allCategories: Category[]
 }
 
 export function CategoriesManagement({ allCategories }: Props) {
-  const columns = useColumns()
   const [categories, setCategories] = useState<Category[]>(allCategories)
   const [searchString, setSearchString] = useState<string>('')
+  const [categoryToEdit, setCategoryToEdit] = useState<Category | null>(null)
+  const [modalEditCategoryOpened, setModalEditCategoryOpened] =
+    useState<boolean>(false)
+
+  const columns = useColumns({ handleEditCategory })
+
+  function handleEditCategory(category: Category) {
+    setCategoryToEdit(category)
+    setModalEditCategoryOpened(true)
+  }
 
   function filterByName() {
     const filteredCategories = allCategories.filter((category) =>
@@ -49,6 +59,16 @@ export function CategoriesManagement({ allCategories }: Props) {
       <section className={style.tableSection}>
         <TableComponent rows={categories} columns={columns} loading={false} />
       </section>
+
+      {categoryToEdit && modalEditCategoryOpened && (
+        <ModalEditCategory
+          categoryToEdit={categoryToEdit}
+          open={modalEditCategoryOpened}
+          handleClose={() => {
+            setModalEditCategoryOpened(false)
+          }}
+        />
+      )}
     </>
   )
 }

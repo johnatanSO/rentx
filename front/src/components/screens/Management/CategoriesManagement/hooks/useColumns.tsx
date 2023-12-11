@@ -9,7 +9,11 @@ import { useContext } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
 import { usePathname, useRouter } from 'next/navigation'
 
-export function useColumns() {
+interface Props {
+  handleEditCategory: (categoryData: Category) => void
+}
+
+export function useColumns({ handleEditCategory }: Props) {
   const {
     alertNotifyConfigs,
     setAlertNotifyConfigs,
@@ -50,10 +54,6 @@ export function useColumns() {
           })
       },
     })
-  }
-
-  function handleEditCategory(category: Category) {
-    console.log('Editar categoria', category)
   }
 
   return [

@@ -14,6 +14,7 @@ interface Props {
   onSubmit?: (event: FormEvent<HTMLFormElement>) => void
   loading?: boolean
   customStyle?: any
+  buttonStyle?: any
 }
 
 export function ModalLayout({
@@ -25,6 +26,7 @@ export function ModalLayout({
   onSubmit,
   loading,
   customStyle,
+  buttonStyle,
 }: Props) {
   return (
     <Modal className={style.overlay} open={open} onClose={handleClose}>
@@ -48,7 +50,11 @@ export function ModalLayout({
         </Box>
         {onSubmit && (
           <Box className={style.footer} component="footer">
-            <button disabled={loading} type="submit">
+            <button
+              style={buttonStyle ?? buttonStyle}
+              disabled={loading}
+              type="submit"
+            >
               {loading ? (
                 <Loading size={19} />
               ) : (
