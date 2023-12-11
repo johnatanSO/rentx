@@ -158,6 +158,7 @@ export function ImagesSection({ car }: Props) {
             onClick={() => {
               handleClickImage(car.defaultImage)
             }}
+            className={style.defaultImage}
           >
             <Image
               className={style.image}

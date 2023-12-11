@@ -71,6 +71,10 @@
 
     cursor: pointer;
 
+    &.defaultImage{
+      border: 1px solid $blue-color-200;
+    }
+
     .image {
       object-fit: contain;
 
