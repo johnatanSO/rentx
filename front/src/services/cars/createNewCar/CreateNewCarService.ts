@@ -9,6 +9,7 @@ interface IRequest {
   brand: string
   categoryId: string
   transmission: string
+  image: string
 }
 
 export function createNewCarService({
@@ -20,6 +21,7 @@ export function createNewCarService({
   brand,
   categoryId,
   transmission,
+  image,
 }: IRequest) {
   const body = {
     name,
@@ -32,5 +34,12 @@ export function createNewCarService({
     transmission,
   }
 
-  return http.post('/cars', body)
+  const formData = new FormData()
+  formData.append('image', image)
+
+  for (const [key, value] of Object.entries(body)) {
+    formData.append(key, value.toString())
+  }
+
+  return http.post('/cars', formData)
 }

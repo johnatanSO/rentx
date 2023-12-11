@@ -12,7 +12,12 @@ import { createNewCarService } from '@/services/cars/createNewCar/CreateNewCarSe
 import { useRouter } from 'next/navigation'
 import { Loading } from '@/components/_ui/Loading'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleLeft, faCheck } from '@fortawesome/free-solid-svg-icons'
+import {
+  faAngleLeft,
+  faCamera,
+  faCheck,
+  faImage,
+} from '@fortawesome/free-solid-svg-icons'
 
 export function CreateNewCar() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
@@ -31,13 +36,14 @@ export function CreateNewCar() {
   const [newCarData, setNewCarData] = useState<NewCar>(defaultValuesNewCar)
   const [categoriesList, setCategoriesList] = useState<Category[]>([])
   const [loadingCreateNewCar, setLoadingCreateNewCar] = useState<boolean>(false)
+  const [image, setImage] = useState<any>(null)
 
   function onCreateNewCar(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
     setLoadingCreateNewCar(true)
 
-    createNewCarService(newCarData)
+    createNewCarService({ ...newCarData, image })
       .then((res) => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -49,6 +55,7 @@ export function CreateNewCar() {
         setNewCarData(defaultValuesNewCar)
 
         router.back()
+        router.refresh()
       })
       .catch((err) => {
         setAlertNotifyConfigs({
@@ -80,6 +87,16 @@ export function CreateNewCar() {
           type: 'error',
         })
       })
+  }
+
+  function handleSetImage() {
+    const inputFile = document.createElement('input')
+    inputFile.type = 'file'
+    inputFile.onchange = async (event: any) => {
+      setImage(event.target.files[0])
+    }
+
+    inputFile.click()
   }
 
   useEffect(() => {
@@ -253,6 +270,27 @@ export function CreateNewCar() {
               })
             }}
           />
+        </div>
+      </section>
+
+      <section className={style.section}>
+        <h3>Imagem</h3>
+
+        <div className={style.fields}>
+          <button
+            className={style.addImageButton}
+            onClick={handleSetImage}
+            type="button"
+          >
+            <FontAwesomeIcon icon={faCamera} />
+            Adicionar imagem
+          </button>
+          {image && (
+            <p className={style.imageText}>
+              <FontAwesomeIcon icon={faImage} />
+              <span>{image?.name}</span>
+            </p>
+          )}
         </div>
       </section>
     </form>

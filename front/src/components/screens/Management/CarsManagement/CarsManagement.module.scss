@@ -57,7 +57,7 @@
   transition: filter 0.2s;
 
   .carImage {
-    object-fit: cover;
+    object-fit: contain;
 
     width: 50px;
     min-width: 50px;

@@ -8,16 +8,16 @@ import { formatCurrency } from '@/utils/format'
 import Link from 'next/link'
 
 export function useColumns() {
-  function getCarImageUrl(images: CarImage[]) {
-    if (images.length === 0) return unknownCarImage
+  function getCarImageUrl(carImage: CarImage) {
+    if (!carImage) return unknownCarImage
 
-    return process.env.NEXT_PUBLIC_END_POINT + images[0]?.path
+    return process.env.NEXT_PUBLIC_END_POINT + carImage.path
   }
 
   return [
     {
       headerName: 'Carro',
-      field: 'images',
+      field: 'defaultImage',
       cellRenderer: (params: CellFunctionParams<Car>) => {
         return (
           <Link href={`/management/cars/${params.data._id}`}>
