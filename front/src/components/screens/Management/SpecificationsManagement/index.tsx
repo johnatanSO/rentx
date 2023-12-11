@@ -7,16 +7,27 @@ import { Specification } from './interfaces/Specification'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { CreateNewSpecification } from './CreateNewSpecification'
 import { useEffect, useState } from 'react'
+import { ModalEditSpecification } from './partials/ModalEditSpecification'
 
 type Props = {
   allSpecifications: Specification[]
 }
 
 export function SpecificationsManagement({ allSpecifications }: Props) {
-  const columns = useColumns()
   const [specifications, setSpecifications] =
     useState<Specification[]>(allSpecifications)
   const [searchString, setSearchString] = useState<string>('')
+  const [specificationToEdit, setSpecificationToEdit] =
+    useState<Specification | null>(null)
+  const [modalEditSpecificationOpened, setModalEditSpecificationOpened] =
+    useState<boolean>(false)
+
+  const columns = useColumns({ handleEditSpecification })
+
+  function handleEditSpecification(specification: Specification) {
+    setSpecificationToEdit(specification)
+    setModalEditSpecificationOpened(true)
+  }
 
   function filterByName() {
     const filteredSpecifications = allSpecifications.filter((specification) =>
@@ -54,6 +65,16 @@ export function SpecificationsManagement({ allSpecifications }: Props) {
           loading={false}
         />
       </section>
+
+      {modalEditSpecificationOpened && specificationToEdit && (
+        <ModalEditSpecification
+          open={modalEditSpecificationOpened}
+          handleClose={() => {
+            setModalEditSpecificationOpened(false)
+          }}
+          specificationToEdit={specificationToEdit}
+        />
+      )}
     </>
   )
 }

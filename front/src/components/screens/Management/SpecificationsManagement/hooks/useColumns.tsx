@@ -3,13 +3,17 @@ import { Specification } from '../interfaces/Specification'
 import dayjs from 'dayjs'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import style from '../SpecificationsManagement.module.scss'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { AlertContext } from '@/contexts/alertContext'
 import { useContext } from 'react'
 import { deleteSpecificationService } from '@/services/specifications/deleteSpecification/DeleteSpecificationService'
 import { usePathname, useRouter } from 'next/navigation'
 
-export function useColumns() {
+interface Props {
+  handleEditSpecification: (specification: Specification) => void
+}
+
+export function useColumns({ handleEditSpecification }: Props) {
   const {
     alertNotifyConfigs,
     setAlertNotifyConfigs,
@@ -79,15 +83,26 @@ export function useColumns() {
       flex: 1,
       cellRenderer: (params: CellFunctionParams<Specification>) => {
         return (
-          <button
-            onClick={() => {
-              handleDeleteSpecification(params.data._id)
-            }}
-            className={style.deleteButton}
-            type="button"
-          >
-            <FontAwesomeIcon className={style.icon} icon={faTrash} />
-          </button>
+          <div className={style.actionsContainer}>
+            <button
+              onClick={() => {
+                handleEditSpecification(params.data)
+              }}
+              className={style.editButton}
+              type="button"
+            >
+              <FontAwesomeIcon className={style.icon} icon={faPen} />
+            </button>
+            <button
+              onClick={() => {
+                handleDeleteSpecification(params.data._id)
+              }}
+              className={style.deleteButton}
+              type="button"
+            >
+              <FontAwesomeIcon className={style.icon} icon={faTrash} />
+            </button>
+          </div>
         )
       },
     },
