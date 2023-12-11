@@ -31,6 +31,7 @@ carsRoutes.post(
   '/',
   ensureAuthenticated,
   ensureAdmin,
+  upload.single('image'),
   createCarController.handle,
 )
 

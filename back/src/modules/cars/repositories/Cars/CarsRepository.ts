@@ -50,7 +50,7 @@ export class CarsRepository implements ICarsRepository {
         ...(categoryId ? { category: categoryId } : {}),
         ...(name ? { name } : {}),
       })
-      .populate('specifications images')
+      .populate('specifications images defaultImage')
 
     return cars
   }
@@ -58,7 +58,7 @@ export class CarsRepository implements ICarsRepository {
   async findById(carId: string): Promise<Car> {
     return await this.model
       .findOne({ _id: carId })
-      .populate('specifications images category')
+      .populate('specifications images category defaultImage')
   }
 
   async updateOne(_id: string, fields: any): Promise<void> {
@@ -70,7 +70,9 @@ export class CarsRepository implements ICarsRepository {
   }
 
   async listAll(): Promise<Car[]> {
-    const allCars = await this.model.find().populate('specifications images')
+    const allCars = await this.model
+      .find()
+      .populate('specifications images defaultImage')
     return allCars
   }
 

@@ -2,7 +2,7 @@ import { CreateCarUseCase } from './CreateCarUseCase'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 
-interface IFiles {
+interface IFile {
   filename: string
 }
 
@@ -19,8 +19,8 @@ export class CreateCarController {
       transmission,
     } = req.body
 
-    const images = req.files as IFiles[]
-    const imageName = images[0].filename
+    const image = req.file as IFile
+    const imageName = image.filename
 
     const createCarUserCase = container.resolve(CreateCarUseCase)
     const newCar = await createCarUserCase.execute({
