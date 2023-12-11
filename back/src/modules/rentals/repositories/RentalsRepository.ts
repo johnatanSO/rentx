@@ -60,4 +60,8 @@ export class RentalsRepository implements IRentalsRepository {
 
     return rental
   }
+
+  async update(rentalId: string, fields: any): Promise<void> {
+    await this.model.updateOne({ _id: rentalId }, fields)
+  }
 }

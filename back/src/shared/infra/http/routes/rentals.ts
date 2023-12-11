@@ -5,6 +5,7 @@ import { ensureAuthenticated } from '../middlewares/ensureAuthenticated'
 import { ListRentalsController } from '../../../../modules/rentals/useCases/listRentals/ListRentalsController'
 import { ListAllRentalsController } from '../../../../modules/rentals/useCases/listAllRentals/ListAllRentalsController'
 import { ensureAdmin } from '../middlewares/ensureAdmin'
+import { UpdateRentalController } from '../../../../modules/rentals/useCases/updateRental/UpdateRentalController'
 
 const rentalsRoutes = Router()
 
@@ -12,6 +13,7 @@ const createRentalController = new CreateRentalController()
 const listRentalsController = new ListRentalsController()
 const listAllRentalsController = new ListAllRentalsController()
 const finalizeRentalController = new FinalizeRentalController()
+const updateRentalController = new UpdateRentalController()
 
 rentalsRoutes.post('/', ensureAuthenticated, createRentalController.handle)
 
@@ -28,6 +30,13 @@ rentalsRoutes.put(
   '/finalizeRental/:rentalId',
   ensureAuthenticated,
   finalizeRentalController.handle,
+)
+
+rentalsRoutes.put(
+  '/:rentalId',
+  ensureAuthenticated,
+  ensureAdmin,
+  updateRentalController.handle,
 )
 
 export { rentalsRoutes }
