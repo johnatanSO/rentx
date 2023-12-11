@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import style from './ImagesSection.module.scss'
-import { faCamera, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faCamera, faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
 import { Car } from '../../interfaces/Car'
 import unknownCarImage from '../../../../../../../../public/assets/images/cars/unknownCarImage.png'
@@ -12,6 +12,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { updateCarImagesService } from '@/services/cars/updateCarImages/UpdateCarImagesService'
 import { ModalZoomImage } from './ModalZoomImage'
 import { Divider } from '@mui/material'
+import { updateDefaultCarImageService } from '@/services/cars/updateDefaultCarImage/UpdateDefaultCarImageService'
 
 type Props = {
   car: Car
@@ -109,6 +110,34 @@ export function ImagesSection({ car }: Props) {
     setImagePath(image.path)
   }
 
+  function handleUpdateDefaultImage() {
+    const inputFile = document.createElement('input')
+    inputFile.type = 'file'
+    inputFile.onchange = async (event: any) => {
+      await updateDefaultImage(event.target.files[0])
+    }
+
+    inputFile.click()
+  }
+
+  async function updateDefaultImage(defaultImage: string) {
+    updateDefaultCarImageService({ defaultImage, carId: car._id })
+      .then(() => {
+        router.refresh()
+        router.push(pathname)
+      })
+      .catch((err) => {
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          open: true,
+          text: `Erro ao tentar atualizar imagem padrão - ${
+            err?.response?.data?.message || err?.message
+          }`,
+          type: 'error',
+        })
+      })
+  }
+
   return (
     <>
       <section className={style.section}>
@@ -137,6 +166,16 @@ export function ImagesSection({ car }: Props) {
               height={150}
               src={getCarImageUrl(car.defaultImage)}
             />
+            <button
+              onClick={(event) => {
+                event.stopPropagation()
+                handleUpdateDefaultImage()
+              }}
+              className={style.updateDefaultImageButton}
+              type="button"
+            >
+              <FontAwesomeIcon className={style.icon} icon={faPen} />
+            </button>
           </li>
 
           <Divider orientation="vertical" flexItem />
