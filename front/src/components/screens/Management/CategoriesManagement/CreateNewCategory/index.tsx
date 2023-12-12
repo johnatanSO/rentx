@@ -29,7 +29,7 @@ export function CreateNewCategory() {
     setLoadingCreateNewCategory(true)
 
     createCategoryService(newCategoryData)
-      .then((res) => {
+      .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
@@ -37,6 +37,7 @@ export function CreateNewCategory() {
           type: 'success',
         })
 
+        setNewCategoryData(defaultValuesNewCategory)
         router.refresh()
         router.push(pathname)
       })

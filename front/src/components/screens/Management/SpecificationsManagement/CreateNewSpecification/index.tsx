@@ -28,7 +28,7 @@ export function CreateNewSpecification() {
     setLoadingCreateNewSpecification(true)
 
     createSpecificationService(newSpecificationData)
-      .then((res) => {
+      .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
@@ -36,6 +36,7 @@ export function CreateNewSpecification() {
           type: 'success',
         })
 
+        setNewSpecificationData(defaultValuesNewSpecification)
         router.refresh()
         router.push(pathname)
       })

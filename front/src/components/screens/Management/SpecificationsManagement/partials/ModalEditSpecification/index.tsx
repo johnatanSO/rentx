@@ -5,6 +5,7 @@ import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { AlertContext } from '@/contexts/alertContext'
 import { usePathname, useRouter } from 'next/navigation'
 import { updateSpecificationService } from '@/services/specifications/updateSpecificationService/UpdateSpecificationService'
+import style from './ModalEditSpecification.module.scss'
 
 interface Props {
   specificationToEdit: Specification
@@ -70,7 +71,7 @@ export function ModalEditSpecification({
         backgroundColor: '#3264ff',
       }}
     >
-      <>
+      <div className={style.fields}>
         <CustomTextField
           label="Nome"
           size="small"
@@ -94,7 +95,7 @@ export function ModalEditSpecification({
             })
           }}
         />
-      </>
+      </div>
     </ModalLayout>
   )
 }

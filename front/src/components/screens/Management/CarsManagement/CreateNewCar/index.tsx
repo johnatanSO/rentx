@@ -54,8 +54,8 @@ export function CreateNewCar() {
 
         setNewCarData(defaultValuesNewCar)
 
-        router.back()
         router.refresh()
+        router.back()
       })
       .catch((err) => {
         setAlertNotifyConfigs({

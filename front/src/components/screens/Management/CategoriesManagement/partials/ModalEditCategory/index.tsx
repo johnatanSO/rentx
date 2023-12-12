@@ -5,6 +5,7 @@ import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { AlertContext } from '@/contexts/alertContext'
 import { updateCategoryService } from '@/services/category/updateCategoryService/UpdateCategoryService'
 import { usePathname, useRouter } from 'next/navigation'
+import style from './ModalEditCategory.module.scss'
 
 interface Props {
   categoryToEdit: Category
@@ -38,9 +39,9 @@ export function ModalEditCategory({
           type: 'success',
         })
 
-        handleClose()
         router.refresh()
         router.push(pathname)
+        handleClose()
       })
       .catch((err) => {
         setAlertNotifyConfigs({
@@ -69,7 +70,7 @@ export function ModalEditCategory({
         backgroundColor: '#3264ff',
       }}
     >
-      <>
+      <div className={style.fields}>
         <CustomTextField
           label="Nome"
           size="small"
@@ -93,7 +94,7 @@ export function ModalEditCategory({
             })
           }}
         />
-      </>
+      </div>
     </ModalLayout>
   )
 }
