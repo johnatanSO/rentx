@@ -54,34 +54,45 @@
   }
 }
 
-.finalizeRentalButton, .editRental {
-  background: $green-color-100;
-  border: none;
-  color: $white-color;
+.actionsContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
 
-  font-weight: 500;
-  font-size: 0.875rem;
+  .finalizeRentalButton,
+  .editRental {
+    border: none;
 
-  padding: 0.6rem 1rem;
-  border-radius: 20px;
+    font-weight: 500;
 
-  cursor: pointer;
-  transition: filter 0.2s;
+    padding: 0.6rem 1rem;
+    border-radius: 20px;
 
-  &:not(:disabled):hover {
-    filter: brightness(0.8);
-  }
-
-  &:disabled {
-    opacity: 0.7;
     cursor: pointer;
-  }
-}
+    transition: filter 0.2s;
 
-.editRental {
-  color: $blue-color-100;
-  
-  font-size: 1rem;
+    &:not(:disabled):hover {
+      filter: brightness(0.8);
+    }
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: pointer;
+    }
+  }
+
+  .finalizeRentalButton {
+    background: $green-color-100;
+    color: $white-color;
+
+    font-size: 0.875rem;
+  }
+
+  .editRental {
+    color: $blue-color-100;
+
+    font-size: 1rem;
+  }
 }
 
 .status {

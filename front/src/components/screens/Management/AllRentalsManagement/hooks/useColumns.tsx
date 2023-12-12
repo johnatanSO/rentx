@@ -100,38 +100,31 @@ export function useColumns({ onFinalizeRental, handleEditRental }: Props) {
     },
     {
       headerName: '',
-      field: 'returnCar',
-      valueFormatter: (params: CellFunctionParams<Rental>) => {
-        if (!params.data.endDate) {
-          return (
-            <button
-              onClick={() => {
-                onFinalizeRental(params.data._id)
-              }}
-              className={style.finalizeRentalButton}
-              type="button"
-            >
-              Finalizar aluguel
-            </button>
-          )
-        }
-        return <></>
-      },
-    },
-    {
-      headerName: '',
-      field: 'edit',
+      field: 'actions',
       valueFormatter: (params: CellFunctionParams<Rental>) => {
         return (
-          <button
-            onClick={() => {
-              handleEditRental(params.data)
-            }}
-            className={style.editRental}
-            type="button"
-          >
-            <FontAwesomeIcon className={style.icon} icon={faPen} />
-          </button>
+          <div className={style.actionsContainer}>
+            {!params.data.endDate && (
+              <button
+                onClick={() => {
+                  onFinalizeRental(params.data._id)
+                }}
+                className={style.finalizeRentalButton}
+                type="button"
+              >
+                Finalizar aluguel
+              </button>
+            )}
+            <button
+              onClick={() => {
+                handleEditRental(params.data)
+              }}
+              className={style.editRental}
+              type="button"
+            >
+              <FontAwesomeIcon className={style.icon} icon={faPen} />
+            </button>
+          </div>
         )
       },
     },
