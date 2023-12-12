@@ -8,12 +8,15 @@ import { Car } from '../interfaces/Car'
 import { CarImage } from '../interfaces/CarImage'
 import unknownCarImage from '../../../../../../public/assets/images/cars/unknownCarImage.png'
 import Image from 'next/image'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPen } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   onFinalizeRental: (rentalId: string) => void
+  handleEditRental: (rental: Rental) => void
 }
 
-export function useColumns({ onFinalizeRental }: Props) {
+export function useColumns({ onFinalizeRental, handleEditRental }: Props) {
   function getCarImageUrl(image: CarImage) {
     if (!image) return unknownCarImage
 
@@ -113,6 +116,23 @@ export function useColumns({ onFinalizeRental }: Props) {
           )
         }
         return <></>
+      },
+    },
+    {
+      headerName: '',
+      field: 'edit',
+      valueFormatter: (params: CellFunctionParams<Rental>) => {
+        return (
+          <button
+            onClick={() => {
+              handleEditRental(params.data)
+            }}
+            className={style.editRental}
+            type="button"
+          >
+            <FontAwesomeIcon className={style.icon} icon={faPen} />
+          </button>
+        )
       },
     },
   ]

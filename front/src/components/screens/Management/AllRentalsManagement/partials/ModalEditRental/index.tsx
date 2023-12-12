@@ -111,7 +111,7 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
       open={open}
       title="Atualizar aluguel"
       loading={loadingUpdateRental}
-      submitButtonText="Salvar"
+      submitButtonText="Salvar informações"
       onSubmit={onUpdateRental}
       buttonStyle={{
         backgroundColor: '#3264ff',

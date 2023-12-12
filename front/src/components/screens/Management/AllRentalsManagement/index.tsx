@@ -4,11 +4,12 @@ import { TableComponent } from '@/components/_ui/TableComponent'
 import style from './AllRentalsManagement.module.scss'
 import { Rental } from './interfaces/Rental'
 import { useColumns } from './hooks/useColumns'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
 import { finalizeRentalService } from '@/services/rentals/finalizeRental/FinalizeRentalService'
 import { useRouter } from 'next/navigation'
 import { FormGroup } from '@mui/material'
+import { ModalEditRental } from './partials/ModalEditRental'
 
 type Props = {
   rentals: Rental[]
@@ -22,8 +23,17 @@ export function AllRentalsManagement({ rentals }: Props) {
     setAlertConfirmConfigs,
   } = useContext(AlertContext)
 
+  const [modalEditRentalOpened, setModalEditRentalOpened] =
+    useState<boolean>(false)
+  const [rentalToEdit, setRentalToEdit] = useState<Rental | null>(null)
+
   const router = useRouter()
-  const columns = useColumns({ onFinalizeRental })
+  const columns = useColumns({ onFinalizeRental, handleEditRental })
+
+  function handleEditRental(rental: Rental) {
+    setRentalToEdit(rental)
+    setModalEditRentalOpened(true)
+  }
 
   function onFinalizeRental(rentalId: string) {
     setAlertConfirmConfigs({
@@ -85,6 +95,17 @@ export function AllRentalsManagement({ rentals }: Props) {
       <section className={style.tableSection}>
         <TableComponent columns={columns} rows={rentals} loading={false} />
       </section>
+
+      {modalEditRentalOpened && rentalToEdit && (
+        <ModalEditRental
+          open={modalEditRentalOpened}
+          rentalToEdit={rentalToEdit}
+          handleClose={() => {
+            setModalEditRentalOpened(false)
+            setRentalToEdit(null)
+          }}
+        />
+      )}
     </>
   )
 }
