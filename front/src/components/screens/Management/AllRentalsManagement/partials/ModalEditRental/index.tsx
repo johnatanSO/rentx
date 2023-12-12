@@ -74,8 +74,6 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
       })
   }
 
-  // Editar carro;
-  // Editar cliente;
   // Editar data de início;
   // Editar data de previsão de retorno
 
@@ -117,9 +115,6 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
     getListCars()
     getListUsers()
   }, [])
-
-  console.log('cars', cars)
-  console.log('rentalToEdit', rentalToEdit)
 
   return (
     <ModalLayout
