@@ -82,16 +82,20 @@
   }
 
   .finalizeRentalButton {
-    background: $green-color-100;
+    background: $blue-color-100;
     color: $white-color;
 
     font-size: 0.875rem;
+
+    text-wrap: nowrap;
   }
 
   .editRental {
     color: $blue-color-100;
+    background: none;
 
-    font-size: 1rem;
+    font-size: 1.2rem;
+    margin-left: auto;
   }
 }
 

@@ -18,10 +18,23 @@ interface Props {
   handleClose: () => void
 }
 
+interface RentalToEdit {
+  _id: string
+  startDate: Date | string
+  endDate: Date | string
+  expectedReturnDate: Date | string
+  car: string
+  user: string
+}
+
 export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
   const [loadingUpdateRental, setLoadingUpdateRental] = useState<boolean>(false)
-  const [rentalData, setRentalData] = useState<Rental>(rentalToEdit)
+  const [rentalData, setRentalData] = useState<RentalToEdit>({
+    ...rentalToEdit,
+    car: rentalToEdit.car._id,
+    user: rentalToEdit.user._id,
+  })
   const [cars, setCars] = useState<Car[]>([])
   const [users, setUsers] = useState<User[]>([])
 
@@ -105,6 +118,9 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
     getListUsers()
   }, [])
 
+  console.log('cars', cars)
+  console.log('rentalToEdit', rentalToEdit)
+
   return (
     <ModalLayout
       handleClose={handleClose}
@@ -126,15 +142,14 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
           onChange={(event) => {
             setRentalData({
               ...rentalData,
-              car: event?.target.value as any,
+              car: event?.target.value,
             })
           }}
         >
           {cars.map((car) => {
             return (
               <MenuItem key={car._id} value={car._id}>
-                {car?.name || 'Sem nome'}
-                {car?.licensePlate || 'Sem placa'}
+                {car?.name || 'Sem nome'} | {car?.licensePlate || 'Sem placa'}
               </MenuItem>
             )
           })}
@@ -144,11 +159,11 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
           label="Cliente"
           size="small"
           select
-          value={rentalData.user._id}
+          value={rentalData.user}
           onChange={(event) => {
             setRentalData({
               ...rentalData,
-              user: event?.target.value as any,
+              user: event?.target.value,
             })
           }}
         >
