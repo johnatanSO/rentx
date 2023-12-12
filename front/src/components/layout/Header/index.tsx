@@ -107,7 +107,7 @@ export function Header() {
           {userInfo?.isAdmin && (
             <li
               onClick={() => {
-                handleChangeMenuItem('management')
+                handleChangeMenuItem('management/cars')
               }}
               className={style.managementMenuItem}
             >

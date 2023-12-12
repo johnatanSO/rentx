@@ -4,7 +4,7 @@ import { Specification } from './Specification'
 export interface Car {
   _id: string
   name: string
-  images: CarImage[]
+  defaultImage: CarImage
   dailyRate: number
   specifications: Specification[]
 }

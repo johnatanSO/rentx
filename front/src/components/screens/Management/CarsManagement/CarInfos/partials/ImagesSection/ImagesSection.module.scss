@@ -71,17 +71,20 @@
 
     cursor: pointer;
 
-    &.defaultImage{
-      border: 1px solid $blue-color-200;
-    }
-
     .image {
-      object-fit: contain;
+      object-fit: cover;
 
       height: 150px;
       width: 100%;
+    }
 
-      transform: scale(0.65);
+    &.defaultImage {
+      border: 1px solid $brown-color-100;
+
+      .image {
+        object-fit: contain;
+        transform: scale(0.95);
+      }
     }
 
     .removeImageButton,
@@ -120,10 +123,11 @@
         position: absolute;
         inset: 0;
 
-        background: rgba(0 0 0 / 0.1);
+        background: rgba(0 0 0 / 0.3);
       }
 
-      .removeImageButton {
+      .removeImageButton,
+      .updateDefaultImageButton {
         display: block;
       }
     }

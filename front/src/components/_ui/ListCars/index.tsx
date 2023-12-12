@@ -21,7 +21,7 @@ export function ListCars({ cars, loading }: Props) {
             <CarItem
               key={car._id}
               carId={car._id}
-              images={car.images}
+              defaultImage={car.defaultImage}
               name={car.name}
               dailyRate={car.dailyRate}
               specifications={car.specifications}

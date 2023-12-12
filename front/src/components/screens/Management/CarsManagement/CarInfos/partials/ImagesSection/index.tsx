@@ -142,7 +142,7 @@ export function ImagesSection({ car }: Props) {
     <>
       <section className={style.section}>
         <header>
-          <h3>Outras imagens</h3>
+          <h3>Imagens</h3>
           <button
             className={style.addImageButton}
             type="button"

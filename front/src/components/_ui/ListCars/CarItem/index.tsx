@@ -21,7 +21,7 @@ import { UserContext } from '@/contexts/userContext'
 import { useRouter } from 'next/navigation'
 
 type Props = {
-  images: CarImage[]
+  defaultImage: CarImage
   name: string
   dailyRate: number
   carId: string
@@ -29,7 +29,7 @@ type Props = {
 }
 
 export function CarItem({
-  images,
+  defaultImage,
   name,
   dailyRate,
   carId,
@@ -43,10 +43,10 @@ export function CarItem({
     ? !!userInfo?.favoriteCars?.find((favoriteCarId) => favoriteCarId === carId)
     : false
 
-  function getImageUrl(images: CarImage[]) {
-    if (images.length === 0) return unknownCarImage
+  function getImageUrl(image: CarImage) {
+    if (!image) return unknownCarImage
 
-    return process.env.NEXT_PUBLIC_END_POINT + images[0]?.path
+    return process.env.NEXT_PUBLIC_END_POINT + image?.path
   }
 
   function favoriteCar(carId: string) {
@@ -110,7 +110,7 @@ export function CarItem({
             width={400}
             height={200}
             alt="Imagem do carro"
-            src={getImageUrl(images)}
+            src={getImageUrl(defaultImage)}
           />
         </main>
       </Link>
