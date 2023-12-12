@@ -6,6 +6,8 @@ import uploadConfig from '../../../../config/upload'
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated'
 import { UpdateUserInfosController } from '../../../../modules/accounts/useCases/User/updateUserInfos/UpdateUserInfosController'
 import { ListFavoritedCarsController } from '../../../../modules/accounts/useCases/User/listFavoritedCars/ListFavoritedCarsController'
+import { ensureAdmin } from '../middlewares/ensureAdmin'
+import { ListAllUsersController } from '../../../../modules/accounts/useCases/User/listAllUsers/ListAllUsersController'
 
 const uploadAvatar = multer(uploadConfig.upload('./tmp/avatar'))
 const usersRoutes = Router()
@@ -13,6 +15,7 @@ const createNewUserController = new CreateNewUserController()
 const updateUserAvatarController = new UpdateUserAvatarController()
 const updateUserInfosController = new UpdateUserInfosController()
 const listFavoritedCarsController = new ListFavoritedCarsController()
+const listAllUsersController = new ListAllUsersController()
 
 usersRoutes.post('/', createNewUserController.handle)
 
@@ -29,6 +32,13 @@ usersRoutes.get(
   '/favorite/list',
   ensureAuthenticated,
   listFavoritedCarsController.handle,
+)
+
+usersRoutes.get(
+  '/list',
+  ensureAuthenticated,
+  ensureAdmin,
+  listAllUsersController.handle,
 )
 
 export { usersRoutes }

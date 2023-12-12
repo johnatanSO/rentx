@@ -58,4 +58,9 @@ export class UsersRepository implements IUsersRepository {
       { $pull: { favoriteCars: carId } },
     )
   }
+
+  async list(): Promise<IUser[]> {
+    const users = await this.model.find()
+    return users
+  }
 }

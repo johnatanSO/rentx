@@ -15,4 +15,5 @@ export interface IUsersRepository {
   update: (filters: any, updateFields: any) => Promise<void>
   addCarToFavorite: (carId: string, userId: string) => Promise<void>
   removeFavoritedCar: (carId: string, userId: string) => Promise<void>
+  list: () => Promise<IUser[]>
 }

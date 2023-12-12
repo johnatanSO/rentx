@@ -43,17 +43,22 @@ export class UpdateRentalUseCase {
 
     const minimumHour = 24
 
-    const carUnavaliable = await this.rentalsRepository.findOpenRentalByCar(car)
+    if (rental.car.toString() !== car) {
+      const carUnavaliable =
+        await this.rentalsRepository.findOpenRentalByCar(car)
 
-    if (carUnavaliable) {
-      throw new AppError('Já existe um aluguel com este carro')
+      if (carUnavaliable) {
+        throw new AppError('Já existe um aluguel com este carro')
+      }
     }
 
-    const rentalOpenToUser =
-      await this.rentalsRepository.findOpenRentalByUser(user)
+    if (rental.user.toString() !== user) {
+      const rentalOpenToUser =
+        await this.rentalsRepository.findOpenRentalByUser(user)
 
-    if (rentalOpenToUser) {
-      throw new AppError('Usuário já possui um aluguel em andamento')
+      if (rentalOpenToUser) {
+        throw new AppError('Usuário já possui um aluguel em andamento')
+      }
     }
 
     const dateNow = this.dateProvider.dateNow()
