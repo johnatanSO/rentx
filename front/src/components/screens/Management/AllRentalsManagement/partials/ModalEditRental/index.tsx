@@ -170,6 +170,30 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
             )
           })}
         </CustomTextField>
+
+        <CustomTextField
+          type="date"
+          label="Data de inicio"
+          value={rentalData.startDate}
+          onChange={(event) => {
+            setRentalData({
+              ...rentalData,
+              startDate: event?.target.value,
+            })
+          }}
+        />
+
+        <CustomTextField
+          type="date"
+          label="Previsão de entrega"
+          value={rentalData.expectedReturnDate}
+          onChange={(event) => {
+            setRentalData({
+              ...rentalData,
+              expectedReturnDate: event?.target.value,
+            })
+          }}
+        />
       </div>
     </ModalLayout>
   )
