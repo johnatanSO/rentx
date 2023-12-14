@@ -4,12 +4,14 @@ import { TableComponent } from '@/components/_ui/TableComponent'
 import style from './AllRentalsManagement.module.scss'
 import { Rental } from './interfaces/Rental'
 import { useColumns } from './hooks/useColumns'
-import { useContext, useState } from 'react'
+import { FormEvent, useCallback, useContext, useEffect, useState } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
 import { finalizeRentalService } from '@/services/rentals/finalizeRental/FinalizeRentalService'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { FormGroup } from '@mui/material'
 import { ModalEditRental } from './partials/ModalEditRental'
+import { Filters } from './interfaces/Filters'
+import { getAllRentalsService } from '@/services/rentals/getAllRentals/GetAllRentalsService'
 
 type Props = {
   rentals: Rental[]
@@ -26,8 +28,14 @@ export function AllRentalsManagement({ rentals }: Props) {
   const [modalEditRentalOpened, setModalEditRentalOpened] =
     useState<boolean>(false)
   const [rentalToEdit, setRentalToEdit] = useState<Rental | null>(null)
-
+  const [filters, setFilters] = useState<Filters>({
+    filterStartDate: null,
+    filterEndDate: null,
+    userId: null,
+  })
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
   const columns = useColumns({ onFinalizeRental, handleEditRental })
 
   function handleEditRental(rental: Rental) {
@@ -68,6 +76,25 @@ export function AllRentalsManagement({ rentals }: Props) {
     })
   }
 
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams)
+      params.set(name, value)
+
+      return params.toString()
+    },
+    [searchParams],
+  )
+
+  function onFilterRentals() {
+    router.push(
+      `${pathname}?${createQueryString(
+        'filterStartDate',
+        filters.filterStartDate || '',
+      )}&${createQueryString('filterEndDate', filters.filterEndDate || '')}`,
+    )
+  }
+
   return (
     <>
       <header className={style.header}>
@@ -82,6 +109,13 @@ export function AllRentalsManagement({ rentals }: Props) {
             label="Data do aluguel (Inicial)"
             type="date"
             InputLabelProps={{ shrink: true }}
+            value={filters.filterStartDate}
+            onChange={(event) => {
+              setFilters({
+                ...filters,
+                filterStartDate: event?.target.value,
+              })
+            }}
           />
 
           <CustomTextField
@@ -89,7 +123,18 @@ export function AllRentalsManagement({ rentals }: Props) {
             label="Data do aluguel (Final)"
             type="date"
             InputLabelProps={{ shrink: true }}
+            value={filters.filterEndDate}
+            onChange={(event) => {
+              setFilters({
+                ...filters,
+                filterEndDate: event?.target.value,
+              })
+            }}
           />
+
+          <button onClick={onFilterRentals} type="button">
+            Filtrar
+          </button>
         </FormGroup>
       </header>
       <section className={style.tableSection}>

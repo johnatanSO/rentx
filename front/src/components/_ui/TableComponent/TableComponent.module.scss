@@ -10,13 +10,9 @@
 
   thead {
     tr {
-      //display: flex;
-      //flex-direction: row;
-      //align-items: center;
       border-bottom: 1px solid $gray-color-100;
 
       th {
-        //flex: 1;
         padding: 0.6rem 1.1rem;
       }
     }
@@ -24,10 +20,6 @@
 
   tbody {
     tr {
-      //display: flex;
-      //flex-direction: row;
-      //align-items: center;
-
       &:not(:last-child) {
         border-bottom: 1px solid $gray-color-100;
       }
@@ -42,5 +34,7 @@
 
 .emptyCell {
   text-align: center;
-  margin-top: 2rem;
+  p {
+    margin-top: 2rem;
+  }
 }

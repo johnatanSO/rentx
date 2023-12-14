@@ -14,37 +14,6 @@
 
   flex: 1;
 
-  ul {
-    list-style-type: none;
-
-    margin: auto 0px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 35px;
-
-    li {
-      cursor: pointer;
-      transition: filter 0.2s;
-
-      &:not(.menuActive):hover {
-        filter: brightness(0.6);
-      }
-      .icon {
-        color: $gray-color-100;
-
-        font-size: 1.4rem;
-      }
-      &.menuActive {
-        .icon {
-          color: $brown-color-100;
-        }
-      }
-    }
-  }
-
   .returnSysLink {
     background: none;
     border: none;
@@ -58,6 +27,39 @@
 
       &:hover {
         filter: brightness(0.8);
+      }
+    }
+  }
+
+  nav {
+    margin: auto 0px;
+    
+    ul {
+      list-style-type: none;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 35px;
+
+      li {
+        cursor: pointer;
+        transition: filter 0.2s;
+
+        &:not(.menuActive):hover {
+          filter: brightness(0.6);
+        }
+        .icon {
+          color: $gray-color-100;
+
+          font-size: 1.4rem;
+        }
+        &.menuActive {
+          .icon {
+            color: $brown-color-100;
+          }
+        }
       }
     }
   }
