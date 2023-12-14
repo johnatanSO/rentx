@@ -1,6 +1,10 @@
 import { Model } from 'mongoose'
 import { Rental, RentalModel } from '../infra/mongoose/entities/Rental'
-import { ICreateRentalDTO, IRentalsRepository } from './IRentalsRepository'
+import {
+  ICreateRentalDTO,
+  IListRentalsDTO,
+  IRentalsRepository,
+} from './IRentalsRepository'
 
 export class RentalsRepository implements IRentalsRepository {
   model: Model<Rental>
@@ -34,7 +38,35 @@ export class RentalsRepository implements IRentalsRepository {
 
   async list(userId: string): Promise<Rental[]> {
     const rentals = await this.model
-      .find({ ...(userId ? { user: userId } : {}) })
+      .find({
+        ...(userId ? { user: userId } : {}),
+      })
+      .populate([
+        {
+          path: 'car',
+          populate: {
+            path: 'images',
+          },
+        },
+        { path: 'user' },
+      ])
+
+    return rentals
+  }
+
+  async listAll({
+    userId,
+    filterStartDate,
+    filterEndDate,
+  }: IListRentalsDTO): Promise<Rental[]> {
+    const rentals = await this.model
+      .find({
+        ...(userId ? { user: userId } : {}),
+        startDate: {
+          $gte: filterStartDate,
+          $lte: filterEndDate,
+        },
+      })
       .populate([
         {
           path: 'car',

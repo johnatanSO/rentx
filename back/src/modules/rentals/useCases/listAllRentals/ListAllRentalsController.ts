@@ -4,9 +4,13 @@ import { ListAllRentalsUseCase } from './ListAllRentalsUseCase'
 
 export class ListAllRentalsController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const listAllRentalsUseCase = container.resolve(ListAllRentalsUseCase)
+    const { filterStartDate, filterEndDate } = req.query as any
 
-    const rentals = await listAllRentalsUseCase.execute()
+    const listAllRentalsUseCase = container.resolve(ListAllRentalsUseCase)
+    const rentals = await listAllRentalsUseCase.execute({
+      filterStartDate,
+      filterEndDate,
+    })
 
     return res.status(200).json({
       success: true,
