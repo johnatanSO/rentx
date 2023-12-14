@@ -1,4 +1,4 @@
 export interface Filters {
-  name: string
-  categoryId: string
+  name: string | null
+  categoryId: string | null
 }

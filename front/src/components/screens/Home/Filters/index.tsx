@@ -4,16 +4,17 @@ import { MenuItem } from '@mui/material'
 import { Category } from '../interfaces/Category'
 import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
 import { Filters } from '../interfaces/Filters'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 
 export function Filters() {
   const defaultValuesFilter = {
-    name: '',
-    categoryId: '',
+    name: null,
+    categoryId: null,
   }
   const [filters, setFilters] = useState<Filters>(defaultValuesFilter)
   const [categories, setCategories] = useState<Category[]>([])
+
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
@@ -28,16 +29,25 @@ export function Filters() {
     [searchParams],
   )
 
-  // Melhorar essa implementação de filtros.
   function onFilterCars(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    router.push(
-      `${pathname}?${createQueryString(
-        'name',
-        filters.name,
-      )}&${createQueryString('categoryId', filters.categoryId)}`,
-    )
+    const currentName = searchParams.get('name')
+    if (currentName !== filters.name) {
+      router.push(
+        `${pathname}?${createQueryString('name', filters.name || '')}`,
+      )
+    }
+
+    const currentCategoryId = searchParams.get('categoryId')
+    if (currentCategoryId !== filters.categoryId) {
+      router.push(
+        `${pathname}?${createQueryString(
+          'categoryId',
+          filters.categoryId || '',
+        )}`,
+      )
+    }
   }
 
   function handleClearFilters() {

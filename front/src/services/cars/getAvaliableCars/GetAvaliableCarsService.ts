@@ -9,10 +9,12 @@ export function getAvaliableCarsService({
   name,
   categoryId,
 }: IGetAvaliableCars) {
+  const params = {
+    ...(name ? { name } : {}),
+    ...(categoryId ? { categoryId } : {}),
+  }
+
   return http.get('/cars/avaliable', {
-    params: {
-      ...(name ? { name } : {}),
-      ...(categoryId ? { categoryId } : {}),
-    },
+    params,
   })
 }

@@ -4,14 +4,13 @@ import { TableComponent } from '@/components/_ui/TableComponent'
 import style from './AllRentalsManagement.module.scss'
 import { Rental } from './interfaces/Rental'
 import { useColumns } from './hooks/useColumns'
-import { FormEvent, useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useState } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
 import { finalizeRentalService } from '@/services/rentals/finalizeRental/FinalizeRentalService'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { FormGroup } from '@mui/material'
 import { ModalEditRental } from './partials/ModalEditRental'
 import { Filters } from './interfaces/Filters'
-import { getAllRentalsService } from '@/services/rentals/getAllRentals/GetAllRentalsService'
 
 type Props = {
   rentals: Rental[]
@@ -28,11 +27,12 @@ export function AllRentalsManagement({ rentals }: Props) {
   const [modalEditRentalOpened, setModalEditRentalOpened] =
     useState<boolean>(false)
   const [rentalToEdit, setRentalToEdit] = useState<Rental | null>(null)
-  const [filters, setFilters] = useState<Filters>({
+  const defaultValuesFilter = {
     filterStartDate: null,
     filterEndDate: null,
     userId: null,
-  })
+  }
+  const [filters, setFilters] = useState<Filters>(defaultValuesFilter)
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
@@ -87,12 +87,25 @@ export function AllRentalsManagement({ rentals }: Props) {
   )
 
   function onFilterRentals() {
-    router.push(
-      `${pathname}?${createQueryString(
-        'filterStartDate',
-        filters.filterStartDate || '',
-      )}&${createQueryString('filterEndDate', filters.filterEndDate || '')}`,
-    )
+    const currentFilterStartDate = searchParams.get('filterStartDate')
+    if (currentFilterStartDate !== filters.filterStartDate) {
+      router.push(
+        `${pathname}?${createQueryString(
+          'filterStartDate',
+          filters.filterStartDate || '',
+        )}`,
+      )
+    }
+
+    const currentFilterEndDate = searchParams.get('filterEndDate')
+    if (currentFilterEndDate !== filters.filterEndDate) {
+      router.push(
+        `${pathname}?${createQueryString(
+          'filterEndDate',
+          filters.filterEndDate || '',
+        )}`,
+      )
+    }
   }
 
   return (
