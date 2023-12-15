@@ -51,20 +51,6 @@
   }
 }
 
-.swiper-button-prev::after,
-.swiper-button-next::after {
-  color: white !important;
-}
-
-.swiper-button-next,
-.swiper-button-prev {
-  background-color: white !important;
-  padding: 8px 16px;
-  border-radius: 100%;
-  border: 2px solid black;
-  color: red !important;
-}
-
 .imagesContainer {
   display: flex;
   align-items: center;
@@ -72,7 +58,7 @@
   gap: 1rem;
 
   .swiperContainer {
-    // width: 400px;
+    margin: 0;
   }
 
   .defaultImage,

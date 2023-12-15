@@ -182,13 +182,13 @@ export function ImagesSection({ car }: Props) {
             </button>
           </div>
 
-          {/* <Swiper
+          <Swiper
             className={style.swiperContainer}
             spaceBetween={16}
-            slidesPerView={2}
+            slidesPerView={3}
             modules={[Navigation]}
             navigation
-            effect="fade"
+            loop={true}
           >
             {car.images.map((carImage) => {
               return (
@@ -219,7 +219,7 @@ export function ImagesSection({ car }: Props) {
                 </SwiperSlide>
               )
             })}
-          </Swiper> */}
+          </Swiper>
         </div>
       </section>
 
