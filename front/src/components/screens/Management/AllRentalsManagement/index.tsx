@@ -117,6 +117,7 @@ export function AllRentalsManagement({ rentals }: Props) {
       <header className={style.header}>
         <h2>Todos os alugueis</h2>
 
+        {/*  TODO: Criar um componente separado */}
         <form className={style.filterDateContainer} onSubmit={onFilterRentals}>
           <CustomTextField
             className={style.input}
