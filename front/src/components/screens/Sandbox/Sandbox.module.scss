@@ -1,0 +1,14 @@
+@import '@/styles/colors';
+
+.swiperContainer {
+  background: red;
+  width: 50%;
+
+  .slideItem {
+    background: blue;
+    width: 200px;
+    height: 200px;
+
+    margin: 0 10px;
+  }
+}

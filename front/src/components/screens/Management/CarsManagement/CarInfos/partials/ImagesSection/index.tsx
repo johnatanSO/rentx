@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import style from './ImagesSection.module.scss'
 import { faCamera, faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
 import { Car } from '../../interfaces/Car'
@@ -11,10 +10,12 @@ import { removeCarImageService } from '@/services/cars/removeCarImage/RemoveCarI
 import { usePathname, useRouter } from 'next/navigation'
 import { updateCarImagesService } from '@/services/cars/updateCarImages/UpdateCarImagesService'
 import { ModalZoomImage } from './ModalZoomImage'
-import { Divider } from '@mui/material'
 import { updateDefaultCarImageService } from '@/services/cars/updateDefaultCarImage/UpdateDefaultCarImageService'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation } from 'swiper/modules'
 import 'swiper/css'
+import 'swiper/css/navigation'
+import style from './ImagesSection.module.scss'
 
 type Props = {
   car: Car
@@ -155,8 +156,8 @@ export function ImagesSection({ car }: Props) {
           </button>
         </header>
 
-        <ul className={style.listImages}>
-          <li
+        <div className={style.imagesContainer}>
+          <div
             onClick={() => {
               handleClickImage(car.defaultImage)
             }}
@@ -179,52 +180,47 @@ export function ImagesSection({ car }: Props) {
             >
               <FontAwesomeIcon className={style.icon} icon={faPen} />
             </button>
-          </li>
+          </div>
 
-          <Divider orientation="vertical" flexItem />
-
-          <Swiper
-            spaceBetween={50}
-            slidesPerView={3}
-            onSlideChange={() => console.log('slide change')}
-            onSwiper={(swiper) => console.log(swiper)}
+          {/* <Swiper
+            className={style.swiperContainer}
+            spaceBetween={16}
+            slidesPerView={2}
+            modules={[Navigation]}
+            navigation
+            effect="fade"
           >
-            <SwiperSlide>Slide 1</SwiperSlide>
-            <SwiperSlide>Slide 2</SwiperSlide>
-            <SwiperSlide>Slide 3</SwiperSlide>
-            <SwiperSlide>Slide 4</SwiperSlide>
-            ...
-          </Swiper>
-
-          {car.images.map((carImage) => {
-            return (
-              <li
-                key={carImage._id}
-                onClick={() => {
-                  handleClickImage(carImage)
-                }}
-              >
-                <Image
-                  className={style.image}
-                  alt="Car image"
-                  width={300}
-                  height={150}
-                  src={getCarImageUrl(carImage)}
-                />
-                <button
-                  onClick={(event) => {
-                    event.stopPropagation()
-                    handleRemoveImage(carImage._id)
+            {car.images.map((carImage) => {
+              return (
+                <SwiperSlide
+                  key={carImage._id}
+                  className={style.slideItem}
+                  onClick={() => {
+                    handleClickImage(carImage)
                   }}
-                  className={style.removeImageButton}
-                  type="button"
                 >
-                  <FontAwesomeIcon className={style.icon} icon={faTrash} />
-                </button>
-              </li>
-            )
-          })}
-        </ul>
+                  <Image
+                    className={style.image}
+                    alt="Car image"
+                    width={300}
+                    height={150}
+                    src={getCarImageUrl(carImage)}
+                  />
+                  <button
+                    onClick={(event) => {
+                      event.stopPropagation()
+                      handleRemoveImage(carImage._id)
+                    }}
+                    className={style.removeImageButton}
+                    type="button"
+                  >
+                    <FontAwesomeIcon className={style.icon} icon={faTrash} />
+                  </button>
+                </SwiperSlide>
+              )
+            })}
+          </Swiper> */}
+        </div>
       </section>
 
       {imagePath && (

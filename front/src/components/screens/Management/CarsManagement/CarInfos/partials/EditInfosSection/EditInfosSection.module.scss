@@ -54,6 +54,7 @@
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    max-width: 100%;
 
     .input {
       min-width: 222px;
@@ -62,6 +63,7 @@
     .textAreaContainer {
       width: 100%;
       display: flex;
+      flex-wrap: wrap;
       gap: 1rem;
       flex-direction: row;
     }
