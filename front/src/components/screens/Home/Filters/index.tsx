@@ -6,6 +6,8 @@ import { getAllCategoriesService } from '@/services/category/getAllCategories/Ge
 import { Filters } from '../interfaces/Filters'
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 export function Filters() {
   const defaultValuesFilter = {
@@ -102,7 +104,10 @@ export function Filters() {
         })}
       </CustomTextField>
       <div className={style.buttonsContainer}>
-        <button type="submit">Procurar</button>
+        <button type="submit">
+          Buscar
+          <FontAwesomeIcon className={style.icon} icon={faSearch} />
+        </button>
         <button onClick={handleClearFilters} type="button">
           Limpar
         </button>

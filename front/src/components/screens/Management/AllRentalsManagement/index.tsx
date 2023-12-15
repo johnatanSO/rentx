@@ -4,13 +4,15 @@ import { TableComponent } from '@/components/_ui/TableComponent'
 import style from './AllRentalsManagement.module.scss'
 import { Rental } from './interfaces/Rental'
 import { useColumns } from './hooks/useColumns'
-import { useCallback, useContext, useState } from 'react'
+import { FormEvent, useCallback, useContext, useState } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
 import { finalizeRentalService } from '@/services/rentals/finalizeRental/FinalizeRentalService'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { FormGroup } from '@mui/material'
 import { ModalEditRental } from './partials/ModalEditRental'
 import { Filters } from './interfaces/Filters'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   rentals: Rental[]
@@ -86,7 +88,9 @@ export function AllRentalsManagement({ rentals }: Props) {
     [searchParams],
   )
 
-  function onFilterRentals() {
+  function onFilterRentals(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+
     const currentFilterStartDate = searchParams.get('filterStartDate')
     if (currentFilterStartDate !== filters.filterStartDate) {
       router.push(
@@ -113,10 +117,7 @@ export function AllRentalsManagement({ rentals }: Props) {
       <header className={style.header}>
         <h2>Todos os alugueis</h2>
 
-        <FormGroup
-          className={style.filterDateContainer}
-          onSubmit={() => undefined}
-        >
+        <form className={style.filterDateContainer} onSubmit={onFilterRentals}>
           <CustomTextField
             className={style.input}
             label="Data do aluguel (Inicial)"
@@ -145,11 +146,13 @@ export function AllRentalsManagement({ rentals }: Props) {
             }}
           />
 
-          <button onClick={onFilterRentals} type="button">
-            Filtrar
+          <button type="submit">
+            Buscar
+            <FontAwesomeIcon className={style.icon} icon={faSearch} />
           </button>
-        </FormGroup>
+        </form>
       </header>
+
       <section className={style.tableSection}>
         <TableComponent columns={columns} rows={rentals} loading={false} />
       </section>

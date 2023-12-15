@@ -33,6 +33,10 @@
       cursor: pointer;
       transition: filter 0.2s;
 
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+
       &:hover {
         filter: brightness(0.8);
       }
