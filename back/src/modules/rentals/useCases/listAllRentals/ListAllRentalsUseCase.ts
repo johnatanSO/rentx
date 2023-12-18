@@ -5,6 +5,7 @@ import { Rental } from '../../infra/mongoose/entities/Rental'
 interface IRequest {
   filterStartDate: string
   filterEndDate: string
+  userId: string
 }
 
 @injectable()
@@ -19,9 +20,10 @@ export class ListAllRentalsUseCase {
   async execute({
     filterStartDate,
     filterEndDate,
+    userId,
   }: IRequest): Promise<Rental[]> {
     const rentals = await this.rentalsRepository.listAll({
-      userId: undefined,
+      userId,
       filterStartDate,
       filterEndDate,
     })
