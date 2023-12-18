@@ -1,7 +1,7 @@
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import style from './Filters.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faFilter, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { IFilters } from '../../interfaces/IFilters'
 import { User } from '../../interfaces/User'
 import { getUsersService } from '@/services/user/getUsers/GetUsersService'
@@ -86,6 +86,7 @@ export function Filters() {
 
   return (
     <form className={style.filterDateContainer} onSubmit={onFilterRentals}>
+      <FontAwesomeIcon className={style.filterIcon} icon={faFilter} />
       <CustomTextField
         className={style.input}
         label="Data do aluguel (Inicial)"
