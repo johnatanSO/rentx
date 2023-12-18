@@ -6,6 +6,7 @@ interface IRequest {
   filterStartDate: string
   filterEndDate: string
   userId: string
+  carId: string
 }
 
 @injectable()
@@ -21,9 +22,11 @@ export class ListAllRentalsUseCase {
     filterStartDate,
     filterEndDate,
     userId,
+    carId,
   }: IRequest): Promise<Rental[]> {
     const rentals = await this.rentalsRepository.listAll({
       userId,
+      carId,
       filterStartDate,
       filterEndDate,
     })

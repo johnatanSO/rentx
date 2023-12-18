@@ -8,6 +8,7 @@ export interface ICreateRentalDTO {
 
 export interface IListRentalsDTO {
   userId: string
+  carId: string
   filterStartDate: string
   filterEndDate: string
 }

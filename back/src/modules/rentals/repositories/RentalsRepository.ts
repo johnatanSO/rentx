@@ -56,12 +56,14 @@ export class RentalsRepository implements IRentalsRepository {
 
   async listAll({
     userId,
+    carId,
     filterStartDate,
     filterEndDate,
   }: IListRentalsDTO): Promise<Rental[]> {
     const rentals = await this.model
       .find({
         ...(userId ? { user: userId } : {}),
+        ...(carId ? { car: carId } : {}),
         startDate: {
           $gte: filterStartDate,
           $lte: filterEndDate,
