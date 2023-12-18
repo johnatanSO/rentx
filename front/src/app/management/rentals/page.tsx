@@ -6,7 +6,8 @@ export default async function AllRentalsPage({ searchParams }: any) {
   await verifyUserIsAdminService()
 
   const { data } = await getAllRentalsService({
-    userId: null,
+    userId: searchParams.userId,
+    carId: searchParams.carId,
     filterStartDate: searchParams.filterStartDate,
     filterEndDate: searchParams.filterEndDate,
   })

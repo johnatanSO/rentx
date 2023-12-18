@@ -1,58 +1,86 @@
 @import "@/styles/colors";
 
-.filterDateContainer {
+.filtersContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 1rem;
+
   margin-left: auto;
 
-  .filterIcon {
-    align-self: center;
-    font-size: 1.3rem;
-
-    color: $blue-color-400;
-
-    cursor: pointer;
-    transition: filter 0.2s;
-
-    &:not(:disabled):hover {
-      filter: brightness(0.8);
-    }
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-  }
-
-  .input {
-    background: $white-color;
-    border-radius: 20px;
-    width: 200px;
-  }
-
-  button {
-    border: none;
-    border-radius: 20px;
-
-    background: $blue-color-200;
-    color: $white-color;
-
-    min-height: 100%;
-    padding: 0rem 2rem;
-
-    font-weight: 500;
-    font-size: 0.875rem;
-
-    cursor: pointer;
-    transition: filter 0.2s;
-
+  .filterDateContainer {
     display: flex;
-    align-items: center;
-    gap: 0.7rem;
+    gap: 1rem;
 
-    &:hover {
-      filter: brightness(0.8);
+    .filterIcon {
+      align-self: center;
+      font-size: 1.3rem;
+
+      color: $blue-color-400;
+
+      cursor: pointer;
+      transition: filter 0.2s;
+
+      &:not(:disabled):hover {
+        filter: brightness(0.8);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
     }
+
+    .input {
+      background: $white-color;
+      border-radius: 20px;
+      width: 200px;
+    }
+
+    button {
+      border: none;
+      border-radius: 20px;
+
+      background: $blue-color-200;
+      color: $white-color;
+
+      min-height: 100%;
+      padding: 0rem 2rem;
+
+      font-weight: 500;
+      font-size: 0.875rem;
+
+      cursor: pointer;
+      transition: filter 0.2s;
+
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+
+      &:hover {
+        filter: brightness(0.8);
+      }
+    }
+  }
+
+  .otherFiltersContainer {
+    display: flex;
+    gap: 1rem;
+
+    animation: appear 0.3s;
+
+    .input {
+      flex: 1;
+      background: $white-color;
+      border-radius: 20px;
+    }
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

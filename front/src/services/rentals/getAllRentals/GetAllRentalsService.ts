@@ -5,12 +5,14 @@ interface IRequest {
   filterStartDate: string | null
   filterEndDate: string | null
   userId: string | null
+  carId: string | null
 }
 
 export function getAllRentalsService({
   filterStartDate,
   filterEndDate,
   userId,
+  carId,
 }: IRequest) {
   const defaultFilterStartDate = dayjs().startOf('month')
   const defaultFilterEndDate = dayjs().endOf('month')
@@ -27,6 +29,7 @@ export function getAllRentalsService({
     filterStartDate: formatedStartDate,
     filterEndDate: formatedEndDate,
     userId,
+    carId,
   }
 
   return http.get('/rentals/all/', {

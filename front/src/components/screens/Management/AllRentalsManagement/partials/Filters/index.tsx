@@ -8,6 +8,9 @@ import { getUsersService } from '@/services/user/getUsers/GetUsersService'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { FormEvent, useCallback, useContext, useEffect, useState } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
+import { MenuItem } from '@mui/material'
+import { Car } from '../../interfaces/Car'
+import { getAllCarsService } from '@/services/cars/getAllCars/GetAllCarsService'
 
 export function Filters() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
@@ -15,10 +18,13 @@ export function Filters() {
     filterStartDate: null,
     filterEndDate: null,
     userId: null,
+    carId: null,
   }
 
   const [filters, setFilters] = useState<IFilters>(defaultValuesFilter)
+  const [otherFiltersOpened, setOtherFiltersOpened] = useState<boolean>(false)
   const [usersList, setUsersList] = useState<User[]>([])
+  const [carsList, setCarsList] = useState<Car[]>([])
 
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -56,6 +62,20 @@ export function Filters() {
         )}`,
       )
     }
+
+    const currentFilterUser = searchParams.get('userId')
+    if (currentFilterUser !== filters.userId) {
+      router.push(
+        `${pathname}?${createQueryString('userId', filters.userId || '')}`,
+      )
+    }
+
+    const currentFilterCar = searchParams.get('carId')
+    if (currentFilterCar !== filters.carId) {
+      router.push(
+        `${pathname}?${createQueryString('carId', filters.carId || '')}`,
+      )
+    }
   }
 
   function getUsersList() {
@@ -80,45 +100,122 @@ export function Filters() {
       })
   }
 
+  function getCarsList() {
+    getAllCarsService()
+      .then((res) => {
+        setCarsList(res.data.items)
+      })
+      .catch((err) => {
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          open: true,
+          text: `Erro ao tentar buscar lista de carros - ${
+            err?.response?.message?.data || err?.message
+          }`,
+          type: 'error',
+        })
+      })
+  }
+
+  function handleOpenOtherFilters() {
+    setOtherFiltersOpened(!otherFiltersOpened)
+  }
+
   useEffect(() => {
     getUsersList()
+    getCarsList()
   }, [])
 
   return (
-    <form className={style.filterDateContainer} onSubmit={onFilterRentals}>
-      <FontAwesomeIcon className={style.filterIcon} icon={faFilter} />
-      <CustomTextField
-        className={style.input}
-        label="Data do aluguel (Inicial)"
-        type="date"
-        InputLabelProps={{ shrink: true }}
-        value={filters.filterStartDate}
-        onChange={(event) => {
-          setFilters({
-            ...filters,
-            filterStartDate: event?.target.value,
-          })
-        }}
-      />
+    <div className={style.filtersContainer}>
+      <form className={style.filterDateContainer} onSubmit={onFilterRentals}>
+        <FontAwesomeIcon
+          onClick={handleOpenOtherFilters}
+          className={style.filterIcon}
+          icon={faFilter}
+        />
 
-      <CustomTextField
-        className={style.input}
-        label="Data do aluguel (Final)"
-        type="date"
-        InputLabelProps={{ shrink: true }}
-        value={filters.filterEndDate}
-        onChange={(event) => {
-          setFilters({
-            ...filters,
-            filterEndDate: event?.target.value,
-          })
-        }}
-      />
+        <CustomTextField
+          className={style.input}
+          label="Data do aluguel (Inicial)"
+          type="date"
+          InputLabelProps={{ shrink: true }}
+          value={filters.filterStartDate}
+          onChange={(event) => {
+            setFilters({
+              ...filters,
+              filterStartDate: event?.target.value,
+            })
+          }}
+        />
 
-      <button type="submit">
-        Buscar
-        <FontAwesomeIcon className={style.icon} icon={faSearch} />
-      </button>
-    </form>
+        <CustomTextField
+          className={style.input}
+          label="Data do aluguel (Final)"
+          type="date"
+          InputLabelProps={{ shrink: true }}
+          value={filters.filterEndDate}
+          onChange={(event) => {
+            setFilters({
+              ...filters,
+              filterEndDate: event?.target.value,
+            })
+          }}
+        />
+
+        <button type="submit">
+          Buscar
+          <FontAwesomeIcon className={style.icon} icon={faSearch} />
+        </button>
+      </form>
+
+      {otherFiltersOpened && (
+        <section className={style.otherFiltersContainer}>
+          <CustomTextField
+            className={style.input}
+            label="Cliente"
+            select
+            value={filters.userId}
+            onChange={(event) => {
+              setFilters({
+                ...filters,
+                userId: event?.target.value,
+              })
+            }}
+          >
+            <MenuItem value="all">Todos</MenuItem>
+            {usersList.map((user) => {
+              return (
+                <MenuItem value={user._id} key={user._id}>
+                  {user.name}
+                </MenuItem>
+              )
+            })}
+          </CustomTextField>
+
+          <CustomTextField
+            className={style.input}
+            label="Carro"
+            select
+            value={filters.carId}
+            onChange={(event) => {
+              setFilters({
+                ...filters,
+                carId: event?.target.value,
+              })
+            }}
+          >
+            <MenuItem value="all">Todos</MenuItem>
+            {carsList.map((car) => {
+              return (
+                <MenuItem value={car._id} key={car._id}>
+                  {car.name} - {car.licensePlate}
+                </MenuItem>
+              )
+            })}
+          </CustomTextField>
+        </section>
+      )}
+    </div>
   )
 }
