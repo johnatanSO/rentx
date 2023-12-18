@@ -21,6 +21,23 @@ export function Dev() {
       <section className={style.uploadCategoriesSection}>
         <h3>Inserir categorias</h3>
 
+        <div className={style.helpInfosContainer}>
+          <ul>
+            <li>
+              <p>O arquivo precisa ser do formato .csv</p>
+            </li>
+            <li>
+              <p>
+                O texto precisa possuir o seguinte formato
+                "exemplo|exemplo|exemplo"
+              </p>
+            </li>
+            <li>
+              <button type="button">Baixar arquivo de exemplo</button>
+            </li>
+          </ul>
+        </div>
+
         <div className={style.buttonsContainer}>
           <button onClick={handleInputFile} type="button">
             <FontAwesomeIcon className={style.icon} icon={faFile} />
