@@ -42,7 +42,7 @@ export function AllRentalsManagement({ rentals }: Props) {
       open: true,
       onClickAgree: async () => {
         finalizeRentalService(rentalId)
-          .then((res) => {
+          .then(() => {
             setAlertNotifyConfigs({
               ...alertNotifyConfigs,
               open: true,

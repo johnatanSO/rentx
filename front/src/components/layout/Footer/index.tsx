@@ -3,11 +3,10 @@
 import style from './Footer.module.scss'
 import packageJSON from '../../../../package.json'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Navigation } from 'swiper/modules'
+import { Autoplay } from 'swiper/modules'
 import Image from 'next/image'
 import porscheLogo from '../../../../public/assets/logos/brands/porscheLogo.png'
 import 'swiper/css'
-import 'swiper/css/navigation'
 
 export function Footer() {
   const year = new Date().getFullYear()
@@ -88,7 +87,7 @@ export function Footer() {
         className={style.swiperContainer}
         spaceBetween={10}
         slidesPerView={5}
-        modules={[Navigation, Autoplay]}
+        modules={[Autoplay]}
         navigation
         loop={true}
         autoplay={{

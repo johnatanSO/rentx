@@ -19,6 +19,7 @@ export function Filters() {
 
   const [filters, setFilters] = useState<IFilters>(defaultValuesFilter)
   const [usersList, setUsersList] = useState<User[]>([])
+
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
