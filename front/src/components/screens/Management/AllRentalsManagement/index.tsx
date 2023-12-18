@@ -4,15 +4,16 @@ import { TableComponent } from '@/components/_ui/TableComponent'
 import style from './AllRentalsManagement.module.scss'
 import { Rental } from './interfaces/Rental'
 import { useColumns } from './hooks/useColumns'
-import { FormEvent, useCallback, useContext, useState } from 'react'
+import { FormEvent, useCallback, useContext, useEffect, useState } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
 import { finalizeRentalService } from '@/services/rentals/finalizeRental/FinalizeRentalService'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { FormGroup } from '@mui/material'
 import { ModalEditRental } from './partials/ModalEditRental'
 import { Filters } from './interfaces/Filters'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { User } from './interfaces/User'
+import { getUsersService } from '@/services/user/getUsers/GetUsersService'
 
 type Props = {
   rentals: Rental[]
@@ -39,6 +40,7 @@ export function AllRentalsManagement({ rentals }: Props) {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const columns = useColumns({ onFinalizeRental, handleEditRental })
+  const [usersList, setUsersList] = useState<User[]>([])
 
   function handleEditRental(rental: Rental) {
     setRentalToEdit(rental)
@@ -111,6 +113,32 @@ export function AllRentalsManagement({ rentals }: Props) {
       )
     }
   }
+
+  function getUsersList() {
+    getUsersService()
+      .then((res) => {
+        setUsersList(res.data.items)
+      })
+      .catch((err) => {
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          open: true,
+          text: `Erro ao tentar buscar lista de usuários - ${
+            err?.response?.data?.message || err?.message
+          }`,
+          type: 'error',
+        })
+        console.log(
+          `Erro ao tentar buscar lista de usuários - ${
+            err?.response?.data?.message || err?.message
+          }`,
+        )
+      })
+  }
+
+  useEffect(() => {
+    getUsersList()
+  }, [])
 
   return (
     <>
