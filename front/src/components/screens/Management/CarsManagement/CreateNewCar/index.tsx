@@ -62,7 +62,7 @@ export function CreateNewCar() {
           ...alertNotifyConfigs,
           open: true,
           text: `Erro ao tentar cadastrar novo carro - ${
-            err?.reponse?.data?.message || err?.message
+            err?.response?.data?.message || err?.message
           }`,
           type: 'error',
         })

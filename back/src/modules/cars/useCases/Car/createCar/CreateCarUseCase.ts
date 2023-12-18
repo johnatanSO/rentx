@@ -40,6 +40,8 @@ export class CreateCarUseCase {
     transmission,
     imageName,
   }: IRequest): Promise<Car> {
+    if (!licensePlate) throw new AppError('Placa do carro não informada')
+
     const carAlreadyExists =
       await this.carsRepository.findByLicensePlate(licensePlate)
 
