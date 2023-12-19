@@ -42,3 +42,14 @@
     }
   }
 }
+
+@media (max-width: 880px) {
+  .footerContainer {
+    flex-direction: column-reverse;
+    text-align: center;
+
+    .swiperContainer {
+      width: 95%;
+    }
+  }
+}
