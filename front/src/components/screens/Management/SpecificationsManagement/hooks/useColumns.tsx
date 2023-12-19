@@ -47,11 +47,15 @@ export function useColumns({ handleEditSpecification }: Props) {
             setAlertNotifyConfigs({
               ...alertNotifyConfigs,
               open: true,
-              text: `Erro ao tentar deletar especificação - ${err?.response?.data?.message}`,
+              text: `Erro ao tentar deletar especificação - ${
+                err?.response?.data?.message || err?.message
+              }`,
               type: 'error',
             })
             console.log(
-              `Erro ao tentar deletar especificação - ${err?.response?.data?.message}`,
+              `Erro ao tentar deletar especificação - ${
+                err?.response?.data?.message || err?.message
+              }`,
             )
           })
       },

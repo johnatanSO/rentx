@@ -52,7 +52,11 @@ export function Login() {
           }`,
           type: 'error',
         })
-        console.log('err', err)
+        console.log(
+          `Erro ao tentar realizar autenticação - ${
+            err?.response?.data?.message || err?.message
+          }`,
+        )
       })
       .finally(() => {
         setLoadingAuthUser(false)
