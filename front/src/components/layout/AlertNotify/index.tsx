@@ -13,14 +13,9 @@ export function AlertNotify() {
 
   useEffect(() => {
     if (alertNotifyConfigs.open) {
-      setTimeout(
-        (prop) => {
-          alertNotifyConfigs.handleClose()
-          console.log(`missed propriety - ${prop}`)
-        },
-        7000,
-        ['Prop 1', 'Prop 2'],
-      )
+      setTimeout(() => {
+        alertNotifyConfigs.handleClose()
+      }, 7000)
     }
   }, [alertNotifyConfigs])
 
