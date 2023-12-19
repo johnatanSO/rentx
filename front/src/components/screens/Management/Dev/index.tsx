@@ -1,10 +1,21 @@
-import { useState } from 'react'
+'use client'
+
+import { useContext, useState } from 'react'
 import style from './Dev.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFile } from '@fortawesome/free-solid-svg-icons'
+import { faFile, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { AlertContext } from '@/contexts/alertContext'
+import { useRouter } from 'next/navigation'
+import { uploadCategoriesService } from '@/services/category/uploadCategoriesService/UploadCategoriesService'
+import { Loading } from '@/components/_ui/Loading'
 
 export function Dev() {
+  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
+
   const [csvFile, setCsvFile] = useState<any>(null)
+  const [loadingImportFile, setLoadingImportFile] = useState<boolean>(false)
+
+  const router = useRouter()
 
   function handleInputFile() {
     const input = document.createElement('input')
@@ -16,11 +27,43 @@ export function Dev() {
     input.click()
   }
 
+  function onUploadCategories() {
+    setLoadingImportFile(true)
+
+    uploadCategoriesService(csvFile)
+      .then(() => {
+        router.push('/management/categories')
+      })
+      .catch((err) => {
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          open: true,
+          text: `Erro ao tentar ler arquivo .csv - ${
+            err?.response?.data?.message || err?.message
+          }`,
+          type: 'error',
+        })
+      })
+      .finally(() => {
+        setLoadingImportFile(false)
+      })
+  }
+
   return (
     <div className={style.scriptsContainer}>
-      <section className={style.uploadCategoriesSection}>
-        <h3>Inserir categorias</h3>
+      <header>
+        <h2>Inserir categorias</h2>
+        <button
+          onClick={onUploadCategories}
+          className={style.submitButton}
+          type="button"
+          disabled={loadingImportFile}
+        >
+          {loadingImportFile ? <Loading /> : 'Confirmar'}
+        </button>
+      </header>
 
+      <section className={style.uploadCategoriesSection}>
         <div className={style.helpInfosContainer}>
           <ul>
             <li>
@@ -28,20 +71,25 @@ export function Dev() {
             </li>
             <li>
               <p>
-                O texto precisa possuir o seguinte formato
-                "exemplo|exemplo|exemplo"
+                O texto precisa possuir o seguinte formato (name|description)
               </p>
             </li>
             <li>
-              <button type="button">Baixar arquivo de exemplo</button>
+              <button className={style.downloadExampleFileButton} type="button">
+                Baixar arquivo de exemplo
+              </button>
             </li>
           </ul>
         </div>
 
         <div className={style.buttonsContainer}>
-          <button onClick={handleInputFile} type="button">
-            <FontAwesomeIcon className={style.icon} icon={faFile} />
-            Inserir .csv
+          <button
+            className={style.insertFileButton}
+            onClick={handleInputFile}
+            type="button"
+          >
+            <FontAwesomeIcon className={style.icon} icon={faPlus} />
+            Inserir arquivo
           </button>
 
           {csvFile && (

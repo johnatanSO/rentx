@@ -1,5 +1,110 @@
 @import "@/styles/colors";
 
-.logView {
+.buttonModel {
+  background: none;
+  border: none;
+
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+
+  padding: 1rem;
+  border-radius: 20px;
+
+  font-size: 500;
+  font-size: 0.875rem;
+  line-height: 1;
+
+  cursor: pointer;
+  transition: filter 0.2s;
+
+  &:not(:disabled):hover {
+    filter: brightness(0.8);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.scriptsContainer {
+  header {
+    display: flex;
+    align-items: start;
+    gap: 1rem;
   
+    .submitButton {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 20px;
+      margin-left: auto;
+  
+      font-size: 0.875rem;
+      font-weight: 500;
+  
+      cursor: pointer;
+      transition: filter 0.2s;
+  
+      color: $white-color;
+      background: $green-color-100;
+  
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+  
+      &:not(:disabled):hover {
+        filter: brightness(0.7);
+      }
+  
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+  
+  .uploadCategoriesSection {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+
+    .helpInfosContainer {
+      ul {
+        list-style-type: none;
+
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+
+    .buttonsContainer {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+
+      .fileText {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        color: $gray-color-300;
+      }
+    }
+  }
+}
+
+.downloadExampleFileButton {
+  @extend .buttonModel;
+
+  background: $blue-color-200;
+  color: $white-color;
+}
+
+.insertFileButton {
+  @extend .buttonModel;
+
+  background: $green-color-100;
+  color: $white-color;
 }
