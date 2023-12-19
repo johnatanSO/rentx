@@ -3,7 +3,7 @@
 import { useContext, useState } from 'react'
 import style from './Dev.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFile, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faFile, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { AlertContext } from '@/contexts/alertContext'
 import { useRouter } from 'next/navigation'
 import { uploadCategoriesService } from '@/services/category/uploadCategoriesService/UploadCategoriesService'
@@ -33,6 +33,7 @@ export function Dev() {
     uploadCategoriesService(csvFile)
       .then(() => {
         router.push('/management/categories')
+        setCsvFile(null)
       })
       .catch((err) => {
         setAlertNotifyConfigs({
@@ -51,19 +52,25 @@ export function Dev() {
 
   return (
     <div className={style.scriptsContainer}>
-      <header>
-        <h2>Inserir categorias</h2>
-        <button
-          onClick={onUploadCategories}
-          className={style.submitButton}
-          type="button"
-          disabled={loadingImportFile}
-        >
-          {loadingImportFile ? <Loading /> : 'Confirmar'}
-        </button>
-      </header>
-
       <section className={style.uploadCategoriesSection}>
+        <header>
+          <h2>Inserir categorias</h2>
+          <button
+            onClick={onUploadCategories}
+            className={style.submitButton}
+            type="button"
+            disabled={!csvFile || loadingImportFile}
+          >
+            {loadingImportFile ? (
+              <Loading size={21} />
+            ) : (
+              <>
+                <FontAwesomeIcon icon={faCheck} />
+                Confirmar
+              </>
+            )}
+          </button>
+        </header>
         <div className={style.helpInfosContainer}>
           <ul>
             <li>

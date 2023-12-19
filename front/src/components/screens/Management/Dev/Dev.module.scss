@@ -39,6 +39,7 @@
       border: none;
       border-radius: 20px;
       margin-left: auto;
+      width: 170px;
   
       font-size: 0.875rem;
       font-weight: 500;
@@ -51,6 +52,7 @@
   
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 0.6rem;
   
       &:not(:disabled):hover {
