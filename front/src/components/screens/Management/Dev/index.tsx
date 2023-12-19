@@ -50,6 +50,14 @@ export function Dev() {
       })
   }
 
+  function downloadCsvExample() {
+    const a = window?.document?.createElement('a')
+
+    a.href = `../assets/files/example_csv_categories.csv`
+    a.download = 'example_csv_categories'
+    a.click()
+  }
+
   return (
     <div className={style.scriptsContainer}>
       <section className={style.uploadCategoriesSection}>
@@ -78,11 +86,16 @@ export function Dev() {
             </li>
             <li>
               <p>
-                O texto precisa possuir o seguinte formato (name|description)
+                O texto precisa possuir o seguinte formato (nome|descrição)
+                separados pelo delimitador &quot; | &quot;
               </p>
             </li>
             <li>
-              <button className={style.downloadExampleFileButton} type="button">
+              <button
+                onClick={downloadCsvExample}
+                className={style.downloadExampleFileButton}
+                type="button"
+              >
                 Baixar arquivo de exemplo
               </button>
             </li>
