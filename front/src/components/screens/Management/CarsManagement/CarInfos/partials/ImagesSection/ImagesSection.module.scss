@@ -57,12 +57,14 @@
   justify-content: space-between;
   gap: 1rem;
 
-  .swiperContainer {
-    margin: 0;
+  .listImages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
 
   .defaultImage,
-  .slideItem {
+  .imageCard {
     border-radius: 20px;
     width: 300px !important;
     margin: 1rem 0px;

@@ -182,19 +182,12 @@ export function ImagesSection({ car }: Props) {
             </button>
           </div>
 
-          <Swiper
-            className={style.swiperContainer}
-            spaceBetween={16}
-            slidesPerView={3}
-            modules={[Navigation]}
-            navigation
-            loop={true}
-          >
+          <ul className={style.listImages}>
             {car.images.map((carImage) => {
               return (
-                <SwiperSlide
+                <li
                   key={carImage._id}
-                  className={style.slideItem}
+                  className={style.imageCard}
                   onClick={() => {
                     handleClickImage(carImage)
                   }}
@@ -216,10 +209,10 @@ export function ImagesSection({ car }: Props) {
                   >
                     <FontAwesomeIcon className={style.icon} icon={faTrash} />
                   </button>
-                </SwiperSlide>
+                </li>
               )
             })}
-          </Swiper>
+          </ul>
         </div>
       </section>
 
