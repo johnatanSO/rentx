@@ -93,7 +93,7 @@ export class MockCarsRepository implements ICarsRepository {
 
   async removeImage(carId: string, imageId: string): Promise<void> {
     const car = this.cars.find((car) => car._id.toString() === carId)
-    console.log('CAR PORRA', car)
+
     const newImages = []
     const carIndex = this.cars.findIndex((car) => car._id.toString() === carId)
 
