@@ -11,8 +11,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { updateCarImagesService } from '@/services/cars/updateCarImages/UpdateCarImagesService'
 import { ModalZoomImage } from './ModalZoomImage'
 import { updateDefaultCarImageService } from '@/services/cars/updateDefaultCarImage/UpdateDefaultCarImageService'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation } from 'swiper/modules'
+
 import 'swiper/css'
 import 'swiper/css/navigation'
 import style from './ImagesSection.module.scss'
@@ -180,10 +179,11 @@ export function ImagesSection({ car }: Props) {
             >
               <FontAwesomeIcon className={style.icon} icon={faPen} />
             </button>
+            <span className={style.imageTag}>Imagem principal</span>
           </div>
 
           <ul className={style.listImages}>
-            {car.images.map((carImage) => {
+            {car.images.map((carImage, index) => {
               return (
                 <li
                   key={carImage._id}
@@ -209,6 +209,7 @@ export function ImagesSection({ car }: Props) {
                   >
                     <FontAwesomeIcon className={style.icon} icon={faTrash} />
                   </button>
+                  <span className={style.imageTag}>{index}</span>
                 </li>
               )
             })}
