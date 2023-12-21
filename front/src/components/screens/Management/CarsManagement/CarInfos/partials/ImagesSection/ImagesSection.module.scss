@@ -130,7 +130,11 @@
 
       animation: fadeIn 0.2s;
 
-      color: $white-color;
+      background: $gray-color-400;
+      color: $gray-color-100;
+
+      padding: 0.6rem 1rem;
+      border-radius: 15px;
     }
 
     .removeImageButton {
