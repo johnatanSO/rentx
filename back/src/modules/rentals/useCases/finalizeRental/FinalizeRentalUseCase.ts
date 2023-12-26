@@ -4,6 +4,7 @@ import { ICarsRepository } from '../../../cars/repositories/Cars/ICarsRepository
 import { AppError } from '../../../../shared/errors/AppError'
 import dayjs from 'dayjs'
 import { IUsersRepository } from '../../../accounts/repositories/Users/IUsersRepository'
+import { IDateProvider } from '../../../../shared/container/providers/DateProvider/IDateProvider'
 
 interface IRequest {
   rentalId: string
@@ -15,15 +16,18 @@ export class FinalizeRentalUseCase {
   rentalsRepository: IRentalsRepository
   carsRepository: ICarsRepository
   usersRepository: IUsersRepository
+  dateProvider: IDateProvider
 
   constructor(
     @inject('RentalsRepository') rentalsRepository: IRentalsRepository,
     @inject('CarsRepository') carsRepository: ICarsRepository,
     @inject('UsersRepository') usersRepository: IUsersRepository,
+    @inject('DayjsDateProvider') dateProvider: IDateProvider,
   ) {
     this.rentalsRepository = rentalsRepository
     this.carsRepository = carsRepository
     this.usersRepository = usersRepository
+    this.dateProvider = dateProvider
   }
 
   async execute({ rentalId, userId }: IRequest) {
@@ -50,7 +54,7 @@ export class FinalizeRentalUseCase {
       rentalDuration > 0 ? car.dailyRate * rentalDuration : car.dailyRate
 
     if (extraDays > 0) {
-      rentalTotalValue = rentalTotalValue + car.fineAmount
+      rentalTotalValue = rentalTotalValue + extraDays * car.fineAmount
     }
 
     await this.carsRepository.updateOne(car._id.toString(), {
