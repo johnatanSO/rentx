@@ -8,6 +8,29 @@ import {
 export class MockSpecificationsRepository implements ISpecificationsRepository {
   specifications: Specification[] = []
 
+  async delete(specificationId: string): Promise<void> {
+    this.specifications = this.specifications.filter(
+      (specification) => specification._id.toString() !== specificationId,
+    )
+  }
+
+  async findById(specificationId: string): Promise<Specification> {
+    return this.specifications.find(
+      (specification) => specification._id.toString() === specificationId,
+    )
+  }
+
+  async update(specificationId: string, fields: any): Promise<void> {
+    const specificationIndex = this.specifications.findIndex(
+      (specification) => specification._id.toString() === specificationId,
+    )
+
+    this.specifications[specificationIndex] = {
+      ...this.specifications[specificationIndex],
+      ...fields,
+    }
+  }
+
   async create({
     name,
     description,

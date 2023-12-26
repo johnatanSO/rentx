@@ -3,16 +3,22 @@ import { MockCarsRepository } from './../../../repositories/Cars/MockCarsReposit
 import 'reflect-metadata'
 import { Types } from 'mongoose'
 import { CreateCarUseCase } from './CreateCarUseCase'
+import { MockCarsImagesRepository } from '../../../repositories/CarsImages/MockCarsImagesRepository'
 
 let mockCarsRepository: MockCarsRepository
+let mockCarsImagesRepository: MockCarsImagesRepository
 
 let createCarUseCase: CreateCarUseCase
 
 describe('Create car', () => {
   beforeEach(() => {
     mockCarsRepository = new MockCarsRepository()
+    mockCarsImagesRepository = new MockCarsImagesRepository()
 
-    createCarUseCase = new CreateCarUseCase(mockCarsRepository)
+    createCarUseCase = new CreateCarUseCase(
+      mockCarsRepository,
+      mockCarsImagesRepository,
+    )
   })
 
   it('Should be able create a new car', async () => {
@@ -25,6 +31,7 @@ describe('Create car', () => {
       brand: 'Brand',
       categoryId: new Types.ObjectId().toString(),
       transmission: 'auto',
+      imageName: null,
     })
 
     expect(newCar).toHaveProperty('_id')
@@ -41,6 +48,7 @@ describe('Create car', () => {
         brand: 'Brand',
         categoryId: new Types.ObjectId().toString(),
         transmission: 'auto',
+        imageName: null,
       })
 
       await createCarUseCase.execute({
@@ -52,6 +60,7 @@ describe('Create car', () => {
         brand: 'Brand',
         categoryId: new Types.ObjectId().toString(),
         transmission: 'auto',
+        imageName: null,
       })
     }).rejects.toBeInstanceOf(AppError)
   })
@@ -66,6 +75,7 @@ describe('Create car', () => {
       brand: 'Brand',
       categoryId: new Types.ObjectId().toString(),
       transmission: 'auto',
+      imageName: null,
     })
 
     expect(newCar.avaliable).toEqual(true)

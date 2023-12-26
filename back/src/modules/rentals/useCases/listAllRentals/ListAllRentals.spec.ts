@@ -21,7 +21,17 @@ describe('List all rentals', () => {
       userId: new Types.ObjectId().toString(),
     })
 
-    const allRentals = await listAllRentalsUseCase.execute()
+    const carId = null
+    const userId = null
+    const filterStartDate = dayjs().startOf('month').toISOString()
+    const filterEndDate = dayjs().endOf('month').toISOString()
+
+    const allRentals = await listAllRentalsUseCase.execute({
+      carId,
+      userId,
+      filterEndDate,
+      filterStartDate,
+    })
 
     expect(allRentals.length).toBeGreaterThan(0)
   })

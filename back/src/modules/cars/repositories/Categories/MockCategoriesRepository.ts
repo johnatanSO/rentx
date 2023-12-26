@@ -11,6 +11,31 @@ export class MockCategoriesRepository implements ICategoriesRepository {
     this.categories = []
   }
 
+  async delete(categoryId: string): Promise<void> {
+    const newCategories = this.categories.filter(
+      (category) => category._id.toString() !== categoryId,
+    )
+    this.categories = newCategories
+  }
+
+  async findById(categoryId: string): Promise<Category> {
+    const category = this.categories.find(
+      (category) => category._id.toString() === categoryId,
+    )
+    return category
+  }
+
+  async update(categoryId: string, fields: any): Promise<void> {
+    const categoryIndex = this.categories.findIndex(
+      (category) => category._id.toString() === categoryId,
+    )
+
+    this.categories[categoryIndex] = {
+      ...this.categories[categoryIndex],
+      ...fields,
+    }
+  }
+
   async create({ name, description }: ICreateCategoryDTO): Promise<Category> {
     const newCategory = {
       name,

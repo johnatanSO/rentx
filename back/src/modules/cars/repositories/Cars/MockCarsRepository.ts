@@ -29,6 +29,7 @@ export class MockCarsRepository implements ICarsRepository {
       avaliable: true,
       specifications: null,
       images: null,
+      defaultImage: null,
     }
 
     this.cars.push(newCar)

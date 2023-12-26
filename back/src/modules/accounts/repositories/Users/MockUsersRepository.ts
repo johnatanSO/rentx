@@ -8,6 +8,10 @@ export class MockUsersRepository implements IUsersRepository {
     this.users = []
   }
 
+  async list(): Promise<IUser[]> {
+    return this.users
+  }
+
   async addCarToFavorite(carId: string, userId: string): Promise<void> {
     const index = this.users.findIndex(
       (user) => user._id.toString() === userId.toString(),
@@ -27,9 +31,7 @@ export class MockUsersRepository implements IUsersRepository {
   }
 
   async removeFavoritedCar(carId: string, userId: string): Promise<void> {
-    const index = this.users.findIndex(
-      (user) => user._id.toString() === userId.toString(),
-    )
+    const index = this.users.findIndex((user) => user._id.toString() === userId)
 
     const newFavoriteCars = this.users[index].favoriteCars.filter(
       (favCarId) => favCarId.toString() !== carId,

@@ -3,9 +3,13 @@ import { MockRentalsRepository } from './../../repositories/MockRentalsRepositor
 import dayjs from 'dayjs'
 import { FinalizeRentalUseCase } from './FinalizeRentalUseCase'
 import { MockCarsRepository } from '../../../cars/repositories/Cars/MockCarsRepository'
+import { MockUsersRepository } from '../../../accounts/repositories/Users/MockUsersRepository'
+import { DayjsDateProvider } from '../../../../shared/container/providers/DateProvider/DayjsDateProvider'
 
 let mockRentalsRepository: MockRentalsRepository
 let mockCarsRepository: MockCarsRepository
+let mockUsersRepository: MockUsersRepository
+let dayjsDateProvider: DayjsDateProvider
 
 let finalizeRentalUseCase: FinalizeRentalUseCase
 
@@ -13,10 +17,14 @@ describe('Finalize rental', () => {
   beforeEach(() => {
     mockRentalsRepository = new MockRentalsRepository()
     mockCarsRepository = new MockCarsRepository()
+    mockUsersRepository = new MockUsersRepository()
+    dayjsDateProvider = new DayjsDateProvider()
 
     finalizeRentalUseCase = new FinalizeRentalUseCase(
       mockRentalsRepository,
       mockCarsRepository,
+      mockUsersRepository,
+      dayjsDateProvider,
     )
   })
 
