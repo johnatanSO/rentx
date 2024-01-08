@@ -80,7 +80,7 @@ export function AllRentalsManagement({ rentals }: Props) {
 
       <section className={style.tableSection}>
         <TableComponent columns={columns} rows={rentals} loading={false} />
-        <ListMobile items={rentals} />
+        <ListMobile items={rentals} collapseItems={[]} itemFields={[]} />
       </section>
 
       {modalEditRentalOpened && rentalToEdit && (
