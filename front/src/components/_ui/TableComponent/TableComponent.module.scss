@@ -25,7 +25,6 @@
       }
 
       td {
-        // flex: 1;
         padding: 0.6rem 1.1rem;
       }
     }
@@ -36,5 +35,11 @@
   text-align: center;
   p {
     margin-top: 2rem;
+  }
+}
+
+@media(max-width: 700px) {
+  .table {
+    display: none;
   }
 }

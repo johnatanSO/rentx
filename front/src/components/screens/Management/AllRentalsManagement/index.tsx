@@ -10,6 +10,7 @@ import { finalizeRentalService } from '@/services/rentals/finalizeRental/Finaliz
 import { useRouter } from 'next/navigation'
 import { ModalEditRental } from './partials/ModalEditRental'
 import { Filters } from './partials/Filters'
+import { ListMobile } from '@/components/_ui/ListMobile'
 
 type Props = {
   rentals: Rental[]
@@ -79,6 +80,7 @@ export function AllRentalsManagement({ rentals }: Props) {
 
       <section className={style.tableSection}>
         <TableComponent columns={columns} rows={rentals} loading={false} />
+        <ListMobile items={rentals} />
       </section>
 
       {modalEditRentalOpened && rentalToEdit && (

@@ -108,9 +108,12 @@
   background: $green-color-100;
 }
 
-
-@media(max-width: 700px) {
+@media (max-width: 700px) {
   .header {
     flex-direction: column;
+  }
+  .tableSection {
+    background: none;
+    padding: 0;
   }
 }

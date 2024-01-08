@@ -7,6 +7,8 @@ import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { CreateNewCategory } from './CreateNewCategory'
 import { useEffect, useState } from 'react'
 import { ModalEditCategory } from './partials/ModalEditCategory'
+import { ListMobile } from '@/components/_ui/ListMobile'
+import dayjs from 'dayjs'
 
 type Props = {
   allCategories: Category[]
@@ -40,6 +42,20 @@ export function CategoriesManagement({ allCategories }: Props) {
     filterByName()
   }, [searchString])
 
+  const itemFields = [
+    {
+      field: 'name',
+      valueFormatter: (params: any) => params.value,
+    },
+    {
+      field: 'createdAt',
+      valueFormatter: (params: any) =>
+        dayjs(params.value).format('DD/MM/YYYY - HH:mm'),
+    },
+  ]
+
+  const collapseItems = columns.filter((column) => column.field !== 'actions')
+
   return (
     <>
       <CreateNewCategory />
@@ -58,6 +74,11 @@ export function CategoriesManagement({ allCategories }: Props) {
 
       <section className={style.tableSection}>
         <TableComponent rows={categories} columns={columns} loading={false} />
+        <ListMobile
+          items={categories}
+          itemFields={itemFields}
+          collapseItems={collapseItems}
+        />
       </section>
 
       {categoryToEdit && modalEditCategoryOpened && (

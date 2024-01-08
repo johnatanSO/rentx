@@ -3,7 +3,7 @@
 .container {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1rem !important;
 
   .icon {
     font-size: 1.2rem;
