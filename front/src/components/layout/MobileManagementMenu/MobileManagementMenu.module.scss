@@ -1,18 +1,20 @@
 @import "@/styles/colors";
 
-.asideContainer {
+.menuContainer {
   background: $blue-color-700;
-  box-shadow: 1px 2px 8px rgba(0 0 0 / 0.1);
+  box-shadow: 0px -2px 8px rgba(0 0 0 / 0.2);
 
-  border-radius: 20px;
-  padding: 2rem 1.6rem;
+  padding: 0.6rem 1.5rem;
 
-  display: flex;
-  flex-direction: column;
+  display: none;
   align-items: center;
+  justify-content: space-between;
   gap: 15px;
 
-  flex: 1;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 
   .returnSysLink {
     background: none;
@@ -20,7 +22,7 @@
 
     .homeIcon {
       color: $gray-color-100;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
 
       cursor: pointer;
       transition: filter 0.2s;
@@ -32,13 +34,10 @@
   }
 
   nav {
-    margin: auto 0px;
-
     ul {
       list-style-type: none;
 
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 35px;
@@ -53,7 +52,7 @@
         .icon {
           color: $gray-color-100;
 
-          font-size: 1.4rem;
+          font-size: 1.2rem;
         }
         &.menuActive {
           .icon {
@@ -66,7 +65,7 @@
 }
 
 @media (max-width: 700px) {
-  .asideContainer {
-    display: none;
+  .menuContainer {
+    display: flex;
   }
 }

@@ -10,12 +10,10 @@ import { AlertContext } from '@/contexts/alertContext'
 import { useRouter } from 'next/navigation'
 import { saveTokenService } from '@/services/token/saveToken/SaveTokenService'
 import { Loading } from '@/components/_ui/Loading'
-import { UserContext } from '@/contexts/userContext'
 import { saveLocalUserService } from '@/services/user/saveLocalUser/SaveLocalUserService'
 
 export function Login() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-  const { userInfo, setUserInfo } = useContext(UserContext)
 
   const defaultValuesAuthData = {
     email: '',

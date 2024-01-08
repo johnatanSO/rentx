@@ -5,6 +5,7 @@ import { getLocalUserService } from '@/services/user/getLocalUser/GetLocalUserSe
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@/styles/global.scss'
+import { MobileManagementMenu } from '@/components/layout/MobileManagementMenu'
 
 config.autoAddCss = false
 
@@ -28,6 +29,7 @@ export default async function RootLayout({ children }: Props) {
             <main className="managementContainer">
               <SidebarManagement />
               <div className="managementSections">{children}</div>
+              <MobileManagementMenu />
             </main>
           </AlertContextComponent>
         </UserContextComponent>

@@ -71,6 +71,7 @@ export function CreateNewCategory() {
         size="small"
         label="Nome"
         value={newCategoryData.name}
+        className={style.input}
         onChange={(event) => {
           setNewCategoryData({
             ...newCategoryData,

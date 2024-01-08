@@ -65,6 +65,7 @@ body {
     background: $gray-color-50;
 
     padding: 2rem;
+    padding-bottom: 6rem;
 
     .managementSections {
       display: flex;
@@ -79,4 +80,13 @@ body {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+@media (max-width: 700px) {
+  body {
+    .managementContainer {
+      display: flex;
+      flex-direction: column;
+    }
+  }
 }

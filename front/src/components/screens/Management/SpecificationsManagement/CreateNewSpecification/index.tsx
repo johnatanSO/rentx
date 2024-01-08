@@ -69,6 +69,7 @@ export function CreateNewSpecification() {
         type="text"
         size="small"
         label="Nome"
+        className={style.input}
         value={newSpecificationData.name}
         onChange={(event) => {
           setNewSpecificationData({

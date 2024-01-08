@@ -107,3 +107,10 @@
   @extend .status;
   background: $green-color-100;
 }
+
+
+@media(max-width: 700px) {
+  .header {
+    flex-direction: column;
+  }
+}
