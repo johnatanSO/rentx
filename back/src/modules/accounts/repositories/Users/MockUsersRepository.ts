@@ -18,7 +18,7 @@ export class MockUsersRepository implements IUsersRepository {
     )
 
     const newFavoriteCars = [
-      ...(this.users[index].favoriteCars as Types.ObjectId[]),
+      ...(this.users[index]?.favoriteCars as any),
       new Types.ObjectId(carId),
     ]
 
@@ -33,14 +33,14 @@ export class MockUsersRepository implements IUsersRepository {
   async removeFavoritedCar(carId: string, userId: string): Promise<void> {
     const index = this.users.findIndex((user) => user._id.toString() === userId)
 
-    const newFavoriteCars = this.users[index].favoriteCars.filter(
+    const newFavoriteCars = this?.users[index]?.favoriteCars?.filter(
       (favCarId) => favCarId.toString() !== carId,
     )
 
     if (index !== -1) {
       this.users[index] = {
         ...this.users[index],
-        favoriteCars: newFavoriteCars as Types.ObjectId[],
+        favoriteCars: newFavoriteCars as any,
       }
     }
   }
