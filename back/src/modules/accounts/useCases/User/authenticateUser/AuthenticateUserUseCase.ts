@@ -47,7 +47,7 @@ export class AuthenticateUserUseCase {
         email: user.email,
         isAdmin: user.isAdmin,
         avatar: user.avatar,
-        favoriteCars: user.favoriteCars,
+        favoriteCars: user.favoriteCars as Car[],
       },
     }
   }

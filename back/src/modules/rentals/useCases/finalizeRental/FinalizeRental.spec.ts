@@ -40,7 +40,15 @@ describe('Finalize rental', () => {
       transmission: 'auto',
     })
 
-    const userId = new Types.ObjectId().toString()
+    const user = await mockUsersRepository.create({
+      driverLicense: 'teste',
+      email: 'teste@teste.com',
+      name: 'teste',
+      password: '123456',
+      isAdmin: true,
+    })
+
+    const userId = user._id.toString()
 
     const newRental = await mockRentalsRepository.create({
       carId: newCar._id.toString(),
