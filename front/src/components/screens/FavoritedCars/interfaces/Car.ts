@@ -8,4 +8,5 @@ export interface Car {
   dailyRate: number
   specifications: Specification[]
   avaliable: boolean
+  defaultImage: CarImage
 }
