@@ -8,6 +8,8 @@ import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { CreateNewSpecification } from './CreateNewSpecification'
 import { useEffect, useState } from 'react'
 import { ModalEditSpecification } from './partials/ModalEditSpecification'
+import { ListMobile } from '@/components/_ui/ListMobile'
+import dayjs from 'dayjs'
 
 type Props = {
   allSpecifications: Specification[]
@@ -43,6 +45,20 @@ export function SpecificationsManagement({ allSpecifications }: Props) {
     filterByName()
   }, [searchString])
 
+  const itemFields = [
+    {
+      field: 'name',
+      valueFormatter: (params: any) => params.value,
+    },
+    {
+      field: 'createdAt',
+      valueFormatter: (params: any) =>
+        dayjs(params.value).format('DD/MM/YYYY - HH:mm'),
+    },
+  ]
+
+  const collapseItems = columns.filter((column) => column.field !== 'actions')
+
   return (
     <>
       <CreateNewSpecification />
@@ -63,6 +79,11 @@ export function SpecificationsManagement({ allSpecifications }: Props) {
           rows={specifications}
           columns={columns}
           loading={false}
+        />
+        <ListMobile
+          items={specifications}
+          itemFields={itemFields}
+          collapseItems={collapseItems}
         />
       </section>
 

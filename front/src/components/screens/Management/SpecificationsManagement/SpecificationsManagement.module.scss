@@ -19,7 +19,6 @@
   padding: 2rem;
 }
 
-
 .actionsContainer {
   display: flex;
   align-items: center;
@@ -49,5 +48,12 @@
   .editButton {
     @extend .actionButton;
     color: $blue-color-100;
+  }
+}
+
+@media (max-width: 700px) {
+  .tableSection {
+    background: none;
+    padding: 0;
   }
 }
