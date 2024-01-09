@@ -114,7 +114,7 @@ export function CreateNewCar() {
         >
           <FontAwesomeIcon className={style.icon} icon={faAngleLeft} />
         </button>
-        <h2>Cadastro de um novo carro</h2>
+        <h2>Novo carro</h2>
 
         <button
           className={style.registerButton}

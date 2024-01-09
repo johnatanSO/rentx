@@ -12,7 +12,7 @@ config.autoAddCss = false
 
 export const metadata: Metadata = {
   title: 'RentX',
-  description: 'RENTX DESCRIPTION.',
+  description: 'Alugue o seu carro aqui',
 }
 
 type Props = {

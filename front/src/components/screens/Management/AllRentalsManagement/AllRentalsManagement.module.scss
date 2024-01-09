@@ -116,4 +116,19 @@
     background: none;
     padding: 0;
   }
+  .carModelContainer {
+    .carImage {
+      display: none;
+    }
+  }
+  .status {
+    background: none;
+    padding: 0;
+  }
+  .statusInProgress {
+    color: $blue-color-400;
+  }
+  .statusFinalized {
+    color: $green-color-100;
+  }
 }

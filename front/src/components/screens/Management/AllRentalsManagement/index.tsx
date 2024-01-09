@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation'
 import { ModalEditRental } from './partials/ModalEditRental'
 import { Filters } from './partials/Filters'
 import { ListMobile } from '@/components/_ui/ListMobile'
+import { formatCurrency } from '@/utils/format'
 
 type Props = {
   rentals: Rental[]
@@ -70,6 +71,22 @@ export function AllRentalsManagement({ rentals }: Props) {
     })
   }
 
+  const itemFields = [
+    {
+      field: 'car',
+      cellRenderer: (params: any) => {
+        return `${params.value.name} - ${params.value.licensePlate}`
+      },
+    },
+    {
+      field: 'totalValue',
+      valueFormatter: (params: any) =>
+        params.value ? formatCurrency(params.value) : '--',
+    },
+  ]
+
+  const collapseItems = columns.filter((column) => column.field !== 'actions')
+
   return (
     <>
       <header className={style.header}>
@@ -80,7 +97,11 @@ export function AllRentalsManagement({ rentals }: Props) {
 
       <section className={style.tableSection}>
         <TableComponent columns={columns} rows={rentals} loading={false} />
-        <ListMobile items={rentals} collapseItems={[]} itemFields={[]} />
+        <ListMobile
+          items={rentals}
+          collapseItems={collapseItems}
+          itemFields={itemFields}
+        />
       </section>
 
       {modalEditRentalOpened && rentalToEdit && (
