@@ -114,4 +114,14 @@
       display: none;
     }
   }
+  .actionsContainer {
+    width: 100%;
+
+    display: flex;
+
+    .showDetailsButton{
+      width: 100%;
+      text-align: center;
+    }
+  }
 }

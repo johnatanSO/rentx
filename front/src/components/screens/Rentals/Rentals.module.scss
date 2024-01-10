@@ -2,6 +2,7 @@
 
 .rentalsContainer {
   padding: 1.5rem;
+  background-color: $gray-color-50;
 }
 
 .carModelContainer {
@@ -80,7 +81,6 @@
   background: $green-color-100;
 }
 
-
 @media (max-width: 850px) {
   .carModelContainer {
     .carImage {
@@ -96,5 +96,13 @@
   }
   .statusFinalized {
     color: $green-color-100;
+  }
+  .actionsContainer {
+    display: flex;
+    width: 100%;
+
+    .finalizeRentalButton {
+      width: 100%;
+    }
   }
 }

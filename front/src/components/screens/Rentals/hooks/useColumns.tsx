@@ -92,7 +92,8 @@ export function useColumns({ onFinalizeRental }: Props) {
     {
       headerName: '',
       field: 'returnCar',
-      valueFormatter: (params: CellFunctionParams<Rental>) => {
+      type: 'actions',
+      cellRenderer: (params: CellFunctionParams<Rental>) => {
         if (!params.data.endDate) {
           return (
             <div className={style.actionsContainer}>

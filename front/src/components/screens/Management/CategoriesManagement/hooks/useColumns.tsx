@@ -80,6 +80,7 @@ export function useColumns({ handleEditCategory }: Props) {
     {
       field: 'actions',
       headerName: '',
+      type: 'actions',
       cellRenderer: (params: CellFunctionParams<Category>) => {
         return (
           <div className={style.actionsContainer}>
