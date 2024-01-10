@@ -4,7 +4,6 @@ import { Rental } from '../../infra/mongoose/entities/Rental'
 import { IRentalsRepository } from '../../repositories/IRentalsRepository'
 import { IDateProvider } from '../../../../shared/container/providers/DateProvider/IDateProvider'
 import { ICarsRepository } from '../../../cars/repositories/Cars/ICarsRepository'
-import dayjs from 'dayjs'
 
 interface IRequest {
   userId: string

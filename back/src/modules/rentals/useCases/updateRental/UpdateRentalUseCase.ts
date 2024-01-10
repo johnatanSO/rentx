@@ -61,13 +61,11 @@ export class UpdateRentalUseCase {
       }
     }
 
-    const dateNow = this.dateProvider.dateNow()
-
     const expectedReturnDateEndDay =
       this.dateProvider.endDay(expectedReturnDate)
 
     const compare = this.dateProvider.compareInHours(
-      dateNow,
+      startDate,
       expectedReturnDateEndDay,
     )
 
@@ -78,8 +76,8 @@ export class UpdateRentalUseCase {
     await this.rentalsRepository.update(rentalId, {
       car,
       user,
-      startDate,
-      expectedReturnDate,
+      startDate: this.dateProvider.convertToUTC(startDate),
+      expectedReturnDate: expectedReturnDateEndDay,
       updateAt: new Date(),
     })
   }
