@@ -90,6 +90,7 @@ export function Footer() {
         modules={[Autoplay]}
         navigation
         loop={true}
+        loopAdditionalSlides={brands.length}
         autoplay={{
           delay: 2500,
           disableOnInteraction: false,
