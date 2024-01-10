@@ -7,6 +7,7 @@ import { UserContextComponent } from '@/contexts/userContext'
 import { getLocalUserService } from '@/services/user/getLocalUser/GetLocalUserService'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { config } from '@fortawesome/fontawesome-svg-core'
+import { MobileMenuDrawer } from '@/components/layout/MobileMenuDrawer'
 
 config.autoAddCss = false
 
@@ -28,6 +29,7 @@ export default async function WithLayout({ children }: Props) {
         <UserContextComponent serverUserInfo={serverUserInfo}>
           <AlertContextComponent>
             <Header />
+            <MobileMenuDrawer />
 
             <main className="main">{children}</main>
 

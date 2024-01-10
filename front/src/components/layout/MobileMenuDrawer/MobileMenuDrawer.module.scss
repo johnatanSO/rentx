@@ -1,0 +1,75 @@
+@import "@/styles/colors";
+
+.headerContainer {
+  width: 100vw;
+  padding: 2rem;
+  padding-bottom: calc(2rem + 35px);
+  font-size: 0.875rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: $blue-color-700;
+  color: $gray-color-200;
+
+  .loginButton {
+    background: $white-color;
+    border: none;
+    color: $blue-color-700;
+
+    font-weight: 600;
+    font-size: 0.875rem;
+
+    border-radius: 20px;
+    padding: 0.6rem 1rem;
+
+    cursor: pointer;
+    transition: filter 0.2s;
+
+    &:hover {
+      filter: brightness(0.8);
+    }
+  }
+
+  nav {
+    ul {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+
+      list-style-type: none;
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+
+        line-height: 0;
+
+        cursor: pointer;
+        transition: filter 0.2s;
+
+        &:not(.menuActive):hover {
+          filter: brightness(0.6);
+        }
+
+        &.menuActive {
+          color: $brown-color-100;
+        }
+
+        &.managementMenuItem {
+          background: $brown-color-100;
+          color: $blue-color-600;
+
+          border-radius: 20px;
+          padding: 0.7rem;
+
+          span {
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+}
