@@ -11,6 +11,7 @@ import { User } from '../../interfaces/User'
 import { updateRentalService } from '@/services/rentals/updateRental/UpdateRentalService'
 import { getUsersService } from '@/services/user/getUsers/GetUsersService'
 import { getAllCarsService } from '@/services/cars/getAllCars/GetAllCarsService'
+import dayjs from 'dayjs'
 
 interface Props {
   rentalToEdit: Rental
@@ -34,6 +35,10 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
     ...rentalToEdit,
     car: rentalToEdit.car._id,
     user: rentalToEdit.user._id,
+    startDate: dayjs(rentalToEdit.startDate).format('YYYY-MM-DD'),
+    expectedReturnDate: dayjs(rentalToEdit.expectedReturnDate).format(
+      'YYYY-MM-DD',
+    ),
   })
   const [cars, setCars] = useState<Car[]>([])
   const [users, setUsers] = useState<User[]>([])
@@ -73,9 +78,6 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
         setLoadingUpdateRental(false)
       })
   }
-
-  // Editar data de início;
-  // Editar data de previsão de retorno
 
   function getListCars() {
     getAllCarsService()
