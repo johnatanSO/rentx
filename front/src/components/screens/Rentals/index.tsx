@@ -10,6 +10,7 @@ import { finalizeRentalService } from '@/services/rentals/finalizeRental/Finaliz
 import { useRouter } from 'next/navigation'
 import { formatCurrency } from '@/utils/format'
 import { ListMobile } from '@/components/_ui/ListMobile'
+import { useFieldsMobile } from './hooks/useFieldsMobile'
 
 interface Props {
   rentals: Rental[]
@@ -23,8 +24,9 @@ export function Rentals({ rentals }: Props) {
     setAlertConfirmConfigs,
   } = useContext(AlertContext)
 
-  const columns = useColumns({ onFinalizeRental })
   const router = useRouter()
+  const columns = useColumns({ onFinalizeRental })
+  const itemFields = useFieldsMobile()
 
   function onFinalizeRental(rentalId: string) {
     setAlertConfirmConfigs({
@@ -57,20 +59,6 @@ export function Rentals({ rentals }: Props) {
       title: 'Alerta de confirmação',
     })
   }
-
-  const itemFields = [
-    {
-      field: 'car',
-      cellRenderer: (params: any) => {
-        return `${params.value.name} - ${params.value.licensePlate}`
-      },
-    },
-    {
-      field: 'totalValue',
-      valueFormatter: (params: any) =>
-        params.value ? formatCurrency(params.value) : '--',
-    },
-  ]
 
   return (
     <div className={style.rentalsContainer}>

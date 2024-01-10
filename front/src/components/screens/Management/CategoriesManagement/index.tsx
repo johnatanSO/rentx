@@ -8,7 +8,7 @@ import { CreateNewCategory } from './CreateNewCategory'
 import { useEffect, useState } from 'react'
 import { ModalEditCategory } from './partials/ModalEditCategory'
 import { ListMobile } from '@/components/_ui/ListMobile'
-import dayjs from 'dayjs'
+import { useFieldsMobile } from './hooks/useFieldsMobile'
 
 type Props = {
   allCategories: Category[]
@@ -22,6 +22,7 @@ export function CategoriesManagement({ allCategories }: Props) {
     useState<boolean>(false)
 
   const columns = useColumns({ handleEditCategory })
+  const itemFields = useFieldsMobile()
 
   function handleEditCategory(category: Category) {
     setCategoryToEdit(category)
@@ -41,18 +42,6 @@ export function CategoriesManagement({ allCategories }: Props) {
   useEffect(() => {
     filterByName()
   }, [searchString])
-
-  const itemFields = [
-    {
-      field: 'name',
-      valueFormatter: (params: any) => params.value,
-    },
-    {
-      field: 'createdAt',
-      valueFormatter: (params: any) =>
-        dayjs(params.value).format('DD/MM/YYYY - HH:mm'),
-    },
-  ]
 
   return (
     <>

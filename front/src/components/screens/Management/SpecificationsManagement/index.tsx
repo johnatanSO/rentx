@@ -9,7 +9,7 @@ import { CreateNewSpecification } from './CreateNewSpecification'
 import { useEffect, useState } from 'react'
 import { ModalEditSpecification } from './partials/ModalEditSpecification'
 import { ListMobile } from '@/components/_ui/ListMobile'
-import dayjs from 'dayjs'
+import { useFieldsMobile } from './hooks/useFieldsMobile'
 
 type Props = {
   allSpecifications: Specification[]
@@ -25,6 +25,7 @@ export function SpecificationsManagement({ allSpecifications }: Props) {
     useState<boolean>(false)
 
   const columns = useColumns({ handleEditSpecification })
+  const itemFields = useFieldsMobile()
 
   function handleEditSpecification(specification: Specification) {
     setSpecificationToEdit(specification)
@@ -44,18 +45,6 @@ export function SpecificationsManagement({ allSpecifications }: Props) {
   useEffect(() => {
     filterByName()
   }, [searchString])
-
-  const itemFields = [
-    {
-      field: 'name',
-      valueFormatter: (params: any) => params.value,
-    },
-    {
-      field: 'createdAt',
-      valueFormatter: (params: any) =>
-        dayjs(params.value).format('DD/MM/YYYY - HH:mm'),
-    },
-  ]
 
   return (
     <>

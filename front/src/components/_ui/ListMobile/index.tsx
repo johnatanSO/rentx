@@ -5,6 +5,7 @@ import { EmptyItems } from '../EmptyItems'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { CollapseItem } from './interfaces/CollapseItem'
+import { Field } from './interfaces/Field'
 
 interface ItemStatus {
   [itemId: string]: boolean
@@ -12,7 +13,7 @@ interface ItemStatus {
 
 type Props = {
   items: any[]
-  itemFields: any[]
+  itemFields: Field[]
   collapseItems: CollapseItem[]
 }
 

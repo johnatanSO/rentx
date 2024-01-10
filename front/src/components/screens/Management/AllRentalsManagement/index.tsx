@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation'
 import { ModalEditRental } from './partials/ModalEditRental'
 import { Filters } from './partials/Filters'
 import { ListMobile } from '@/components/_ui/ListMobile'
-import { formatCurrency } from '@/utils/format'
+import { useFieldsMobile } from './hooks/useFields'
 
 type Props = {
   rentals: Rental[]
@@ -32,6 +32,7 @@ export function AllRentalsManagement({ rentals }: Props) {
   const router = useRouter()
 
   const columns = useColumns({ onFinalizeRental, handleEditRental })
+  const itemFields = useFieldsMobile()
 
   function handleEditRental(rental: Rental) {
     setRentalToEdit(rental)
@@ -70,20 +71,6 @@ export function AllRentalsManagement({ rentals }: Props) {
       title: 'Alerta de confirmação',
     })
   }
-
-  const itemFields = [
-    {
-      field: 'car',
-      cellRenderer: (params: any) => {
-        return `${params.value.name} - ${params.value.licensePlate}`
-      },
-    },
-    {
-      field: 'totalValue',
-      valueFormatter: (params: any) =>
-        params.value ? formatCurrency(params.value) : '--',
-    },
-  ]
 
   return (
     <>

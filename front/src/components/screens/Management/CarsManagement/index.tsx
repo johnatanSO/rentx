@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
 import { ListMobile } from '@/components/_ui/ListMobile'
-import { formatCurrency } from '@/utils/format'
+import { useFieldsMobile } from './hooks/useFields'
 
 type Props = {
   allCars: Car[]
@@ -24,6 +24,7 @@ export function CarsManagement({ allCars }: Props) {
   const [cars, setCars] = useState<Car[]>(allCars)
 
   const columns = useColumns()
+  const itemFields = useFieldsMobile()
 
   function handleOpenCreateNewCar() {
     router.push(pathname + '/createNew')
@@ -39,19 +40,6 @@ export function CarsManagement({ allCars }: Props) {
   useEffect(() => {
     filterByName()
   }, [searchString])
-
-  const itemFields = [
-    {
-      field: 'name',
-      cellRenderer: (params: any) => {
-        return `${params.value} - ${params.data.licensePlate}`
-      },
-    },
-    {
-      field: 'dailyRate',
-      valueFormatter: (params: any) => formatCurrency(params.value || 0),
-    },
-  ]
 
   return (
     <>
