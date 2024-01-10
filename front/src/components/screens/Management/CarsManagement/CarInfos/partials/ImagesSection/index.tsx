@@ -156,33 +156,33 @@ export function ImagesSection({ car }: Props) {
         </header>
 
         <div className={style.imagesContainer}>
-          <div
-            onClick={() => {
-              handleClickImage(car.defaultImage)
-            }}
-            className={style.defaultImage}
-          >
-            <Image
-              className={style.image}
-              alt="Car default image"
-              width={300}
-              height={150}
-              src={getCarImageUrl(car.defaultImage)}
-            />
-            <button
-              onClick={(event) => {
-                event.stopPropagation()
-                handleUpdateDefaultImage()
-              }}
-              className={style.updateDefaultImageButton}
-              type="button"
-            >
-              <FontAwesomeIcon className={style.icon} icon={faPen} />
-            </button>
-            <span className={style.imageTag}>Imagem principal</span>
-          </div>
-
           <ul className={style.listImages}>
+            <li
+              onClick={() => {
+                handleClickImage(car.defaultImage)
+              }}
+              className={style.defaultImage}
+            >
+              <Image
+                className={style.image}
+                alt="Car default image"
+                width={300}
+                height={150}
+                src={getCarImageUrl(car.defaultImage)}
+              />
+              <button
+                onClick={(event) => {
+                  event.stopPropagation()
+                  handleUpdateDefaultImage()
+                }}
+                className={style.updateDefaultImageButton}
+                type="button"
+              >
+                <FontAwesomeIcon className={style.icon} icon={faPen} />
+              </button>
+              <span className={style.imageTag}>Imagem principal</span>
+            </li>
+
             {car.images.map((carImage, index) => {
               return (
                 <li
@@ -209,7 +209,7 @@ export function ImagesSection({ car }: Props) {
                   >
                     <FontAwesomeIcon className={style.icon} icon={faTrash} />
                   </button>
-                  <span className={style.imageTag}>{index}</span>
+                  <span className={style.imageTag}>{index + 1}</span>
                 </li>
               )
             })}

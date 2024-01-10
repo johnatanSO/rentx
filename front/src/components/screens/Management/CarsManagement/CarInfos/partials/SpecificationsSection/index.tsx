@@ -29,7 +29,7 @@ export function SpecificationsSection({ car }: Props) {
             onClick={handleAddSpecification}
           >
             <FontAwesomeIcon icon={faPlus} className={style.icon} />
-            Editar especificações
+            Editar
           </button>
         </header>
 

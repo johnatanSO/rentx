@@ -69,3 +69,14 @@
     }
   }
 }
+
+@media (max-width: 850px) {
+  .section {
+    .fields {
+      .input,
+      .textAreaContainer {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -53,7 +53,7 @@
 
 .imagesContainer {
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: space-between;
   gap: 1rem;
 
@@ -125,12 +125,11 @@
 
       display: none;
 
-      font-size: 1.2rem;
+      font-size: 2rem;
       font-weight: 600;
 
-      animation: fadeIn 0.2s;
+      animation: appear 0.2s;
 
-      background: $gray-color-400;
       color: $gray-color-100;
 
       padding: 0.6rem 1rem;
@@ -152,6 +151,7 @@
         inset: 0;
 
         background: rgba(0 0 0 / 0.3);
+        animation: appear 0.2s;
       }
 
       .removeImageButton,
@@ -160,5 +160,24 @@
         display: block;
       }
     }
+  }
+}
+
+@media (max-width: 850px) {
+  .imagesContainer {
+    flex-direction: column;
+
+    .listImages {
+      justify-content: center;
+    }
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

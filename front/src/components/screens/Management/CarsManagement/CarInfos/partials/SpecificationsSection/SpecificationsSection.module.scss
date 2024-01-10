@@ -67,3 +67,13 @@
     }
   }
 }
+
+@media (max-width: 850px) {
+  .section {
+    header {
+      .editSpecificationsButton {
+        width: auto;
+      }
+    }
+  }
+}
