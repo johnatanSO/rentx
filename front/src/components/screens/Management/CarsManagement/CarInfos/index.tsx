@@ -32,9 +32,7 @@ export function CarInfos({ car }: Props) {
       </header>
 
       <ImagesSection car={car} />
-
       <EditInfosSection car={car} />
-
       <SpecificationsSection car={car} />
     </>
   )
