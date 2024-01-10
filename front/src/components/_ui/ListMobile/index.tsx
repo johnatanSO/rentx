@@ -73,25 +73,36 @@ export function ListMobile({ items, itemFields, collapseItems }: Props) {
                       key={collapseItem.field}
                       className={style.collapseListItem}
                     >
-                      <span style={{ fontWeight: '600' }}>
-                        {collapseItem.headerName}
-                      </span>
-                      <span
-                        className={collapseItem?.cellClass?.({
-                          value: item[collapseItem.field],
-                          data: item,
-                        })}
-                      >
-                        {collapseItem?.valueFormatter?.({
-                          value: item[collapseItem.field],
-                          data: item,
-                        })}
+                      {collapseItem.type === 'actions' ? (
+                        <>
+                          {collapseItem?.cellRenderer?.({
+                            value: item[collapseItem.field],
+                            data: item,
+                          })}
+                        </>
+                      ) : (
+                        <>
+                          <span style={{ fontWeight: '600' }}>
+                            {collapseItem.headerName}
+                          </span>
+                          <span
+                            className={collapseItem?.cellClass?.({
+                              value: item[collapseItem.field],
+                              data: item,
+                            })}
+                          >
+                            {collapseItem?.valueFormatter?.({
+                              value: item[collapseItem.field],
+                              data: item,
+                            })}
 
-                        {collapseItem?.cellRenderer?.({
-                          value: item[collapseItem.field],
-                          data: item,
-                        })}
-                      </span>
+                            {collapseItem?.cellRenderer?.({
+                              value: item[collapseItem.field],
+                              data: item,
+                            })}
+                          </span>
+                        </>
+                      )}
                     </ListItemButton>
                   )
                 })}

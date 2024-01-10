@@ -7,4 +7,5 @@ export interface CollapseItem {
   valueFormatter?: (params: CollapseFunctionParams<any>) => any
   cellRenderer?: (params: CollapseFunctionParams<any>) => ReactNode
   cellClass?: (params: CollapseFunctionParams<any>) => string
+  type?: string
 }

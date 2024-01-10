@@ -57,8 +57,6 @@ export function SpecificationsManagement({ allSpecifications }: Props) {
     },
   ]
 
-  const collapseItems = columns.filter((column) => column.field !== 'actions')
-
   return (
     <>
       <CreateNewSpecification />
@@ -83,7 +81,7 @@ export function SpecificationsManagement({ allSpecifications }: Props) {
         <ListMobile
           items={specifications}
           itemFields={itemFields}
-          collapseItems={collapseItems}
+          collapseItems={columns}
         />
       </section>
 

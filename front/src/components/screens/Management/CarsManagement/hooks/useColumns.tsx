@@ -55,14 +55,19 @@ export function useColumns() {
     {
       headerName: '',
       field: 'actions',
-      cellRenderer: (params: CellFunctionParams<Car>) => (
-        <Link
-          href={`/management/cars/${params.data._id}`}
-          className={style.showDetailsButton}
-        >
-          Ver detalhes
-        </Link>
-      ),
+      type: 'actions',
+      cellRenderer: (params: CellFunctionParams<Car>) => {
+        return (
+          <div className={style.actionsContainer}>
+            <Link
+              href={`/management/cars/${params.data._id}`}
+              className={style.showDetailsButton}
+            >
+              Ver detalhes
+            </Link>
+          </div>
+        )
+      },
     },
   ]
 }

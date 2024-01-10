@@ -101,7 +101,8 @@ export function useColumns({ onFinalizeRental, handleEditRental }: Props) {
     {
       headerName: '',
       field: 'actions',
-      valueFormatter: (params: CellFunctionParams<Rental>) => {
+      type: 'actions',
+      cellRenderer: (params: CellFunctionParams<Rental>) => {
         return (
           <div className={style.actionsContainer}>
             {!params.data.endDate && (

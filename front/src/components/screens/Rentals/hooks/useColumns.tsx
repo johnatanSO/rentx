@@ -95,18 +95,19 @@ export function useColumns({ onFinalizeRental }: Props) {
       valueFormatter: (params: CellFunctionParams<Rental>) => {
         if (!params.data.endDate) {
           return (
-            <button
-              onClick={() => {
-                onFinalizeRental(params.data._id)
-              }}
-              className={style.finalizeRentalButton}
-              type="button"
-            >
-              Devolver carro
-            </button>
+            <div className={style.actionsContainer}>
+              <button
+                onClick={() => {
+                  onFinalizeRental(params.data._id)
+                }}
+                className={style.finalizeRentalButton}
+                type="button"
+              >
+                Devolver carro
+              </button>
+            </div>
           )
         }
-        return <></>
       },
     },
   ]

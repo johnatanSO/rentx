@@ -83,6 +83,7 @@ export function useColumns({ handleEditSpecification }: Props) {
     },
     {
       field: 'actions',
+      type: 'actions',
       headerName: '',
       flex: 1,
       cellRenderer: (params: CellFunctionParams<Specification>) => {

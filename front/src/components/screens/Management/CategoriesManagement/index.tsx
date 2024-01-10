@@ -54,8 +54,6 @@ export function CategoriesManagement({ allCategories }: Props) {
     },
   ]
 
-  const collapseItems = columns.filter((column) => column.field !== 'actions')
-
   return (
     <>
       <CreateNewCategory />
@@ -77,7 +75,7 @@ export function CategoriesManagement({ allCategories }: Props) {
         <ListMobile
           items={categories}
           itemFields={itemFields}
-          collapseItems={collapseItems}
+          collapseItems={columns}
         />
       </section>
 

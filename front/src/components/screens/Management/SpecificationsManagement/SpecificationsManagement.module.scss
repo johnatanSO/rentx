@@ -30,8 +30,6 @@
 
     font-size: 1.1rem;
 
-    margin-left: auto;
-
     transition: filter 0.2s;
     cursor: pointer;
 
@@ -55,5 +53,14 @@
   .tableSection {
     background: none;
     padding: 0;
+  }
+
+  .actionsContainer {
+    width: 100%;
+    justify-content: space-around;
+
+    .actionButton {
+      font-size: 1.4rem;
+    }
   }
 }

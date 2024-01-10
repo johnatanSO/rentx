@@ -8,6 +8,8 @@ import { TableComponent } from '@/components/_ui/TableComponent'
 import { useColumns } from './hooks/useColumns'
 import { finalizeRentalService } from '@/services/rentals/finalizeRental/FinalizeRentalService'
 import { useRouter } from 'next/navigation'
+import { formatCurrency } from '@/utils/format'
+import { ListMobile } from '@/components/_ui/ListMobile'
 
 interface Props {
   rentals: Rental[]
@@ -56,9 +58,29 @@ export function Rentals({ rentals }: Props) {
     })
   }
 
+  const itemFields = [
+    {
+      field: 'car',
+      cellRenderer: (params: any) => {
+        return `${params.value.name} - ${params.value.licensePlate}`
+      },
+    },
+    {
+      field: 'totalValue',
+      valueFormatter: (params: any) =>
+        params.value ? formatCurrency(params.value) : '--',
+    },
+  ]
+
   return (
     <div className={style.rentalsContainer}>
       <TableComponent columns={columns} rows={rentals} loading={false} />
+
+      <ListMobile
+        itemFields={itemFields}
+        collapseItems={columns}
+        items={rentals}
+      />
     </div>
   )
 }

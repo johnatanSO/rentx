@@ -53,8 +53,6 @@ export function CarsManagement({ allCars }: Props) {
     },
   ]
 
-  const collapseItems = columns.filter((column) => column.field !== 'actions')
-
   return (
     <>
       <header className={style.header}>
@@ -79,7 +77,7 @@ export function CarsManagement({ allCars }: Props) {
       <section className={style.tableSection}>
         <TableComponent columns={columns} rows={cars} loading={false} />
         <ListMobile
-          collapseItems={collapseItems}
+          collapseItems={columns}
           items={cars}
           itemFields={itemFields}
         />

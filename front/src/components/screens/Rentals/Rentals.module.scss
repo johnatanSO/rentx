@@ -15,7 +15,7 @@
     width: 50px;
     min-width: 50px;
     height: 50px;
-    
+
     border-radius: 50%;
     background: $gray-color-50;
     padding: 0.2rem;
@@ -32,27 +32,29 @@
   }
 }
 
-.finalizeRentalButton {
-  background: $blue-color-100;
-  border: none;
-  color: $white-color;
+.actionsContainer {
+  .finalizeRentalButton {
+    background: $blue-color-100;
+    border: none;
+    color: $white-color;
 
-  font-weight: 500;
-  font-size: 0.875rem;
+    font-weight: 500;
+    font-size: 0.875rem;
 
-  padding: 0.6rem 1rem;
-  border-radius: 20px;
+    padding: 0.6rem 1rem;
+    border-radius: 20px;
 
-  cursor: pointer;
-  transition: filter 0.2s;
-
-  &:not(:disabled):hover {
-    filter: brightness(0.8);
-  }
-
-  &:disabled {
-    opacity: 0.7;
     cursor: pointer;
+    transition: filter 0.2s;
+
+    &:not(:disabled):hover {
+      filter: brightness(0.8);
+    }
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: pointer;
+    }
   }
 }
 
@@ -65,7 +67,7 @@
   border-radius: 20px;
   padding: 0.6rem 1rem;
 
-  text-wrap: nowrap
+  text-wrap: nowrap;
 }
 
 .statusInProgress {
@@ -76,4 +78,23 @@
 .statusFinalized {
   @extend .status;
   background: $green-color-100;
+}
+
+
+@media (max-width: 850px) {
+  .carModelContainer {
+    .carImage {
+      display: none;
+    }
+  }
+  .status {
+    background: none;
+    padding: 0;
+  }
+  .statusInProgress {
+    color: $blue-color-400;
+  }
+  .statusFinalized {
+    color: $green-color-100;
+  }
 }

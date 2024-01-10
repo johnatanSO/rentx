@@ -85,8 +85,6 @@ export function AllRentalsManagement({ rentals }: Props) {
     },
   ]
 
-  const collapseItems = columns.filter((column) => column.field !== 'actions')
-
   return (
     <>
       <header className={style.header}>
@@ -99,7 +97,7 @@ export function AllRentalsManagement({ rentals }: Props) {
         <TableComponent columns={columns} rows={rentals} loading={false} />
         <ListMobile
           items={rentals}
-          collapseItems={collapseItems}
+          collapseItems={columns}
           itemFields={itemFields}
         />
       </section>

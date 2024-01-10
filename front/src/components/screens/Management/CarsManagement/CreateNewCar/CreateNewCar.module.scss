@@ -105,7 +105,9 @@
   gap: 0.6rem;
 
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
 
   &:not(:disabled):hover {
     background: $blue-color-100;
@@ -122,4 +124,14 @@
   display: flex;
   align-items: center;
   gap: 0.7rem;
+}
+
+@media (max-width: 850px) {
+  .section {
+    .fields {
+      .input {
+        width: 100%;
+      }
+    }
+  }
 }
