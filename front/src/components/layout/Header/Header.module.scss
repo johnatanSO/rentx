@@ -34,18 +34,23 @@
 
   .mobileMenuButton {
     display: none;
+    align-items: center;
+    gap: 0.7rem;
 
     background: none;
     color: $brown-color-100;
     border: none;
-
-    font-size: 1.5rem;
+    font-size: 0.875rem;
 
     cursor: pointer;
     transition: filter 0.2s;
 
     &:hover {
       filter: brightness(0.8);
+    }
+
+    .icon {
+      font-size: 1.5rem;
     }
   }
 

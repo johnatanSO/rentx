@@ -63,7 +63,8 @@ export function Header() {
         type="button"
         className={style.mobileMenuButton}
       >
-        <FontAwesomeIcon icon={faBars} />
+        <FontAwesomeIcon className={style.icon} icon={faBars} />
+        Menu
       </button>
 
       <nav>
