@@ -193,7 +193,7 @@ export function CreateAccount() {
                 vertical: 'bottom',
                 horizontal: 'left',
               }}
-              sx={{ borderRradius: 4 }}
+              sx={{ borderRadius: 4 }}
             >
               <Typography sx={{ p: 2, maxWidth: '300px' }}>
                 <p>

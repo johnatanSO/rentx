@@ -9,8 +9,10 @@ import { AlertContext } from '@/contexts/alertContext'
 import { createCarSpecificationService } from '@/services/cars/createCarSpecification/CreateCarSpecificationService'
 import { Car } from '../../../interfaces/Car'
 import { Loading } from '@/components/_ui/Loading'
-import { Checkbox, FormControlLabel } from '@mui/material'
+import { Checkbox, FormControlLabel, Popover, Typography } from '@mui/material'
 import { usePathname, useRouter } from 'next/navigation'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   car: Car
@@ -24,6 +26,8 @@ export function ModalSpecifications({ open, handleClose, car }: Props) {
   const router = useRouter()
   const pathname = usePathname()
 
+  const [anchorEl, setAnchorEl] = useState<any>(null)
+  const [popoverText, setPopoverText] = useState<string | null>(null)
   const [loadingAddSpecifications, setLoadingAddSpecifications] =
     useState<boolean>(false)
   const [loadingSpecifications, setLoadingSpecifications] =
@@ -133,6 +137,7 @@ export function ModalSpecifications({ open, handleClose, car }: Props) {
               <li key={specification._id}>
                 <FormControlLabel
                   label={specification?.name}
+                  className={style.label}
                   onChange={() => {
                     handleSelectSpecification(specification._id)
                   }}
@@ -147,6 +152,38 @@ export function ModalSpecifications({ open, handleClose, car }: Props) {
                     />
                   }
                 />
+
+                <button
+                  type="button"
+                  className={style.infoButton}
+                  onClick={(event) => {
+                    setAnchorEl(event?.currentTarget)
+                    setPopoverText(specification.description)
+                  }}
+                >
+                  <FontAwesomeIcon className={style.icon} icon={faInfoCircle} />
+                </button>
+
+                {anchorEl && (
+                  <Popover
+                    id="simple-popover"
+                    open={!!anchorEl}
+                    anchorEl={anchorEl}
+                    onClose={() => {
+                      setAnchorEl(null)
+                      setPopoverText(null)
+                    }}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'left',
+                    }}
+                    sx={{ borderRadius: 4 }}
+                  >
+                    <Typography sx={{ p: 2, maxWidth: '300px' }}>
+                      <p>{popoverText}</p>
+                    </Typography>
+                  </Popover>
+                )}
               </li>
             )
           })}

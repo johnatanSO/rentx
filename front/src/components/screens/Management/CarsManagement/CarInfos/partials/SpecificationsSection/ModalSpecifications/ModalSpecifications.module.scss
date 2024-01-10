@@ -3,5 +3,30 @@
 .listSpecifications {
   li {
     list-style-type: none;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+
+    .label {
+      font-weight: 500;
+    }
+    
+    .infoButton {
+      color: $gray-color-300;
+      background: none;
+      border: none;
+
+      line-height: 1;
+      font-size: 1rem;
+
+      cursor: pointer;
+      transition: filter 0.2s;
+
+      &:hover {
+        filter: brightness(0.8);
+      }
+    }
   }
 }
