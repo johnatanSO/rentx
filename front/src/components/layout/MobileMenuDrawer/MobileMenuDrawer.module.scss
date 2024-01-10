@@ -1,42 +1,22 @@
 @import "@/styles/colors";
 
-.headerContainer {
-  width: 100vw;
-  padding: 2rem;
-  padding-bottom: calc(2rem + 35px);
-  font-size: 0.875rem;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  background: $blue-color-700;
-  color: $gray-color-200;
-
-  .loginButton {
-    background: $white-color;
-    border: none;
-    color: $blue-color-700;
-
-    font-weight: 600;
-    font-size: 0.875rem;
-
-    border-radius: 20px;
-    padding: 0.6rem 1rem;
-
-    cursor: pointer;
-    transition: filter 0.2s;
-
-    &:hover {
-      filter: brightness(0.8);
-    }
-  }
-
+.drawerContainer {
+  display: none;
+  
   nav {
+    background: $blue-color-700;
+    color: $gray-color-200;
+
+    height: 100%;
+
     ul {
       display: flex;
-      align-items: center;
-      gap: 40px;
+      flex-direction: column;
+      gap: 2rem;
+
+      height: 100%;
+      padding: 3rem;
+      font-size: 0.875rem;
 
       list-style-type: none;
 
@@ -64,6 +44,8 @@
 
           border-radius: 20px;
           padding: 0.7rem;
+          justify-content: center;
+          margin-top: auto;
 
           span {
             font-weight: 500;
@@ -71,5 +53,11 @@
         }
       }
     }
+  }
+}
+
+@media (max-width: 850px) {
+  .drawerContainer {
+    display: block;
   }
 }

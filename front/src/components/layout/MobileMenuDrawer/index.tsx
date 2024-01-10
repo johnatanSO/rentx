@@ -12,15 +12,16 @@ import {
   faHouse,
 } from '@fortawesome/free-solid-svg-icons'
 import { UserContext } from '@/contexts/userContext'
+import { LayoutContext } from '@/contexts/layoutContext'
 
 export function MobileMenuDrawer() {
   const { userInfo } = useContext(UserContext)
+  const { menuMobileOpened, setMenuMobileOpened } = useContext(LayoutContext)
 
   const router = useRouter()
   const pathname = usePathname()
 
   const [activeMenu, setActiveMenu] = useState<string>(getDefaultMenu())
-  const [menuOpened, setMenuOpened] = useState<boolean>(true)
 
   function getDefaultMenu() {
     if (pathname.includes('/rentals')) return 'rentals'
@@ -42,14 +43,16 @@ export function MobileMenuDrawer() {
   function handleChangeMenuItem(menuName: string) {
     setActiveMenu(menuName)
     router.push(`/${menuName}`)
+    setMenuMobileOpened(false)
   }
 
   return (
     <Drawer
       anchor="left"
-      open={menuOpened}
+      className={style.drawerContainer}
+      open={menuMobileOpened}
       onClose={() => {
-        setMenuOpened(false)
+        setMenuMobileOpened(false)
       }}
     >
       <nav>

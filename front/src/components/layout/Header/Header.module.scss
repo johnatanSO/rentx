@@ -32,6 +32,23 @@
     }
   }
 
+  .mobileMenuButton {
+    display: none;
+
+    background: none;
+    color: $brown-color-100;
+    border: none;
+
+    font-size: 1.5rem;
+
+    cursor: pointer;
+    transition: filter 0.2s;
+
+    &:hover {
+      filter: brightness(0.8);
+    }
+  }
+
   nav {
     ul {
       display: flex;
@@ -70,6 +87,17 @@
           }
         }
       }
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  .headerContainer {
+    .mobileMenuButton {
+      display: flex;
+    }
+    nav {
+      display: none;
     }
   }
 }

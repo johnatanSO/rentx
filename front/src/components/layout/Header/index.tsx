@@ -7,15 +7,19 @@ import {
   faAddressCard,
   faGears,
   faBookmark,
+  faBars,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useState, useEffect } from 'react'
 import { UserContext } from '@/contexts/userContext'
 import Link from '../../../../node_modules/next/link'
 import { usePathname, useRouter } from 'next/navigation'
+import { LayoutContext } from '@/contexts/layoutContext'
 
 export function Header() {
   const { userInfo } = useContext(UserContext)
+  const { menuMobileOpened, setMenuMobileOpened } = useContext(LayoutContext)
+
   const pathname = usePathname()
   const [activeMenu, setActiveMenu] = useState<string>(getDefaultMenu())
   const router = useRouter()
@@ -52,6 +56,16 @@ export function Header() {
 
   return (
     <header className={style.headerContainer}>
+      <button
+        onClick={() => {
+          setMenuMobileOpened(!menuMobileOpened)
+        }}
+        type="button"
+        className={style.mobileMenuButton}
+      >
+        <FontAwesomeIcon icon={faBars} />
+      </button>
+
       <nav>
         <ul>
           <li
