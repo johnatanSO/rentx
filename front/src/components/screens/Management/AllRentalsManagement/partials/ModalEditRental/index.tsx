@@ -9,8 +9,8 @@ import { MenuItem } from '@mui/material'
 import { Car } from '../../interfaces/Car'
 import { User } from '../../interfaces/User'
 import { updateRentalService } from '@/services/rentals/updateRental/UpdateRentalService'
-import { getAvaliableCarsService } from '@/services/cars/getAvaliableCars/GetAvaliableCarsService'
 import { getUsersService } from '@/services/user/getUsers/GetUsersService'
+import { getAllCarsService } from '@/services/cars/getAllCars/GetAllCarsService'
 
 interface Props {
   rentalToEdit: Rental
@@ -78,7 +78,7 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
   // Editar data de previsão de retorno
 
   function getListCars() {
-    getAvaliableCarsService({ name: '', categoryId: '' })
+    getAllCarsService()
       .then((res) => {
         setCars(res.data.items)
       })
