@@ -60,5 +60,5 @@ Não deve ser possível fazer um novo aluguel se já existir um outro aluguel ab
 
 
 
-***OBSERVAÇÕES
-- Criar cluster no Mongo Atlas
+***PRÓXIMA AULA
+- Chapter V / token e refresh / Refatorando a autenticação

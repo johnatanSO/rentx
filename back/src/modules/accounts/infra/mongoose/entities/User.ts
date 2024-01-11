@@ -19,7 +19,7 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, default: null },
   driverLicense: { type: String, default: null },
   isAdmin: { type: Boolean, default: false },
-  createdAt: { type: Date, default: new Date() },
+  createdAt: { type: Date, default: Date.now },
   avatar: { type: String, default: null },
   favoriteCars: [{ type: 'ObjectId', ref: 'Car', default: null }],
 })

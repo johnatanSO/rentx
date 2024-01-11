@@ -47,14 +47,24 @@ export class FinalizeRentalUseCase {
 
     const car = await this.carsRepository.findById(rental.car.toString())
 
-    const rentalDuration = dayjs(new Date()).diff(rental.startDate, 'day')
-    const extraDays = dayjs(new Date()).diff(rental.expectedReturnDate, 'day')
+    const dateNow = this.dateProvider.dateNow()
+
+    const rentalDuration = this.dateProvider.compareInDays(
+      rental.startDate,
+      dateNow,
+    )
+
+    const extraDays = this.dateProvider.compareInDays(
+      rental.expectedReturnDate,
+      dateNow,
+    )
 
     let rentalTotalValue =
       rentalDuration > 0 ? car.dailyRate * rentalDuration : car.dailyRate
 
     if (extraDays > 0) {
-      rentalTotalValue = rentalTotalValue + extraDays * car.fineAmount
+      const fineTotal = extraDays * car.fineAmount
+      rentalTotalValue = fineTotal + rentalTotalValue
     }
 
     await this.carsRepository.updateOne(car._id.toString(), {
