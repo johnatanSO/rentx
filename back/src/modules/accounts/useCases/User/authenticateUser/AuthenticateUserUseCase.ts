@@ -4,6 +4,9 @@ import { inject, injectable } from 'tsyringe'
 import { AppError } from '../../../../../shared/errors/AppError'
 import { IUsersRepository } from '../../../repositories/Users/IUsersRepository'
 import { Car } from '../../../../cars/infra/mongoose/entities/Car'
+import { IUsersTokensRepository } from '../../../repositories/UsersTokens/IUsersTokensRepository'
+import auth from '../../../../../config/auth'
+import { IDateProvider } from '../../../../../shared/container/providers/DateProvider/IDateProvider'
 
 interface IRequest {
   email: string
@@ -19,13 +22,24 @@ interface IResponse {
     favoriteCars: Car[]
   }
   token: string
+  refreshToken: string
 }
 
 @injectable()
 export class AuthenticateUserUseCase {
+  dateProvider: IDateProvider
   usersRepository: IUsersRepository
-  constructor(@inject('UsersRepository') usersRepository: IUsersRepository) {
+  usersTokensRepository: IUsersTokensRepository
+
+  constructor(
+    @inject('UsersRepository') usersRepository: IUsersRepository,
+    @inject('UsersTokensRepository')
+    usersTokensRepository: IUsersTokensRepository,
+    @inject('DayjsDateProvider') dateProvider: IDateProvider,
+  ) {
+    this.dateProvider = dateProvider
     this.usersRepository = usersRepository
+    this.usersTokensRepository = usersTokensRepository
   }
 
   async execute({ email, password }: IRequest): Promise<IResponse> {
@@ -35,13 +49,37 @@ export class AuthenticateUserUseCase {
     const passwordMatch = await compare(password, user.password)
     if (!passwordMatch) throw new AppError('E-mail ou senha incorretos')
 
-    const token = sign({}, 'b266fd9110e2a1a83398105a8d6cec43', {
+    const {
+      secretToken,
+      secretRefreshToken,
+      expiresInToken,
+      expiresInRefreshToken,
+      expiresRefreshTokenDays,
+    } = auth
+
+    const token = sign({}, secretToken, {
       subject: user._id.toString(),
-      expiresIn: '1d',
+      expiresIn: expiresInToken,
+    })
+
+    const refreshToken = sign({ email }, secretRefreshToken, {
+      subject: user._id.toString(),
+      expiresIn: expiresInRefreshToken,
+    })
+
+    const refreshTokenExpiresDate = this.dateProvider.addDays(
+      expiresRefreshTokenDays,
+    )
+
+    await this.usersTokensRepository.create({
+      user: user._id.toString(),
+      refreshToken,
+      expiresDate: refreshTokenExpiresDate,
     })
 
     return {
       token,
+      refreshToken,
       user: {
         name: user.name,
         email: user.email,

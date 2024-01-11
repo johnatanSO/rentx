@@ -17,6 +17,7 @@ export class AuthenticateUserController {
       title: 'Usuário autenticado com sucesso',
       user: authenticatedUser.user,
       token: authenticatedUser.token,
+      refreshToken: authenticatedUser.refreshToken,
     })
   }
 }
