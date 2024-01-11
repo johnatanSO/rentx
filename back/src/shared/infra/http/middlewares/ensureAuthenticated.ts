@@ -1,7 +1,8 @@
-import { UsersRepository } from '../../../../modules/accounts/repositories/Users/UsersRepository'
+import { UsersTokensRepository } from './../../../../modules/accounts/repositories/UsersTokens/UsersTokensRepository'
 import { NextFunction, Request, Response } from 'express'
 import { verify } from 'jsonwebtoken'
 import { AppError } from '../../../errors/AppError'
+import auth from '../../../../config/auth'
 
 export async function ensureAuthenticated(
   req: Request,
@@ -12,16 +13,23 @@ export async function ensureAuthenticated(
   if (!authHeader) throw new AppError('Token não enviado', 401)
   const [, token] = authHeader.split(' ')
 
-  const { sub: userId } = verify(token, 'b266fd9110e2a1a83398105a8d6cec43')
+  try {
+    const { sub: userId } = verify(token, auth.secretRefreshToken)
 
-  const usersRepository = new UsersRepository()
-  const user = await usersRepository.findById(userId.toString())
+    const usersTokensRepository = new UsersTokensRepository()
+    const user = await usersTokensRepository.findByUserIdAndRefreshToken(
+      userId.toString(),
+      token,
+    )
 
-  if (!user) throw new AppError('Usuário inválido', 401)
+    if (!user) throw new AppError('Usuário inválido', 401)
 
-  req.user = {
-    _id: userId.toString(),
+    req.user = {
+      _id: userId.toString(),
+    }
+
+    next()
+  } catch {
+    throw new AppError('Token inválido', 401)
   }
-
-  next()
 }
