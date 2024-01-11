@@ -34,7 +34,7 @@ export class MockUsersRepository implements IUsersRepository {
     const index = this.users.findIndex((user) => user._id.toString() === userId)
 
     const newFavoriteCars = (
-      (this.users[index]?.favoriteCars as Types.ObjectId[]) || []
+      (this.users[index]?.favoriteCars as any) || []
     ).concat(new Types.ObjectId(carId))
 
     if (index !== -1) {
@@ -74,7 +74,8 @@ export class MockUsersRepository implements IUsersRepository {
   }
 
   async findById(_id: string): Promise<IUser> {
-    return this.users.find((user) => user._id.toString() === _id)
+    const user = this.users.find((user) => user._id.toString() === _id)
+    return user
   }
 
   async update(filters: any, updateFields: any): Promise<void> {

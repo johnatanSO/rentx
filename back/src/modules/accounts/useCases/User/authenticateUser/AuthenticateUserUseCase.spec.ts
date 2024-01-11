@@ -38,26 +38,23 @@ describe('Autenticação do usuário', () => {
     await expect(async () => {
       await authenticateUserUseCase.execute({
         email: 'reject@gmail.com',
-        password: 'empty',
+        password: null,
       })
     }).rejects.toBeInstanceOf(AppError)
   })
 
   it('Should not be able to authenticate a incorrect password', async () => {
     await expect(async () => {
-      const user = {
+      const user = await mockUsersRepository.create({
         email: 'user@test.com',
         password: '123456',
-        confirmPassword: '123456',
         driverLicense: '000123',
         name: 'User Test',
-      }
-
-      await createNewUserUseCase.execute(user)
+      })
 
       await authenticateUserUseCase.execute({
         email: user.email,
-        password: 'empty password',
+        password: 'incorrect password',
       })
     }).rejects.toBeInstanceOf(AppError)
   })

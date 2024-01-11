@@ -19,6 +19,7 @@ export class FavoriteCarUseCase {
     if (!carId) throw new AppError('_id do carro não enviado')
 
     const user = await this.usersRepository.findById(userId)
+
     const carAlreadyFavorited = user.favoriteCars.find(
       (car) => car._id.toString() === carId,
     )
