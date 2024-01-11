@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation'
 import { saveTokenService } from '@/services/token/saveToken/SaveTokenService'
 import { Loading } from '@/components/_ui/Loading'
 import { saveLocalUserService } from '@/services/user/saveLocalUser/SaveLocalUserService'
+import { saveRefreshToken } from '@/services/token/saveRefreshToken/SaveRefreshToken'
 
 export function Login() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
@@ -32,6 +33,7 @@ export function Login() {
     authenticateUserService(authData)
       .then((res) => {
         saveTokenService(res.data.token)
+        saveRefreshToken(res.data.refreshToken)
         saveLocalUserService({ userData: res.data.user })
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
