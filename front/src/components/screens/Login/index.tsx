@@ -41,6 +41,7 @@ export function Login() {
           text: 'Usuário autenticado com sucesso',
           type: 'success',
         })
+
         router.push('/')
       })
       .catch((err) => {
