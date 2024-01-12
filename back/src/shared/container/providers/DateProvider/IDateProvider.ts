@@ -5,4 +5,5 @@ export interface IDateProvider {
   dateNow(): Date
   endDay(date: Date): Date
   addDays(days: number): Date
+  addHours(hours: number): Date
 }
