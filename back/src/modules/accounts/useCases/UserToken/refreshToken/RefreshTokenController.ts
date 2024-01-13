@@ -8,10 +8,11 @@ export class RefreshTokenController {
       req.body.token || req.query.token || req.headers['x-access-token']
 
     const refreshTokenUseCase = container.resolve(RefreshTokenUseCase)
-    const refreshToken = await refreshTokenUseCase.execute(token)
+    const { refreshToken, newToken } = await refreshTokenUseCase.execute(token)
 
     return res.status(200).json({
       success: true,
+      token: newToken,
       refreshToken,
     })
   }

@@ -10,6 +10,11 @@ interface IPayload {
   email: string
 }
 
+interface IResponse {
+  refreshToken: string
+  newToken: string
+}
+
 @injectable()
 export class RefreshTokenUseCase {
   usersTokensRepository: IUsersTokensRepository
@@ -24,7 +29,7 @@ export class RefreshTokenUseCase {
     this.dateProvider = dateProvider
   }
 
-  async execute(token: string): Promise<string> {
+  async execute(token: string): Promise<IResponse> {
     if (!token) throw new AppError('Refresh token não enviado')
 
     const { sub: userId, email } = verify(
@@ -55,6 +60,11 @@ export class RefreshTokenUseCase {
       expiresDate,
     })
 
-    return refreshToken
+    const newToken = sign({}, auth.secretToken, {
+      subject: userId,
+      expiresIn: auth.expiresInToken,
+    })
+
+    return { refreshToken, newToken }
   }
 }
