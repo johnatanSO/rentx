@@ -11,6 +11,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
 import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFields'
+import { getAllCarsService } from '@/services/cars/getAllCars/GetAllCarsService'
 
 type Props = {
   allCars: Car[]
@@ -31,7 +32,7 @@ export function CarsManagement({ allCars }: Props) {
   }
 
   function filterByName() {
-    const filteredCars = allCars.filter((car) =>
+    const filteredCars = cars.filter((car) =>
       car.name.toLowerCase().trim().includes(searchString.toLowerCase().trim()),
     )
     setCars(filteredCars)

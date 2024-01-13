@@ -216,6 +216,7 @@ export function CreateNewCar() {
             className={style.input}
             placeholder="Selecione a categoria"
             select
+            required
             size="small"
             label="Categoria"
             value={newCarData.categoryId}

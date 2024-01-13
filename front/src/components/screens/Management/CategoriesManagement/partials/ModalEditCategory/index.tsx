@@ -4,16 +4,17 @@ import { FormEvent, useContext, useState } from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { AlertContext } from '@/contexts/alertContext'
 import { updateCategoryService } from '@/services/category/updateCategoryService/UpdateCategoryService'
-import { usePathname, useRouter } from 'next/navigation'
 import style from './ModalEditCategory.module.scss'
 
 interface Props {
+  getCategories: () => void
   categoryToEdit: Category
   open: boolean
   handleClose: () => void
 }
 
 export function ModalEditCategory({
+  getCategories,
   categoryToEdit,
   open,
   handleClose,
@@ -22,8 +23,6 @@ export function ModalEditCategory({
   const [loadingUpdateCategory, setLoadingUpdateCategory] =
     useState<boolean>(false)
   const [categoryData, setCategoryData] = useState<Category>(categoryToEdit)
-  const router = useRouter()
-  const pathname = usePathname()
 
   function onUpdateCategory(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -39,8 +38,7 @@ export function ModalEditCategory({
           type: 'success',
         })
 
-        router.refresh()
-        router.push(pathname)
+        getCategories()
         handleClose()
       })
       .catch((err) => {

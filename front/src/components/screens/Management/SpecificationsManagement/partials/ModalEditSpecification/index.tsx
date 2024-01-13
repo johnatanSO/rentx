@@ -11,20 +11,20 @@ interface Props {
   specificationToEdit: Specification
   open: boolean
   handleClose: () => void
+  getSpecifications: () => void
 }
 
 export function ModalEditSpecification({
   specificationToEdit,
   open,
   handleClose,
+  getSpecifications,
 }: Props) {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
   const [loadingUpdateSpecification, setLoadingUpdateSpecification] =
     useState<boolean>(false)
   const [specificationData, setSpecificationData] =
     useState<Specification>(specificationToEdit)
-  const router = useRouter()
-  const pathname = usePathname()
 
   function onUpdateSpecification(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -40,9 +40,8 @@ export function ModalEditSpecification({
           type: 'success',
         })
 
+        getSpecifications()
         handleClose()
-        router.refresh()
-        router.push(pathname)
       })
       .catch((err) => {
         setAlertNotifyConfigs({

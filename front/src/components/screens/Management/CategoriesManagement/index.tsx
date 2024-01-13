@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { ModalEditCategory } from './partials/ModalEditCategory'
 import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFieldsMobile'
+import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
 
 type Props = {
   allCategories: Category[]
@@ -21,7 +22,7 @@ export function CategoriesManagement({ allCategories }: Props) {
   const [modalEditCategoryOpened, setModalEditCategoryOpened] =
     useState<boolean>(false)
 
-  const columns = useColumns({ handleEditCategory })
+  const columns = useColumns({ handleEditCategory, getCategories })
   const itemFields = useFieldsMobile()
 
   function handleEditCategory(category: Category) {
@@ -30,7 +31,7 @@ export function CategoriesManagement({ allCategories }: Props) {
   }
 
   function filterByName() {
-    const filteredCategories = allCategories.filter((category) =>
+    const filteredCategories = categories.filter((category) =>
       category.name
         .toLowerCase()
         .trim()
@@ -39,13 +40,23 @@ export function CategoriesManagement({ allCategories }: Props) {
     setCategories(filteredCategories)
   }
 
+  function getCategories() {
+    getAllCategoriesService()
+      .then(({ data: { items } }) => {
+        setCategories(items)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }
+
   useEffect(() => {
     filterByName()
   }, [searchString])
 
   return (
     <>
-      <CreateNewCategory />
+      <CreateNewCategory getCategories={getCategories} />
 
       <header className={style.header}>
         <h2>Categorias</h2>
@@ -70,6 +81,7 @@ export function CategoriesManagement({ allCategories }: Props) {
 
       {categoryToEdit && modalEditCategoryOpened && (
         <ModalEditCategory
+          getCategories={getCategories}
           categoryToEdit={categoryToEdit}
           open={modalEditCategoryOpened}
           handleClose={() => {

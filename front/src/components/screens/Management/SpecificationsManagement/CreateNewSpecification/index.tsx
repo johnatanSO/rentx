@@ -6,13 +6,15 @@ import { FormEvent, useState, useContext } from 'react'
 import { NewSpecification } from './interface/NewSpecification'
 import { createSpecificationService } from '@/services/specifications/createSpecification/CreateSpecificationService'
 import { AlertContext } from '@/contexts/alertContext'
-import { usePathname, useRouter } from 'next/navigation'
 import { Loading } from '@/components/_ui/Loading'
 
-export function CreateNewSpecification() {
+type Props = {
+  getSpecifications: () => void
+}
+
+export function CreateNewSpecification({ getSpecifications }: Props) {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-  const router = useRouter()
-  const pathname = usePathname()
+
   const defaultValuesNewSpecification = {
     name: '',
     description: '',
@@ -37,8 +39,7 @@ export function CreateNewSpecification() {
         })
 
         setNewSpecificationData(defaultValuesNewSpecification)
-        router.refresh()
-        router.push(pathname)
+        getSpecifications()
       })
       .catch((err) => {
         setAlertNotifyConfigs({

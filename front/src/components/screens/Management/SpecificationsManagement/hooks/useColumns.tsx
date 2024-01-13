@@ -11,18 +11,19 @@ import { usePathname, useRouter } from 'next/navigation'
 
 interface Props {
   handleEditSpecification: (specification: Specification) => void
+  getSpecifications: () => void
 }
 
-export function useColumns({ handleEditSpecification }: Props) {
+export function useColumns({
+  handleEditSpecification,
+  getSpecifications,
+}: Props) {
   const {
     alertNotifyConfigs,
     setAlertNotifyConfigs,
     alertConfirmConfigs,
     setAlertConfirmConfigs,
   } = useContext(AlertContext)
-
-  const router = useRouter()
-  const pathname = usePathname()
 
   function handleDeleteSpecification(specificationId: string) {
     setAlertConfirmConfigs({
@@ -40,8 +41,7 @@ export function useColumns({ handleEditSpecification }: Props) {
               type: 'success',
             })
 
-            router.refresh()
-            router.push(pathname)
+            getSpecifications()
           })
           .catch((err) => {
             setAlertNotifyConfigs({

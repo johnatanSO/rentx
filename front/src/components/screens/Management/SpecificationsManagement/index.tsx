@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react'
 import { ModalEditSpecification } from './partials/ModalEditSpecification'
 import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFieldsMobile'
+import { listAllSpecificationsService } from '@/services/specifications/listAllSpecifications/ListAllSpecificationsService'
 
 type Props = {
   allSpecifications: Specification[]
@@ -24,7 +25,7 @@ export function SpecificationsManagement({ allSpecifications }: Props) {
   const [modalEditSpecificationOpened, setModalEditSpecificationOpened] =
     useState<boolean>(false)
 
-  const columns = useColumns({ handleEditSpecification })
+  const columns = useColumns({ handleEditSpecification, getSpecifications })
   const itemFields = useFieldsMobile()
 
   function handleEditSpecification(specification: Specification) {
@@ -33,7 +34,7 @@ export function SpecificationsManagement({ allSpecifications }: Props) {
   }
 
   function filterByName() {
-    const filteredSpecifications = allSpecifications.filter((specification) =>
+    const filteredSpecifications = specifications.filter((specification) =>
       specification.name
         .toLowerCase()
         .trim()
@@ -42,13 +43,22 @@ export function SpecificationsManagement({ allSpecifications }: Props) {
     setSpecifications(filteredSpecifications)
   }
 
+  function getSpecifications() {
+    listAllSpecificationsService()
+      .then(({ data: { items } }) => {
+        setSpecifications(items)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }
   useEffect(() => {
     filterByName()
   }, [searchString])
 
   return (
     <>
-      <CreateNewSpecification />
+      <CreateNewSpecification getSpecifications={getSpecifications} />
 
       <header className={style.header}>
         <h2>Especificações</h2>
@@ -76,6 +86,7 @@ export function SpecificationsManagement({ allSpecifications }: Props) {
 
       {modalEditSpecificationOpened && specificationToEdit && (
         <ModalEditSpecification
+          getSpecifications={getSpecifications}
           open={modalEditSpecificationOpened}
           handleClose={() => {
             setModalEditSpecificationOpened(false)
