@@ -7,7 +7,7 @@ export function About() {
         <h2>Sobre o sistema</h2>
       </header>
 
-      <section>* Descreva aqui sobre</section>
+      <section>* Descrição do sistema (A fazer)</section>
     </section>
   )
 }

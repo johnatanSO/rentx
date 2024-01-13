@@ -1,4 +1,4 @@
-import { getRefreshToken } from '@/services/token/getRefreshToken/GetRefreshToken'
+// import { getRefreshToken } from '@/services/token/getRefreshToken/GetRefreshToken'
 import { getTokenService } from '@/services/token/getToken/GetTokenService'
 import axios from 'axios'
 
@@ -8,7 +8,7 @@ const http = axios.create({
 
 http.interceptors.request.use(
   async (config: any) => {
-    const token = await getRefreshToken()
+    const token = await getTokenService()
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }

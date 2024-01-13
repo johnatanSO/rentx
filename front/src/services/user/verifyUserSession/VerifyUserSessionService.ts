@@ -4,7 +4,7 @@ import { getLocalUserService } from '../getLocalUser/GetLocalUserService'
 export async function verifyUserSessionService() {
   const user = await getLocalUserService()
 
-  if (!user) redirect('/')
+  if (!user) redirect('/authenticate')
 
   return user
 }

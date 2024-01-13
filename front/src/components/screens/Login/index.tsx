@@ -35,6 +35,7 @@ export function Login() {
         saveTokenService(res.data.token)
         saveRefreshToken(res.data.refreshToken)
         saveLocalUserService({ userData: res.data.user })
+
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,

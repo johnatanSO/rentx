@@ -7,7 +7,7 @@ export function Contact() {
         <h2>Contatos</h2>
       </header>
 
-      <section>* Escreva aqui os contatos</section>
+      <section>* Contatos (A fazer)</section>
     </section>
   )
 }
