@@ -1,22 +1,18 @@
 'use client'
 
 import style from './Rentals.module.scss'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
 import { Rental } from './interfaces/Rental'
 import { TableComponent } from '@/components/_ui/TableComponent'
 import { useColumns } from './hooks/useColumns'
 import { finalizeRentalService } from '@/services/rentals/finalizeRental/FinalizeRentalService'
 import { useRouter } from 'next/navigation'
-import { formatCurrency } from '@/utils/format'
 import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFieldsMobile'
+import { getRentalsService } from '@/services/rentals/getRentals/GetRentalsService'
 
-interface Props {
-  rentals: Rental[]
-}
-
-export function Rentals({ rentals }: Props) {
+export function Rentals() {
   const {
     alertNotifyConfigs,
     setAlertNotifyConfigs,
@@ -24,7 +20,9 @@ export function Rentals({ rentals }: Props) {
     setAlertConfirmConfigs,
   } = useContext(AlertContext)
 
-  const router = useRouter()
+  const [rentals, setRentals] = useState<Rental[]>([])
+  const [loadingRentals, setLoadingRentals] = useState<boolean>(true)
+
   const columns = useColumns({ onFinalizeRental })
   const itemFields = useFieldsMobile()
 
@@ -33,6 +31,7 @@ export function Rentals({ rentals }: Props) {
       ...alertConfirmConfigs,
       open: true,
       onClickAgree: async () => {
+        setLoadingRentals(true)
         finalizeRentalService(rentalId)
           .then(() => {
             setAlertNotifyConfigs({
@@ -42,7 +41,7 @@ export function Rentals({ rentals }: Props) {
               type: 'success',
             })
 
-            router.refresh()
+            getRentals()
           })
           .catch((err) => {
             setAlertNotifyConfigs({
@@ -60,9 +59,31 @@ export function Rentals({ rentals }: Props) {
     })
   }
 
+  function getRentals() {
+    setLoadingRentals(true)
+    getRentalsService()
+      .then(({ data: { items } }) => {
+        setRentals(items)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+      .finally(() => {
+        setLoadingRentals(false)
+      })
+  }
+
+  useEffect(() => {
+    getRentals()
+  }, [])
+
   return (
     <div className={style.rentalsContainer}>
-      <TableComponent columns={columns} rows={rentals} loading={false} />
+      <TableComponent
+        columns={columns}
+        rows={rentals}
+        loading={loadingRentals}
+      />
 
       <ListMobile
         itemFields={itemFields}

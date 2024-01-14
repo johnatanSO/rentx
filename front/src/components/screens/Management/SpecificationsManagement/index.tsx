@@ -12,13 +12,8 @@ import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFieldsMobile'
 import { listAllSpecificationsService } from '@/services/specifications/listAllSpecifications/ListAllSpecificationsService'
 
-type Props = {
-  allSpecifications: Specification[]
-}
-
-export function SpecificationsManagement({ allSpecifications }: Props) {
-  const [specifications, setSpecifications] =
-    useState<Specification[]>(allSpecifications)
+export function SpecificationsManagement() {
+  const [specifications, setSpecifications] = useState<Specification[]>([])
   const [searchString, setSearchString] = useState<string>('')
   const [specificationToEdit, setSpecificationToEdit] =
     useState<Specification | null>(null)
@@ -52,9 +47,14 @@ export function SpecificationsManagement({ allSpecifications }: Props) {
         console.error(error)
       })
   }
+
   useEffect(() => {
     filterByName()
   }, [searchString])
+
+  useEffect(() => {
+    getSpecifications()
+  }, [])
 
   return (
     <>

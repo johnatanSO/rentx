@@ -1,18 +1,8 @@
 import { AllRentalsManagement } from '@/components/screens/Management/AllRentalsManagement'
-import { getAllRentalsService } from '@/services/rentals/getAllRentals/GetAllRentalsService'
 import { verifyUserIsAdminService } from '@/services/user/verifyUserIsAdmin/VerifyUserIsAdminService'
 
-export default async function AllRentalsPage({ searchParams }: any) {
+export default async function AllRentalsPage() {
   await verifyUserIsAdminService()
 
-  const { data } = await getAllRentalsService({
-    userId: searchParams.userId,
-    carId: searchParams.carId,
-    filterStartDate: searchParams.filterStartDate,
-    filterEndDate: searchParams.filterEndDate,
-  })
-
-  const allRentals = data.items
-
-  return <AllRentalsManagement rentals={allRentals} />
+  return <AllRentalsManagement />
 }

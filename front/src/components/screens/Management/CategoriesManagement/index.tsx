@@ -11,12 +11,8 @@ import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFieldsMobile'
 import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
 
-type Props = {
-  allCategories: Category[]
-}
-
-export function CategoriesManagement({ allCategories }: Props) {
-  const [categories, setCategories] = useState<Category[]>(allCategories)
+export function CategoriesManagement() {
+  const [categories, setCategories] = useState<Category[]>([])
   const [searchString, setSearchString] = useState<string>('')
   const [categoryToEdit, setCategoryToEdit] = useState<Category | null>(null)
   const [modalEditCategoryOpened, setModalEditCategoryOpened] =
@@ -53,6 +49,10 @@ export function CategoriesManagement({ allCategories }: Props) {
   useEffect(() => {
     filterByName()
   }, [searchString])
+
+  useEffect(() => {
+    getCategories()
+  }, [])
 
   return (
     <>

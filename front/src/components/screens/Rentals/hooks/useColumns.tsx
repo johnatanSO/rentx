@@ -87,7 +87,7 @@ export function useColumns({ onFinalizeRental }: Props) {
       headerName: 'Valor total',
       field: 'total',
       valueFormatter: (params: CellFunctionParams<Rental>) =>
-        params?.value ? formatCurrency(params?.value || 0) : '--',
+        formatCurrency(params?.value || 0),
     },
     {
       headerName: '',
@@ -109,6 +109,7 @@ export function useColumns({ onFinalizeRental }: Props) {
             </div>
           )
         }
+        // Colocar opção para alugar novamente
       },
     },
   ]

@@ -1,6 +1,5 @@
 import { Field } from '@/components/_ui/ListMobile/interfaces/Field'
 import { formatCurrency } from '@/utils/format'
-import dayjs from 'dayjs'
 
 export function useFieldsMobile(): Field[] {
   return [
@@ -12,8 +11,7 @@ export function useFieldsMobile(): Field[] {
     },
     {
       field: 'totalValue',
-      valueFormatter: (params: any) =>
-        params.value ? formatCurrency(params.value) : '--',
+      valueFormatter: (params: any) => formatCurrency(params.value || 0),
     },
   ]
 }

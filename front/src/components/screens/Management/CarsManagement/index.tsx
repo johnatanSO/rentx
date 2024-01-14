@@ -13,16 +13,17 @@ import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFields'
 import { getAllCarsService } from '@/services/cars/getAllCars/GetAllCarsService'
 
-type Props = {
-  allCars: Car[]
-}
-
-export function CarsManagement({ allCars }: Props) {
+export function CarsManagement() {
   const router = useRouter()
   const pathname = usePathname()
 
   const [searchString, setSearchString] = useState<string>('')
-  const [cars, setCars] = useState<Car[]>(allCars)
+  const [cars, setCars] = useState<Car[]>([])
+  const [loadingCars, setLoadingCars] = useState<boolean>(true)
+
+  const filteredCars = cars.filter((car) =>
+    car.name.toLowerCase().includes(searchString.toLowerCase()),
+  )
 
   const columns = useColumns()
   const itemFields = useFieldsMobile()
@@ -31,16 +32,23 @@ export function CarsManagement({ allCars }: Props) {
     router.push(pathname + '/createNew')
   }
 
-  function filterByName() {
-    const filteredCars = cars.filter((car) =>
-      car.name.toLowerCase().trim().includes(searchString.toLowerCase().trim()),
-    )
-    setCars(filteredCars)
+  function getCars() {
+    setLoadingCars(true)
+    getAllCarsService()
+      .then(({ data: { items } }) => {
+        setCars(items)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+      .finally(() => {
+        setLoadingCars(false)
+      })
   }
 
   useEffect(() => {
-    filterByName()
-  }, [searchString])
+    getCars()
+  }, [])
 
   return (
     <>
@@ -55,6 +63,7 @@ export function CarsManagement({ allCars }: Props) {
           Cadastrar novo
         </button>
       </header>
+
       <CustomTextField
         className={style.searchInput}
         label="Buscar pelo nome"
@@ -64,7 +73,11 @@ export function CarsManagement({ allCars }: Props) {
         }}
       />
       <section className={style.tableSection}>
-        <TableComponent columns={columns} rows={cars} loading={false} />
+        <TableComponent
+          columns={columns}
+          rows={filteredCars}
+          loading={loadingCars}
+        />
         <ListMobile
           collapseItems={columns}
           items={cars}

@@ -44,7 +44,7 @@ export function CreateNewCar() {
     setLoadingCreateNewCar(true)
 
     createNewCarService({ ...newCarData, image })
-      .then((res) => {
+      .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
@@ -54,7 +54,6 @@ export function CreateNewCar() {
 
         setNewCarData(defaultValuesNewCar)
 
-        router.refresh()
         router.back()
       })
       .catch((err) => {
@@ -155,6 +154,7 @@ export function CreateNewCar() {
             className={style.input}
             placeholder="Digite a placa"
             type="text"
+            required
             size="small"
             label="Placa"
             value={newCarData.licensePlate}

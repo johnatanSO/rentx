@@ -1,8 +1,8 @@
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import style from './Filters.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFilter, faSearch } from '@fortawesome/free-solid-svg-icons'
-import { IFilters } from '../../interfaces/IFilters'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
+
 import { User } from '../../interfaces/User'
 import { getUsersService } from '@/services/user/getUsers/GetUsersService'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
@@ -11,17 +11,16 @@ import { AlertContext } from '@/contexts/alertContext'
 import { MenuItem } from '@mui/material'
 import { Car } from '../../interfaces/Car'
 import { getAllCarsService } from '@/services/cars/getAllCars/GetAllCarsService'
+import { IFilters } from '../../interfaces/IFilters'
 
-export function Filters() {
+type Props = {
+  filters: IFilters
+  setFilters: (filters: IFilters) => void
+}
+
+export function Filters({ filters, setFilters }: Props) {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-  const defaultValuesFilter = {
-    filterStartDate: null,
-    filterEndDate: null,
-    userId: null,
-    carId: null,
-  }
 
-  const [filters, setFilters] = useState<IFilters>(defaultValuesFilter)
   const [otherFiltersOpened, setOtherFiltersOpened] = useState<boolean>(false)
   const [usersList, setUsersList] = useState<User[]>([])
   const [carsList, setCarsList] = useState<Car[]>([])
@@ -43,22 +42,32 @@ export function Filters() {
   function onFilterRentals(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    const currentFilterStartDate = searchParams.get('filterStartDate')
-    if (currentFilterStartDate !== filters.filterStartDate) {
-      router.push(
-        `${pathname}?${createQueryString(
-          'filterStartDate',
-          filters.filterStartDate || '',
-        )}`,
-      )
-    }
-
     const currentFilterEndDate = searchParams.get('filterEndDate')
-    if (currentFilterEndDate !== filters.filterEndDate) {
+    if (
+      !currentFilterEndDate ||
+      currentFilterEndDate !== filters.filterEndDate
+    ) {
       router.push(
         `${pathname}?${createQueryString(
           'filterEndDate',
           filters.filterEndDate || '',
+        )}`,
+      )
+    }
+
+    const currentFilterStartDate = searchParams.get('filterStartDate')
+    if (
+      !currentFilterStartDate ||
+      currentFilterStartDate !== filters.filterStartDate
+    ) {
+      console.log('Não tenho start date porra')
+      console.log(
+        createQueryString('filterStartDate', filters.filterStartDate || ''),
+      )
+      router.push(
+        `${pathname}?${createQueryString(
+          'filterStartDate',
+          filters.filterStartDate || '',
         )}`,
       )
     }
@@ -129,12 +138,6 @@ export function Filters() {
   return (
     <div className={style.filtersContainer}>
       <form className={style.filterDateContainer} onSubmit={onFilterRentals}>
-        <FontAwesomeIcon
-          onClick={handleOpenOtherFilters}
-          className={style.filterIcon}
-          icon={faFilter}
-        />
-
         <CustomTextField
           className={style.input}
           label="Data do aluguel (Inicial)"
