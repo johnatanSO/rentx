@@ -10,7 +10,7 @@ export class ListFavoritedCarsUseCase {
   }
 
   async execute(userId: string): Promise<Car[]> {
-    const user = await this.usersRepository.findById(userId)
-    return user.favoriteCars
+    const favoriteCars = await this.usersRepository.listFavoriteCars(userId)
+    return favoriteCars
   }
 }

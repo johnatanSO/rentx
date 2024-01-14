@@ -1,3 +1,4 @@
+import { Car } from '../../../cars/infra/mongoose/entities/Car'
 import { IUser } from '../../infra/mongoose/entities/User'
 
 export interface ICreateUserDTO {
@@ -16,4 +17,5 @@ export interface IUsersRepository {
   addCarToFavorite: (carId: string, userId: string) => Promise<void>
   removeFavoritedCar: (carId: string, userId: string) => Promise<void>
   list: () => Promise<IUser[]>
+  listFavoriteCars(userId: string): Promise<Car[]>
 }

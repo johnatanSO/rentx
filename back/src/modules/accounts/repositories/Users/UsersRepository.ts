@@ -1,4 +1,5 @@
 import { Model } from 'mongoose'
+import { Car } from '../../../cars/infra/mongoose/entities/Car'
 import { IUser, UserModel } from '../../infra/mongoose/entities/User'
 import { ICreateUserDTO, IUsersRepository } from './IUsersRepository'
 
@@ -34,10 +35,7 @@ export class UsersRepository implements IUsersRepository {
   }
 
   async findById(_id: string): Promise<IUser> {
-    const user = await this.model.findOne({ _id }).populate({
-      path: 'favoriteCars',
-      populate: [{ path: 'specifications' }, { path: 'images' }],
-    })
+    const user = await this.model.findOne({ _id })
     return user
   }
 
@@ -62,5 +60,18 @@ export class UsersRepository implements IUsersRepository {
   async list(): Promise<IUser[]> {
     const users = await this.model.find()
     return users
+  }
+
+  async listFavoriteCars(userId: string): Promise<Car[]> {
+    const user = await this.model.findById(userId).populate({
+      path: 'favoriteCars',
+      populate: [
+        { path: 'specifications' },
+        { path: 'images' },
+        { path: 'defaultImage' },
+      ],
+    })
+
+    return user.favoriteCars
   }
 }
