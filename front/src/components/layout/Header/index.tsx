@@ -78,6 +78,7 @@ export function Header() {
             <FontAwesomeIcon icon={faHouse} />
             <span>Home</span>
           </li>
+
           {userInfo && (
             <>
               <li
@@ -89,6 +90,7 @@ export function Header() {
                 <FontAwesomeIcon icon={faCircleInfo} />
                 <span>Meus alugueis</span>
               </li>
+
               <li
                 onClick={() => {
                   handleChangeMenuItem('favoriteds')
@@ -100,6 +102,7 @@ export function Header() {
               </li>
             </>
           )}
+
           <li
             onClick={() => {
               handleChangeMenuItem('about')
@@ -109,6 +112,7 @@ export function Header() {
             <FontAwesomeIcon icon={faCircleInfo} />
             <span>Sobre</span>
           </li>
+
           <li
             onClick={() => {
               handleChangeMenuItem('contact')

@@ -5,74 +5,13 @@ import packageJSON from '../../../../package.json'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper/modules'
 import Image from 'next/image'
-import porscheLogo from '../../../../public/assets/logos/brands/porscheLogo.png'
 import 'swiper/css'
+import { useCreateBrands } from './hooks/useColumns'
 
 export function Footer() {
   const year = new Date().getFullYear()
 
-  const brands = [
-    {
-      path: porscheLogo,
-      _id: Math.random() * 100,
-    },
-    {
-      path: porscheLogo,
-      _id: Math.random() * 100,
-    },
-    {
-      path: porscheLogo,
-      _id: Math.random() * 100,
-    },
-    {
-      path: porscheLogo,
-      _id: Math.random() * 100,
-    },
-    {
-      path: porscheLogo,
-      _id: Math.random() * 100,
-    },
-    {
-      path: porscheLogo,
-      _id: Math.random() * 100,
-    },
-    {
-      path: porscheLogo,
-      _id: Math.random() * 100,
-    },
-    {
-      path: porscheLogo,
-      _id: Math.random() * 100,
-    },
-    {
-      path: porscheLogo,
-      _id: Math.random() * 100,
-    },
-    {
-      path: porscheLogo,
-      _id: Math.random() * 100,
-    },
-    {
-      path: porscheLogo,
-      _id: Math.random() * 100,
-    },
-    {
-      path: porscheLogo,
-      _id: Math.random() * 100,
-    },
-    {
-      path: porscheLogo,
-      _id: Math.random() * 100,
-    },
-    {
-      path: porscheLogo,
-      _id: Math.random() * 100,
-    },
-    {
-      path: porscheLogo,
-      _id: Math.random() * 100,
-    },
-  ]
+  const brands = useCreateBrands()
 
   return (
     <footer className={style.footerContainer}>
