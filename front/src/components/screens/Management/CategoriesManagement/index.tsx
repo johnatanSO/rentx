@@ -18,6 +18,7 @@ export function CategoriesManagement() {
   const [categoryToEdit, setCategoryToEdit] = useState<Category | null>(null)
   const [modalEditCategoryOpened, setModalEditCategoryOpened] =
     useState<boolean>(false)
+  const [loadingCategories, setLoadingCategories] = useState<boolean>(true)
 
   const columns = useColumns({ handleEditCategory, getCategories })
   const itemFields = useFieldsMobile()
@@ -28,22 +29,28 @@ export function CategoriesManagement() {
   }
 
   function filterByName() {
+    setLoadingCategories(true)
     const filteredCategories = categories.filter((category) =>
       category.name
         .toLowerCase()
         .trim()
         .includes(searchString.toLowerCase().trim()),
     )
+    setLoadingCategories(false)
     setCategories(filteredCategories)
   }
 
   function getCategories() {
+    setLoadingCategories(true)
     getAllCategoriesService()
       .then(({ data: { items } }) => {
         setCategories(items)
       })
       .catch((error) => {
         console.error(error)
+      })
+      .finally(() => {
+        setLoadingCategories(false)
       })
   }
 
@@ -74,7 +81,11 @@ export function CategoriesManagement() {
       </header>
 
       <section className={style.tableSection}>
-        <TableComponent rows={categories} columns={columns} loading={false} />
+        <TableComponent
+          rows={categories}
+          columns={columns}
+          loading={loadingCategories}
+        />
         <ListMobile
           items={categories}
           itemFields={itemFields}

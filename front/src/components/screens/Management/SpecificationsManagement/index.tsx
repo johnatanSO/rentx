@@ -20,6 +20,8 @@ export function SpecificationsManagement() {
     useState<Specification | null>(null)
   const [modalEditSpecificationOpened, setModalEditSpecificationOpened] =
     useState<boolean>(false)
+  const [loadingSpecifications, setLoadingSpecifications] =
+    useState<boolean>(true)
 
   const columns = useColumns({ handleEditSpecification, getSpecifications })
   const itemFields = useFieldsMobile()
@@ -30,22 +32,28 @@ export function SpecificationsManagement() {
   }
 
   function filterByName() {
+    setLoadingSpecifications(true)
     const filteredSpecifications = specifications.filter((specification) =>
       specification.name
         .toLowerCase()
         .trim()
         .includes(searchString.toLowerCase().trim()),
     )
+    setLoadingSpecifications(false)
     setSpecifications(filteredSpecifications)
   }
 
   function getSpecifications() {
+    setLoadingSpecifications(true)
     listAllSpecificationsService()
       .then(({ data: { items } }) => {
         setSpecifications(items)
       })
       .catch((error) => {
         console.error(error)
+      })
+      .finally(() => {
+        setLoadingSpecifications(false)
       })
   }
 
@@ -78,7 +86,7 @@ export function SpecificationsManagement() {
         <TableComponent
           rows={specifications}
           columns={columns}
-          loading={false}
+          loading={loadingSpecifications}
         />
         <ListMobile
           items={specifications}
