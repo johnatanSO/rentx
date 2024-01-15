@@ -42,7 +42,6 @@
     .carImageContainer {
       border: 1px solid $gray-color-200;
       border-radius: 20px;
-      
 
       min-width: 500px;
 
@@ -59,6 +58,7 @@
 
       .otherImagesList {
         list-style-type: none;
+
         display: flex;
         align-items: center;
         gap: 1rem;
@@ -69,12 +69,17 @@
           flex: 1;
 
           cursor: pointer;
+          transition: filter 0.2s;
 
           .image {
             object-fit: contain;
 
             height: 100px;
             width: 100%;
+          }
+
+          &:hover {
+            filter: brightness(0.8);
           }
         }
       }

@@ -30,6 +30,9 @@ export function CarDetails({ car }: Props) {
   const [expectedReturnDate, setExpectedReturnDate] = useState<string>(
     minExpectedReturnDate,
   )
+  const [displayImage, setDisplayImage] = useState<CarImage>(
+    car.defaultImage || null,
+  )
 
   function getImageUrl(image: CarImage) {
     if (!image) return unknownCarImage
@@ -106,7 +109,7 @@ export function CarDetails({ car }: Props) {
             className={style.carImage}
             width={1280}
             height={720}
-            src={getImageUrl(car.defaultImage)}
+            src={getImageUrl(displayImage)}
             alt="Imagem do carro"
           />
 
@@ -114,7 +117,13 @@ export function CarDetails({ car }: Props) {
             <ul className={style.otherImagesList}>
               {car.images.map((image) => {
                 return (
-                  <li key={image._id} className={style.imageContainer}>
+                  <li
+                    key={image._id}
+                    className={style.imageContainer}
+                    onClick={() => {
+                      setDisplayImage(image)
+                    }}
+                  >
                     <Image
                       className={style.image}
                       alt="Car image"
