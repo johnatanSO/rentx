@@ -9,4 +9,5 @@ export interface Car {
   specifications: Specification[]
   avaliable: boolean
   defaultImage: CarImage
+  transmission: string
 }
