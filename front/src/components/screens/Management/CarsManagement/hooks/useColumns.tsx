@@ -14,6 +14,11 @@ export function useColumns() {
     return process.env.NEXT_PUBLIC_END_POINT + carImage.path
   }
 
+  function formatTransmissionType(type: string) {
+    if (type === 'automatic') return 'Automático'
+    return 'Manual'
+  }
+
   return [
     {
       headerName: 'Carro',
@@ -39,6 +44,12 @@ export function useColumns() {
       headerName: 'Placa',
       field: 'licensePlate',
       valueFormatter: (params: CellFunctionParams<Car>) => params.value,
+    },
+    {
+      headerName: 'Transmissão',
+      field: 'transmission',
+      valueFormatter: (params: CellFunctionParams<Car>) =>
+        formatTransmissionType(params.value),
     },
     {
       headerName: 'Valor diário',

@@ -11,6 +11,7 @@ interface IRequest {
   brand: string
   categoryId: string
   reasonUnavaliable?: string
+  transmission: string
 }
 
 export function updateCarInfosService({
@@ -24,6 +25,7 @@ export function updateCarInfosService({
   brand,
   categoryId,
   reasonUnavaliable,
+  transmission,
 }: IRequest) {
   const body = {
     name,
@@ -35,6 +37,7 @@ export function updateCarInfosService({
     brand,
     categoryId,
     reasonUnavaliable,
+    transmission,
   }
 
   return http.put(`/cars/${_id}`, body)

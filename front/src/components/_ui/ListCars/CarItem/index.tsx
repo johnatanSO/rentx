@@ -26,6 +26,7 @@ type Props = {
   dailyRate: number
   carId: string
   specifications: Specification[]
+  transmission: string
 }
 
 export function CarItem({
@@ -34,6 +35,7 @@ export function CarItem({
   dailyRate,
   carId,
   specifications,
+  transmission,
 }: Props) {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
   const { userInfo, setUserInfo } = useContext(UserContext)
@@ -72,6 +74,11 @@ export function CarItem({
           type: 'error',
         })
       })
+  }
+
+  function formatTransmissionType(type: string) {
+    if (type === 'automatic') return 'Automático'
+    return 'Manual'
   }
 
   return (
@@ -118,7 +125,7 @@ export function CarItem({
       <footer>
         <span>
           <FontAwesomeIcon icon={faArrowsRotate} />
-          Manual
+          {formatTransmissionType(transmission)}
         </span>
         <span>
           <FontAwesomeIcon icon={faDroplet} />

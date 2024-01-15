@@ -7,4 +7,5 @@ export interface Car {
   defaultImage: CarImage
   dailyRate: number
   specifications: Specification[]
+  transmission: string
 }

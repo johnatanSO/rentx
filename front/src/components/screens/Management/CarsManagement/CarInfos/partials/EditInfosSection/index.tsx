@@ -33,6 +33,7 @@ export function EditInfosSection({ car }: Props) {
     ...restCar,
     categoryId: category._id,
   })
+  console.log('carData', carData)
   const [categoriesList, setCategoriesList] = useState<Category[]>([])
   const [loadingUpdateInfos, setLoadingUpdateInfos] = useState<boolean>(false)
 
@@ -42,7 +43,7 @@ export function EditInfosSection({ car }: Props) {
     setLoadingUpdateInfos(true)
 
     updateCarInfosService(carData)
-      .then((res) => {
+      .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
