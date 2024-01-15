@@ -21,6 +21,8 @@ const nextConfig = {
   experimental: {
     serverActions: true,
   },
+  productionBrowserSourceMaps: true,
+  generateEtags: false,
 }
 
 module.exports = nextConfig
