@@ -3,7 +3,6 @@ import { inject, injectable } from 'tsyringe'
 import { Car } from '../../../infra/mongoose/entities/Car'
 import { ICarsRepository } from '../../../repositories/Cars/ICarsRepository'
 import { ICarsImagesRepository } from '../../../repositories/CarsImages/ICarsImagesRepository'
-import { CarImage } from '../../../infra/mongoose/entities/CarImage'
 
 interface IRequest {
   name: string
