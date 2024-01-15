@@ -24,7 +24,7 @@ export function Footer() {
 
       <Swiper
         className={style.swiperContainer}
-        spaceBetween={10}
+        spaceBetween={30}
         slidesPerView={5}
         modules={[Autoplay]}
         navigation
