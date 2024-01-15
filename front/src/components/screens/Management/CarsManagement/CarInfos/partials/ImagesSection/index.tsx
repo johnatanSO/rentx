@@ -11,9 +11,6 @@ import { usePathname, useRouter } from 'next/navigation'
 import { updateCarImagesService } from '@/services/cars/updateCarImages/UpdateCarImagesService'
 import { ModalZoomImage } from './ModalZoomImage'
 import { updateDefaultCarImageService } from '@/services/cars/updateDefaultCarImage/UpdateDefaultCarImageService'
-
-import 'swiper/css'
-import 'swiper/css/navigation'
 import style from './ImagesSection.module.scss'
 
 type Props = {

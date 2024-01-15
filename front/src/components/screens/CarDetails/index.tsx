@@ -31,10 +31,10 @@ export function CarDetails({ car }: Props) {
     minExpectedReturnDate,
   )
 
-  function getImageUrl(images: CarImage[]) {
-    if (images.length === 0) return unknownCarImage
+  function getImageUrl(image: CarImage) {
+    if (!image) return unknownCarImage
 
-    return process.env.NEXT_PUBLIC_END_POINT + images[0]?.path
+    return process.env.NEXT_PUBLIC_END_POINT + image?.path
   }
 
   async function onCreateNewRental(event: FormEvent<HTMLFormElement>) {
@@ -106,9 +106,27 @@ export function CarDetails({ car }: Props) {
             className={style.carImage}
             width={1280}
             height={720}
-            src={getImageUrl(car.images)}
+            src={getImageUrl(car.defaultImage)}
             alt="Imagem do carro"
           />
+
+          {car.images.length > 0 && (
+            <ul className={style.otherImagesList}>
+              {car.images.map((image) => {
+                return (
+                  <li key={image._id} className={style.imageContainer}>
+                    <Image
+                      className={style.image}
+                      alt="Car image"
+                      width={300}
+                      height={150}
+                      src={getImageUrl(image)}
+                    />
+                  </li>
+                )
+              })}
+            </ul>
+          )}
         </div>
 
         <div className={style.infosContainer}>
