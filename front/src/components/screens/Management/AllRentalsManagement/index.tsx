@@ -7,13 +7,14 @@ import { useColumns } from './hooks/useColumns'
 import { useContext, useEffect, useState } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
 import { finalizeRentalService } from '@/services/rentals/finalizeRental/FinalizeRentalService'
-import { useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { ModalEditRental } from './partials/ModalEditRental'
 import { Filters } from './partials/Filters'
 import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFields'
 import { getAllRentalsService } from '@/services/rentals/getAllRentals/GetAllRentalsService'
 import { IFilters } from './interfaces/IFilters'
+import dayjs from 'dayjs'
 
 export function AllRentalsManagement() {
   const {
@@ -27,19 +28,18 @@ export function AllRentalsManagement() {
   const [loadingRentals, setLoadingRentals] = useState<boolean>(true)
 
   const defaultValuesFilter = {
-    filterStartDate: null,
-    filterEndDate: null,
+    filterStartDate: dayjs().startOf('month').format('YYYY-MM-DD'),
+    filterEndDate: dayjs().endOf('month').format('YYYY-MM-DD'),
     userId: null,
     carId: null,
   }
 
   const [filters, setFilters] = useState<IFilters>(defaultValuesFilter)
+  const searchParams = useSearchParams()
 
   const [modalEditRentalOpened, setModalEditRentalOpened] =
     useState<boolean>(false)
   const [rentalToEdit, setRentalToEdit] = useState<Rental | null>(null)
-
-  const router = useRouter()
 
   const columns = useColumns({ onFinalizeRental, handleEditRental })
   const itemFields = useFieldsMobile()
@@ -96,7 +96,7 @@ export function AllRentalsManagement() {
 
   useEffect(() => {
     getRentals()
-  }, [])
+  }, [searchParams])
 
   return (
     <>
