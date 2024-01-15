@@ -1,3 +1,4 @@
+import { DeleteCarController } from './../../../../modules/cars/useCases/Car/deleteCar/DeleteCarController'
 import { UploadCarImagesController } from '../../../../modules/cars/useCases/Car/uploadCarImages/UploadCarImagesController'
 import { CreateCarSpecificationController } from './../../../../modules/cars/useCases/Car/createCarSpecification/CreateCarSpecificationController'
 import express, { Router } from 'express'
@@ -27,6 +28,7 @@ const listAllCarsController = new ListAllCarsController()
 const removeCarImageController = new RemoveCarImageController()
 const favoriteCarController = new FavoriteCarController()
 const updateCarInfosController = new UpdateCarInfosController()
+const deleteCarController = new DeleteCarController()
 
 carsRoutes.post(
   '/',
@@ -44,6 +46,13 @@ carsRoutes.use(
 )
 
 carsRoutes.get('/avaliable', listAvaliableCarsController.handle)
+
+carsRoutes.delete(
+  '/:carId',
+  ensureAuthenticated,
+  ensureAdmin,
+  deleteCarController.handle,
+)
 
 carsRoutes.get(
   '/',

@@ -79,4 +79,8 @@ export class CarsRepository implements ICarsRepository {
   async removeImage(carId: string, imageId: string): Promise<void> {
     await this.model.updateOne({ _id: carId }, { $pull: { images: imageId } })
   }
+
+  async delete(carId: string): Promise<void> {
+    await this.model.deleteOne({ _id: carId })
+  }
 }
