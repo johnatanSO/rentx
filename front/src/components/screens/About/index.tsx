@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import style from './About.module.scss'
+import { Divider } from '@mui/material'
 
 export function About() {
   return (
@@ -55,8 +56,8 @@ export function About() {
           <h2>Espeficiações tecnicas</h2>
           <h3>Front-end</h3>
           <p>
-            Seguindo as melhores práticas possíveis, o sistema foi feito
-            utilizando as seguintes tecnologias
+            Seguindo as boas práticas, o sistema foi feito utilizando as
+            seguintes tecnologias
           </p>
 
           <ul className={style.listTechs}>
@@ -69,6 +70,30 @@ export function About() {
             <li>MaterialUI Components</li>
 
             <li>Axios</li>
+
+            <li>Rotas protegidas com permissões</li>
+          </ul>
+
+          <Divider />
+
+          <h3>Back-end</h3>
+          <p>
+            Já na construção da API, foram utilizadas as seguintes tecnologias
+          </p>
+          <ul className={style.listTechs}>
+            <li>NodeJS</li>
+
+            <li>Express</li>
+
+            <li>Typescript/Javascript</li>
+
+            <li>MongoDB</li>
+
+            <li>Jest para testes unitários</li>
+
+            <li>Nodemailer para envio de e-mails</li>
+
+            <li>JWT para gerenciamento de tokens</li>
           </ul>
         </div>
       </section>

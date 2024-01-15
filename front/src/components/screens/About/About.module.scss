@@ -39,18 +39,24 @@
 
     .technicalInfos {
       .listTechs {
+        list-style-type: none;
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         gap: 1rem;
 
-        border-radius: 15px;
-        padding: 0.6rem 1rem;
+        li {
+          border-radius: 15px;
+          padding: 0.6rem 1rem;
 
-        background: $gray-color-100;
-        color: $gray-color-600;
+          background: $gray-color-100;
+          color: $gray-color-600;
 
-        font-size: 0.875rem;
-        font-weight: 500;
+          font-size: 0.875rem;
+          font-weight: 500;
+
+          white-space: nowrap;
+        }
       }
     }
   }
