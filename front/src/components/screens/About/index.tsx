@@ -57,7 +57,7 @@ export function About() {
           <h3>Front-end</h3>
           <p>
             Seguindo as boas práticas, o sistema foi feito utilizando as
-            seguintes tecnologias
+            seguintes tecnologias/bibliotecas
           </p>
 
           <ul className={style.listTechs}>
@@ -71,7 +71,11 @@ export function About() {
 
             <li>Axios</li>
 
-            <li>Rotas protegidas com permissões</li>
+            <li>SwiperJS</li>
+
+            <li>Dayjs</li>
+
+            <li>Fortawesome</li>
           </ul>
 
           <Divider />
