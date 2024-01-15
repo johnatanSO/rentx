@@ -18,8 +18,8 @@
     border: none;
     color: $blue-color-700;
 
-    font-weight: 600;
-    font-size: 0.875rem;
+    font-weight: 600 !important;
+    font-size: 0.875rem !important;
 
     border-radius: 20px;
     padding: 0.6rem 1rem;
@@ -40,7 +40,7 @@
     background: none;
     color: $brown-color-100;
     border: none;
-    font-size: 0.875rem;
+    font-size: 0.875rem !important;
 
     cursor: pointer;
     transition: filter 0.2s;
@@ -88,7 +88,7 @@
           padding: 0.7rem;
 
           span {
-            font-weight: 500;
+            font-weight: 500 !important;
           }
         }
       }
