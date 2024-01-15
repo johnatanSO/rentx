@@ -15,6 +15,7 @@ export class UpdateCarInfosController {
       brand,
       categoryId,
       reasonUnavaliable,
+      transmission,
     } = req.body
 
     const updateCarInfosUseCase = container.resolve(UpdateCarInfosUseCase)
@@ -29,6 +30,7 @@ export class UpdateCarInfosController {
       brand,
       categoryId,
       reasonUnavaliable,
+      transmission,
     })
 
     return res.status(201).json({
