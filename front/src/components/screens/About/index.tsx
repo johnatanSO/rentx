@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import style from './About.module.scss'
 
 export function About() {
@@ -7,7 +8,70 @@ export function About() {
         <h2>Sobre o sistema</h2>
       </header>
 
-      <section>* Descrição do sistema (A fazer)</section>
+      <section>
+        <div className={style.aboutSystemInfos}>
+          <p>
+            O <b>RentX</b> é uma aplicação completa destinada à um
+            estabelecimento que realiza alugueis e controle de veículos.
+          </p>
+
+          <p>
+            Foi inteiramente construído pelo desenvolvedor{' '}
+            <button type="button" className={style.perfilLinksButton}>
+              Johnatan Santos
+            </button>{' '}
+            e não possui nenhum fim lucrativo, somente para portfólio e
+            apresentação
+          </p>
+
+          <p>
+            O sistema possui uma área para o cliente, com a{' '}
+            <Link href="/">visualização dos carros que estão disponíveis</Link>{' '}
+            para serem alugados e uma página específica de cada carro com
+            informações mais detalhadas e a opção de realização do aluguel.{' '}
+          </p>
+
+          <p>
+            Possui também uma página com o relatório de{' '}
+            <Link href="/rentals">
+              todos os alugueis já realizados pelo usuário
+            </Link>{' '}
+            com informações de datas, valores, carro escolhido e a opção de
+            finalizar os que ainda estão em andamento.
+          </p>
+
+          <p>
+            Além disso, o sistema também possui uma área para gestão que é
+            acessada somente por usuários com permissão de administrador. Nela
+            estão disponíveis o gerenciamento de carros cadastrados e edição de
+            informações, controle de categorias e especificações, controle de
+            todos os alugueis realizados por todos os usuários com opção de
+            edição e também a possibilidade de importação de categorias através
+            de um arquivo .CSV
+          </p>
+        </div>
+
+        <div className={style.technicalInfos}>
+          <h2>Espeficiações tecnicas</h2>
+          <h3>Front-end</h3>
+          <p>
+            Seguindo as melhores práticas possíveis, o sistema foi feito
+            utilizando as seguintes tecnologias
+          </p>
+
+          <ul className={style.listTechs}>
+            <li>NextJS/ReactJS</li>
+
+            <li>CSS/SASS modules</li>
+
+            <li>Typescript/Javascript</li>
+
+            <li>MaterialUI Components</li>
+
+            <li>Axios</li>
+          </ul>
+        </div>
+      </section>
     </section>
   )
 }

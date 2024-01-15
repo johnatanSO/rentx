@@ -13,6 +13,7 @@ export function Home({ cars }: Props) {
   return (
     <div className={style.carsContainer}>
       <Filters />
+
       <ListCars loading={false} cars={cars} />
     </div>
   )
