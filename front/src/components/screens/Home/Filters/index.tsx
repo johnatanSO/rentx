@@ -42,6 +42,7 @@ export function Filters() {
     }
 
     const currentCategoryId = searchParams.get('categoryId')
+
     if (currentCategoryId !== filters.categoryId) {
       router.push(
         `${pathname}?${createQueryString(

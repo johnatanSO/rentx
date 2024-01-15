@@ -11,6 +11,7 @@ import { ModalEditSpecification } from './partials/ModalEditSpecification'
 import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFieldsMobile'
 import { listAllSpecificationsService } from '@/services/specifications/listAllSpecifications/ListAllSpecificationsService'
+import { Divider } from '@mui/material'
 
 export function SpecificationsManagement() {
   const [specifications, setSpecifications] = useState<Specification[]>([])
@@ -59,6 +60,8 @@ export function SpecificationsManagement() {
   return (
     <>
       <CreateNewSpecification getSpecifications={getSpecifications} />
+
+      <Divider />
 
       <header className={style.header}>
         <h2>Especificações</h2>

@@ -113,7 +113,6 @@ export function ImagesSection({ car }: Props) {
   }
 
   function handleUpdateDefaultImage() {
-    console.log('a')
     const inputFile = document.createElement('input')
     inputFile.type = 'file'
     inputFile.onchange = async (event: any) => {

@@ -39,8 +39,6 @@ export function CarItem({
   const { userInfo, setUserInfo } = useContext(UserContext)
   const router = useRouter()
 
-  console.log('user info', userInfo)
-
   const favorited = userInfo
     ? !!userInfo?.favoriteCars?.find((favoriteCarId) => favoriteCarId === carId)
     : false

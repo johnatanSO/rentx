@@ -15,7 +15,11 @@ export function FavoritedCars({ favoritedCars }: Props) {
         <h3>Carros favoritos</h3>
       </header>
 
-      <ListCars cars={favoritedCars} loading={false} />
+      <ListCars
+        emptyText="Nenhum carro adicionado aos favoritos ainda"
+        cars={favoritedCars}
+        loading={false}
+      />
     </div>
   )
 }

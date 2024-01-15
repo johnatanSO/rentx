@@ -10,6 +10,7 @@ import { ModalEditCategory } from './partials/ModalEditCategory'
 import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFieldsMobile'
 import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
+import { Divider } from '@mui/material'
 
 export function CategoriesManagement() {
   const [categories, setCategories] = useState<Category[]>([])
@@ -57,6 +58,8 @@ export function CategoriesManagement() {
   return (
     <>
       <CreateNewCategory getCategories={getCategories} />
+
+      <Divider />
 
       <header className={style.header}>
         <h2>Categorias</h2>

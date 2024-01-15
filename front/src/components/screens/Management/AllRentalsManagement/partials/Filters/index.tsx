@@ -60,10 +60,6 @@ export function Filters({ filters, setFilters }: Props) {
       !currentFilterStartDate ||
       currentFilterStartDate !== filters.filterStartDate
     ) {
-      console.log('Não tenho start date porra')
-      console.log(
-        createQueryString('filterStartDate', filters.filterStartDate || ''),
-      )
       router.push(
         `${pathname}?${createQueryString(
           'filterStartDate',

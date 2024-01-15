@@ -6,13 +6,14 @@ import style from './ListCars.module.scss'
 type Props = {
   cars: Car[]
   loading: boolean
+  emptyText?: string
 }
 
-export function ListCars({ cars, loading }: Props) {
+export function ListCars({ cars, loading, emptyText }: Props) {
   return (
     <ul className={style.listCarsContainer}>
       {(!cars || cars.length === 0) && !loading && (
-        <EmptyItems text="Nenhum carro disponível" />
+        <EmptyItems text={emptyText || 'Nenhum carro disponível'} />
       )}
 
       {cars.length > 0 &&
