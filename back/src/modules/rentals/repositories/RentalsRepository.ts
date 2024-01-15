@@ -45,7 +45,7 @@ export class RentalsRepository implements IRentalsRepository {
         {
           path: 'car',
           populate: {
-            path: 'images',
+            path: 'defaultImage',
           },
         },
         { path: 'user' },
@@ -73,7 +73,7 @@ export class RentalsRepository implements IRentalsRepository {
         {
           path: 'car',
           populate: {
-            path: 'images',
+            path: 'defaultImage',
           },
         },
         { path: 'user' },
