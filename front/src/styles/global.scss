@@ -92,7 +92,13 @@ a {
       display: flex;
       flex-direction: column;
 
+      
       padding-bottom: 6rem;
+      
+      .managementSections {
+        margin: 0;
+
+      }
     }
   }
 }
