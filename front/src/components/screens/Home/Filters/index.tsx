@@ -34,6 +34,9 @@ export function Filters() {
   function onFilterCars(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
+    const params = new URLSearchParams(searchParams)
+    console.log('PARAMS', params)
+
     const currentName = searchParams.get('name')
     if (currentName !== filters.name) {
       router.push(
