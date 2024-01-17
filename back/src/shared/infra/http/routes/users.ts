@@ -1,15 +1,18 @@
+import multer from 'multer'
+
 import { UpdateUserAvatarController } from '../../../../modules/accounts/useCases/User/updateUserAvatar/UpdateUserAvatarController'
 import { CreateNewUserController } from '../../../../modules/accounts/useCases/User/createNewUser/CreateNewUserController'
 import { Router } from 'express'
-import multer from 'multer'
-import uploadConfig from '../../../../config/upload'
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated'
 import { UpdateUserInfosController } from '../../../../modules/accounts/useCases/User/updateUserInfos/UpdateUserInfosController'
 import { ListFavoritedCarsController } from '../../../../modules/accounts/useCases/User/listFavoritedCars/ListFavoritedCarsController'
 import { ensureAdmin } from '../middlewares/ensureAdmin'
 import { ListAllUsersController } from '../../../../modules/accounts/useCases/User/listAllUsers/ListAllUsersController'
 
-const uploadAvatar = multer(uploadConfig.upload('./tmp/avatar'))
+const uploadAvatar = multer({
+  storage: multer.memoryStorage(),
+})
+
 const usersRoutes = Router()
 const createNewUserController = new CreateNewUserController()
 const updateUserAvatarController = new UpdateUserAvatarController()

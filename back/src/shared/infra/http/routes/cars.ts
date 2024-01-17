@@ -1,13 +1,11 @@
 import { DeleteCarController } from './../../../../modules/cars/useCases/Car/deleteCar/DeleteCarController'
-import { UploadCarImagesController } from '../../../../modules/cars/useCases/Car/uploadCarImages/UploadCarImagesController'
+import { UploadCarImageController } from '../../../../modules/cars/useCases/Car/uploadCarImage/UploadCarImageController'
 import { CreateCarSpecificationController } from './../../../../modules/cars/useCases/Car/createCarSpecification/CreateCarSpecificationController'
-import express, { Router } from 'express'
-import path from 'path'
+import { Router } from 'express'
 import { ListAvaliableCarsController } from '../../../../modules/cars/useCases/Car/listAvaliableCars/ListAvaliableCarsController'
 import { ensureAdmin } from '../middlewares/ensureAdmin'
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated'
 import { CreateCarController } from './../../../../modules/cars/useCases/Car/createCar/CreateCarController'
-import uploadConfig from '../../../../config/upload'
 import multer from 'multer'
 import { GetCarInfoController } from '../../../../modules/cars/useCases/Car/getCarInfo/GetCarInfoController'
 import { ListAllCarsController } from '../../../../modules/cars/useCases/Car/listAllCars/ListAllCarsController'
@@ -17,11 +15,14 @@ import { UpdateCarInfosController } from '../../../../modules/cars/useCases/Car/
 import { UpdateDefaultCarImageController } from '../../../../modules/cars/useCases/Car/updateDefaultCarImage/UpdateDefaultCarImageController'
 
 const carsRoutes = Router()
-const upload = multer(uploadConfig.upload('./tmp/cars'))
+const upload = multer({
+  storage: multer.memoryStorage(),
+})
+
 const createCarController = new CreateCarController()
 const listAvaliableCarsController = new ListAvaliableCarsController()
 const createCarSpecificationController = new CreateCarSpecificationController()
-const uploadCarImagesController = new UploadCarImagesController()
+const uploadCarImagesController = new UploadCarImageController()
 const updateDefaultCarImageController = new UpdateDefaultCarImageController()
 const getCarInfoController = new GetCarInfoController()
 const listAllCarsController = new ListAllCarsController()
@@ -36,13 +37,6 @@ carsRoutes.post(
   ensureAdmin,
   upload.single('image'),
   createCarController.handle,
-)
-
-carsRoutes.use(
-  '/images',
-  express.static(
-    path.join(__dirname, '..', '..', '..', '..', '..', 'tmp', 'cars'),
-  ),
 )
 
 carsRoutes.get('/avaliable', listAvaliableCarsController.handle)
@@ -87,7 +81,7 @@ carsRoutes.patch(
   '/images/:carId',
   ensureAuthenticated,
   ensureAdmin,
-  upload.array('images'),
+  upload.single('image'),
   uploadCarImagesController.handle,
 )
 

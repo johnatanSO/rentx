@@ -2,36 +2,45 @@ import { AppError } from '../../../../../shared/errors/AppError'
 import { inject, injectable } from 'tsyringe'
 import { ICarsImagesRepository } from '../../../repositories/CarsImages/ICarsImagesRepository'
 import { ICarsRepository } from '../../../repositories/Cars/ICarsRepository'
+import { IStorageProvider } from '../../../../../shared/container/providers/StorageProvider/IStorageProvider'
 
 interface IRequest {
   carId: string
-  imagesName: string[]
+  image: {
+    filename: string
+    originalname: string
+    buffer: Buffer
+    mimetype: string
+  }
 }
 
 @injectable()
-export class UploadCarImagesUseCase {
+export class UploadCarImageUseCase {
   carsImagesRepository: ICarsImagesRepository
   carsRepository: ICarsRepository
+  storageProvider: IStorageProvider
   constructor(
     @inject('CarsImagesRepository') carsImagesRepository: ICarsImagesRepository,
     @inject('CarsRepository') carsRepository: ICarsRepository,
+    @inject('FirebaseProvider') storageProvider: IStorageProvider,
   ) {
     this.carsImagesRepository = carsImagesRepository
     this.carsRepository = carsRepository
+    this.storageProvider = storageProvider
   }
 
-  async execute({ carId, imagesName }: IRequest): Promise<void> {
+  async execute({ carId, image }: IRequest): Promise<void> {
     if (!carId) throw new AppError('_id do carro não informado')
 
-    imagesName.map(async (imageName) => {
-      const path = `cars/images/${imageName}`
-      const carImage = await this.carsImagesRepository.create({
-        carId,
-        imageName,
-        path,
-      })
+    const { imageName, imageURL } =
+      await this.storageProvider.uploadImage(image)
 
-      await this.carsRepository.addImage(carId, carImage._id.toString())
+    const carImage = await this.carsImagesRepository.create({
+      carId,
+      imageName,
+      path: imageURL,
     })
+
+    await this.carsRepository.addImage(carId, carImage._id.toString())
   }
 }

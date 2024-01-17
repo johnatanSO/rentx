@@ -4,12 +4,12 @@ import { Request, Response } from 'express'
 
 export class UpdateUserAvatarController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const avatar = req.file.filename
+    const avatarImage = req.file
 
     const updateUserAvatarUseCase = container.resolve(UpdateUserAvatarUseCase)
     const updatedUser = await updateUserAvatarUseCase.execute({
       userId: req.user._id,
-      avatarFile: avatar,
+      avatarImage,
     })
 
     return res.status(200).json({

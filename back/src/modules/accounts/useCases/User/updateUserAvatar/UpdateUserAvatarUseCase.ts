@@ -1,25 +1,38 @@
-import { IUsersRepository } from './../../../repositories/Users/IUsersRepository'
 import { inject, injectable } from 'tsyringe'
-import { deleteFile } from '../../../../../utils/file'
+
+import { IUsersRepository } from './../../../repositories/Users/IUsersRepository'
 import { IUser } from '../../../infra/mongoose/entities/User'
+import { IStorageProvider } from '../../../../../shared/container/providers/StorageProvider/IStorageProvider'
 
 interface IRequest {
   userId: string
-  avatarFile: string
+  avatarImage: {
+    originalname: string
+    mimetype: string
+    buffer: Buffer
+  }
 }
 
 @injectable()
 export class UpdateUserAvatarUseCase {
   usersRepository: IUsersRepository
-  constructor(@inject('UsersRepository') usersRepository: IUsersRepository) {
+  storageProvider: IStorageProvider
+  constructor(
+    @inject('UsersRepository') usersRepository: IUsersRepository,
+    @inject('FirebaseProvider') storageProvider: IStorageProvider,
+  ) {
     this.usersRepository = usersRepository
+    this.storageProvider = storageProvider
   }
 
-  async execute({ userId, avatarFile }: IRequest): Promise<IUser> {
+  async execute({ userId, avatarImage }: IRequest): Promise<IUser> {
     const user = await this.usersRepository.findById(userId)
     if (user.avatar) {
-      await deleteFile(`./tmp/avatar/${user.avatar}`)
+      // Implementar isso
+      await this.storageProvider.deleteImage()
     }
+
+    const { imageURL } = await this.storageProvider.uploadImage(avatarImage)
 
     const filters = {
       _id: userId,
@@ -27,7 +40,7 @@ export class UpdateUserAvatarUseCase {
 
     const updateFields = {
       $set: {
-        avatar: avatarFile,
+        avatar: imageURL,
       },
     }
 
