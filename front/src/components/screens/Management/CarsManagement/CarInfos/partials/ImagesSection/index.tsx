@@ -32,12 +32,6 @@ export function ImagesSection({ car }: Props) {
     useState<boolean>(false)
   const [imagePath, setImagePath] = useState<string | undefined>(undefined)
 
-  function getCarImageUrl(carImage: CarImage) {
-    if (!carImage) return unknownCarImage
-
-    return process.env.NEXT_PUBLIC_END_POINT + carImage?.path
-  }
-
   function handleRemoveImage(imageId: string) {
     setAlertConfirmConfigs({
       ...alertConfirmConfigs,
@@ -165,7 +159,7 @@ export function ImagesSection({ car }: Props) {
                 alt="Car default image"
                 width={300}
                 height={150}
-                src={getCarImageUrl(car.defaultImage)}
+                src={car.defaultImage.path}
               />
               <button
                 onClick={(event) => {
@@ -194,7 +188,7 @@ export function ImagesSection({ car }: Props) {
                     alt="Car image"
                     width={300}
                     height={150}
-                    src={getCarImageUrl(carImage)}
+                    src={carImage.path}
                   />
                   <button
                     onClick={(event) => {

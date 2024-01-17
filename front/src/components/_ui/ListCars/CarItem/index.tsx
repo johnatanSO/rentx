@@ -45,12 +45,6 @@ export function CarItem({
     ? !!userInfo?.favoriteCars?.find((favoriteCarId) => favoriteCarId === carId)
     : false
 
-  function getImageUrl(image: CarImage) {
-    if (!image) return unknownCarImage
-
-    return process.env.NEXT_PUBLIC_END_POINT + image?.path
-  }
-
   function favoriteCar(carId: string) {
     if (!userInfo) {
       router.push('/authenticate')
@@ -117,7 +111,7 @@ export function CarItem({
             width={400}
             height={200}
             alt="Imagem do carro"
-            src={getImageUrl(defaultImage)}
+            src={defaultImage.path}
           />
         </main>
       </Link>

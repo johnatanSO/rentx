@@ -34,12 +34,6 @@ export function CarDetails({ car }: Props) {
     car.defaultImage || null,
   )
 
-  function getImageUrl(image: CarImage) {
-    if (!image) return unknownCarImage
-
-    return process.env.NEXT_PUBLIC_END_POINT + image?.path
-  }
-
   async function onCreateNewRental(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
@@ -109,7 +103,7 @@ export function CarDetails({ car }: Props) {
             className={style.carImage}
             width={1280}
             height={720}
-            src={getImageUrl(displayImage)}
+            src={displayImage.path}
             alt="Imagem do carro"
           />
 
@@ -129,7 +123,7 @@ export function CarDetails({ car }: Props) {
                       alt="Car image"
                       width={300}
                       height={150}
-                      src={getImageUrl(image)}
+                      src={image.path}
                     />
                   </li>
                 )

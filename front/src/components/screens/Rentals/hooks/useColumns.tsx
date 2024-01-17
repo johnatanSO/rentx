@@ -14,12 +14,6 @@ type Props = {
 }
 
 export function useColumns({ onFinalizeRental }: Props) {
-  function getCarImageUrl(image: CarImage) {
-    if (!image) return unknownCarImage
-
-    return process.env.NEXT_PUBLIC_END_POINT + image?.path
-  }
-
   function getStatusTag(finalized: string) {
     if (finalized) return style.statusFinalized
     return style.statusInProgress
@@ -38,7 +32,7 @@ export function useColumns({ onFinalizeRental }: Props) {
                 className={style.carImage}
                 width={500}
                 height={500}
-                src={getCarImageUrl(params.value.defaultImage)}
+                src={params.value.defaultImage.path}
               />
               <b className={style.carName}>{params.value.name}</b>
             </div>

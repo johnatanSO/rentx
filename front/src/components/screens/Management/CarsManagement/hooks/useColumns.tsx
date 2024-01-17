@@ -8,12 +8,6 @@ import { formatCurrency } from '@/utils/format'
 import Link from 'next/link'
 
 export function useColumns() {
-  function getCarImageUrl(carImage: CarImage) {
-    if (!carImage) return unknownCarImage
-
-    return process.env.NEXT_PUBLIC_END_POINT + carImage.path
-  }
-
   function formatTransmissionType(type: string) {
     if (type === 'automatic') return 'Automático'
     return 'Manual'
@@ -32,7 +26,7 @@ export function useColumns() {
                 className={style.carImage}
                 width={500}
                 height={500}
-                src={getCarImageUrl(params.value)}
+                src={params.value.path}
               />
               <b className={style.carName}>{params.data.name}</b>
             </div>
