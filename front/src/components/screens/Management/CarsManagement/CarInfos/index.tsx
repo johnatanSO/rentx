@@ -1,5 +1,4 @@
 'use client'
-
 import { Car } from './interfaces/Car'
 import style from './CarInfos.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
