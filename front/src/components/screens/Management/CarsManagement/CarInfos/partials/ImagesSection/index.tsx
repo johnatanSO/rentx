@@ -8,7 +8,7 @@ import { useContext, useState } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
 import { removeCarImageService } from '@/services/cars/removeCarImage/RemoveCarImageService'
 import { usePathname, useRouter } from 'next/navigation'
-import { updateCarImagesService } from '@/services/cars/updateCarImages/UpdateCarImagesService'
+import { updateCarImageService } from '@/services/cars/updateCarImage/UpdateCarImageService'
 import { ModalZoomImage } from './ModalZoomImage'
 import { updateDefaultCarImageService } from '@/services/cars/updateDefaultCarImage/UpdateDefaultCarImageService'
 import style from './ImagesSection.module.scss'
@@ -87,7 +87,7 @@ export function ImagesSection({ car }: Props) {
   }
 
   async function updateImage(carImage: string) {
-    updateCarImagesService({ carImage, carId: car._id })
+    updateCarImageService({ carImage, carId: car._id })
       .then(() => {
         router.refresh()
         router.push(pathname)

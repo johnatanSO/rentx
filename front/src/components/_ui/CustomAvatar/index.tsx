@@ -31,10 +31,6 @@ export function CustomAvatar({ direction }: Props) {
   const [modalAccountConfigsOpened, setModalAccountConfigsOpened] =
     useState<boolean>(false)
 
-  const avatarURL = userInfo?.avatar
-    ? process.env.NEXT_PUBLIC_END_POINT + userInfo?.avatar
-    : ''
-
   function handleClick(event: any) {
     setAnchorEl(event.currentTarget)
   }
@@ -59,7 +55,7 @@ export function CustomAvatar({ direction }: Props) {
         className={style.avatar}
         onClick={handleClick}
         alt={userInfo?.name}
-        src={avatarURL}
+        src={userInfo?.avatar}
       />
 
       <Menu
@@ -124,7 +120,7 @@ export function CustomAvatar({ direction }: Props) {
 
       <ModalAccountConfigs
         open={modalAccountConfigsOpened}
-        avatarURL={avatarURL}
+        avatarURL={userInfo?.avatar}
         handleClose={() => {
           setModalAccountConfigsOpened(false)
         }}

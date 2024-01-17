@@ -1,4 +1,5 @@
 'use client'
+
 import style from './ModalAccountConfigs.module.scss'
 import { FormEvent, useContext, useState } from 'react'
 import { ModalLayout } from '../../ModalLayout'
@@ -13,12 +14,13 @@ import { CustomTextField } from '../../CustomTextField'
 
 type Props = {
   open: boolean
-  avatarURL: string
+  avatarURL: string | undefined
   handleClose: () => void
 }
 
 export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
   const { userInfo, setUserInfo } = useContext(UserContext)
+
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
   const [loadingUpdateUserInfos, setLoadingUpdateUserInfos] =
     useState<boolean>(false)
