@@ -3,6 +3,7 @@ import { inject, injectable } from 'tsyringe'
 import { IUsersRepository } from './../../../repositories/Users/IUsersRepository'
 import { IUser } from '../../../infra/mongoose/entities/User'
 import { IStorageProvider } from '../../../../../shared/container/providers/StorageProvider/IStorageProvider'
+import { AppError } from '../../../../../shared/errors/AppError'
 
 interface IRequest {
   userId: string
@@ -26,10 +27,16 @@ export class UpdateUserAvatarUseCase {
   }
 
   async execute({ userId, avatarImage }: IRequest): Promise<IUser> {
+    if (!avatarImage) throw new AppError('Imagem não enviada')
+
     const user = await this.usersRepository.findById(userId)
+
     if (user.avatar) {
-      // Implementar isso
-      await this.storageProvider.deleteImage()
+      const [, imageName] = user.avatar.split('appspot.com/')
+
+      if (!imageName) throw new AppError('Nome da imagem inválido')
+
+      await this.storageProvider.deleteImage(imageName)
     }
 
     const { imageURL } = await this.storageProvider.uploadImage(avatarImage)
