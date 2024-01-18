@@ -43,7 +43,7 @@ export function Footer() {
                 alt="Brand logo"
                 width={300}
                 height={150}
-                src={image.path}
+                src={image?.path}
               />
             </SwiperSlide>
           )

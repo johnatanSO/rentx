@@ -26,7 +26,7 @@ export function useColumns() {
                 className={style.carImage}
                 width={500}
                 height={500}
-                src={params.value.path}
+                src={params.value?.path || unknownCarImage}
               />
               <b className={style.carName}>{params.data.name}</b>
             </div>

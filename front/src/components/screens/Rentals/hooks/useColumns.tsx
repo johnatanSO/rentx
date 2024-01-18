@@ -32,7 +32,7 @@ export function useColumns({ onFinalizeRental }: Props) {
                 className={style.carImage}
                 width={500}
                 height={500}
-                src={params.value.defaultImage.path}
+                src={params.value.defaultImage?.path || unknownCarImage}
               />
               <b className={style.carName}>{params.value.name}</b>
             </div>

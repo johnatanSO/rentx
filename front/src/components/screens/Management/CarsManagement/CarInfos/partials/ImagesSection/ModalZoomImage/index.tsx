@@ -1,9 +1,9 @@
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
 import style from './ModalZoomImage.module.scss'
 import { ModalLayout } from '@/components/_ui/ModalLayout'
 
 type Props = {
-  imagePath: string
+  imagePath: string | StaticImageData
   open: boolean
   handleClose: () => void
 }

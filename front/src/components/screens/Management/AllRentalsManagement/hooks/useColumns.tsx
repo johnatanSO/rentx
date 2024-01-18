@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { formatCurrency } from '@/utils/format'
 import style from '../AllRentalsManagement.module.scss'
 import { Car } from '../interfaces/Car'
-import { CarImage } from '../interfaces/CarImage'
 import unknownCarImage from '../../../../../../public/assets/images/cars/unknownCarImage.png'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -35,7 +34,7 @@ export function useColumns({ onFinalizeRental, handleEditRental }: Props) {
                 className={style.carImage}
                 width={500}
                 height={500}
-                src={params.value.defaultImage.path}
+                src={params.value.defaultImage?.path || unknownCarImage}
               />
               <b className={style.carName}>{params.value.name}</b>
             </div>

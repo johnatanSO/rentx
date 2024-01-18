@@ -103,7 +103,7 @@ export function CarDetails({ car }: Props) {
             className={style.carImage}
             width={1280}
             height={720}
-            src={displayImage.path}
+            src={displayImage?.path || unknownCarImage}
             alt="Imagem do carro"
           />
 
@@ -123,7 +123,7 @@ export function CarDetails({ car }: Props) {
                       alt="Car image"
                       width={300}
                       height={150}
-                      src={image.path}
+                      src={image?.path || unknownCarImage}
                     />
                   </li>
                 )

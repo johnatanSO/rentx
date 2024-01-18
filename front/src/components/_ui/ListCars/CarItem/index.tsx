@@ -111,7 +111,7 @@ export function CarItem({
             width={400}
             height={200}
             alt="Imagem do carro"
-            src={defaultImage.path}
+            src={defaultImage?.path || unknownCarImage}
           />
         </main>
       </Link>

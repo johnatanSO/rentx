@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera, faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
 import { Car } from '../../interfaces/Car'
 import unknownCarImage from '../../../../../../../../public/assets/images/cars/unknownCarImage.png'
 import { CarImage } from '../../interfaces/CarImage'
@@ -30,7 +30,9 @@ export function ImagesSection({ car }: Props) {
 
   const [modalZoomImageOpened, setModalZoomImageOpened] =
     useState<boolean>(false)
-  const [imagePath, setImagePath] = useState<string | undefined>(undefined)
+  const [imagePath, setImagePath] = useState<
+    string | undefined | StaticImageData
+  >(undefined)
 
   function handleRemoveImage(imageId: string) {
     setAlertConfirmConfigs({
@@ -100,7 +102,7 @@ export function ImagesSection({ car }: Props) {
 
   function handleClickImage(image: CarImage) {
     setModalZoomImageOpened(true)
-    setImagePath(image.path)
+    setImagePath(image?.path || unknownCarImage)
   }
 
   function handleUpdateDefaultImage() {
@@ -159,7 +161,7 @@ export function ImagesSection({ car }: Props) {
                 alt="Car default image"
                 width={300}
                 height={150}
-                src={car.defaultImage.path}
+                src={car.defaultImage?.path || unknownCarImage}
               />
               <button
                 onClick={(event) => {
@@ -188,7 +190,7 @@ export function ImagesSection({ car }: Props) {
                     alt="Car image"
                     width={300}
                     height={150}
-                    src={carImage.path}
+                    src={carImage?.path || unknownCarImage}
                   />
                   <button
                     onClick={(event) => {
