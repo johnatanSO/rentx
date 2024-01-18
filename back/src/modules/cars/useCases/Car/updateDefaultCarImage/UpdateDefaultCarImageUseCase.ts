@@ -36,11 +36,13 @@ export class UpdateDefaultCarImageUseCase {
     if (!car) throw new AppError('Carro não encontrado ')
 
     if (car.defaultImage) {
-      await this.storageProvider.deleteImage()
+      await this.storageProvider.deleteImage(car.defaultImage.imageName)
     }
 
-    const { imageName, imageURL } =
-      await this.storageProvider.uploadImage(defaultImage)
+    const { imageName, imageURL } = await this.storageProvider.uploadImage(
+      'cars',
+      defaultImage,
+    )
 
     const carImage = await this.carsImagesRepository.create({
       carId,

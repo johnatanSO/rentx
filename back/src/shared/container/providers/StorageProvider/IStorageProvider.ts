@@ -10,6 +10,6 @@ export interface IResponseUpload {
 }
 
 export interface IStorageProvider {
-  uploadImage(file: IUploadImageDTO): Promise<IResponseUpload>
+  uploadImage(folder: string, file: IUploadImageDTO): Promise<IResponseUpload>
   deleteImage(imageName: string): Promise<void>
 }

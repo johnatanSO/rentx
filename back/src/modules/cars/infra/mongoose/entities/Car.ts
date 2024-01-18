@@ -14,8 +14,8 @@ export interface Car {
   brand: string
   category: Types.ObjectId | Category
   createdAt: Date
-  images: Types.ObjectId[] | CarImage[]
-  defaultImage: Types.ObjectId | CarImage
+  images: CarImage[]
+  defaultImage: CarImage
   specifications: Types.ObjectId[] | Specification[]
   reasonUnavaliable?: string
 }

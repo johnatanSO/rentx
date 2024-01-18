@@ -30,11 +30,14 @@ export class FirebaseProvider implements IStorageProvider {
     this.bucket = getStorage().bucket()
   }
 
-  async uploadImage(image: IUploadImageDTO): Promise<IResponseUpload> {
+  async uploadImage(
+    folder: string,
+    image: IUploadImageDTO,
+  ): Promise<IResponseUpload> {
     if (!image) throw new AppError('Arquivo não enviado')
 
     const fileHash = crypto.randomBytes(16).toString('hex')
-    const imageName = `${fileHash}-${image.originalname}`
+    const imageName = `${folder}/${fileHash}-${image.originalname}`
 
     const file = this.bucket.file(imageName)
 
