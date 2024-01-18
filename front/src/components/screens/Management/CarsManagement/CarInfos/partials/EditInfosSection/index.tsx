@@ -33,7 +33,7 @@ export function EditInfosSection({ car }: Props) {
     ...restCar,
     categoryId: category._id,
   })
-  console.log('carData', carData)
+
   const [categoriesList, setCategoriesList] = useState<Category[]>([])
   const [loadingUpdateInfos, setLoadingUpdateInfos] = useState<boolean>(false)
 

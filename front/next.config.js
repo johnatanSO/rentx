@@ -1,20 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      'http://localhost:3333',
-      'localhost',
-      'https://rentx-webservice.onrender.com',
-    ],
+    domains: ['storage.googleapis.com'],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'rentx-webservice.onrender.com',
-      },
-      {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '3333',
+        hostname: 'storage.googleapis.com',
       },
     ],
   },
