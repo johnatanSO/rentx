@@ -10,6 +10,7 @@ import { Avatar, Menu, MenuItem } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import { useContext, useState } from 'react'
 import { ModalAccountConfigs } from './ModalAccountConfigs'
+import { deleteRefreshTokenService } from '@/services/token/deleteRefreshToken/DeleteRefreshTokenService'
 
 type Props = {
   direction?: {
@@ -37,6 +38,7 @@ export function CustomAvatar({ direction }: Props) {
 
   function logout() {
     deleteTokenService()
+    deleteRefreshTokenService()
     deleteLocalUserService()
     setUserInfo(null)
 
