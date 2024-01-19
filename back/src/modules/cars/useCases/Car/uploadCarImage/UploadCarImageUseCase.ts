@@ -32,10 +32,8 @@ export class UploadCarImageUseCase {
   async execute({ carId, image }: IRequest): Promise<void> {
     if (!carId) throw new AppError('_id do carro não informado')
 
-    const { imageName, imageURL } = await this.storageProvider.uploadImage(
-      'cars',
-      image,
-    )
+    const { imageName, imageURL } =
+      await this.storageProvider.uploadImage(image)
 
     const carImage = await this.carsImagesRepository.create({
       carId,

@@ -39,10 +39,8 @@ export class UpdateDefaultCarImageUseCase {
       await this.storageProvider.deleteImage(car.defaultImage.imageName)
     }
 
-    const { imageName, imageURL } = await this.storageProvider.uploadImage(
-      'cars',
-      defaultImage,
-    )
+    const { imageName, imageURL } =
+      await this.storageProvider.uploadImage(defaultImage)
 
     const carImage = await this.carsImagesRepository.create({
       carId,

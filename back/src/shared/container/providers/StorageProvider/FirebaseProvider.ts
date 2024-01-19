@@ -30,30 +30,39 @@ export class FirebaseProvider implements IStorageProvider {
     this.bucket = getStorage().bucket()
   }
 
-  async uploadImage(
-    folder: string,
-    image: IUploadImageDTO,
-  ): Promise<IResponseUpload> {
+  async uploadImage(image: IUploadImageDTO): Promise<IResponseUpload> {
     if (!image) throw new AppError('Arquivo não enviado')
 
     const fileHash = crypto.randomBytes(16).toString('hex')
-    const imageName = `${folder}/${fileHash}-${image.originalname}`
+    const imageName = `${fileHash}-${image.originalname}`
 
     const file = this.bucket.file(imageName)
 
-    await file.save(image.buffer, {
+    const stream = file.createWriteStream({
       metadata: {
-        contentType: 'image/png',
-        cacheControl: 'public, max-age=31536000',
+        contentType: image.mimetype,
       },
     })
 
-    const imageURL = `${this.STORAGE_URL}/${this.BUCKET_URL}/${imageName}`
+    return new Promise<IResponseUpload>((resolve, reject) => {
+      stream.on('error', (error) => {
+        console.error(error)
+        reject(new AppError(error.message))
+      })
 
-    return {
-      imageURL,
-      imageName,
-    }
+      stream.on('finish', async () => {
+        await file.makePublic()
+
+        const imageURL = `${this.STORAGE_URL}/${this.BUCKET_URL}/${imageName}`
+
+        resolve({
+          imageURL,
+          imageName,
+        })
+      })
+
+      stream.end(image.buffer)
+    })
   }
 
   async deleteImage(imageName: string): Promise<void> {

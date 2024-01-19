@@ -39,10 +39,7 @@ export class UpdateUserAvatarUseCase {
       await this.storageProvider.deleteImage(imageName)
     }
 
-    const { imageURL } = await this.storageProvider.uploadImage(
-      'avatar',
-      avatarImage,
-    )
+    const { imageURL } = await this.storageProvider.uploadImage(avatarImage)
 
     const filters = {
       _id: userId,
