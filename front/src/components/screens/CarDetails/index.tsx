@@ -16,6 +16,7 @@ import { AlertContext } from '@/contexts/alertContext'
 import { Loading } from '@/components/_ui/Loading'
 import { getLocalUserService } from '@/services/user/getLocalUser/GetLocalUserService'
 import { formatCurrency } from '@/utils/format'
+import { Divider } from '@mui/material'
 
 type Props = {
   car: Car
@@ -133,6 +134,13 @@ export function CarDetails({ car }: Props) {
             </ul>
           )}
         </div>
+
+        <Divider flexItem orientation="vertical" />
+        <Divider
+          className={style.mobileDivider}
+          flexItem
+          orientation="horizontal"
+        />
 
         <div className={style.infosContainer}>
           <div className={style.categoryContainer}>

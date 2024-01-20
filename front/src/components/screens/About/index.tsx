@@ -69,6 +69,9 @@ export function About() {
           </p>
         </div>
 
+        <Divider flexItem orientation="vertical" />
+        <Divider flexItem orientation="horizontal" />
+
         <div className={style.technicalInfos}>
           <h2>Espeficiações tecnicas</h2>
           <h3>Front-end</h3>

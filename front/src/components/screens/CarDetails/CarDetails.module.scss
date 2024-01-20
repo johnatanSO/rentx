@@ -36,8 +36,12 @@
 
   section {
     display: grid;
-    grid-template-columns: 1.6fr 1fr;
+    grid-template-columns: 1.6fr 1px 1fr;
     gap: 2rem;
+
+    .mobileDivider {
+      display: none;
+    }
 
     .carImageContainer {
       display: flex;
@@ -49,8 +53,7 @@
         object-fit: cover;
         width: 100%;
         max-height: 500px;
-       // box-shadow: 1px 3px 10px rgba(0 0 0 / 0.5);
-       border: 1px solid $gray-color-200;
+        border: 1px solid $gray-color-200;
       }
 
       .otherImagesList {
@@ -93,8 +96,6 @@
       display: flex;
       flex-direction: column;
       gap: 1rem;
-
-      padding: 0rem 1.5rem;
 
       .specificationsContainer,
       .categoryContainer,
@@ -190,6 +191,10 @@
     section {
       display: flex;
       flex-direction: column;
+
+      .mobileDivider {
+        display: block;
+      }
 
       .carImageContainer {
         .carImage {
