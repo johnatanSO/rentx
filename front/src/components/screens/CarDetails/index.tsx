@@ -31,7 +31,7 @@ export function CarDetails({ car }: Props) {
     minExpectedReturnDate,
   )
   const [displayImage, setDisplayImage] = useState<CarImage>(
-    car.defaultImage || null,
+    car.images[0] || car.defaultImage || null,
   )
 
   async function onCreateNewRental(event: FormEvent<HTMLFormElement>) {
@@ -94,7 +94,9 @@ export function CarDetails({ car }: Props) {
         <button type="button" onClick={router.back} title="Voltar">
           <FontAwesomeIcon className={style.icon} icon={faAngleLeft} />
         </button>
-        <h2>{car.name}</h2>
+        <h2>
+          {car.name} | Placa {car.licensePlate}
+        </h2>
       </header>
 
       <section>
@@ -121,8 +123,8 @@ export function CarDetails({ car }: Props) {
                     <Image
                       className={style.image}
                       alt="Car image"
-                      width={300}
-                      height={150}
+                      width={500}
+                      height={300}
                       src={image?.path || unknownCarImage}
                     />
                   </li>
@@ -133,34 +135,52 @@ export function CarDetails({ car }: Props) {
         </div>
 
         <div className={style.infosContainer}>
-          <span className={style.categoryTag}>{car.category.name}</span>
-          <ul className={style.specificationsList}>
-            {car.specifications.length > 0 &&
-              car.specifications.map((specification) => {
-                return (
-                  <li key={specification._id}>
-                    <span>{specification.name}</span>
-                  </li>
-                )
-              })}
-          </ul>
-          {car.specifications.length === 0 && <p>Carro sem especificações</p>}
+          <div className={style.categoryContainer}>
+            <h4>Categoria</h4>
+            <span className={style.categoryTag}>{car.category.name}</span>
+          </div>
 
-          <p>{car.description}</p>
+          <div className={style.specificationsContainer}>
+            <h4>Especificações</h4>
 
-          <h5>Placa {car.licensePlate}</h5>
+            <ul className={style.specificationsList}>
+              {car.specifications.length > 0 &&
+                car.specifications.map((specification) => {
+                  return (
+                    <li key={specification._id}>
+                      <span className={style.specificationTag}>
+                        {specification.name}
+                      </span>
+                    </li>
+                  )
+                })}
+            </ul>
 
-          <h5>Diária {formatCurrency(car.dailyRate || 0)}</h5>
+            {car.specifications.length === 0 && <p>Carro sem especificações</p>}
+          </div>
 
-          <h5>Quantidade de dias {getLengthDays()}</h5>
+          <div className={style.descriptionContainer}>
+            <h4>Descrição</h4>
+            <p>{car.description}</p>
+          </div>
 
-          <div className={style.valueContainer}>
-            <h4>Valor previsto {formatCurrency(getExpectedValue())}</h4>
-            <span className={style.alertText}>
+          <div className={style.summaryContainer}>
+            <h4>Resumo</h4>
+            <p>
+              Diária <span>{formatCurrency(car.dailyRate || 0)}</span>
+            </p>
+
+            <p>
+              Quantidade de dias <span> {getLengthDays()}</span>
+            </p>
+            <p>
+              Valor previsto <span>{formatCurrency(getExpectedValue())}</span>
+            </p>
+            <p className={style.alertText}>
               *Caso aconteça atraso na data de retorno, será cobrado uma multa
               no valor de {formatCurrency(car.fineAmount || 0)} para cada dia
               excedido
-            </span>
+            </p>
           </div>
 
           <form onSubmit={onCreateNewRental}>

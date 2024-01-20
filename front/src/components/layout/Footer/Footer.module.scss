@@ -23,20 +23,16 @@
   }
 
   .swiperContainer {
-
     .slideItem {
       width: 100px !important;
-      margin: 1rem 0px;
-  
       display: flex;
       align-items: center;
-      justify-content: center;
 
       cursor: pointer;
-  
+
       .image {
         object-fit: contain;
-  
+
         height: 100px;
         width: 100%;
       }
