@@ -20,6 +20,11 @@
     display: flex;
     gap: 2rem;
 
+    h2,
+    h3 {
+      font-weight: 500;
+    }
+
     .aboutSystemInfos,
     .technicalInfos {
       display: flex;
@@ -29,17 +34,27 @@
     }
 
     .aboutSystemInfos {
+      a {
+        font-weight: 700;
+        text-decoration: underline;
+        color: $blue-color-400;
+      }
+
       .perfilLinksButton {
         border: none;
+        background: $blue-color-700;
+        color: $brown-color-100;
 
-        color: $blue-color-600;
-        font-weight: 600;
+        font-weight: 6600;
+        font-size: 1rem;
+        padding: 0rem 0.6rem;
+        border-radius: 15px;
 
         cursor: pointer;
         transition: filter 0.2s;
 
         &:hover {
-          filter: brightness(0.8);
+          filter: brightness(0.5);
         }
       }
     }
@@ -66,5 +81,52 @@
         }
       }
     }
+  }
+}
+
+.popoverContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  padding: 1rem;
+
+  .socialMediaLinks {
+    padding: 0.6rem 1rem;
+    border-radius: 15px;
+    font-size: 0.875rem;
+    font-weight: 500;
+
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+
+    color: $white-color;
+    box-shadow: 1px 3px 4px rgba(0 0 0 /0.15);
+
+    cursor: pointer;
+    transition: filter 0.2s;
+
+    &:hover {
+      filter: brightness(0.8);
+    }
+  }
+
+  .linkedinLink,
+  .githubLink,
+  .portfolioLink {
+    @extend .socialMediaLinks;
+  }
+
+  .linkedinLink {
+    background: #126bc4;
+  }
+
+  .githubLink {
+    background: #0d1117;
+  }
+
+  .portfolioLink {
+    background: #ee3535;
   }
 }
