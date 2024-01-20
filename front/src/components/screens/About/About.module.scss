@@ -130,3 +130,11 @@
     background: #ee3535;
   }
 }
+
+@media (max-width: 850px) {
+  .infosContainer {
+    flex-direction: column;
+
+    text-align: center;
+  }
+}

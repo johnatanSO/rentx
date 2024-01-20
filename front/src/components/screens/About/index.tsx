@@ -16,7 +16,7 @@ export function About() {
         <h2>Sobre o sistema</h2>
       </header>
 
-      <section>
+      <section className={style.infosContainer}>
         <div className={style.aboutSystemInfos}>
           <p>
             O{' '}
