@@ -79,17 +79,20 @@ export function Rentals() {
 
   return (
     <div className={style.rentalsContainer}>
-      <TableComponent
-        columns={columns}
-        rows={rentals}
-        loading={loadingRentals}
-      />
-
-      <ListMobile
-        itemFields={itemFields}
-        collapseItems={columns}
-        items={rentals}
-      />
+      <div className={style.viewDesktop}>
+        <TableComponent
+          columns={columns}
+          rows={rentals}
+          loading={loadingRentals}
+        />
+      </div>
+      <div className={style.viewMobile}>
+        <ListMobile
+          itemFields={itemFields}
+          collapseItems={columns}
+          items={rentals}
+        />
+      </div>
     </div>
   )
 }

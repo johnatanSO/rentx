@@ -103,8 +103,12 @@ export function Login() {
           <button disabled={loadingAuthUser} type="submit">
             {loadingAuthUser ? <Loading size={21} /> : 'Entrar'}
           </button>
-          <Link className={style.createAccountLink} href="/register">
+          <Link className={style.link} href="/register">
             Criar conta
+          </Link>
+
+          <Link className={style.link} href="/forgotPassword">
+            Esqueceu a senha?
           </Link>
         </footer>
       </form>

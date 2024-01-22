@@ -83,16 +83,20 @@ export function SpecificationsManagement() {
         />
       </header>
       <section className={style.tableSection}>
-        <TableComponent
-          rows={specifications}
-          columns={columns}
-          loading={loadingSpecifications}
-        />
-        <ListMobile
-          items={specifications}
-          itemFields={itemFields}
-          collapseItems={columns}
-        />
+        <div className={style.viewDesktop}>
+          <TableComponent
+            rows={specifications}
+            columns={columns}
+            loading={loadingSpecifications}
+          />
+        </div>
+        <div className={style.viewMobile}>
+          <ListMobile
+            items={specifications}
+            itemFields={itemFields}
+            collapseItems={columns}
+          />
+        </div>
       </section>
 
       {modalEditSpecificationOpened && specificationToEdit && (

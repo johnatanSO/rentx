@@ -1,5 +1,12 @@
 @import "@/styles/colors";
 
+.viewMobile {
+  display: none;
+}
+.viewDesktop {
+  display: flex;
+}
+
 .header {
   display: flex;
   align-items: start;
@@ -109,6 +116,12 @@
 }
 
 @media (max-width: 850px) {
+  .viewMobile {
+    display: flex;
+  }
+  .viewDesktop {
+    display: none;
+  }
   .header {
     flex-direction: column;
   }

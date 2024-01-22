@@ -107,16 +107,20 @@ export function AllRentalsManagement() {
       </header>
 
       <section className={style.tableSection}>
-        <TableComponent
-          columns={columns}
-          rows={rentals}
-          loading={loadingRentals}
-        />
-        <ListMobile
-          items={rentals}
-          collapseItems={columns}
-          itemFields={itemFields}
-        />
+        <div className={style.viewDesktop}>
+          <TableComponent
+            columns={columns}
+            rows={rentals}
+            loading={loadingRentals}
+          />
+        </div>
+        <div className={style.viewMobile}>
+          <ListMobile
+            items={rentals}
+            collapseItems={columns}
+            itemFields={itemFields}
+          />
+        </div>
       </section>
 
       {modalEditRentalOpened && rentalToEdit && (

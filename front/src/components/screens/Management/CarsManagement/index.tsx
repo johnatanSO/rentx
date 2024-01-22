@@ -73,16 +73,20 @@ export function CarsManagement() {
         }}
       />
       <section className={style.tableSection}>
-        <TableComponent
-          columns={columns}
-          rows={filteredCars}
-          loading={loadingCars}
-        />
-        <ListMobile
-          collapseItems={columns}
-          items={cars}
-          itemFields={itemFields}
-        />
+        <div className={style.viewDesktop}>
+          <TableComponent
+            columns={columns}
+            rows={filteredCars}
+            loading={loadingCars}
+          />
+        </div>
+        <div className={style.viewMobile}>
+          <ListMobile
+            collapseItems={columns}
+            items={cars}
+            itemFields={itemFields}
+          />
+        </div>
       </section>
     </>
   )

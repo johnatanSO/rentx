@@ -67,7 +67,7 @@ export function CreateAccount() {
   }
 
   return (
-    <section className={style.loginContainer}>
+    <section className={style.createAccountContainer}>
       <form onSubmit={onRegister}>
         <header>
           <h4>Criar nova conta</h4>

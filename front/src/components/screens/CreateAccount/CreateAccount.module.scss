@@ -1,11 +1,15 @@
 @import "@/styles/colors";
 
-.loginContainer {
+.createAccountContainer {
   padding: 2rem;
 
   border-radius: 20px;
 
   animation: fadeIn 0.2s;
+
+  header {
+    text-align: center;
+  }
 
   form {
     display: flex;
@@ -80,8 +84,13 @@
         display: flex;
         justify-content: center;
 
-        &:hover {
+        &:not(:disabled):hover {
           filter: brightness(0.7);
+        }
+
+        &:disabled {
+          opacity: 0.4;
+          cursor: not-allowed;
         }
       }
 

@@ -1,5 +1,12 @@
 @import "@/styles/colors";
 
+.viewMobile {
+  display: none;
+}
+.viewDesktop {
+  display: flex;
+}
+
 .rentalsContainer {
   padding: 1.5rem;
 }
@@ -80,7 +87,13 @@
   background: $green-color-100;
 }
 
-@media (max-width: 850px) {
+@media (max-width: 1000px) {
+  .viewMobile {
+    display: flex;
+  }
+  .viewDesktop {
+    display: none;
+  }
   .carModelContainer {
     .carImage {
       display: none;

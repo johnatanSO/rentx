@@ -81,16 +81,20 @@ export function CategoriesManagement() {
       </header>
 
       <section className={style.tableSection}>
-        <TableComponent
-          rows={categories}
-          columns={columns}
-          loading={loadingCategories}
-        />
-        <ListMobile
-          items={categories}
-          itemFields={itemFields}
-          collapseItems={columns}
-        />
+        <div className={style.viewDesktop}>
+          <TableComponent
+            rows={categories}
+            columns={columns}
+            loading={loadingCategories}
+          />
+        </div>
+        <div className={style.viewMobile}>
+          <ListMobile
+            items={categories}
+            itemFields={itemFields}
+            collapseItems={columns}
+          />
+        </div>
       </section>
 
       {categoryToEdit && modalEditCategoryOpened && (

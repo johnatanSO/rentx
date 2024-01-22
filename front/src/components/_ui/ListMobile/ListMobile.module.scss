@@ -1,9 +1,11 @@
 @import "@/styles/colors";
 
 .list {
-  display: none;
+  display: flex;
   flex-direction: column;
   gap: 1rem;
+  
+  width: 100%;
 
   .groupItem {
     border-radius: 20px;
@@ -55,11 +57,5 @@
         }
       }
     }
-  }
-}
-
-@media (max-width: 850px) {
-  .list {
-    display: flex;
   }
 }

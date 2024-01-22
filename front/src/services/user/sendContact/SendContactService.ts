@@ -13,5 +13,5 @@ export function sendContactService({ name, email, message }: IRequest) {
     message,
   }
 
-  return http.post('/user/contact', body)
+  return http.post('/users/contact', body)
 }

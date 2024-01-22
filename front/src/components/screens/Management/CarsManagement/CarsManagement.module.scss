@@ -1,5 +1,13 @@
 @import "@/styles/colors";
 
+.viewMobile {
+  display: none;
+} 
+
+.viewDesktop{
+  display: flex;
+}
+
 .header {
   display: flex;
   align-items: start;
@@ -109,7 +117,15 @@
   }
 }
 
-@media (max-width: 850px) {
+@media (max-width: 1085px) {
+  .viewDesktop {
+    display: none;
+  }
+
+  .viewMobile {
+    display: flex;
+  }
+
   .tableSection {
     background: none;
     padding: 0;
@@ -125,7 +141,7 @@
 
     display: flex;
 
-    .showDetailsButton{
+    .showDetailsButton {
       width: 100%;
       text-align: center;
     }
