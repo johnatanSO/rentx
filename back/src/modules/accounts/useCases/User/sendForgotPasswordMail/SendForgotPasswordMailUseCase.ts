@@ -17,7 +17,7 @@ export class SendForgotPasswordMailUseCase {
     @inject('UsersTokensRepository')
     usersTokensRepository: IUsersTokensRepository,
     @inject('DayjsDateProvider') dateProvider: IDateProvider,
-    @inject('EtherealMailProvicer') mailProvider: IMailProvider,
+    @inject('EtherealMailProvider') mailProvider: IMailProvider,
   ) {
     this.usersRepository = usersRepository
     this.usersTokensRepository = usersTokensRepository
@@ -26,7 +26,7 @@ export class SendForgotPasswordMailUseCase {
   }
 
   async execute(email: string): Promise<void> {
-    if (!email) throw new AppError('E-mail não enviado')
+    if (!email) throw new AppError('E-mail não informado')
 
     const user = await this.usersRepository.findByEmail(email)
     if (!user) throw new AppError('Usuário não encontrado')

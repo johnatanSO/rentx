@@ -1,3 +1,4 @@
+import { SendForgotPasswordMailController } from './../../../../modules/accounts/useCases/User/sendForgotPasswordMail/SendForgotPasswordMailController'
 import multer from 'multer'
 
 import { UpdateUserAvatarController } from '../../../../modules/accounts/useCases/User/updateUserAvatar/UpdateUserAvatarController'
@@ -8,6 +9,7 @@ import { UpdateUserInfosController } from '../../../../modules/accounts/useCases
 import { ListFavoritedCarsController } from '../../../../modules/accounts/useCases/User/listFavoritedCars/ListFavoritedCarsController'
 import { ensureAdmin } from '../middlewares/ensureAdmin'
 import { ListAllUsersController } from '../../../../modules/accounts/useCases/User/listAllUsers/ListAllUsersController'
+import { SendContactController } from '../../../../modules/accounts/useCases/User/sendContact/SendContactController'
 
 const uploadAvatar = multer({
   storage: multer.memoryStorage(),
@@ -19,6 +21,8 @@ const updateUserAvatarController = new UpdateUserAvatarController()
 const updateUserInfosController = new UpdateUserInfosController()
 const listFavoritedCarsController = new ListFavoritedCarsController()
 const listAllUsersController = new ListAllUsersController()
+const sendContactController = new SendContactController()
+const sendForgotPasswordMailController = new SendForgotPasswordMailController()
 
 usersRoutes.post('/', createNewUserController.handle)
 
@@ -43,5 +47,9 @@ usersRoutes.get(
   ensureAdmin,
   listAllUsersController.handle,
 )
+
+usersRoutes.post('/contact', sendContactController.handle)
+
+usersRoutes.post('/forgotPassword', sendForgotPasswordMailController.handle)
 
 export { usersRoutes }

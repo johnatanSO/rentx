@@ -4,13 +4,13 @@ import nodemailer, { Transporter } from 'nodemailer'
 
 @injectable()
 export class EtherealMailProvider implements IMailProvider {
-  private client: Transporter
+  client: Transporter
 
   constructor() {
     nodemailer
       .createTestAccount()
       .then((account) => {
-        const transporter = nodemailer.createTransport({
+        this.client = nodemailer.createTransport({
           host: account.smtp.host,
           port: account.smtp.port,
           secure: account.smtp.secure,
@@ -19,8 +19,6 @@ export class EtherealMailProvider implements IMailProvider {
             pass: account.pass,
           },
         })
-
-        this.client = transporter
       })
       .catch((error) => {
         console.error(error)
@@ -28,7 +26,7 @@ export class EtherealMailProvider implements IMailProvider {
   }
 
   async sendMail(to: string, subject: string, body: string): Promise<void> {
-    const message = await this.client.sendMail({
+    await this.client.sendMail({
       to,
       from: 'Rentx <noreply@rentx.com.br>',
       subject,
