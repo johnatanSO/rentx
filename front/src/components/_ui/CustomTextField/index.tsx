@@ -13,7 +13,7 @@ export const CustomTextField = styled(TextField)({
     fontWeight: '500',
   },
   [`& .Mui-error .${outlinedInputClasses.notchedOutline}`]: {
-    // Style da borda do input quando tem um erro
+    // Style da borda do input quando tem um erro.
     borderRadius: '20px',
     border: '2px solid #ff4646',
   },
