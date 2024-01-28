@@ -90,6 +90,7 @@ export function CategoriesManagement() {
         </div>
         <div className={style.viewMobile}>
           <ListMobile
+            loading={loadingCategories}
             items={categories}
             itemFields={itemFields}
             collapseItems={columns}

@@ -2,6 +2,7 @@ import { EmptyItems } from '@/components/_ui/EmptyItems'
 import { Car } from './interfaces/Car'
 import { CarItem } from './CarItem'
 import style from './ListCars.module.scss'
+import { SkeletonCarItem } from './SkeletonCarItem'
 
 type Props = {
   cars: Car[]
@@ -17,6 +18,7 @@ export function ListCars({ cars, loading, emptyText }: Props) {
       )}
 
       {cars.length > 0 &&
+        !loading &&
         cars.map((car) => {
           return (
             <CarItem
@@ -29,6 +31,11 @@ export function ListCars({ cars, loading, emptyText }: Props) {
               transmission={car.transmission}
             />
           )
+        })}
+
+      {loading &&
+        [1, 2, 3, 4, 5, 6].map((fakeItem) => {
+          return <SkeletonCarItem key={fakeItem} />
         })}
     </ul>
   )

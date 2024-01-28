@@ -7,7 +7,6 @@ import { Rental } from './interfaces/Rental'
 import { TableComponent } from '@/components/_ui/TableComponent'
 import { useColumns } from './hooks/useColumns'
 import { finalizeRentalService } from '@/services/rentals/finalizeRental/FinalizeRentalService'
-import { useRouter } from 'next/navigation'
 import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFieldsMobile'
 import { getRentalsService } from '@/services/rentals/getRentals/GetRentalsService'
@@ -84,6 +83,7 @@ export function Rentals() {
           columns={columns}
           rows={rentals}
           loading={loadingRentals}
+          emptyText="Nenhum aluguel encontrado"
         />
       </div>
       <div className={style.viewMobile}>
@@ -91,6 +91,7 @@ export function Rentals() {
           itemFields={itemFields}
           collapseItems={columns}
           items={rentals}
+          loading={loadingRentals}
         />
       </div>
     </div>

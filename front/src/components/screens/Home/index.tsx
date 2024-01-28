@@ -37,7 +37,11 @@ export function Home() {
     <div className={style.carsContainer}>
       <Filters />
 
-      <ListCars loading={loadingGetCars} cars={cars} />
+      <ListCars
+        loading={loadingGetCars}
+        cars={cars}
+        emptyText="Nenhum carro disponível"
+      />
     </div>
   )
 }

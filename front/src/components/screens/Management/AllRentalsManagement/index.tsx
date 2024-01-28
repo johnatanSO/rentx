@@ -116,6 +116,7 @@ export function AllRentalsManagement() {
         </div>
         <div className={style.viewMobile}>
           <ListMobile
+            loading={loadingRentals}
             items={rentals}
             collapseItems={columns}
             itemFields={itemFields}

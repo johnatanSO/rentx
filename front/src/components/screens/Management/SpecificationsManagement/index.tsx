@@ -92,6 +92,7 @@ export function SpecificationsManagement() {
         </div>
         <div className={style.viewMobile}>
           <ListMobile
+            loading={loadingSpecifications}
             items={specifications}
             itemFields={itemFields}
             collapseItems={columns}

@@ -63,8 +63,7 @@ export function TableComponent({ columns, rows, loading, emptyText }: Props) {
           </tr>
         )}
 
-        {rows.length === 0 &&
-          loading &&
+        {loading &&
           [1, 2, 3, 4, 5].map((item) => {
             return (
               <tr key={item}>
@@ -78,7 +77,7 @@ export function TableComponent({ columns, rows, loading, emptyText }: Props) {
                       <Skeleton
                         variant="rounded"
                         height={25}
-                        sx={{ fontSize: '1rem' }}
+                        sx={{ fontSize: '1rem', borderRadius: 15 }}
                       />
                     </td>
                   )

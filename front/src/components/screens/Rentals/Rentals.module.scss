@@ -9,6 +9,7 @@
 
 .rentalsContainer {
   padding: 1.5rem;
+  flex: 1;
 }
 
 .carModelContainer {
@@ -87,7 +88,15 @@
   background: $green-color-100;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1162px) {
+  .carModelContainer {
+    .carImage {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 1093px) {
   .viewMobile {
     display: flex;
   }

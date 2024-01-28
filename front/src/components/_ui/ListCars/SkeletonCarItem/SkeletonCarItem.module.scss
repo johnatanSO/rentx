@@ -1,0 +1,96 @@
+@import "@/styles/colors";
+
+.carItem {
+  display: flex;
+  flex-direction: column;
+
+  width: 400px;
+  background: $white-color !important;
+
+  color: $gray-color-400;
+
+  border-radius: 20px;
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    padding: 12px 17px;
+
+    .bookmarkIcon {
+      padding: 0.4rem 0.5rem;
+      border-radius: 50%;
+
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background: $gray-color-100;
+      }
+    }
+  }
+
+  main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+
+    .carImage {
+      object-fit: contain;
+
+      height: 140px;
+      width: 100%;
+
+      transform: scale(0.95);
+    }
+  }
+
+  footer {
+    border-top: 1px solid $gray-color-100;
+    padding: 12px 17px;
+
+    display: flex;
+    align-items: center;
+    gap: 25px;
+
+    span {
+      font-size: 0.875rem;
+
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dailyRateText {
+      font-weight: 500;
+      margin-left: auto;
+
+      b {
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 880px) {
+  .carItem {
+    width: 100%;
+
+    .carImage {
+      max-height: 250px;
+    }
+  }
+}

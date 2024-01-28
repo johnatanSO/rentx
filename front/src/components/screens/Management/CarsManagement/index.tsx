@@ -82,6 +82,7 @@ export function CarsManagement() {
         </div>
         <div className={style.viewMobile}>
           <ListMobile
+            loading={loadingCars}
             collapseItems={columns}
             items={cars}
             itemFields={itemFields}

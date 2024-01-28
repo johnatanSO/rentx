@@ -207,7 +207,7 @@ export function CarDetails({ car }: Props) {
               className={style.rentalButton}
               type="submit"
             >
-              {loadingCreateRental ? <Loading /> : 'Alugar'}
+              {loadingCreateRental ? <Loading size={21} /> : 'Alugar'}
             </button>
           </form>
         </div>

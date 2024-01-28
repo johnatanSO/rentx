@@ -10,7 +10,7 @@ export function useFieldsMobile(): Field[] {
       },
     },
     {
-      field: 'totalValue',
+      field: 'total',
       valueFormatter: (params: any) =>
         params.value ? formatCurrency(params.value) : '--',
     },

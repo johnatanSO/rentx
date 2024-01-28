@@ -115,7 +115,15 @@
   background: $green-color-100;
 }
 
-@media (max-width: 850px) {
+@media (max-width: 1500px) {
+  .carModelContainer {
+    .carImage {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 1330px) {
   .viewMobile {
     display: flex;
   }
@@ -146,5 +154,27 @@
   }
   .actionsContainer {
     width: 100%;
+    flex-direction: column;
+    margin: 1rem 0;
+
+    .finalizeRentalButton,
+    .editRental {
+      width: 100%;
+      font-size: 0.875rem;
+    }
+
+    .editRental {
+      background: $blue-color-100;
+      color: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+
+      &::after {
+        content: "Editar";
+      }
+    }
   }
 }
