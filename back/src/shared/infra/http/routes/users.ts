@@ -50,6 +50,4 @@ usersRoutes.get(
 
 usersRoutes.post('/contact', sendContactController.handle)
 
-usersRoutes.post('/forgotPassword', sendForgotPasswordMailController.handle)
-
 export { usersRoutes }

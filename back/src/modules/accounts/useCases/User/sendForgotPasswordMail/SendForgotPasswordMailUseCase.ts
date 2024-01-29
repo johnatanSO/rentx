@@ -5,6 +5,7 @@ import { AppError } from '../../../../../shared/errors/AppError'
 import { v4 as uuidv4 } from 'uuid'
 import { IDateProvider } from '../../../../../shared/container/providers/DateProvider/IDateProvider'
 import { IMailProvider } from '../../../../../shared/container/providers/MailProvider/IMailProvider'
+import { resolve } from 'path'
 
 @injectable()
 export class SendForgotPasswordMailUseCase {
@@ -31,6 +32,16 @@ export class SendForgotPasswordMailUseCase {
     const user = await this.usersRepository.findByEmail(email)
     if (!user) throw new AppError('Usuário não encontrado')
 
+    const templatePath = resolve(
+      __dirname,
+      '..',
+      '..',
+      '..',
+      'views',
+      'emails',
+      'forgotPassword.hbs',
+    )
+
     const token = uuidv4()
 
     const expiresDate = this.dateProvider.addHours(3)
@@ -41,10 +52,16 @@ export class SendForgotPasswordMailUseCase {
       expiresDate,
     })
 
+    const variables = {
+      name: user.name,
+      link: `${process.env.FORGOT_PASSWORD}${token}`,
+    }
+
     await this.mailProvider.sendMail(
       email,
       'Recuperação de senha',
-      `O link para o reset é ${token}`,
+      variables,
+      templatePath,
     )
   }
 }

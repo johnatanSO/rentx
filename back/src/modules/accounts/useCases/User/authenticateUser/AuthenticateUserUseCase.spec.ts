@@ -3,15 +3,27 @@ import { AppError } from '../../../../../shared/errors/AppError'
 import { MockUsersRepository } from '../../../repositories/Users/MockUsersRepository'
 import { CreateNewUserUseCase } from '../createNewUser/CreateNewUserUseCase'
 import { AuthenticateUserUseCase } from './AuthenticateUserUseCase'
+import { MockUsersTokensRepository } from '../../../repositories/UsersTokens/MockUsersTokensRepository'
+import { DayjsDateProvider } from '../../../../../shared/container/providers/DateProvider/DayjsDateProvider'
+
+let mockUsersRepository: MockUsersRepository
+let mockUsersTokensRepository: MockUsersTokensRepository
+let dateProvider: DayjsDateProvider
 
 let authenticateUserUseCase: AuthenticateUserUseCase
-let mockUsersRepository: MockUsersRepository
 let createNewUserUseCase: CreateNewUserUseCase
 
 describe('Autenticação do usuário', () => {
   beforeEach(() => {
     mockUsersRepository = new MockUsersRepository()
-    authenticateUserUseCase = new AuthenticateUserUseCase(mockUsersRepository)
+    mockUsersTokensRepository = new MockUsersTokensRepository()
+    dateProvider = new DayjsDateProvider()
+
+    authenticateUserUseCase = new AuthenticateUserUseCase(
+      mockUsersRepository,
+      mockUsersTokensRepository,
+      dateProvider,
+    )
     createNewUserUseCase = new CreateNewUserUseCase(mockUsersRepository)
   })
 

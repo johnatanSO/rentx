@@ -1,6 +1,7 @@
 import { Types } from 'mongoose'
 import { IUser } from '../../infra/mongoose/entities/User'
 import { ICreateUserDTO, IUsersRepository } from './IUsersRepository'
+import { Car } from '../../../cars/infra/mongoose/entities/Car'
 
 export class MockUsersRepository implements IUsersRepository {
   users: IUser[]
@@ -89,5 +90,10 @@ export class MockUsersRepository implements IUsersRepository {
         ...updateFields.$set,
       }
     }
+  }
+
+  async listFavoriteCars(userId: string): Promise<Car[]> {
+    const user = this.users.find((user) => user._id.toString() === userId)
+    return user.favoriteCars
   }
 }
