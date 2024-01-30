@@ -34,6 +34,7 @@ describe('Update car infos', () => {
         ...createdCar,
         categoryId: createdCar.category._id.toString(),
         carId: undefined,
+        transmission: 'automatic',
       })
     }).rejects.toBeInstanceOf(AppError)
   })

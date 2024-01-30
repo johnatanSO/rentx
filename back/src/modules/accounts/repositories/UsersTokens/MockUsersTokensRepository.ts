@@ -6,7 +6,7 @@ import {
 } from './IUsersTokensRepository'
 
 export class MockUsersTokensRepository implements IUsersTokensRepository {
-  usersTokens: IUserToken[]
+  usersTokens: IUserToken[] = []
 
   async create({
     expiresDate,
@@ -30,15 +30,11 @@ export class MockUsersTokensRepository implements IUsersTokensRepository {
     userId: string,
     refreshToken: string,
   ): Promise<IUserToken> {
-    const userToken = this.usersTokens.find((token) => {
-      if (
+    const userToken = this.usersTokens.find(
+      (token) =>
         token.refreshToken === refreshToken &&
-        token.user.toString() === userId.toString()
-      ) {
-        return token
-      }
-      return undefined
-    })
+        token.user.toString() === userId.toString(),
+    )
 
     return userToken
   }

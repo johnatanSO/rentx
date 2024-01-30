@@ -1,6 +1,7 @@
 import { Car } from './../../infra/mongoose/entities/Car'
 import { Types } from 'mongoose'
 import { ICarsRepository, ICreateNewCarDTO } from './ICarsRepository'
+import { CarImage } from '../../infra/mongoose/entities/CarImage'
 
 export class MockCarsRepository implements ICarsRepository {
   cars: Car[] = []
@@ -85,7 +86,7 @@ export class MockCarsRepository implements ICarsRepository {
       this.cars[index] = {
         ...this.cars[index],
         images: [
-          ...(this.cars[index].images as Types.ObjectId[]),
+          ...(this.cars[index].images as any),
           new Types.ObjectId(imageId),
         ],
       }
@@ -102,5 +103,9 @@ export class MockCarsRepository implements ICarsRepository {
       ...this.cars[carIndex],
       images: newImages.map((image) => image._id),
     }
+  }
+
+  async delete(carId: string): Promise<void> {
+    this.cars = this.cars.filter((car) => car._id.toString() !== carId)
   }
 }
