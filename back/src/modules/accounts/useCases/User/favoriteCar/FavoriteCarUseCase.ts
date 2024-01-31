@@ -21,8 +21,9 @@ export class FavoriteCarUseCase {
     const user = await this.usersRepository.findById(userId)
 
     const carAlreadyFavorited = user.favoriteCars.find(
-      (car) => car._id.toString() === carId,
+      (favCarId) => favCarId.toString() === carId,
     )
+
     if (carAlreadyFavorited) {
       await this.usersRepository.removeFavoritedCar(carId, userId)
     } else {

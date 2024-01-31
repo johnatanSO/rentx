@@ -2,10 +2,6 @@ import { CreateCarUseCase } from './CreateCarUseCase'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 
-interface IFile {
-  filename: string
-}
-
 export class CreateCarController {
   async handle(req: Request, res: Response): Promise<Response> {
     const {
@@ -19,8 +15,7 @@ export class CreateCarController {
       transmission,
     } = req.body
 
-    const image = req.file as IFile
-    const imageName = image.filename
+    const defaultImage = req.file
 
     const createCarUserCase = container.resolve(CreateCarUseCase)
     const newCar = await createCarUserCase.execute({
@@ -32,7 +27,7 @@ export class CreateCarController {
       brand,
       categoryId,
       transmission,
-      imageName,
+      defaultImage,
     })
 
     return res.status(201).json({

@@ -3,6 +3,7 @@ import { inject, injectable } from 'tsyringe'
 import { Car } from '../../../infra/mongoose/entities/Car'
 import { ICarsRepository } from '../../../repositories/Cars/ICarsRepository'
 import { ICarsImagesRepository } from '../../../repositories/CarsImages/ICarsImagesRepository'
+import { IStorageProvider } from '../../../../../shared/container/providers/StorageProvider/IStorageProvider'
 
 interface IRequest {
   name: string
@@ -13,19 +14,27 @@ interface IRequest {
   brand: string
   categoryId: string
   transmission: string
-  imageName: string
+  defaultImage?: {
+    filename: string
+    originalname: string
+    buffer: Buffer
+    mimetype: string
+  }
 }
 
 @injectable()
 export class CreateCarUseCase {
   carsRepository: ICarsRepository
   carsImagesRepository: ICarsImagesRepository
+  storageProvider: IStorageProvider
   constructor(
     @inject('CarsRepository') carsRepository: ICarsRepository,
     @inject('CarsImagesRepository') carsImagesRepository: ICarsImagesRepository,
+    @inject('FirebaseProvider') storageProvider: IStorageProvider,
   ) {
     this.carsRepository = carsRepository
     this.carsImagesRepository = carsImagesRepository
+    this.storageProvider = storageProvider
   }
 
   async execute({
@@ -37,7 +46,7 @@ export class CreateCarUseCase {
     brand,
     categoryId,
     transmission,
-    imageName,
+    defaultImage,
   }: IRequest): Promise<Car> {
     if (!licensePlate) throw new AppError('Placa do carro não informada')
 
@@ -57,17 +66,21 @@ export class CreateCarUseCase {
       transmission,
     })
 
-    if (imageName) {
-      const path = `cars/images/${imageName}`
+    if (defaultImage) {
+      const { imageName, imageURL } =
+        await this.storageProvider.uploadImage(defaultImage)
+
       const carImage = await this.carsImagesRepository.create({
         carId: newCar._id.toString(),
         imageName,
-        path,
+        path: imageURL,
       })
 
       await this.carsRepository.updateOne(newCar._id.toString(), {
-        defaultImage: carImage._id,
+        defaultImage: carImage._id.toString(),
       })
+
+      return await this.carsRepository.findById(newCar._id.toString())
     }
 
     return newCar

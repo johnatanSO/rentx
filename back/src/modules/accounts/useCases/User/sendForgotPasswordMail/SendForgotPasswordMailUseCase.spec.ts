@@ -29,7 +29,6 @@ describe('Send forgot mail', () => {
 
   it('Should be able to send forgot password mail to user', async () => {
     const sendMail = jest.spyOn(mailProvider, 'sendMail')
-    console.log('PASSOU NO JEST.SPYON')
 
     const user = await mockUsersRepository.create({
       email: 'john@john.com',

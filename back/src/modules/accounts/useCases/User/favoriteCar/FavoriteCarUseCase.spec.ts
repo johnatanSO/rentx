@@ -24,14 +24,32 @@ describe('Favorite car', () => {
     })
     const userId = user._id.toString()
 
-    await favoriteCarUseCase.execute({
+    const updatedUser = await favoriteCarUseCase.execute({
       carId: carId.toString(),
       userId,
     })
 
-    const userUpdated = await mockUsersRepository.findById(userId)
+    expect(updatedUser.favoriteCars).toContainEqual(carId)
+  })
 
-    expect(userUpdated.favoriteCars).toContainEqual(carId)
+  it('Should be able remove car from favorites', async () => {
+    const carId = new Types.ObjectId()
+    const user = await mockUsersRepository.create({
+      email: 'test@test.com',
+      name: 'test',
+      password: '123456',
+      driverLicense: '0000',
+    })
+
+    const userId = user._id.toString()
+    await mockUsersRepository.addCarToFavorite(carId.toString(), userId)
+
+    const updatedUser = await favoriteCarUseCase.execute({
+      carId: carId.toString(),
+      userId,
+    })
+
+    expect(updatedUser.favoriteCars).not.toContainEqual(carId)
   })
 
   it('should no be able favorite car if carId not sent', async () => {
