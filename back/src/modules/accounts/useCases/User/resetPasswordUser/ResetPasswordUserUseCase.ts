@@ -29,17 +29,20 @@ export class ResetPasswordUserUseCase {
   }
 
   async execute({ refreshToken, password }: IRequest): Promise<void> {
+    if (!refreshToken)
+      throw new AppError('Token de recuperação de senha não enviado')
+
     const userToken =
       await this.usersTokensRepository.findByRefreshToken(refreshToken)
 
-    if (!userToken) throw new AppError('Token inválido')
+    if (!userToken) throw new AppError('Token de recuperação de senha inválido')
 
     const expired = this.dateProvider.compareBefore(
       userToken.expiresDate,
       this.dateProvider.dateNow(),
     )
 
-    if (expired) throw new AppError('Token expirado')
+    if (expired) throw new AppError('Token de recuperação de senha expirado')
 
     const userId = userToken.user._id
     const encryptedPassword = await hash(password, 10)
