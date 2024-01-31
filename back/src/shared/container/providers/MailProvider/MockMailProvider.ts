@@ -9,7 +9,6 @@ export class MockMailProvider implements IMailProvider {
     variables: any,
     path: string,
   ): Promise<void> {
-    console.log('to', to)
     this.message.push({
       to,
       subject,

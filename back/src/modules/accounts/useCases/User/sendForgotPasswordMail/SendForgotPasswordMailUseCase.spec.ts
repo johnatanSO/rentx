@@ -1,12 +1,12 @@
 import { DayjsDateProvider } from '../../../../../shared/container/providers/DateProvider/DayjsDateProvider'
 import { MockMailProvider } from '../../../../../shared/container/providers/MailProvider/MockMailProvider'
 import { AppError } from '../../../../../shared/errors/AppError'
-import { UsersRepository } from '../../../repositories/Users/UsersRepository'
-import { UsersTokensRepository } from '../../../repositories/UsersTokens/UsersTokensRepository'
+import { MockUsersRepository } from '../../../repositories/Users/MockUsersRepository'
+import { MockUsersTokensRepository } from '../../../repositories/UsersTokens/MockUsersTokensRepository'
 import { SendForgotPasswordMailUseCase } from './SendForgotPasswordMailUseCase'
 
-let mockUsersRepository: UsersRepository
-let mockUsersTokensRepository: UsersTokensRepository
+let mockUsersRepository: MockUsersRepository
+let mockUsersTokensRepository: MockUsersTokensRepository
 let dateProvider: DayjsDateProvider
 let mailProvider: MockMailProvider
 
@@ -14,8 +14,8 @@ let sendForgotPasswordMailUseCase: SendForgotPasswordMailUseCase
 
 describe('Send forgot mail', () => {
   beforeEach(() => {
-    mockUsersRepository = new UsersRepository()
-    mockUsersTokensRepository = new UsersTokensRepository()
+    mockUsersRepository = new MockUsersRepository()
+    mockUsersTokensRepository = new MockUsersTokensRepository()
     dateProvider = new DayjsDateProvider()
     mailProvider = new MockMailProvider()
 
@@ -27,8 +27,9 @@ describe('Send forgot mail', () => {
     )
   })
 
-  /*  it('Should be able to send forgot password mail to user', async () => {
+  it('Should be able to send forgot password mail to user', async () => {
     const sendMail = jest.spyOn(mailProvider, 'sendMail')
+    console.log('PASSOU NO JEST.SPYON')
 
     const user = await mockUsersRepository.create({
       email: 'john@john.com',
@@ -41,7 +42,7 @@ describe('Send forgot mail', () => {
     await sendForgotPasswordMailUseCase.execute(user.email)
 
     expect(sendMail).toHaveBeenCalled()
-  }) */
+  })
 
   it('Should not be able to send an mail if user not exists', async () => {
     await expect(
