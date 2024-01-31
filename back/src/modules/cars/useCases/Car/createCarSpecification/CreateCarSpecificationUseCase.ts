@@ -32,16 +32,14 @@ export class CreateCarSpecificationUseCase {
     if (!carExists) throw new AppError('Carro não existente')
 
     const specifications =
-      (await this.specificationsRepository.findByIds(specificationsIds)) || []
+      await this.specificationsRepository.findByIds(specificationsIds)
 
     const newSpecificationsIds = specifications.map(
       (specification) => specification._id,
     )
 
-    const fields = {
+    await this.carsRepository.updateOne(carId, {
       specifications: newSpecificationsIds,
-    }
-
-    await this.carsRepository.updateOne(carId, fields)
+    })
   }
 }

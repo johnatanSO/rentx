@@ -38,4 +38,39 @@ describe('Update car infos', () => {
       })
     }).rejects.toBeInstanceOf(AppError)
   })
+
+  it('should be able update car infos', async () => {
+    const categoryId = new Types.ObjectId()
+    const car = await mockCarsRepository.create({
+      name: 'Name car 1',
+      description: 'Description car 1',
+      dailyRate: 100,
+      licensePlate: 'ABC-123',
+      fineAmount: 60,
+      brand: 'Brand',
+      categoryId: categoryId.toString(),
+      transmission: 'auto',
+    })
+
+    const newData = {
+      ...car,
+      name: 'new name',
+      description: 'new description',
+      categoryId,
+    }
+
+    await updateCarInfosUseCase.execute({
+      ...newData,
+      carId: car._id.toString(),
+      categoryId: categoryId.toString(),
+    })
+
+    delete newData.categoryId
+
+    const updatedCar = await mockCarsRepository.findById(car._id.toString())
+
+    Object.keys(newData).forEach((key) => {
+      expect(updatedCar[key]).toEqual(newData[key])
+    })
+  })
 })

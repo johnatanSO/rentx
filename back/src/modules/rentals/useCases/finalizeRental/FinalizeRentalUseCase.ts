@@ -2,7 +2,6 @@ import { inject, injectable } from 'tsyringe'
 import { IRentalsRepository } from '../../repositories/IRentalsRepository'
 import { ICarsRepository } from '../../../cars/repositories/Cars/ICarsRepository'
 import { AppError } from '../../../../shared/errors/AppError'
-import dayjs from 'dayjs'
 import { IUsersRepository } from '../../../accounts/repositories/Users/IUsersRepository'
 import { IDateProvider } from '../../../../shared/container/providers/DateProvider/IDateProvider'
 

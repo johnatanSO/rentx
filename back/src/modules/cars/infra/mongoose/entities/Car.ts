@@ -18,6 +18,7 @@ export interface Car {
   defaultImage: CarImage
   specifications: Types.ObjectId[] | Specification[]
   reasonUnavaliable?: string
+  transmission: string
 }
 
 const CarSchema = new mongoose.Schema({

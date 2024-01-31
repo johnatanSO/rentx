@@ -38,7 +38,7 @@ export class UpdateCarInfosUseCase {
   }: IRequest): Promise<void> {
     if (!carId) throw new AppError('_id do carro não enviado')
 
-    const fields = {
+    await this.carsRepository.updateOne(carId, {
       name,
       description,
       dailyRate,
@@ -46,11 +46,9 @@ export class UpdateCarInfosUseCase {
       licensePlate,
       fineAmount,
       brand,
-      category: categoryId,
+      categoryId,
       reasonUnavaliable,
       transmission,
-    }
-
-    await this.carsRepository.updateOne(carId, fields)
+    })
   }
 }

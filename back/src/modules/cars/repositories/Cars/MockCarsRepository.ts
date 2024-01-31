@@ -1,7 +1,6 @@
 import { Car } from './../../infra/mongoose/entities/Car'
 import { Types } from 'mongoose'
 import { ICarsRepository, ICreateNewCarDTO } from './ICarsRepository'
-import { CarImage } from '../../infra/mongoose/entities/CarImage'
 
 export class MockCarsRepository implements ICarsRepository {
   cars: Car[] = []
@@ -28,8 +27,8 @@ export class MockCarsRepository implements ICarsRepository {
       _id: new Types.ObjectId(),
       createdAt: new Date(),
       avaliable: true,
-      specifications: null,
-      images: null,
+      specifications: [],
+      images: [],
       defaultImage: null,
     }
 
@@ -68,8 +67,39 @@ export class MockCarsRepository implements ICarsRepository {
     return this.cars.find((car) => car._id.toString() === carId)
   }
 
-  async updateOne(_id: string, fields: any): Promise<void> {
+  async updateOne(
+    _id: string,
+    {
+      name,
+      description,
+      dailyRate,
+      avaliable,
+      licensePlate,
+      fineAmount,
+      brand,
+      categoryId,
+      reasonUnavaliable,
+      transmission,
+      specifications,
+      defaultImage,
+    },
+  ): Promise<void> {
     const index = this.cars.findIndex((car) => car._id.toString() === _id)
+
+    const fields = {
+      ...(name ? { name } : {}),
+      ...(description ? { description } : {}),
+      ...(dailyRate ? { dailyRate } : {}),
+      ...(avaliable ? { avaliable } : {}),
+      ...(licensePlate ? { licensePlate } : {}),
+      ...(fineAmount ? { fineAmount } : {}),
+      ...(brand ? { brand } : {}),
+      ...(categoryId ? { category: new Types.ObjectId(categoryId) } : {}),
+      ...(reasonUnavaliable ? { reasonUnavaliable } : {}),
+      ...(transmission ? { transmission } : {}),
+      ...(specifications ? { specifications } : {}),
+      ...(defaultImage ? { defaultImage } : {}),
+    }
 
     if (index !== -1) {
       this.cars[index] = {

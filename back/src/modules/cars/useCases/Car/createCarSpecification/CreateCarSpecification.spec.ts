@@ -61,4 +61,26 @@ describe('Create car specification', () => {
       })
     }).rejects.toBeInstanceOf(AppError)
   })
+
+  it('should not be able to add a new specification in car if carId not sent', async () => {
+    await expect(async () => {
+      const specificationsIds = ['54321']
+
+      await createCarSpecificationUseCase.execute({
+        carId: null,
+        specificationsIds,
+      })
+    }).rejects.toBeInstanceOf(AppError)
+  })
+
+  it('should not be able to add a new specification in car if specifications not sent', async () => {
+    await expect(async () => {
+      const carId = '1234'
+
+      await createCarSpecificationUseCase.execute({
+        carId,
+        specificationsIds: null,
+      })
+    }).rejects.toBeInstanceOf(AppError)
+  })
 })
