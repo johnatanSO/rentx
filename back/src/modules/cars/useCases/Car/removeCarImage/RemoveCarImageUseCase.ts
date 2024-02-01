@@ -26,9 +26,9 @@ export class RemoveCarImageUseCase {
 
   async execute({ carId, imageId }: IRequest): Promise<void> {
     if (!imageId) throw new AppError('_id da imagem não enviado')
+    if (!carId) throw new AppError('_id do carro não enviado')
 
     const image = await this.carsImagesRepository.findById(imageId)
-
     if (!image) throw new AppError('Imagem não encontrada')
 
     await this.storageProvider.deleteImage(image.imageName)

@@ -27,7 +27,7 @@ export class MockCarsImagesRepository implements ICarsImagesRepository {
 
   async findById(imageId: string): Promise<CarImage> {
     return this.carsImages.find(
-      (carImage) => carImage._id.toString() !== imageId,
+      (carImage) => carImage._id.toString() === imageId,
     )
   }
 }
