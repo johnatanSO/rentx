@@ -41,7 +41,7 @@ describe('Create new user', () => {
     await expect(async () => {
       // First user
       await createNewUserUseCase.execute({
-        email: 'user1@teste.com', // Same e-mail
+        email: 'user1@teste.com',
         name: 'novo usuário 1',
         password: 'teste 1',
         confirmPassword: 'teste 1',
