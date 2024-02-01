@@ -28,8 +28,10 @@ export class UpdateUserAvatarUseCase {
 
   async execute({ userId, avatarImage }: IRequest): Promise<IUser> {
     if (!avatarImage) throw new AppError('Imagem não enviada')
+    if (!userId) throw new AppError('_id do usuário não enviado')
 
     const user = await this.usersRepository.findById(userId)
+    if (!user) throw new AppError('Usuário inválido')
 
     if (user.avatar) {
       const [, imageName] = user.avatar.split('appspot.com/')

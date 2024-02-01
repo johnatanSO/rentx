@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe'
 import { IUser } from '../../../infra/mongoose/entities/User'
 import { IUsersRepository } from '../../../repositories/Users/IUsersRepository'
+import { AppError } from '../../../../../shared/errors/AppError'
 
 interface IRequest {
   userId: string
@@ -17,6 +18,8 @@ export class UpdateUserInfosUseCase {
   }
 
   async execute({ name, email, isAdmin, userId }: IRequest): Promise<IUser> {
+    if (!userId) throw new AppError('_id do usuário não informado')
+
     await this.usersRepository.update(
       { _id: userId },
       {
