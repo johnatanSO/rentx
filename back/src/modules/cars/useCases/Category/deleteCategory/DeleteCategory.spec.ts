@@ -19,7 +19,7 @@ describe('Delete category', () => {
     )
   })
 
-  it('should not be able delete category ', async () => {
+  it('should be able delete category ', async () => {
     const category = await mockCategoriesRepository.create({
       name: 'test',
       description: 'test',
