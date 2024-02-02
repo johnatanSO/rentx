@@ -30,6 +30,7 @@ export class UpdateDefaultCarImageUseCase {
   }
 
   async execute({ carId, defaultImage }: IRequest): Promise<void> {
+    if (!defaultImage) throw new AppError('Imagem não enviada')
     if (!carId) throw new AppError('_id do carro não informado')
 
     const car = await this.carsRepository.findById(carId)

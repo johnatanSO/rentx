@@ -82,7 +82,7 @@ export class MockCarsRepository implements ICarsRepository {
       transmission,
       specifications,
       defaultImage,
-    },
+    }: any,
   ): Promise<void> {
     const index = this.cars.findIndex((car) => car._id.toString() === _id)
 

@@ -102,7 +102,7 @@ describe('Update user avatar', () => {
       },
     )
 
-    await updateUserAvatarUseCase.execute({
+    const updatedUser = await updateUserAvatarUseCase.execute({
       userId: user._id.toString(),
       avatarImage: {
         originalname: 'new_avatar',
@@ -110,6 +110,8 @@ describe('Update user avatar', () => {
         mimetype: 'jpeg',
       },
     })
+
+    expect(updatedUser.avatar).not.toEqual('appspot.com/image_name')
   })
 
   it('should be able update user avatar', async () => {
@@ -121,7 +123,7 @@ describe('Update user avatar', () => {
       isAdmin: false,
     })
 
-    await updateUserAvatarUseCase.execute({
+    const updatedUser = await updateUserAvatarUseCase.execute({
       userId: user._id.toString(),
       avatarImage: {
         originalname: 'new_avatar',
@@ -129,5 +131,7 @@ describe('Update user avatar', () => {
         mimetype: 'jpeg',
       },
     })
+
+    expect(updatedUser.avatar).not.toBeNull()
   })
 })

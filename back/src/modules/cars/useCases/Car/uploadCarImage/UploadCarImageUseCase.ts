@@ -31,6 +31,7 @@ export class UploadCarImageUseCase {
 
   async execute({ carId, image }: IRequest): Promise<void> {
     if (!carId) throw new AppError('_id do carro não informado')
+    if (!image) throw new AppError('Imagem não enviada')
 
     const { imageName, imageURL } =
       await this.storageProvider.uploadImage(image)
