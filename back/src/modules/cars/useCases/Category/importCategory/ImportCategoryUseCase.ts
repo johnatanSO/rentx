@@ -3,6 +3,7 @@ import fs from 'fs'
 import { parse } from 'csv-parse'
 import { Category } from '../../../infra/mongoose/entities/Category'
 import { inject, injectable } from 'tsyringe'
+import { AppError } from '../../../../../shared/errors/AppError'
 
 interface IImportCategory {
   name: string
@@ -47,6 +48,8 @@ export class ImportCategoryUseCase {
   }
 
   async execute(file: Express.Multer.File): Promise<Category[]> {
+    if (!file) throw new AppError('Nenhum arquivo enviado')
+
     const categories = await this.loadCategories(file)
 
     const newCategoriesPromise = categories.map(async (category) => {
