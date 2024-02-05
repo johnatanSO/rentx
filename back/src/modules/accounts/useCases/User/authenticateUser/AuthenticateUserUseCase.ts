@@ -19,6 +19,7 @@ interface IResponse {
     email: string
     isAdmin: boolean
     avatar: string
+    avatarURL: string
     favoriteCars: Car[]
   }
   token: string
@@ -86,6 +87,7 @@ export class AuthenticateUserUseCase {
         isAdmin: user.isAdmin,
         avatar: user.avatar,
         favoriteCars: user.favoriteCars as Car[],
+        avatarURL: user.avatarURL,
       },
     }
   }
