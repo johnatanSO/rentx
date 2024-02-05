@@ -17,7 +17,7 @@ export class RemoveCarImageUseCase {
   constructor(
     @inject('CarsRepository') carsRepository: ICarsRepository,
     @inject('CarsImagesRepository') carsImagesRepository: ICarsImagesRepository,
-    @inject('FirebaseProvider') storageProvider: IStorageProvider,
+    @inject('StorageProvider') storageProvider: IStorageProvider,
   ) {
     this.carsRepository = carsRepository
     this.carsImagesRepository = carsImagesRepository
@@ -31,7 +31,7 @@ export class RemoveCarImageUseCase {
     const image = await this.carsImagesRepository.findById(imageId)
     if (!image) throw new AppError('Imagem não encontrada')
 
-    await this.storageProvider.deleteImage(image.imageName)
+    await this.storageProvider.deleteImage(image.imageName, 'folder')
 
     await this.carsRepository.removeImage(carId, imageId)
 

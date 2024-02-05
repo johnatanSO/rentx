@@ -15,9 +15,7 @@ export async function ensureAuthenticated(
 
   try {
     const { secretToken } = auth
-    const verifyResponse = verify(token, secretToken)
-
-    const userId = verifyResponse.sub
+    const { sub: userId } = verify(token, secretToken)
 
     const usersRepository = new UsersRepository()
     const user = await usersRepository.findById(userId.toString())

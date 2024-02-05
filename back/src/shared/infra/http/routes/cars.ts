@@ -13,11 +13,10 @@ import { RemoveCarImageController } from '../../../../modules/cars/useCases/Car/
 import { FavoriteCarController } from '../../../../modules/accounts/useCases/User/favoriteCar/FavoriteCarController'
 import { UpdateCarInfosController } from '../../../../modules/cars/useCases/Car/updateCarInfos/UpdateCarInfosController'
 import { UpdateDefaultCarImageController } from '../../../../modules/cars/useCases/Car/updateDefaultCarImage/UpdateDefaultCarImageController'
+import uploadConfig from '../../../../config/upload'
 
 const carsRoutes = Router()
-const upload = multer({
-  storage: multer.memoryStorage(),
-})
+const uploadImage = multer(uploadConfig)
 
 const createCarController = new CreateCarController()
 const listAvaliableCarsController = new ListAvaliableCarsController()
@@ -35,7 +34,7 @@ carsRoutes.post(
   '/',
   ensureAuthenticated,
   ensureAdmin,
-  upload.single('image'),
+  uploadImage.single('image'),
   createCarController.handle,
 )
 
@@ -81,7 +80,7 @@ carsRoutes.patch(
   '/images/:carId',
   ensureAuthenticated,
   ensureAdmin,
-  upload.single('image'),
+  uploadImage.single('image'),
   uploadCarImagesController.handle,
 )
 
@@ -89,7 +88,7 @@ carsRoutes.patch(
   '/images/default/:carId',
   ensureAuthenticated,
   ensureAdmin,
-  upload.single('defaultImage'),
+  uploadImage.single('defaultImage'),
   updateDefaultCarImageController.handle,
 )
 

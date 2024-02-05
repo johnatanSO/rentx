@@ -6,12 +6,7 @@ import { IStorageProvider } from '../../../../../shared/container/providers/Stor
 
 interface IRequest {
   carId: string
-  image: {
-    filename: string
-    originalname: string
-    buffer: Buffer
-    mimetype: string
-  }
+  image: string
 }
 
 @injectable()
@@ -22,7 +17,7 @@ export class UploadCarImageUseCase {
   constructor(
     @inject('CarsImagesRepository') carsImagesRepository: ICarsImagesRepository,
     @inject('CarsRepository') carsRepository: ICarsRepository,
-    @inject('FirebaseProvider') storageProvider: IStorageProvider,
+    @inject('StorageProvider') storageProvider: IStorageProvider,
   ) {
     this.carsImagesRepository = carsImagesRepository
     this.carsRepository = carsRepository
@@ -33,13 +28,12 @@ export class UploadCarImageUseCase {
     if (!carId) throw new AppError('_id do carro não informado')
     if (!image) throw new AppError('Imagem não enviada')
 
-    const { imageName, imageURL } =
-      await this.storageProvider.uploadImage(image)
+    const path = await this.storageProvider.uploadImage(image, 'cars')
 
     const carImage = await this.carsImagesRepository.create({
       carId,
-      imageName,
-      path: imageURL,
+      imageName: image,
+      path,
     })
 
     await this.carsRepository.addImage(carId, carImage._id.toString())

@@ -4,7 +4,7 @@ import { Request, Response } from 'express'
 
 export class UpdateUserAvatarController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const avatarImage = req.file
+    const avatarImage = req.file.filename
 
     const updateUserAvatarUseCase = container.resolve(UpdateUserAvatarUseCase)
     const updatedUser = await updateUserAvatarUseCase.execute({

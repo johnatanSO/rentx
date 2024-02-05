@@ -10,6 +10,7 @@ export interface IUser {
   isAdmin: boolean
   createdAt: Date
   avatar: string
+  avatarURL: string
   favoriteCars: Car[]
 }
 
@@ -21,6 +22,7 @@ const UserSchema = new mongoose.Schema({
   isAdmin: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
   avatar: { type: String, default: null },
+  avatarURL: { type: String, default: null },
   favoriteCars: [{ type: 'ObjectId', ref: 'Car', default: null }],
 })
 
