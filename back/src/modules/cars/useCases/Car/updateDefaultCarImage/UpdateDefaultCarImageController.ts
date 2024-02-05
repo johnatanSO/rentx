@@ -6,7 +6,7 @@ export class UpdateDefaultCarImageController {
   async handle(req: Request, res: Response): Promise<Response> {
     const { carId } = req.params
 
-    const defaultImage = req.file
+    const defaultImage = req.file.filename
 
     const updateDefaultCarImageUseCase = container.resolve(
       UpdateDefaultCarImageUseCase,

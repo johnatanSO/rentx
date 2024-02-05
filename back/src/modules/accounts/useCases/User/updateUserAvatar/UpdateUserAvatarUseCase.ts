@@ -7,11 +7,7 @@ import { AppError } from '../../../../../shared/errors/AppError'
 
 interface IRequest {
   userId: string
-  avatarImage: {
-    originalname: string
-    mimetype: string
-    buffer: Buffer
-  }
+  avatarImage: string
 }
 
 @injectable()
@@ -20,7 +16,7 @@ export class UpdateUserAvatarUseCase {
   storageProvider: IStorageProvider
   constructor(
     @inject('UsersRepository') usersRepository: IUsersRepository,
-    @inject('FirebaseProvider') storageProvider: IStorageProvider,
+    @inject('StorageProvider') storageProvider: IStorageProvider,
   ) {
     this.usersRepository = usersRepository
     this.storageProvider = storageProvider
@@ -34,14 +30,10 @@ export class UpdateUserAvatarUseCase {
     if (!user) throw new AppError('Usuário inválido')
 
     if (user.avatar) {
-      const [, imageName] = user.avatar.split('appspot.com/')
-
-      if (!imageName) throw new AppError('Nome da imagem inválido')
-
-      await this.storageProvider.deleteImage(imageName)
+      await this.storageProvider.deleteImage(user.avatar, 'avatar')
     }
 
-    const { imageURL } = await this.storageProvider.uploadImage(avatarImage)
+    const path = await this.storageProvider.uploadImage(avatarImage, 'avatar')
 
     const filters = {
       _id: userId,
@@ -49,7 +41,8 @@ export class UpdateUserAvatarUseCase {
 
     const updateFields = {
       $set: {
-        avatar: imageURL,
+        avatar: avatarImage,
+        avatarURL: path,
       },
     }
 
