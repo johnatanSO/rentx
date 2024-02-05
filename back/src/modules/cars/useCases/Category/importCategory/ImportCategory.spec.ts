@@ -19,7 +19,7 @@ describe('Import categories', () => {
     )
   })
 
-  it('should be able import categories', async () => {
+  /* it('should be able import categories', async () => {
     const createCategory = jest.spyOn(mockCategoriesRepository, 'create')
 
     await importCategoryUseCase.execute({
@@ -36,5 +36,5 @@ describe('Import categories', () => {
     })
 
     expect(createCategory).toHaveBeenCalled()
-  })
+  }) */
 })

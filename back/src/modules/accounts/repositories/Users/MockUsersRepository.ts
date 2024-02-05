@@ -63,6 +63,7 @@ export class MockUsersRepository implements IUsersRepository {
       _id: new Types.ObjectId(),
       createdAt: new Date(),
       avatar: null,
+      avatarURL: null,
     }
 
     this.users.push(newUser)

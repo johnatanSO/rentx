@@ -28,12 +28,7 @@ describe('Update default car image', () => {
     await expect(
       updateDefaultCarImageUseCase.execute({
         carId: null,
-        defaultImage: {
-          buffer: null,
-          filename: 'Test image',
-          mimetype: 'jpeg',
-          originalname: 'Test image',
-        },
+        defaultImage: 'image_test',
       }),
     ).rejects.toBeInstanceOf(AppError)
   })
@@ -51,12 +46,7 @@ describe('Update default car image', () => {
     await expect(
       updateDefaultCarImageUseCase.execute({
         carId: new Types.ObjectId().toString(),
-        defaultImage: {
-          buffer: null,
-          filename: 'Test image',
-          mimetype: 'jpeg',
-          originalname: 'Test image',
-        },
+        defaultImage: 'image_test',
       }),
     ).rejects.toBeInstanceOf(AppError)
   })
@@ -85,12 +75,7 @@ describe('Update default car image', () => {
 
     await updateDefaultCarImageUseCase.execute({
       carId: car._id.toString(),
-      defaultImage: {
-        buffer: null,
-        filename: 'Test image',
-        mimetype: 'jpeg',
-        originalname: 'Test image',
-      },
+      defaultImage: 'image_test',
     })
   })
 
@@ -108,12 +93,7 @@ describe('Update default car image', () => {
 
     await updateDefaultCarImageUseCase.execute({
       carId: car._id.toString(),
-      defaultImage: {
-        buffer: null,
-        filename: 'Test image',
-        mimetype: 'jpeg',
-        originalname: 'Test image',
-      },
+      defaultImage: 'image_test',
     })
   })
 })

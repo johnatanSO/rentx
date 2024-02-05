@@ -14,12 +14,7 @@ interface IRequest {
   brand: string
   categoryId: string
   transmission: string
-  defaultImage?: {
-    filename: string
-    originalname: string
-    buffer: Buffer
-    mimetype: string
-  }
+  defaultImage?: string
 }
 
 @injectable()
@@ -67,12 +62,14 @@ export class CreateCarUseCase {
     })
 
     if (defaultImage) {
-      const { imageName, imageURL } =
-        await this.storageProvider.uploadImage(defaultImage)
+      const imageURL = await this.storageProvider.uploadImage(
+        defaultImage,
+        'cars',
+      )
 
       const carImage = await this.carsImagesRepository.create({
         carId: newCar._id.toString(),
-        imageName,
+        imageName: defaultImage,
         path: imageURL,
       })
 

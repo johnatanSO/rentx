@@ -1,22 +1,17 @@
-import {
-  IResponseUpload,
-  IStorageProvider,
-  IUploadImageDTO,
-} from './IStorageProvider'
+import { IStorageProvider } from './IStorageProvider'
 
 export class MockStorageProvider implements IStorageProvider {
   images: any[] = []
 
-  async uploadImage(image: IUploadImageDTO): Promise<IResponseUpload> {
+  async uploadImage(image: string, folder: string): Promise<string> {
     this.images.push(image)
 
-    return {
-      imageName: image.originalname,
-      imageURL: `/fake/${image.originalname}`,
-    }
+    const imageURL = `/${folder}/${image}`
+
+    return imageURL
   }
 
-  async deleteImage(imageName: string): Promise<void> {
-    this.images.filter((image) => image.name !== imageName)
+  async deleteImage(imageName: string, folder: string): Promise<void> {
+    this.images.filter((image) => image !== imageName)
   }
 }

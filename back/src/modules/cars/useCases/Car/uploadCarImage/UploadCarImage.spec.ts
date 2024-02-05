@@ -28,12 +28,7 @@ describe('Upload car iamge', () => {
     await expect(
       uploadCarImageUseCase.execute({
         carId: null,
-        image: {
-          buffer: undefined,
-          filename: 'teste',
-          mimetype: 'teste',
-          originalname: 'teste',
-        },
+        image: 'image_test',
       }),
     ).rejects.toBeInstanceOf(AppError)
   })
@@ -61,12 +56,7 @@ describe('Upload car iamge', () => {
 
     await uploadCarImageUseCase.execute({
       carId: car._id.toString(),
-      image: {
-        originalname: 'new_avatar',
-        buffer: undefined,
-        filename: 'teste image',
-        mimetype: 'jpeg',
-      },
+      image: 'image_test',
     })
 
     const updatedCar = await mockCarsRepository.findById(car._id.toString())

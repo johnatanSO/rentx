@@ -32,11 +32,7 @@ describe('Update user avatar', () => {
     await expect(async () => {
       await updateUserAvatarUseCase.execute({
         userId: null,
-        avatarImage: {
-          originalname: 'teste name',
-          buffer: undefined,
-          mimetype: 'jpeg',
-        },
+        avatarImage: 'image_test',
       })
     }).rejects.toBeInstanceOf(AppError)
   })
@@ -45,11 +41,7 @@ describe('Update user avatar', () => {
     await expect(async () => {
       await updateUserAvatarUseCase.execute({
         userId: '777',
-        avatarImage: {
-          originalname: 'teste name',
-          buffer: undefined,
-          mimetype: 'jpeg',
-        },
+        avatarImage: 'image_test',
       })
     }).rejects.toBeInstanceOf(AppError)
   })
@@ -75,11 +67,7 @@ describe('Update user avatar', () => {
 
       await updateUserAvatarUseCase.execute({
         userId: user._id.toString(),
-        avatarImage: {
-          originalname: '',
-          buffer: undefined,
-          mimetype: 'jpeg',
-        },
+        avatarImage: 'image_test',
       })
     }).rejects.toBeInstanceOf(AppError)
   })
@@ -104,11 +92,7 @@ describe('Update user avatar', () => {
 
     const updatedUser = await updateUserAvatarUseCase.execute({
       userId: user._id.toString(),
-      avatarImage: {
-        originalname: 'new_avatar',
-        buffer: undefined,
-        mimetype: 'jpeg',
-      },
+      avatarImage: 'image_test',
     })
 
     expect(updatedUser.avatar).not.toEqual('appspot.com/image_name')
@@ -125,11 +109,7 @@ describe('Update user avatar', () => {
 
     const updatedUser = await updateUserAvatarUseCase.execute({
       userId: user._id.toString(),
-      avatarImage: {
-        originalname: 'new_avatar',
-        buffer: undefined,
-        mimetype: 'jpeg',
-      },
+      avatarImage: 'image_test',
     })
 
     expect(updatedUser.avatar).not.toBeNull()
