@@ -111,15 +111,15 @@ export function About() {
 
             <li>Typescript/Javascript</li>
 
-            <li>MongoDB</li>
+            <li>MongoDB (Banco de dados NoSQL)</li>
 
-            <li>Jest para testes unitários</li>
+            <li>JEST para testes unitários</li>
 
-            <li>Nodemailer</li>
+            <li>Nodemailer (Envnio de E-mails)</li>
 
-            <li>JWT</li>
+            <li>JWT (Token/refresh-token)</li>
 
-            <li>Firebase Storage</li>
+            <li>AWS S3 Storage</li>
           </ul>
         </div>
       </section>
