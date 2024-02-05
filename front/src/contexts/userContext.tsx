@@ -10,6 +10,7 @@ interface UserInfo {
   email: string
   isAdmin: boolean
   avatar: string
+  avatarURL: string
   favoriteCars: string[]
 }
 

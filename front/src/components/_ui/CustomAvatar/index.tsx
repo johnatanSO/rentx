@@ -57,7 +57,7 @@ export function CustomAvatar({ direction }: Props) {
         className={style.avatar}
         onClick={handleClick}
         alt={userInfo?.name}
-        src={userInfo?.avatar}
+        src={userInfo?.avatarURL}
       />
 
       <Menu
@@ -122,7 +122,7 @@ export function CustomAvatar({ direction }: Props) {
 
       <ModalAccountConfigs
         open={modalAccountConfigsOpened}
-        avatarURL={userInfo?.avatar}
+        avatarURL={userInfo?.avatarURL}
         handleClose={() => {
           setModalAccountConfigsOpened(false)
         }}
