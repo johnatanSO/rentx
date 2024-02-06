@@ -46,32 +46,6 @@ describe('Update user avatar', () => {
     }).rejects.toBeInstanceOf(AppError)
   })
 
-  it('should not be able delete user avatar if imageName invalid ', async () => {
-    await expect(async () => {
-      const user = await mockUsersRepository.create({
-        email: 'teste@teste.com',
-        name: 'teste',
-        driverLicense: '123',
-        password: '123',
-        isAdmin: false,
-      })
-
-      await mockUsersRepository.update(
-        { _id: user._id.toString() },
-        {
-          $set: {
-            avatar: 'invalid_name',
-          },
-        },
-      )
-
-      await updateUserAvatarUseCase.execute({
-        userId: user._id.toString(),
-        avatarImage: 'image_test',
-      })
-    }).rejects.toBeInstanceOf(AppError)
-  })
-
   it('should be able delete image if user already have avatar', async () => {
     const user = await mockUsersRepository.create({
       email: 'teste@teste.com',

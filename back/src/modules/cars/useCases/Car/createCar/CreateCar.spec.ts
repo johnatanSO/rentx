@@ -111,12 +111,7 @@ describe('Create car', () => {
       brand: 'Brand',
       categoryId: new Types.ObjectId().toString(),
       transmission: 'auto',
-      defaultImage: {
-        originalname: 'imagem de teste',
-        buffer: null,
-        filename: 'imagem de teste',
-        mimetype: 'jpeg',
-      },
+      defaultImage: 'testeImage',
     })
 
     expect(car.defaultImage).not.toEqual(null)

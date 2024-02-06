@@ -2,6 +2,7 @@ import { Types } from 'mongoose'
 import { MockRentalsRepository } from '../../repositories/MockRentalsRepository'
 import { ListRentalsUseCase } from './ListRentalsUseCase'
 import dayjs from 'dayjs'
+import { AppError } from '../../../../shared/errors/AppError'
 
 let mockRentalsRepository: MockRentalsRepository
 
@@ -29,5 +30,11 @@ describe('List rentals', () => {
 
     expect(rentals).toHaveLength(1)
     expect(rentals).toContain(newRental)
+  })
+
+  it('Should not be able list rentals if idUser not sent', async () => {
+    await expect(listRentalsUseCase.execute(null)).rejects.toBeInstanceOf(
+      AppError,
+    )
   })
 })
