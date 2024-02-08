@@ -16,7 +16,7 @@ export class SendContactUseCase {
   mailProvider: IMailProvider
   constructor(
     @inject('UsersRepository') usersRepository: IUsersRepository,
-    @inject('EtherealMailProvider') mailProvider: IMailProvider,
+    @inject('MailProvider') mailProvider: IMailProvider,
   ) {
     this.usersRepository = usersRepository
     this.mailProvider = mailProvider

@@ -18,7 +18,7 @@ export class SendForgotPasswordMailUseCase {
     @inject('UsersTokensRepository')
     usersTokensRepository: IUsersTokensRepository,
     @inject('DayjsDateProvider') dateProvider: IDateProvider,
-    @inject('EtherealMailProvider') mailProvider: IMailProvider,
+    @inject('MailProvider') mailProvider: IMailProvider,
   ) {
     this.usersRepository = usersRepository
     this.usersTokensRepository = usersTokensRepository
