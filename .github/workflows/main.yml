@@ -30,8 +30,8 @@ jobs:
       - uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           source: "., !./back/node_modules"
           target: "test"
