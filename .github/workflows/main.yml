@@ -2,7 +2,7 @@ name: CI
 
 on: 
   push: 
-    branches: [main/back]
+    branches: [main]
 
   workflow_dispatch: 
 
@@ -18,10 +18,14 @@ jobs:
           node-version: 18.x
 
       - name: Install dependencies
-        run: npm install
+        run: 
+          cd back
+          npm install
 
       - name: Build
-        run: npm run build
+        run: 
+          cd back
+          npm run build
 
       - uses: appleboy/scp-action@v0.1.7
         with:
@@ -29,6 +33,6 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          source: "., !node_modules"
+          source: "., /back/!node_modules"
           target: "test"
         
