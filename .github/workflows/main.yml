@@ -33,6 +33,6 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          source: "., /back/!node_modules"
+          source: "., !./back/node_modules"
           target: "test"
         
