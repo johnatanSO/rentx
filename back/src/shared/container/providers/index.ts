@@ -4,8 +4,9 @@ import { IDateProvider } from './DateProvider/IDateProvider'
 import { DayjsDateProvider } from './DateProvider/DayjsDateProvider'
 import { IMailProvider } from './MailProvider/IMailProvider'
 import { IStorageProvider } from './StorageProvider/IStorageProvider'
-import { S3StorageProvider } from './StorageProvider/S3StorageProvider'
+// import { S3StorageProvider } from './StorageProvider/S3StorageProvider'
 import { SESMailProvider } from './MailProvider/SESMailProvider'
+import { FirebaseProvider } from './StorageProvider/FirebaseProvider'
 
 container.registerSingleton<IDateProvider>(
   'DayjsDateProvider',
@@ -16,5 +17,5 @@ container.registerInstance<IMailProvider>('MailProvider', new SESMailProvider())
 
 container.registerSingleton<IStorageProvider>(
   'StorageProvider',
-  S3StorageProvider,
+  FirebaseProvider,
 )
