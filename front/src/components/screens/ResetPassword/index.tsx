@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation'
 import { Loading } from '@/components/_ui/Loading'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
-import { sendForgotPasswordService } from '@/services/user/sendForgotPassword/SendForgotPassword'
 import { resetPasswordService } from '@/services/user/resetPassword/ResetPasswordService'
 
 type Props = {

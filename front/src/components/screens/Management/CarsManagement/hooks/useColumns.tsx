@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import { CellFunctionParams } from '@/components/_ui/TableComponent/interfaces'
-import { CarImage } from '../interfaces/CarImage'
 import unknownCarImage from '../../../../../../public/assets/images/cars/unknownCarImage.png'
 import { Car } from '../interfaces/Car'
 import style from '../CarsManagement.module.scss'

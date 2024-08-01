@@ -7,7 +7,6 @@ import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { AlertContext } from '@/contexts/alertContext'
 import { useContext } from 'react'
 import { deleteSpecificationService } from '@/services/specifications/deleteSpecification/DeleteSpecificationService'
-import { usePathname, useRouter } from 'next/navigation'
 
 interface Props {
   handleEditSpecification: (specification: Specification) => void

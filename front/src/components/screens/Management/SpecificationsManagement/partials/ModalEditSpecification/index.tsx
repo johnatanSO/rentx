@@ -3,7 +3,6 @@ import { Specification } from '../../interfaces/Specification'
 import { FormEvent, useContext, useState } from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { AlertContext } from '@/contexts/alertContext'
-import { usePathname, useRouter } from 'next/navigation'
 import { updateSpecificationService } from '@/services/specifications/updateSpecificationService/UpdateSpecificationService'
 import style from './ModalEditSpecification.module.scss'
 

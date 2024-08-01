@@ -122,10 +122,6 @@ export function Filters({ filters, setFilters }: Props) {
       })
   }
 
-  function handleOpenOtherFilters() {
-    setOtherFiltersOpened(!otherFiltersOpened)
-  }
-
   useEffect(() => {
     getUsersList()
     getCarsList()

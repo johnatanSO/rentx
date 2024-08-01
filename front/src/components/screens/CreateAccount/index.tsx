@@ -35,7 +35,7 @@ export function CreateAccount() {
     setLoadingCreateNewUser(true)
 
     createNewUserService(newUserData)
-      .then((res) => {
+      .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
