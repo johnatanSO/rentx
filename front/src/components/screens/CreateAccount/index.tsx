@@ -1,13 +1,7 @@
 'use client'
 
 import style from './CreateAccount.module.scss'
-import {
-  ChangeEvent,
-  FormEvent,
-  SyntheticEvent,
-  useContext,
-  useState,
-} from 'react'
+import { FormEvent, useContext, useState } from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import Link from 'next/link'
 import { Checkbox, FormControlLabel, Popover, Typography } from '@mui/material'

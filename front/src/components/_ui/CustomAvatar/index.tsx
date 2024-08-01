@@ -8,13 +8,7 @@ import { faAngleLeft, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Avatar, Menu, MenuItem } from '@mui/material'
 import { useRouter } from 'next/navigation'
-import {
-  ChangeEvent,
-  ChangeEventHandler,
-  MouseEventHandler,
-  useContext,
-  useState,
-} from 'react'
+import { useContext, useState } from 'react'
 import { ModalAccountConfigs } from './ModalAccountConfigs'
 import { deleteRefreshTokenService } from '@/services/token/deleteRefreshToken/DeleteRefreshTokenService'
 
