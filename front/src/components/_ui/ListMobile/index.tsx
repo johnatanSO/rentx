@@ -43,7 +43,7 @@ export function ListMobile({
     <List className={style.list}>
       {items.length > 0 &&
         !loading &&
-        items?.map((item: any) => {
+        items?.map((item) => {
           const collapseOpened = itemOpened[item._id] || false
 
           return (
