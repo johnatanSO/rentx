@@ -3,7 +3,7 @@ import style from './Filters.module.scss'
 import { MenuItem } from '@mui/material'
 import { Category } from '../interfaces/Category'
 import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
-import { Filters } from '../interfaces/Filters'
+import { IFilters } from '../interfaces/IFilters'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 
@@ -12,7 +12,7 @@ export function Filters() {
     name: '',
     categoryId: '',
   }
-  const [filters, setFilters] = useState<Filters>(defaultValuesFilter)
+  const [filters, setFilters] = useState<IFilters>(defaultValuesFilter)
   const [categories, setCategories] = useState<Category[]>([])
   const searchParams = useSearchParams()
   const router = useRouter()
