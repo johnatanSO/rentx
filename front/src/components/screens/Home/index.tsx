@@ -6,10 +6,12 @@ import style from './Home.module.scss'
 import { Car } from './interfaces/Car'
 import { ListCars } from '@/components/_ui/ListCars'
 import { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 
 export function Home() {
   const [cars, setCars] = useState<Car[]>([])
   const [loadingGetCars, setLoadingGetCars] = useState<boolean>(true)
+  const searchParams = useSearchParams()
 
   // Esta e outras funções estavam sendo executadas no SRR, porém, como estou
   // utilizando o mongoDB atlas, ele tem um 'delay' de alguns segundos na
@@ -17,7 +19,11 @@ export function Home() {
   // do deploy na vercel.
   function getAvaliableCars() {
     setLoadingGetCars(true)
-    getAvaliableCarsService({ name: '', categoryId: '' })
+
+    const name = searchParams.get('name')
+    const categoryId = searchParams.get('categoryId')
+
+    getAvaliableCarsService({ name, categoryId })
       .then(({ data: { items } }) => {
         setCars(items)
       })
@@ -31,7 +37,7 @@ export function Home() {
 
   useEffect(() => {
     getAvaliableCars()
-  }, [])
+  }, [searchParams])
 
   return (
     <div className={style.carsContainer}>

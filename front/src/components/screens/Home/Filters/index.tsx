@@ -3,7 +3,7 @@ import style from './Filters.module.scss'
 import { MenuItem } from '@mui/material'
 import { Category } from '../interfaces/Category'
 import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
-import { Filters } from '../interfaces/Filters'
+import { IFilters } from '../interfaces/IFilters'
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -14,7 +14,7 @@ export function Filters() {
     name: null,
     categoryId: null,
   }
-  const [filters, setFilters] = useState<Filters>(defaultValuesFilter)
+  const [filters, setFilters] = useState<IFilters>(defaultValuesFilter)
   const [categories, setCategories] = useState<Category[]>([])
 
   const searchParams = useSearchParams()
@@ -33,9 +33,6 @@ export function Filters() {
 
   function onFilterCars(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-
-    const params = new URLSearchParams(searchParams)
-    console.log('PARAMS', params)
 
     const currentName = searchParams.get('name')
     if (currentName !== filters.name) {

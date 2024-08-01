@@ -1,8 +1,8 @@
 import http from '@/http/axios'
 
 interface IGetAvaliableCars {
-  name: string
-  categoryId: string
+  name: string | null
+  categoryId: string | null
 }
 
 export function getAvaliableCarsService({
