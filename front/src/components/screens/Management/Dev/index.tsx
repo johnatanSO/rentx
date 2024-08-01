@@ -33,6 +33,7 @@ export function Dev() {
   function onUploadCategories() {
     setLoadingImportFile(true)
 
+    if (!csvFile) return
     uploadCategoriesService(csvFile)
       .then(() => {
         router.push('/management/categories')
