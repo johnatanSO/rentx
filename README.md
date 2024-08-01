@@ -26,6 +26,11 @@
     - MongoDB (Banco de dados NoSQL)
 </ul>
  
+### ***Observação importante***
+#### É interessante que o sistema seja testado com uma conta de administrador, pois assim o usuário terá acesso à todas as funcionalidades disponíveis.
+#### Para criar a conta, é só ir em Login > Criar nova conta > Inserir todos os dados.
+
+<hr /> 
 
 <h3>📝 O sistema possui as seguintes funcionalidades</h3>
   <h4>(Usuário comum)</h4>
