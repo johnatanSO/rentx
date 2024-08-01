@@ -48,7 +48,7 @@ export class CarsRepository implements ICarsRepository {
         avaliable: true,
         ...(brand ? { brand } : {}),
         ...(categoryId ? { category: categoryId } : {}),
-        ...(name ? { name } : {}),
+        ...(name ? { name: { $regex: name, $options: 'i' } } : {}),
       })
       .populate('specifications images defaultImage')
 
