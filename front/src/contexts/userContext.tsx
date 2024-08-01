@@ -34,15 +34,15 @@ export function UserContextComponent({
     serverUserInfo || null,
   )
 
-  async function saveUserHandler(updatedInfos: any) {
-    const localUser: any = await getLocalUserService()
+  async function saveUserHandler(updatedInfos: UserInfo) {
+    const localUser: UserInfo = await getLocalUserService()
     saveLocalUserService({
       userData: { ...localUser, ...updatedInfos },
     })
   }
 
   useEffect(() => {
-    saveUserHandler(userInfo)
+    saveUserHandler(userInfo as UserInfo)
   }, [userInfo])
 
   return (

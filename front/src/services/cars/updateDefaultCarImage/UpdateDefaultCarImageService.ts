@@ -1,7 +1,7 @@
 import http from '@/http/axios'
 
 interface IRequest {
-  defaultImage: string
+  defaultImage: File
   carId: string
 }
 

@@ -8,7 +8,7 @@ import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons'
 import { faBriefcase } from '@fortawesome/free-solid-svg-icons'
 
 export function About() {
-  const [anchorEl, setAnchorEl] = useState<any>(null)
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
 
   return (
     <section className={style.aboutContainer}>

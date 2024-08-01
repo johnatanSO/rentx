@@ -6,6 +6,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core'
 type Props = {
   text: string
   icon?: IconProp
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   customStyle?: any
 }
 

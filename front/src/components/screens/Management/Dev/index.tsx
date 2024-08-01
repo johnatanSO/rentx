@@ -12,7 +12,7 @@ import { Loading } from '@/components/_ui/Loading'
 export function Dev() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
 
-  const [csvFile, setCsvFile] = useState<any>(null)
+  const [csvFile, setCsvFile] = useState<File | null>(null)
   const [loadingImportFile, setLoadingImportFile] = useState<boolean>(false)
 
   const router = useRouter()
@@ -20,8 +20,11 @@ export function Dev() {
   function handleInputFile() {
     const input = document.createElement('input')
     input.type = 'file'
-    input.onchange = (event: any) => {
-      setCsvFile(event.target.files[0])
+    input.onchange = (event: Event) => {
+      const target = event.target as HTMLInputElement
+      const file = (target.files || [])[0] as File
+
+      setCsvFile(file)
     }
 
     input.click()

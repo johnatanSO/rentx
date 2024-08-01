@@ -1,6 +1,6 @@
 import http from '@/http/axios'
 
-export function uploadCategoriesService(csvCategoriesFile: any) {
+export function uploadCategoriesService(csvCategoriesFile: File) {
   const formData = new FormData()
 
   formData.append('file', csvCategoriesFile)

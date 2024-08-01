@@ -1,7 +1,13 @@
 'use client'
 
 import style from './CreateAccount.module.scss'
-import { FormEvent, useContext, useState } from 'react'
+import {
+  ChangeEvent,
+  FormEvent,
+  SyntheticEvent,
+  useContext,
+  useState,
+} from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import Link from 'next/link'
 import { Checkbox, FormControlLabel, Popover, Typography } from '@mui/material'
@@ -25,7 +31,7 @@ export function CreateAccount() {
   }
 
   const router = useRouter()
-  const [anchorEl, setAnchorEl] = useState<any>(null)
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   const [newUserData, setNewUserData] = useState<NewUser>(defaultValuesNewUser)
   const [loadingCreateNewUser, setLoadingCreateNewUser] =
     useState<boolean>(false)
@@ -157,10 +163,13 @@ export function CreateAccount() {
                   </span>
                 </div>
               }
-              onChange={(event: any) => {
+              onChange={(event) => {
+                const target = event.target as unknown
+                const isAdmin = (target as { checked: boolean }).checked
+
                 setNewUserData({
                   ...newUserData,
-                  isAdmin: event?.target.checked,
+                  isAdmin,
                 })
               }}
               control={
@@ -176,7 +185,12 @@ export function CreateAccount() {
 
             <FontAwesomeIcon
               onClick={(event) => {
-                setAnchorEl(event?.currentTarget)
+                const eventTyped = event as unknown
+                const currentTarget = (
+                  eventTyped as { currentTarget: HTMLElement }
+                ).currentTarget
+
+                setAnchorEl(currentTarget)
               }}
               icon={faInfoCircle}
               className={style.infoIcon}

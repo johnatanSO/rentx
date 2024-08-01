@@ -5,13 +5,16 @@ export function useFieldsMobile(): Field[] {
   return [
     {
       field: 'car',
-      cellRenderer: (params: any) => {
+      cellRenderer: (params: {
+        value: { name: string; licensePlate: string }
+      }) => {
         return `${params.value.name} - ${params.value.licensePlate}`
       },
     },
     {
       field: 'totalValue',
-      valueFormatter: (params: any) => formatCurrency(params.value || 0),
+      valueFormatter: (params: { value: number }) =>
+        formatCurrency(params.value || 0),
     },
   ]
 }

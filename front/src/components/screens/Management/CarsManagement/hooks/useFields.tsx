@@ -5,13 +5,17 @@ export function useFieldsMobile(): Field[] {
   return [
     {
       field: 'name',
-      cellRenderer: (params: any) => {
+      cellRenderer: (params: {
+        value: string
+        data: { licensePlate: string }
+      }) => {
         return `${params.value} - ${params.data.licensePlate}`
       },
     },
     {
       field: 'dailyRate',
-      valueFormatter: (params: any) => formatCurrency(params.value || 0),
+      valueFormatter: (params: { value: number }) =>
+        formatCurrency(params.value || 0),
     },
   ]
 }

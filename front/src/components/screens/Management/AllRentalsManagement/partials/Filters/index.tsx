@@ -21,7 +21,7 @@ type Props = {
 export function Filters({ filters, setFilters }: Props) {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
 
-  const [otherFiltersOpened, setOtherFiltersOpened] = useState<boolean>(false)
+  const [otherFiltersOpened] = useState<boolean>(false)
   const [usersList, setUsersList] = useState<User[]>([])
   const [carsList, setCarsList] = useState<Car[]>([])
 

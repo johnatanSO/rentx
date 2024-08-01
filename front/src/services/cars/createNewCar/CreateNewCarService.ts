@@ -9,7 +9,7 @@ interface IRequest {
   brand: string
   categoryId: string
   transmission: string
-  image: string
+  image: File | null
 }
 
 export function createNewCarService({
@@ -35,7 +35,7 @@ export function createNewCarService({
   }
 
   const formData = new FormData()
-  formData.append('image', image)
+  if (image) formData.append('image', image)
 
   for (const [key, value] of Object.entries(body)) {
     formData.append(key, value.toString())

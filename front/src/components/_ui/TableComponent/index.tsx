@@ -4,6 +4,7 @@ import { Skeleton } from '@mui/material'
 
 interface Props {
   columns: Column[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   rows: any[]
   loading: boolean
   emptyText?: string

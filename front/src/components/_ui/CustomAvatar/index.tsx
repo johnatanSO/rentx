@@ -8,7 +8,13 @@ import { faAngleLeft, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Avatar, Menu, MenuItem } from '@mui/material'
 import { useRouter } from 'next/navigation'
-import { useContext, useState } from 'react'
+import {
+  ChangeEvent,
+  ChangeEventHandler,
+  MouseEventHandler,
+  useContext,
+  useState,
+} from 'react'
 import { ModalAccountConfigs } from './ModalAccountConfigs'
 import { deleteRefreshTokenService } from '@/services/token/deleteRefreshToken/DeleteRefreshTokenService'
 
@@ -32,7 +38,7 @@ export function CustomAvatar({ direction }: Props) {
   const [modalAccountConfigsOpened, setModalAccountConfigsOpened] =
     useState<boolean>(false)
 
-  function handleClick(event: any) {
+  function handleClick(event: { currentTarget: HTMLElement }) {
     setAnchorEl(event.currentTarget)
   }
 

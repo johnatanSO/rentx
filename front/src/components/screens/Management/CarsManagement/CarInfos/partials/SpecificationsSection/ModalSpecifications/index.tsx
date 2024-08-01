@@ -26,7 +26,7 @@ export function ModalSpecifications({ open, handleClose, car }: Props) {
   const router = useRouter()
   const pathname = usePathname()
 
-  const [anchorEl, setAnchorEl] = useState<any>(null)
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   const [popoverText, setPopoverText] = useState<string | null>(null)
   const [loadingAddSpecifications, setLoadingAddSpecifications] =
     useState<boolean>(false)

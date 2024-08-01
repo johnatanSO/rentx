@@ -5,11 +5,11 @@ export function useFieldsMobile(): Field[] {
   return [
     {
       field: 'name',
-      valueFormatter: (params: any) => params.value,
+      valueFormatter: (params: { value: string }) => params.value,
     },
     {
       field: 'createdAt',
-      valueFormatter: (params: any) =>
+      valueFormatter: (params: { value: string | Date }) =>
         dayjs(params.value).format('DD/MM/YYYY - HH:mm'),
     },
   ]

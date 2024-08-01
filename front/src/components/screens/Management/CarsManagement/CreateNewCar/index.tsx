@@ -36,7 +36,7 @@ export function CreateNewCar() {
   const [newCarData, setNewCarData] = useState<NewCar>(defaultValuesNewCar)
   const [categoriesList, setCategoriesList] = useState<Category[]>([])
   const [loadingCreateNewCar, setLoadingCreateNewCar] = useState<boolean>(false)
-  const [image, setImage] = useState<any>(null)
+  const [image, setImage] = useState<File | null>(null)
 
   function onCreateNewCar(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -91,8 +91,12 @@ export function CreateNewCar() {
   function handleSetImage() {
     const inputFile = document.createElement('input')
     inputFile.type = 'file'
-    inputFile.onchange = async (event: any) => {
-      setImage(event.target.files[0])
+    inputFile.onchange = async (event: Event) => {
+      const target = event.target as HTMLInputElement
+
+      const file = (target.files || [])[0] as File
+
+      setImage(file)
     }
 
     inputFile.click()

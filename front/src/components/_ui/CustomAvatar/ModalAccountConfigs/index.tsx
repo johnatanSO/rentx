@@ -11,6 +11,7 @@ import { UserContext } from '@/contexts/userContext'
 import { AlertContext } from '@/contexts/alertContext'
 import { updateUserInfosService } from '@/services/user/updateUserInfos/UpdateUserInfosService'
 import { CustomTextField } from '../../CustomTextField'
+import { NewValuesUserInfos } from './interfaces/NewValuesUserInfos'
 
 type Props = {
   open: boolean
@@ -25,7 +26,8 @@ export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
   const [loadingUpdateUserInfos, setLoadingUpdateUserInfos] =
     useState<boolean>(false)
   const [editMode, setEditMode] = useState<boolean>(false)
-  const [newValuesUserInfos, setNewValuesUserInfos] = useState<any>(userInfo)
+  const [newValuesUserInfos, setNewValuesUserInfos] =
+    useState<NewValuesUserInfos>(userInfo as NewValuesUserInfos)
 
   function onUpdateUserInfos(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -52,7 +54,7 @@ export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
       })
   }
 
-  function onUpdateAvatar(avatarImage: any) {
+  function onUpdateAvatar(avatarImage: File) {
     updateAvatarService(avatarImage)
       .then((res) => {
         setUserInfo({
@@ -75,8 +77,12 @@ export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
   function handleSetImage() {
     const inputFile = document.createElement('input')
     inputFile.type = 'file'
-    inputFile.onchange = (event: any) => {
-      onUpdateAvatar(event.target.files[0])
+    inputFile.onchange = (event: Event) => {
+      const target = event.target as HTMLInputElement
+
+      const file = (target.files || [])[0] as File
+
+      onUpdateAvatar(file)
     }
 
     inputFile.click()
