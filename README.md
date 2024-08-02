@@ -79,95 +79,95 @@
 
 <h2>Imagens do projeto</h2>
 <h4>Tela de login do sistema</h4>
-<br />
-<img width="700px" src="https://github.com/user-attachments/assets/f57ebd24-a9d7-40b5-8b68-949c301def4d" />
+<img width="700px" src="https://github.com/user-attachments/assets/398220b9-f93c-4b60-917e-c1d633f1b73e" />
 <hr />
+<br />
 
 <h4>Tela de cadastro de usuário</h4>
 <i>Recomendo cadastrar como administrador para que seja possível testar todas as funcionalidades do sistema</i>
-<br />
 <img width="700px" src="https://github.com/user-attachments/assets/e1406edb-f064-4728-a272-c161bf2e88c8" />
 <hr />
+<br />
 
 <h4>Modal para atualização de cados do usuário</h4>
 <i>Para exibir o modal, basta clicar no avatar no canto superior direito e depois no nome do usuário</i>
-<br />
 <img width="700px" src="https://github.com/user-attachments/assets/e2a1cd5e-d9c4-4ab1-a61b-19070c647dc2" />
 <hr />
+<br />
 
 <h4>Tela inicial para usuários</h4>
-<br />
 <img width="700px" src="https://github.com/user-attachments/assets/4f71cbcc-6f63-4a51-9127-e5c86086787a" />
 <hr />
+<br />
 
 <h4>Tela para realizar o aluguel do carro</h4>
 <i>Selecione a data que deseja e as informações referentes ao aluguel serão atualizadas</i>
-<br />
 <img width="700px" src="https://github.com/user-attachments/assets/0ad8422c-7bd9-419f-afe7-2b1ef5cb1a98" />
 <hr />
+<br />
 
 <h4>Tela com os alugueis já realizados pelo usuário</h4>
 <i>É exibido o status do aluguel e as informações referentes à ele. Para finalizar o aluguel, clique em "Devolver carro"</i>
-<br />
-<img width="700px" src="https://github.com/user-attachments/assets/0ad8422c-7bd9-419f-afe7-2b1ef5cb1a98" />
+<img width="700px" src="https://github.com/user-attachments/assets/79d4f2f1-3b31-46c5-94f5-c0e5a36e6ff5" />
 <hr />
+<br />
 
 <h4>Tela com os carros favoritados pelo usuário</h4>
-<br />
 <img width="700px" src="https://github.com/user-attachments/assets/57d81822-a7bd-4fea-8dc6-2aaf56d07591" />
 <hr />
+<br />
 
 <h4>Tela com informações sobre o sistema</h4>
-<br />
 <img width="700px" src="https://github.com/user-attachments/assets/95e3828c-1d27-407b-9e5c-4d2a8302c331" />
 <hr />
+<br />
 
 <h4>Tela para contato</h4>
-<br />
 <img width="700px" src="https://github.com/user-attachments/assets/fc8d3f30-49f0-4276-aefe-5d42c5b9e7ba" />
 <hr />
+<br />
 
 <h4>Tela de gestão de carros cadastrados no sistema</h4>
 <i>Nesta tela são listados todos os carros cadastrados no sistema. Caso queira cadastrar um novo, é só clicar em "Cadastrar novo" no canto superior direito</i>
-<br />
 <img width="700px" src="https://github.com/user-attachments/assets/c1051302-05bd-42dc-9d86-86e6d38d0b3d" />
 <hr />
+<br />
 
 <h4>Tela de cadastro de um novo carro</h4>
 <i>Preencha as informações do carro, insira uma imagem caso queira e clique em "Finalizar" no canto superior direito</i>
-<br />
 <img width="700px" src="https://github.com/user-attachments/assets/b28e8162-5e03-4c26-b1a1-035c1105c0c1" />
 <hr />
+<br />
 
 <h4>Tela de alteração de informações de um carro</h4>
 <i>Nesta tela é possível alterar as informações do carro, como imagens, nome, placa, categoria, etc.</i>
-<br />
 <img width="700px" src="https://github.com/user-attachments/assets/e192d540-48eb-452c-a330-550e5a250d0f" />
 <hr />
+<br />
 
 <h4>Tela de gestão de categorias</h4>
 <i>Nesta tela são listadas todas as categorias cadastradas com a possibilidade de editar, excluir ou cadastrar uma nova.</i>
-<br />
 <img width="700px" src="https://github.com/user-attachments/assets/149b979b-eed0-4809-b502-e344e0ffefd4" />
 <hr />
+<br />
 
 <h4>Tela de gestão de todos os alugueis</h4>
 <i>Nesta tela são listados todos os alugueis de todos os usuários</i>
-<br />
 <img width="700px" src="https://github.com/user-attachments/assets/099482ad-125c-41dc-805b-b27a00e0036b" />
 <hr />
+<br />
 
 <h4>Tela de edição de aluguel</h4>
 <i>Modal para atualizar os dados de um aluguel</i>
-<br />
 <img width="700px" src="https://github.com/user-attachments/assets/6c6e6e4e-5cdd-488b-8d2c-ea326268ad49" />
 <hr />
+<br />
 
 <h4>Tela para importação de categorias</h4>
 <i>Nesta tela é possível importar categorias através de um arquivo .csv. Ele deverá estar formatado separado por pipe (pipe). Baixe o arquivo de exemplo.</i>
-<br />
 <img width="700px" src="https://github.com/user-attachments/assets/8388a2a6-e155-460c-94b5-063d11db8e08" />
 <hr />
+<br />
 
 
 <div>
