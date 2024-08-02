@@ -128,7 +128,7 @@
 <br />
 
 <h4>Tela de gestão de carros cadastrados no sistema</h4>
-<i>Nesta tela são listados todos os carros cadastrados no sistema. Caso queira cadastrar um novo, é só clicar em "Cadastrar novo" no canto superior direito</i>
+<i>Nesta tela são listados todos os carros cadastrados no sistema. Caso queira cadastrar um novo, é só clicar em "Cadastrar novo" no canto superior direito</i><br />
 <img width="700px" src="https://github.com/user-attachments/assets/c1051302-05bd-42dc-9d86-86e6d38d0b3d" />
 <hr />
 <br />
@@ -164,7 +164,7 @@
 <br />
 
 <h4>Tela para importação de categorias</h4>
-<i>Nesta tela é possível importar categorias através de um arquivo .csv. Ele deverá estar formatado separado por pipe (pipe). Baixe o arquivo de exemplo.</i>
+<i>Nesta tela é possível importar categorias através de um arquivo .csv. Ele deverá estar formatado separado por pipe (pipe). Baixe o arquivo de exemplo.</i><br />
 <img width="700px" src="https://github.com/user-attachments/assets/8388a2a6-e155-460c-94b5-063d11db8e08" />
 <hr />
 <br />
