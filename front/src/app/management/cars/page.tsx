@@ -1,8 +1,8 @@
 import { CarsManagement } from '@/components/screens/Management/CarsManagement'
 import { verifyUserIsAdminService } from '@/services/user/verifyUserIsAdmin/VerifyUserIsAdminService'
 
-export default async function CarsPage() {
-  await verifyUserIsAdminService()
+export default function CarsPage() {
+  verifyUserIsAdminService()
 
   return <CarsManagement />
 }

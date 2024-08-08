@@ -34,8 +34,8 @@ export function UserContextComponent({
     serverUserInfo || null,
   )
 
-  async function saveUserHandler(updatedInfos: UserInfo) {
-    const localUser: UserInfo = await getLocalUserService()
+  function saveUserHandler(updatedInfos: UserInfo) {
+    const localUser: UserInfo = getLocalUserService()
     saveLocalUserService({
       userData: { ...localUser, ...updatedInfos },
     })

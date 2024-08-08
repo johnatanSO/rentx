@@ -21,8 +21,8 @@ type Props = {
   children: React.ReactNode
 }
 
-export default async function WithLayout({ children }: Props) {
-  const serverUserInfo = await getLocalUserService()
+export default function WithLayout({ children }: Props) {
+  const serverUserInfo = getLocalUserService()
 
   return (
     <html lang="en">

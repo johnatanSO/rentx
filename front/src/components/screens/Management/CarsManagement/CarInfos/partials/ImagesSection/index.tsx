@@ -75,18 +75,18 @@ export function ImagesSection({ car }: Props) {
   function handleSetImage() {
     const inputFile = document.createElement('input')
     inputFile.type = 'file'
-    inputFile.onchange = async (event: Event) => {
+    inputFile.onchange = (event: Event) => {
       const target = event.target as HTMLInputElement
 
       const file = (target.files || [])[0] as File
 
-      await updateImage(file)
+      updateImage(file)
     }
 
     inputFile.click()
   }
 
-  async function updateImage(carImage: File) {
+  function updateImage(carImage: File) {
     updateCarImageService({ carImage, carId: car._id })
       .then(() => {
         router.refresh()
@@ -112,18 +112,18 @@ export function ImagesSection({ car }: Props) {
   function handleUpdateDefaultImage() {
     const inputFile = document.createElement('input')
     inputFile.type = 'file'
-    inputFile.onchange = async (event: Event) => {
+    inputFile.onchange = (event: Event) => {
       const target = event.target as HTMLInputElement
 
       const file = (target.files || [])[0] as File
 
-      await updateDefaultImage(file)
+      updateDefaultImage(file)
     }
 
     inputFile.click()
   }
 
-  async function updateDefaultImage(defaultImage: File) {
+  function updateDefaultImage(defaultImage: File) {
     updateDefaultCarImageService({ defaultImage, carId: car._id })
       .then(() => {
         router.refresh()

@@ -2,11 +2,13 @@
 import { cookies } from 'next/headers'
 const TOKEN_KEY = ':rental: [TOKEN]'
 
-export async function saveTokenService(token: string) {
+export function saveTokenService(token: string) {
+  const oneHour = 60 * 60 * 1
+
   cookies().set({
     name: TOKEN_KEY,
     value: token,
-    maxAge: 60 * 60 * 1, // 1 hora
+    maxAge: oneHour,
   })
   globalThis?.localStorage?.setItem(TOKEN_KEY, JSON.stringify(token))
 }

@@ -1,5 +1,5 @@
 import { Home } from '@/components/screens/Home'
 
-export default async function HomePage() {
+export default function HomePage() {
   return <Home />
 }

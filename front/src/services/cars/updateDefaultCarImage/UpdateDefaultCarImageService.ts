@@ -5,7 +5,7 @@ interface IRequest {
   carId: string
 }
 
-export async function updateDefaultCarImageService({
+export function updateDefaultCarImageService({
   defaultImage,
   carId,
 }: IRequest) {
@@ -13,5 +13,5 @@ export async function updateDefaultCarImageService({
 
   formData.append('defaultImage', defaultImage)
 
-  return await http.patch(`/cars/images/default/${carId}`, formData)
+  return http.patch(`/cars/images/default/${carId}`, formData)
 }

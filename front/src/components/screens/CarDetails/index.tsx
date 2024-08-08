@@ -35,10 +35,11 @@ export function CarDetails({ car }: Props) {
     car.images[0] || car.defaultImage || null,
   )
 
-  async function onCreateNewRental(event: FormEvent<HTMLFormElement>) {
+  function onCreateNewRental(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    const userInfo = await getLocalUserService()
+    const userInfo = getLocalUserService()
+
     if (!userInfo) {
       router.push('/authenticate')
       return

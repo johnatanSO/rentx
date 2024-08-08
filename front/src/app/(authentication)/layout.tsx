@@ -12,12 +12,12 @@ export const metadata = {
   description: 'Entre com sua conta ou crie uma nova',
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const serverUserInfo = await getLocalUserService()
+  const serverUserInfo = getLocalUserService()
   return (
     <html lang="en">
       <body>

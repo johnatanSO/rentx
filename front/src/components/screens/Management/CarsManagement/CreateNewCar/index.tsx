@@ -91,7 +91,7 @@ export function CreateNewCar() {
   function handleSetImage() {
     const inputFile = document.createElement('input')
     inputFile.type = 'file'
-    inputFile.onchange = async (event: Event) => {
+    inputFile.onchange = (event: Event) => {
       const target = event.target as HTMLInputElement
 
       const file = (target.files || [])[0] as File

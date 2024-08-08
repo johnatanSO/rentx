@@ -3,7 +3,7 @@
 import { cookies } from 'next/headers'
 const REFRESH_TOKEN_KEY = ':rental: [REFRESH_TOKEN]'
 
-export async function saveRefreshToken(token: string) {
+export function saveRefreshToken(token: string) {
   cookies().set({
     name: REFRESH_TOKEN_KEY,
     value: token,

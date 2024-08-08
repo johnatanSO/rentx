@@ -10,7 +10,7 @@ interface IRequest {
   }
 }
 
-export async function saveLocalUserService({ userData }: IRequest) {
+export function saveLocalUserService({ userData }: IRequest) {
   cookies().set({
     name: USER_KEY,
     value: JSON.stringify(userData),

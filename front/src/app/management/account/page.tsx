@@ -1,6 +1,6 @@
 import { verifyUserIsAdminService } from '@/services/user/verifyUserIsAdmin/VerifyUserIsAdminService'
 
-export default async function AccountPage() {
-  await verifyUserIsAdminService()
+export default function AccountPage() {
+  verifyUserIsAdminService()
   return <h1>Account configs</h1>
 }

@@ -3,7 +3,7 @@ import { getFavoritedCarsService } from '@/services/user/getFavoritedCars/GetFav
 import { verifyUserSessionService } from '@/services/user/verifyUserSession/VerifyUserSessionService'
 
 export default async function FavoritedsPage() {
-  await verifyUserSessionService()
+  verifyUserSessionService()
 
   const { data } = await getFavoritedCarsService()
 

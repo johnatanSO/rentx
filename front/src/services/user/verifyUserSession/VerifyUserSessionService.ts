@@ -1,8 +1,8 @@
 import { redirect } from 'next/navigation'
 import { getLocalUserService } from '../getLocalUser/GetLocalUserService'
 
-export async function verifyUserSessionService() {
-  const user = await getLocalUserService()
+export function verifyUserSessionService() {
+  const user = getLocalUserService()
 
   if (!user) redirect('/authenticate')
 
