@@ -1,4 +1,4 @@
-import { http } from '@/http/axios'
+import { http } from '@/providers/httpClientProvider/AxiosHttpClientProvider'
 
 export function uploadCategoriesService(csvCategoriesFile: File) {
   const formData = new FormData()

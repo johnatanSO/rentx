@@ -1,4 +1,4 @@
-import { http } from '@/http/axios'
+import { http } from '@/providers/httpClientProvider/AxiosHttpClientProvider'
 
 interface IRequest {
   name: string

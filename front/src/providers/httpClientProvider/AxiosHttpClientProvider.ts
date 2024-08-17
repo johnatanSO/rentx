@@ -1,18 +1,31 @@
-// import { getRefreshToken } from '@/services/token/getRefreshToken/GetRefreshToken'
-// import { getTokenService } from '@/services/token/getToken/GetTokenService'
-// import axios from 'axios'
-
 import axios, { Axios, AxiosError, AxiosResponse } from 'axios'
-import { IHttpClient } from './IHttpClient'
+import { IHttpClientProvider } from './IHttpClientProvider'
+import { getTokenService } from '@/services/token/getToken/GetTokenService'
 
-// const http1 = axios.create({
-//   baseURL: process.env.NEXT_PUBLIC_END_POINT,
-// })
-
-class HttpAxiosClient implements IHttpClient {
+class HttpAxiosClientProvider implements IHttpClientProvider {
   private httpIntance: Axios = axios.create({
     baseURL: process.env.NEXT_PUBLIC_END_POINT,
   })
+
+  constructor() {
+    this.httpIntance.interceptors.request.use(
+      async (config: any) => {
+        const token = await getTokenService()
+
+        if (token) {
+          config.headers = {
+            ...config.headers,
+            Authorization: `Bearer ${token}`,
+          }
+        }
+
+        return config
+      },
+      (error) => {
+        return Promise.reject(error)
+      },
+    )
+  }
 
   async post(url: string, options?: any) {
     let axiosResponse: AxiosResponse
@@ -95,6 +108,6 @@ class HttpAxiosClient implements IHttpClient {
   }
 }
 
-const http = new HttpAxiosClient()
+const http = new HttpAxiosClientProvider()
 
 export { http }

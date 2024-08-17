@@ -1,4 +1,4 @@
-import { http } from '@/http/axios'
+import { http } from '@/providers/httpClientProvider/AxiosHttpClientProvider'
 
 export function updateAvatarService(avatarImage: File) {
   const formData = new FormData()
