@@ -37,7 +37,7 @@ export function ForgotPassword() {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar recuperar senha - ${err?.response?.data?.message || err?.message}`,
+          text: `Erro ao tentar recuperar senha - ${err?.message}`,
           type: 'error',
         })
       })

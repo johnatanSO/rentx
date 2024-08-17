@@ -37,7 +37,7 @@ export function Contact() {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar enviar mensagem - ${err?.response?.data?.message || err?.message}`,
+          text: `Erro ao tentar enviar mensagem - ${err?.message}`,
           type: 'error',
         })
       })

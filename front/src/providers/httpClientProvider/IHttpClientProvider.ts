@@ -1,4 +1,4 @@
-import { HttpStatusCode } from 'axios'
+import { HttpStatusCode } from '@/models/enums/HttpStatusCode'
 
 export interface HttpResponse {
   statusCode: HttpStatusCode

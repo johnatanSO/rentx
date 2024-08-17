@@ -43,13 +43,13 @@ export function useColumns({ handleEditCategory, getCategories }: Props) {
               ...alertNotifyConfigs,
               open: true,
               text: `Erro ao tentar deletar categoria - ${
-                err?.response?.data?.message || err?.message
+                err?.message
               }`,
               type: 'error',
             })
             console.log(
               `Erro ao tentar deletar categoria - ${
-                err?.response?.data?.message || err?.message
+                err?.message
               }`,
             )
           })

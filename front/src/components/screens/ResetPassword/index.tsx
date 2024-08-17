@@ -42,7 +42,7 @@ export function ResetPassword({ refreshToken }: Props) {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar alterar a senha - ${err?.response?.data?.message || err?.message}`,
+          text: `Erro ao tentar alterar a senha - ${err?.message}`,
           type: 'error',
         })
       })

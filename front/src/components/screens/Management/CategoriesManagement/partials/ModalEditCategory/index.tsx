@@ -46,7 +46,7 @@ export function ModalEditCategory({
           ...alertNotifyConfigs,
           open: true,
           text: `Erro ao tentar atualizar informações da categoria - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
           type: 'error',
         })

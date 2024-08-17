@@ -59,7 +59,7 @@ export function EditInfosSection({ car }: Props) {
           ...alertNotifyConfigs,
           open: true,
           text: `Erro ao tentar atualizar informações do carro - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
           type: 'error',
         })
@@ -79,7 +79,7 @@ export function EditInfosSection({ car }: Props) {
           ...alertNotifyConfigs,
           open: true,
           text: `Erro ao tentar buscar categorias - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
           type: 'error',
         })

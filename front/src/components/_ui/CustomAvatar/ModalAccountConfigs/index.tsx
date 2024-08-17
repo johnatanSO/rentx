@@ -42,9 +42,7 @@ export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar atualizar informações de usuário - ${
-            err?.response?.data?.message || err?.message
-          }`,
+          text: `Erro ao tentar atualizar informações de usuário - ${err?.message}`,
           type: 'error',
         })
       })
@@ -66,9 +64,7 @@ export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar atualizar avatar - ${
-            err?.response?.data?.message || err?.message
-          }`,
+          text: `Erro ao tentar atualizar avatar - ${err?.message}`,
           type: 'error',
         })
       })

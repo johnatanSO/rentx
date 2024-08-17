@@ -50,13 +50,13 @@ export function Login() {
           ...alertNotifyConfigs,
           open: true,
           text: `Erro ao tentar realizar autenticação - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
           type: 'error',
         })
         console.log(
           `Erro ao tentar realizar autenticação - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
         )
       })

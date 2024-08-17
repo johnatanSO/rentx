@@ -63,7 +63,7 @@ export function CarItem({
           ...alertNotifyConfigs,
           open: true,
           text: `Erro ao tentar favoritar o carro - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
           type: 'error',
         })

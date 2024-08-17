@@ -69,7 +69,7 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
           ...alertNotifyConfigs,
           open: true,
           text: `Erro ao tentar atualizar informações do aluguel - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
           type: 'error',
         })
@@ -89,7 +89,7 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
           ...alertNotifyConfigs,
           open: true,
           text: `Erro ao tentar fazer busca de carros - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
           type: 'error',
         })
@@ -106,7 +106,7 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
           ...alertNotifyConfigs,
           open: true,
           text: `Erro ao tentar fazer busca de usuários - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
           type: 'error',
         })

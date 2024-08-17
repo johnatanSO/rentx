@@ -47,7 +47,7 @@ export function ModalEditSpecification({
           ...alertNotifyConfigs,
           open: true,
           text: `Erro ao tentar atualizar informações da especificação - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
           type: 'error',
         })

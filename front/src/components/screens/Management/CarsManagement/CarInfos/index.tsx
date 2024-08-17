@@ -48,9 +48,7 @@ export function CarInfos({ car }: Props) {
             setAlertNotifyConfigs({
               ...alertNotifyConfigs,
               open: true,
-              text: `Erro ao tentar deletar este carro - ${
-                error?.response?.data?.message || error?.message
-              }`,
+              text: `Erro ao tentar deletar este carro - ${error?.message}`,
               type: 'error',
             })
           })

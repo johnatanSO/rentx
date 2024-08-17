@@ -44,7 +44,7 @@ export function Dev() {
           ...alertNotifyConfigs,
           open: true,
           text: `Erro ao tentar ler arquivo .csv - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
           type: 'error',
         })

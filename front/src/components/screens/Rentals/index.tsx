@@ -47,7 +47,7 @@ export function Rentals() {
               ...alertNotifyConfigs,
               open: true,
               text: `Erro ao tentar finalizar o aluguel - ${
-                err?.response?.data?.message || err?.message
+                err?.message
               }`,
               type: 'error',
             })

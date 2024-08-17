@@ -62,7 +62,7 @@ export function ModalSpecifications({ open, handleClose, car }: Props) {
           ...alertNotifyConfigs,
           open: true,
           text: `Erro ao tentar adicionar especificações - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
           type: 'error',
         })
@@ -100,13 +100,13 @@ export function ModalSpecifications({ open, handleClose, car }: Props) {
           ...alertNotifyConfigs,
           open: true,
           text: `Erro ao buscar especificações - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
           type: 'error',
         })
         console.log(
           `Erro ao buscar especificações - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
         )
       })

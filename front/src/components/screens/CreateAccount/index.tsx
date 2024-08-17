@@ -49,14 +49,14 @@ export function CreateAccount() {
       .catch((err) => {
         console.log(
           `Erro ao tentar realizar cadastro de usuário - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
         )
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
           text: `Erro ao tentar realizar cadastro de usuário - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
           type: 'error',
         })

@@ -2,6 +2,7 @@ import { getAvaliableCarsService } from '@/services/cars/getAvaliableCars/GetAva
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Car } from '../interfaces/Car'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 export function useCarsList() {
   const [cars, setCars] = useState<Car[]>([])
@@ -14,7 +15,7 @@ export function useCarsList() {
     const name = searchParams.get('name')
     const categoryId = searchParams.get('categoryId')
 
-    getAvaliableCarsService({ name, categoryId })
+    getAvaliableCarsService({ name, categoryId }, httpClientProvider)
       .then(({ data: { items } }) => {
         setCars(items)
       })

@@ -47,13 +47,13 @@ export function CreateNewCategory({ getCategories }: Props) {
           ...alertNotifyConfigs,
           open: true,
           text: `Erro ao tentar cadastrar nova categoria - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
           type: 'error',
         })
         console.log(
           `Erro ao tentar cadastrar nova categoria - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
         )
       })

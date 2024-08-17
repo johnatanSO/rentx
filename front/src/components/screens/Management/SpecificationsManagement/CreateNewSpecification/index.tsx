@@ -46,13 +46,13 @@ export function CreateNewSpecification({ getSpecifications }: Props) {
           ...alertNotifyConfigs,
           open: true,
           text: `Erro ao tentar cadastrar nova especificação - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
           type: 'error',
         })
         console.log(
           `Erro ao tentar cadastrar nova especificação - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
         )
       })

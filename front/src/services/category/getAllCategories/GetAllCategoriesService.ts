@@ -1,5 +1,7 @@
-import { http } from '@/providers/httpClientProvider/AxiosHttpClientProvider'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
-export function getAllCategoriesService() {
-  return http.get('/categories/')
+export function getAllCategoriesService(
+  httpClientProvider: IHttpClientProvider,
+) {
+  return httpClientProvider.get('/categories/')
 }

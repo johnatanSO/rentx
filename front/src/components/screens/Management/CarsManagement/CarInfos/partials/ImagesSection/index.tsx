@@ -58,13 +58,13 @@ export function ImagesSection({ car }: Props) {
               ...alertNotifyConfigs,
               open: true,
               text: `Erro ao tentar remover imagem - ${
-                err?.response?.data?.message || err?.message
+                err?.message
               }`,
               type: 'success',
             })
             console.log(
               `Erro ao tentar remover imagem - ${
-                err?.response?.data?.message || err?.message
+                err?.message
               }`,
             )
           })
@@ -97,7 +97,7 @@ export function ImagesSection({ car }: Props) {
           ...alertNotifyConfigs,
           open: true,
           text: `Erro ao tentar adicionar imagem - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
           type: 'error',
         })
@@ -134,7 +134,7 @@ export function ImagesSection({ car }: Props) {
           ...alertNotifyConfigs,
           open: true,
           text: `Erro ao tentar atualizar imagem padrão - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
           type: 'error',
         })

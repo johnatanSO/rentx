@@ -2,12 +2,21 @@ import axios, { Axios, AxiosError, AxiosResponse } from 'axios'
 import { IHttpClientProvider } from './IHttpClientProvider'
 import { getTokenService } from '@/services/token/getToken/GetTokenService'
 
-class HttpAxiosClientProvider implements IHttpClientProvider {
+export class AxiosHttpClientProvider implements IHttpClientProvider {
   private httpIntance: Axios = axios.create({
     baseURL: process.env.NEXT_PUBLIC_END_POINT,
   })
 
+  private static _instance = new AxiosHttpClientProvider()
+
   constructor() {
+    if (AxiosHttpClientProvider._instance) {
+      throw new Error(
+        'Erro ao criar instância do AxiosHttpClientProvider. Execute getInstance() para criar uma nova',
+      )
+    }
+    AxiosHttpClientProvider._instance = this
+
     this.httpIntance.interceptors.request.use(
       async (config: any) => {
         const token = await getTokenService()
@@ -25,6 +34,10 @@ class HttpAxiosClientProvider implements IHttpClientProvider {
         return Promise.reject(error)
       },
     )
+  }
+
+  public static getInstance(): AxiosHttpClientProvider {
+    return AxiosHttpClientProvider._instance
   }
 
   async post(url: string, options?: any) {
@@ -107,7 +120,3 @@ class HttpAxiosClientProvider implements IHttpClientProvider {
     }
   }
 }
-
-const http = new HttpAxiosClientProvider()
-
-export { http }

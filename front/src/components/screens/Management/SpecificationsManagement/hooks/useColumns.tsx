@@ -47,13 +47,13 @@ export function useColumns({
               ...alertNotifyConfigs,
               open: true,
               text: `Erro ao tentar deletar especificação - ${
-                err?.response?.data?.message || err?.message
+                err?.message
               }`,
               type: 'error',
             })
             console.log(
               `Erro ao tentar deletar especificação - ${
-                err?.response?.data?.message || err?.message
+                err?.message
               }`,
             )
           })

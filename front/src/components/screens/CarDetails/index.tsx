@@ -66,7 +66,7 @@ export function CarDetails({ car }: Props) {
           ...alertNotifyConfigs,
           open: true,
           text: `Erro ao tentar cadastrar aluguel do carro - ${
-            err?.response?.data?.message || err?.message
+            err?.message
           }`,
           type: 'error',
         })

@@ -6,6 +6,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@/styles/global.scss'
 import { MobileManagementMenu } from '@/components/layout/MobileManagementMenu'
+import { verifyUserIsAdminService } from '@/services/user/verifyUserIsAdmin/VerifyUserIsAdminService'
 
 config.autoAddCss = false
 
@@ -19,6 +20,8 @@ type Props = {
 }
 
 export default async function RootLayout({ children }: Props) {
+  await verifyUserIsAdminService()
+
   const serverUserInfo = await getLocalUserService()
 
   return (

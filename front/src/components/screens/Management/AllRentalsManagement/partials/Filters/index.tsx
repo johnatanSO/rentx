@@ -92,16 +92,10 @@ export function Filters({ filters, setFilters }: Props) {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar buscar lista de usuários - ${
-            err?.response?.data?.message || err?.message
-          }`,
+          text: `Erro ao tentar buscar lista de usuários - ${err?.message}`,
           type: 'error',
         })
-        console.log(
-          `Erro ao tentar buscar lista de usuários - ${
-            err?.response?.data?.message || err?.message
-          }`,
-        )
+        console.log(`Erro ao tentar buscar lista de usuários - ${err?.message}`)
       })
   }
 
@@ -114,9 +108,7 @@ export function Filters({ filters, setFilters }: Props) {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar buscar lista de carros - ${
-            err?.response?.message?.data || err?.message
-          }`,
+          text: `Erro ao tentar buscar lista de carros - ${err?.message}`,
           type: 'error',
         })
       })
