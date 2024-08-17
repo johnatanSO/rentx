@@ -1,4 +1,4 @@
-import http from '@/http/axios'
+import { http } from '@/http/axios'
 
 export function getAllCategoriesService() {
   return http.get('/categories/')

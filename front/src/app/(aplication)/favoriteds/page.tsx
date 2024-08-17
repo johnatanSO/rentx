@@ -7,7 +7,7 @@ export default async function FavoritedsPage() {
 
   const { data } = await getFavoritedCarsService()
 
-  const favoritedCars = data?.items
+  const favoritedCars = data.items || []
 
   return <FavoritedCars favoritedCars={favoritedCars} />
 }

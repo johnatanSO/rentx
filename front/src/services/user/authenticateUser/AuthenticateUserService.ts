@@ -1,4 +1,4 @@
-import http from '@/http/axios'
+import { http } from '@/http/axios'
 
 interface IRequest {
   email: string
