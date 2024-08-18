@@ -1,6 +1,6 @@
 import { ModalLayout } from '@/components/_ui/ModalLayout'
 import { Category } from '../../interfaces/Category'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { AlertContext } from '@/contexts/alertContext'
 import { updateCategoryService } from '@/services/category/updateCategoryService/UpdateCategoryService'
@@ -25,9 +25,13 @@ export function ModalEditCategory({
   const [loadingUpdateCategory, setLoadingUpdateCategory] =
     useState<boolean>(false)
 
-  const { handleSubmit, register, reset } = useForm()
+  const { handleSubmit, register } = useForm<Category>({
+    defaultValues: {
+      ...categoryToEdit,
+    },
+  })
 
-  function onUpdateCategory(data: any) {
+  function onUpdateCategory(data: Category) {
     setLoadingUpdateCategory(true)
 
     const values = {
@@ -59,16 +63,6 @@ export function ModalEditCategory({
         setLoadingUpdateCategory(false)
       })
   }
-
-  useEffect(() => {
-    reset((formValues) => {
-      return {
-        ...formValues,
-        name: categoryToEdit?.name,
-        description: categoryToEdit?.description,
-      }
-    })
-  }, [])
 
   return (
     <ModalLayout
