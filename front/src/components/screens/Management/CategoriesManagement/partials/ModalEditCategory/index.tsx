@@ -6,6 +6,7 @@ import { AlertContext } from '@/contexts/alertContext'
 import { updateCategoryService } from '@/services/category/updateCategoryService/UpdateCategoryService'
 import style from './ModalEditCategory.module.scss'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { useForm } from 'react-hook-form'
 
 interface Props {
   getCategories: () => void
@@ -25,9 +26,9 @@ export function ModalEditCategory({
     useState<boolean>(false)
   const [categoryData, setCategoryData] = useState<Category>(categoryToEdit)
 
-  function onUpdateCategory(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
+  const { handleSubmit, register } = useForm()
 
+  function onUpdateCategory(data: any) {
     setLoadingUpdateCategory(true)
 
     updateCategoryService(categoryData, httpClientProvider)
@@ -62,34 +63,20 @@ export function ModalEditCategory({
       title="Atualizar categoria"
       loading={loadingUpdateCategory}
       submitButtonText="Salvar"
-      onSubmit={onUpdateCategory}
+      onSubmit={() => {
+        handleSubmit(onUpdateCategory)
+      }}
       buttonStyle={{
         backgroundColor: '#3264ff',
       }}
     >
       <div className={style.fields}>
-        <CustomTextField
-          label="Nome"
-          size="small"
-          value={categoryData.name}
-          onChange={(event) => {
-            setCategoryData({
-              ...categoryData,
-              name: event?.target.value,
-            })
-          }}
-        />
+        <CustomTextField label="Nome" size="small" {...register('name')} />
         <CustomTextField
           label="Descrição"
           multiline
           rows={3}
-          value={categoryData.description}
-          onChange={(event) => {
-            setCategoryData({
-              ...categoryData,
-              description: event?.target.value,
-            })
-          }}
+          {...register('description')}
         />
       </div>
     </ModalLayout>

@@ -2,7 +2,7 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Modal, Box } from '@mui/material'
-import { ReactNode, FormEvent } from 'react'
+import { ReactNode } from 'react'
 import style from './ModalLayout.module.scss'
 import { Loading } from '@/components/_ui/Loading'
 
@@ -12,7 +12,7 @@ interface Props {
   submitButtonText?: string
   children: ReactNode
   handleClose: () => void
-  onSubmit?: (event: FormEvent<HTMLFormElement>) => void
+  onSubmit?: (data: any) => void
   loading?: boolean
   customStyle?: any
   buttonStyle?: any
