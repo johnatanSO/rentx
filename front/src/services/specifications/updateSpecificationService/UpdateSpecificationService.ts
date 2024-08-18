@@ -1,4 +1,4 @@
-import { http } from '@/providers/httpClientProvider/AxiosHttpClientProvider'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
 interface IRequest {
   _id: string
@@ -6,12 +6,11 @@ interface IRequest {
   description: string
 }
 
-export function updateSpecificationService({
-  _id,
-  name,
-  description,
-}: IRequest) {
-  return http.put(`/specifications/${_id}`, {
+export function updateSpecificationService(
+  { _id, name, description }: IRequest,
+  httpClientProvider: IHttpClientProvider,
+) {
+  return httpClientProvider.put(`/specifications/${_id}`, {
     name,
     description,
   })

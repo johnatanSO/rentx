@@ -1,17 +1,20 @@
-import { http } from '@/providers/httpClientProvider/AxiosHttpClientProvider'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
 interface IRequest {
   carId: string
   expectedReturnDate: Date | string
 }
 
-export function createRentalService({ carId, expectedReturnDate }: IRequest) {
+export function createRentalService(
+  { carId, expectedReturnDate }: IRequest,
+  httpClientProvider: IHttpClientProvider,
+) {
   const body = {
     carId,
     expectedReturnDate,
   }
 
-  return http.post('/rentals', {
+  return httpClientProvider.post('/rentals', {
     ...body,
   })
 }

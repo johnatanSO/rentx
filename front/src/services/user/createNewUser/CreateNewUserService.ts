@@ -1,4 +1,4 @@
-import { http } from '@/providers/httpClientProvider/AxiosHttpClientProvider'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
 interface IRequest {
   name: string
@@ -9,15 +9,11 @@ interface IRequest {
   isAdmin: boolean
 }
 
-export function createNewUserService({
-  name,
-  email,
-  password,
-  confirmPassword,
-  driverLicense,
-  isAdmin,
-}: IRequest) {
-  return http.post('/users', {
+export function createNewUserService(
+  { name, email, password, confirmPassword, driverLicense, isAdmin }: IRequest,
+  httpClientProvider: IHttpClientProvider,
+) {
+  return httpClientProvider.post('/users', {
     name,
     email,
     password,

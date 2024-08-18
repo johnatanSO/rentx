@@ -1,14 +1,17 @@
-import { http } from '@/providers/httpClientProvider/AxiosHttpClientProvider'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
 interface IRequest {
   carImage: File
   carId: string
 }
 
-export async function updateCarImageService({ carImage, carId }: IRequest) {
+export function updateCarImageService(
+  { carImage, carId }: IRequest,
+  httpClientProvider: IHttpClientProvider,
+) {
   const formData = new FormData()
 
   formData.append('image', carImage)
 
-  return await http.patch(`/cars/images/${carId}`, formData)
+  return httpClientProvider.patch(`/cars/images/${carId}`, formData)
 }

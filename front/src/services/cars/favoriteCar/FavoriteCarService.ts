@@ -1,5 +1,8 @@
-import { http } from '@/providers/httpClientProvider/AxiosHttpClientProvider'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
-export function favoriteCarService(carId: string) {
-  return http.post(`/cars/favorite/${carId}`)
+export function favoriteCarService(
+  carId: string,
+  httpClientProvider: IHttpClientProvider,
+) {
+  return httpClientProvider.post(`/cars/favorite/${carId}`)
 }

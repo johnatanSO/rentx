@@ -40,11 +40,11 @@ export class AxiosHttpClientProvider implements IHttpClientProvider {
     return AxiosHttpClientProvider._instance
   }
 
-  async post(url: string, options?: any) {
+  async post(url: string, body?: any, options?: any) {
     let axiosResponse: AxiosResponse
 
     try {
-      axiosResponse = await this.httpIntance.post(url, options)
+      axiosResponse = await this.httpIntance.post(url, body, options)
     } catch (error) {
       const _error = error as AxiosError<{ message: string }>
       throw new Error(_error?.response?.data?.message)
@@ -56,11 +56,11 @@ export class AxiosHttpClientProvider implements IHttpClientProvider {
     }
   }
 
-  async put(url: string, options?: any) {
+  async put(url: string, body?: any, options?: any) {
     let axiosResponse: AxiosResponse
 
     try {
-      axiosResponse = await this.httpIntance.put(url, options)
+      axiosResponse = await this.httpIntance.put(url, body, options)
     } catch (error) {
       const _error = error as AxiosError<{ message: string }>
       throw new Error(_error?.response?.data?.message)
@@ -88,11 +88,11 @@ export class AxiosHttpClientProvider implements IHttpClientProvider {
     }
   }
 
-  async patch(url: string, options?: any) {
+  async patch(url: string, body?: any, options?: any) {
     let axiosResponse: AxiosResponse
 
     try {
-      axiosResponse = await this.httpIntance.patch(url, options)
+      axiosResponse = await this.httpIntance.patch(url, body, options)
     } catch (error) {
       const _error = error as AxiosError<{ message: string }>
       throw new Error(_error?.response?.data?.message)

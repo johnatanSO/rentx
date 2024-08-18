@@ -1,8 +1,11 @@
-import { http } from '@/providers/httpClientProvider/AxiosHttpClientProvider'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
-export function updateAvatarService(avatarImage: File) {
+export function updateAvatarService(
+  avatarImage: File,
+  httpClientProvider: IHttpClientProvider,
+) {
   const formData = new FormData()
   formData.append('avatar', avatarImage)
 
-  return http.patch('/users/avatar/', formData)
+  return httpClientProvider.patch('/users/avatar/', formData)
 }

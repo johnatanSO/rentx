@@ -1,4 +1,4 @@
-import { http } from '@/providers/httpClientProvider/AxiosHttpClientProvider'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 import dayjs from 'dayjs'
 
 interface IRequest {
@@ -8,12 +8,10 @@ interface IRequest {
   carId: string | null
 }
 
-export function getAllRentalsService({
-  filterStartDate,
-  filterEndDate,
-  userId,
-  carId,
-}: IRequest) {
+export function getAllRentalsService(
+  { filterStartDate, filterEndDate, userId, carId }: IRequest,
+  httpClientProvider: IHttpClientProvider,
+) {
   const defaultFilterStartDate = dayjs().startOf('month')
   const defaultFilterEndDate = dayjs().endOf('month')
 
@@ -32,7 +30,7 @@ export function getAllRentalsService({
     carId,
   }
 
-  return http.get('/rentals/all/', {
+  return httpClientProvider.get('/rentals/all/', {
     params,
   })
 }

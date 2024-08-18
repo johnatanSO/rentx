@@ -7,14 +7,14 @@ interface IGetAvaliableCars {
 
 export function getAvaliableCarsService(
   { name, categoryId }: IGetAvaliableCars,
-  instance: IHttpClientProvider,
+  httpClientProvider: IHttpClientProvider,
 ) {
   const params = {
     ...(name ? { name } : {}),
     ...(categoryId ? { categoryId } : {}),
   }
 
-  return instance.get('/cars/avaliable', {
+  return httpClientProvider.get('/cars/avaliable', {
     params,
   })
 }

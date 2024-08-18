@@ -1,5 +1,8 @@
-import { http } from '@/providers/httpClientProvider/AxiosHttpClientProvider'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
-export function deleteCategoryService(categoryId: string) {
-  return http.delete(`/categories/${categoryId}`)
+export function deleteCategoryService(
+  categoryId: string,
+  httpClientProvider: IHttpClientProvider,
+) {
+  return httpClientProvider.delete(`/categories/${categoryId}`)
 }

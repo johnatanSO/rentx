@@ -1,5 +1,7 @@
-import { http } from '@/providers/httpClientProvider/AxiosHttpClientProvider'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
-export function getFavoritedCarsService() {
-  return http.get('/users/favorite/list')
+export function getFavoritedCarsService(
+  httpClientProvider: IHttpClientProvider,
+) {
+  return httpClientProvider.get('/users/favorite/list')
 }

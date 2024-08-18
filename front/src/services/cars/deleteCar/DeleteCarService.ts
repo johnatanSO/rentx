@@ -1,5 +1,8 @@
-import { http } from '@/providers/httpClientProvider/AxiosHttpClientProvider'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
-export function deleteCarService(carId: string) {
-  return http.delete('/cars/' + carId)
+export function deleteCarService(
+  carId: string,
+  httpClientProvider: IHttpClientProvider,
+) {
+  return httpClientProvider.delete('/cars/' + carId)
 }

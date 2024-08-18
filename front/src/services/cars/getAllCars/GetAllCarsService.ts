@@ -1,5 +1,5 @@
-import { http } from '@/providers/httpClientProvider/AxiosHttpClientProvider'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
-export function getAllCarsService() {
-  return http.get('/cars')
+export function getAllCarsService(httpClientProvider: IHttpClientProvider) {
+  return httpClientProvider.get('/cars')
 }

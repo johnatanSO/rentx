@@ -1,4 +1,4 @@
-import { http } from '@/providers/httpClientProvider/AxiosHttpClientProvider'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
 interface IRequest {
   _id: string
@@ -14,19 +14,22 @@ interface IRequest {
   transmission: string
 }
 
-export function updateCarInfosService({
-  _id,
-  name,
-  description,
-  dailyRate,
-  avaliable,
-  licensePlate,
-  fineAmount,
-  brand,
-  categoryId,
-  reasonUnavaliable,
-  transmission,
-}: IRequest) {
+export function updateCarInfosService(
+  {
+    _id,
+    name,
+    description,
+    dailyRate,
+    avaliable,
+    licensePlate,
+    fineAmount,
+    brand,
+    categoryId,
+    reasonUnavaliable,
+    transmission,
+  }: IRequest,
+  httpClientProvider: IHttpClientProvider,
+) {
   const body = {
     name,
     description,
@@ -40,5 +43,5 @@ export function updateCarInfosService({
     transmission,
   }
 
-  return http.put(`/cars/${_id}`, body)
+  return httpClientProvider.put(`/cars/${_id}`, body)
 }
