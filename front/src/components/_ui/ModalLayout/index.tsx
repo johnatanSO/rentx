@@ -12,7 +12,7 @@ interface Props {
   submitButtonText?: string
   children: ReactNode
   handleClose: () => void
-  onSubmit?: (data: any) => void
+  onSubmit?: () => void
   loading?: boolean
   customStyle?: any
   buttonStyle?: any
