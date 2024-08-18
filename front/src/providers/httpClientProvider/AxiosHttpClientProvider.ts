@@ -1,6 +1,16 @@
 import axios, { Axios, AxiosError, AxiosResponse } from 'axios'
 import { IHttpClientProvider } from './IHttpClientProvider'
 import { getTokenService } from '@/services/token/getToken/GetTokenService'
+import { HttpStatusCode } from '@/models/enums/HttpStatusCode'
+import { getRefreshToken } from '@/services/token/getRefreshToken/GetRefreshToken'
+import { httpClientProvider } from '.'
+import { updateRefreshTokenService } from '@/services/token/updateRefreshToken'
+import { deleteTokenService } from '@/services/token/deleteToken/DeleteTokenService'
+import { deleteRefreshTokenService } from '@/services/token/deleteRefreshToken/DeleteRefreshTokenService'
+import { deleteLocalUserService } from '@/services/user/deleteLocalUser/DeleteLocalUserService'
+import { saveLocalUserService } from '@/services/user/saveLocalUser/SaveLocalUserService'
+import { saveTokenService } from '@/services/token/saveToken/SaveTokenService'
+import { saveRefreshToken } from '@/services/token/saveRefreshToken/SaveRefreshToken'
 
 export class AxiosHttpClientProvider implements IHttpClientProvider {
   private httpIntance: Axios = axios.create({
@@ -36,8 +46,31 @@ export class AxiosHttpClientProvider implements IHttpClientProvider {
 
     this.httpIntance.interceptors.response.use(
       (config: AxiosResponse) => config,
-      (error) => {
-        console.error('Error response interceptor', error)
+      async (error: AxiosError) => {
+        const tokenExpired =
+          error?.response?.status === HttpStatusCode.unauthorized
+
+        if (tokenExpired) {
+          try {
+            const refreshToken = await getRefreshToken()
+
+            const { data } = await updateRefreshTokenService(
+              refreshToken,
+              httpClientProvider,
+            )
+
+            saveTokenService(data.token)
+            saveRefreshToken(data.refreshToken)
+
+            return Promise.resolve()
+          } catch (errorRefreshToken) {
+            deleteTokenService()
+            deleteRefreshTokenService()
+            deleteLocalUserService()
+            return Promise.reject(errorRefreshToken)
+          }
+        }
+
         return Promise.reject(error)
       },
     )
