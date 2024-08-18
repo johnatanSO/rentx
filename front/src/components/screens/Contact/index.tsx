@@ -7,6 +7,7 @@ import { Divider } from '@mui/material'
 import { FormEvent, useContext, useState } from 'react'
 import style from './Contact.module.scss'
 import { IFormData } from './interfaces/IFormData'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 export function Contact() {
   const defaultValuesFormData = {
@@ -23,7 +24,7 @@ export function Contact() {
     event.preventDefault()
 
     setLoadingSendForm(true)
-    sendContactService(formData)
+    sendContactService(formData, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -37,7 +38,7 @@ export function Contact() {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar enviar mensagem - ${err?.response?.data?.message || err?.message}`,
+          text: `Erro ao tentar enviar mensagem - ${err?.message}`,
           type: 'error',
         })
       })

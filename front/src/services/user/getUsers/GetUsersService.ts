@@ -1,5 +1,5 @@
-import http from '@/http/axios'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
-export function getUsersService() {
-  return http.get('/users/list/')
+export function getUsersService(httpClientProvider: IHttpClientProvider) {
+  return httpClientProvider.get('/users/list/')
 }

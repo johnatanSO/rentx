@@ -21,7 +21,6 @@ export function Header() {
   const { menuMobileOpened, setMenuMobileOpened } = useContext(LayoutContext)
 
   const pathname = usePathname()
-  const [activeMenu, setActiveMenu] = useState<string>(getDefaultMenu())
   const router = useRouter()
 
   function getDefaultMenu() {
@@ -32,6 +31,8 @@ export function Header() {
     if (pathname.includes('/management')) return 'management'
     return ''
   }
+
+  const [activeMenu, setActiveMenu] = useState<string>(getDefaultMenu())
 
   function getActiveMenu(menuName: string) {
     if (activeMenu === menuName) {

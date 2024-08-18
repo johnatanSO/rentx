@@ -1,10 +1,10 @@
 import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
-export function sendForgotPasswordService(
-  email: string,
+export async function updateRefreshTokenService(
+  token: string | null,
   httpClientProvider: IHttpClientProvider,
 ) {
-  return httpClientProvider.post('/password/forgot', {
-    email,
+  return httpClientProvider.post('refreshToken', {
+    token,
   })
 }

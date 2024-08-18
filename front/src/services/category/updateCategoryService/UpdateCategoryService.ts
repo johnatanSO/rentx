@@ -1,4 +1,4 @@
-import http from '@/http/axios'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
 interface IRequest {
   _id: string
@@ -6,8 +6,11 @@ interface IRequest {
   description: string
 }
 
-export function updateCategoryService({ _id, name, description }: IRequest) {
-  return http.put(`/categories/${_id}`, {
+export function updateCategoryService(
+  { _id, name, description }: IRequest,
+  httpClientProvider: IHttpClientProvider,
+) {
+  return httpClientProvider.put(`/categories/${_id}`, {
     name,
     description,
   })

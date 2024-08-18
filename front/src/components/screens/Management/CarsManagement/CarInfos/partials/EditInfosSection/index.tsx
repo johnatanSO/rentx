@@ -13,6 +13,7 @@ import { AlertContext } from '@/contexts/alertContext'
 import { updateCarInfosService } from '@/services/cars/updateCarInfos/UpdateCarInfosService'
 import { usePathname, useRouter } from 'next/navigation'
 import { Loading } from '@/components/_ui/Loading'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 type Props = {
   car: Car
@@ -42,7 +43,7 @@ export function EditInfosSection({ car }: Props) {
 
     setLoadingUpdateInfos(true)
 
-    updateCarInfosService(carData)
+    updateCarInfosService(carData, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -58,9 +59,7 @@ export function EditInfosSection({ car }: Props) {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar atualizar informações do carro - ${
-            err?.response?.data?.message || err?.message
-          }`,
+          text: `Erro ao tentar atualizar informações do carro - ${err?.message}`,
           type: 'error',
         })
       })
@@ -70,7 +69,7 @@ export function EditInfosSection({ car }: Props) {
   }
 
   function getCategoriesList() {
-    getAllCategoriesService()
+    getAllCategoriesService(httpClientProvider)
       .then((res) => {
         setCategoriesList(res.data.items)
       })
@@ -78,9 +77,7 @@ export function EditInfosSection({ car }: Props) {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar buscar categorias - ${
-            err?.response?.data?.message || err?.message
-          }`,
+          text: `Erro ao tentar buscar categorias - ${err?.message}`,
           type: 'error',
         })
       })

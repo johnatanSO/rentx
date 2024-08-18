@@ -1,8 +1,11 @@
-import http from '@/http/axios'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
-export function uploadCategoriesService(csvCategoriesFile: File) {
+export function uploadCategoriesService(
+  csvCategoriesFile: File,
+  httpClientProvider: IHttpClientProvider,
+) {
   const formData = new FormData()
 
   formData.append('file', csvCategoriesFile)
-  return http.post('/categories/import', formData)
+  return httpClientProvider.post('/categories/import', formData)
 }

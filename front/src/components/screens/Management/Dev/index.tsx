@@ -8,6 +8,7 @@ import { AlertContext } from '@/contexts/alertContext'
 import { useRouter } from 'next/navigation'
 import { uploadCategoriesService } from '@/services/category/uploadCategoriesService/UploadCategoriesService'
 import { Loading } from '@/components/_ui/Loading'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 export function Dev() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
@@ -34,7 +35,7 @@ export function Dev() {
     setLoadingImportFile(true)
 
     if (!csvFile) return
-    uploadCategoriesService(csvFile)
+    uploadCategoriesService(csvFile, httpClientProvider)
       .then(() => {
         router.push('/management/categories')
         setCsvFile(null)
@@ -43,9 +44,7 @@ export function Dev() {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar ler arquivo .csv - ${
-            err?.response?.data?.message || err?.message
-          }`,
+          text: `Erro ao tentar ler arquivo .csv - ${err?.message}`,
           type: 'error',
         })
       })

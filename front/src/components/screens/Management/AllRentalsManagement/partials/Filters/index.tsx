@@ -12,6 +12,7 @@ import { MenuItem } from '@mui/material'
 import { Car } from '../../interfaces/Car'
 import { getAllCarsService } from '@/services/cars/getAllCars/GetAllCarsService'
 import { IFilters } from '../../interfaces/IFilters'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 type Props = {
   filters: IFilters
@@ -84,7 +85,7 @@ export function Filters({ filters, setFilters }: Props) {
   }
 
   function getUsersList() {
-    getUsersService()
+    getUsersService(httpClientProvider)
       .then((res) => {
         setUsersList(res.data.items)
       })
@@ -92,21 +93,15 @@ export function Filters({ filters, setFilters }: Props) {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar buscar lista de usuários - ${
-            err?.response?.data?.message || err?.message
-          }`,
+          text: `Erro ao tentar buscar lista de usuários - ${err?.message}`,
           type: 'error',
         })
-        console.log(
-          `Erro ao tentar buscar lista de usuários - ${
-            err?.response?.data?.message || err?.message
-          }`,
-        )
+        console.log(`Erro ao tentar buscar lista de usuários - ${err?.message}`)
       })
   }
 
   function getCarsList() {
-    getAllCarsService()
+    getAllCarsService(httpClientProvider)
       .then((res) => {
         setCarsList(res.data.items)
       })
@@ -114,9 +109,7 @@ export function Filters({ filters, setFilters }: Props) {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar buscar lista de carros - ${
-            err?.response?.message?.data || err?.message
-          }`,
+          text: `Erro ao tentar buscar lista de carros - ${err?.message}`,
           type: 'error',
         })
       })

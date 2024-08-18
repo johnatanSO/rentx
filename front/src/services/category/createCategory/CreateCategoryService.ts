@@ -1,14 +1,17 @@
-import http from '@/http/axios'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
 interface IRequest {
   name: string
   description: string
 }
 
-export function createCategoryService({ name, description }: IRequest) {
+export function createCategoryService(
+  { name, description }: IRequest,
+  httpClientProvider: IHttpClientProvider,
+) {
   const body = { name, description }
 
-  return http.post('/categories/', {
+  return httpClientProvider.post('/categories/', {
     ...body,
   })
 }

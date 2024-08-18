@@ -1,10 +1,12 @@
 import { ModalLayout } from '@/components/_ui/ModalLayout'
 import { Category } from '../../interfaces/Category'
-import { FormEvent, useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { AlertContext } from '@/contexts/alertContext'
 import { updateCategoryService } from '@/services/category/updateCategoryService/UpdateCategoryService'
 import style from './ModalEditCategory.module.scss'
+import { httpClientProvider } from '@/providers/httpClientProvider'
+import { useForm } from 'react-hook-form'
 
 interface Props {
   getCategories: () => void
@@ -22,14 +24,22 @@ export function ModalEditCategory({
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
   const [loadingUpdateCategory, setLoadingUpdateCategory] =
     useState<boolean>(false)
-  const [categoryData, setCategoryData] = useState<Category>(categoryToEdit)
 
-  function onUpdateCategory(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
+  const { handleSubmit, register } = useForm<Category>({
+    defaultValues: {
+      ...categoryToEdit,
+    },
+  })
 
+  function onUpdateCategory(data: Category) {
     setLoadingUpdateCategory(true)
 
-    updateCategoryService(categoryData)
+    const values = {
+      ...data,
+      _id: categoryToEdit?._id,
+    }
+
+    updateCategoryService(values, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -45,9 +55,7 @@ export function ModalEditCategory({
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar atualizar informações da categoria - ${
-            err?.response?.data?.message || err?.message
-          }`,
+          text: `Erro ao tentar atualizar informações da categoria - ${err?.message}`,
           type: 'error',
         })
       })
@@ -63,34 +71,18 @@ export function ModalEditCategory({
       title="Atualizar categoria"
       loading={loadingUpdateCategory}
       submitButtonText="Salvar"
-      onSubmit={onUpdateCategory}
+      onSubmit={handleSubmit(onUpdateCategory)}
       buttonStyle={{
         backgroundColor: '#3264ff',
       }}
     >
       <div className={style.fields}>
-        <CustomTextField
-          label="Nome"
-          size="small"
-          value={categoryData.name}
-          onChange={(event) => {
-            setCategoryData({
-              ...categoryData,
-              name: event?.target.value,
-            })
-          }}
-        />
+        <CustomTextField label="Nome" size="small" {...register('name')} />
         <CustomTextField
           label="Descrição"
           multiline
           rows={3}
-          value={categoryData.description}
-          onChange={(event) => {
-            setCategoryData({
-              ...categoryData,
-              description: event?.target.value,
-            })
-          }}
+          {...register('description')}
         />
       </div>
     </ModalLayout>

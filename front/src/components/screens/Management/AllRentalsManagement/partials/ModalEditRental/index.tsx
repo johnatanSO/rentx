@@ -12,6 +12,7 @@ import { updateRentalService } from '@/services/rentals/updateRental/UpdateRenta
 import { getUsersService } from '@/services/user/getUsers/GetUsersService'
 import { getAllCarsService } from '@/services/cars/getAllCars/GetAllCarsService'
 import dayjs from 'dayjs'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 interface Props {
   rentalToEdit: Rental
@@ -51,7 +52,7 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
 
     setLoadingUpdateRental(true)
 
-    updateRentalService(rentalData)
+    updateRentalService(rentalData, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -68,9 +69,7 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar atualizar informações do aluguel - ${
-            err?.response?.data?.message || err?.message
-          }`,
+          text: `Erro ao tentar atualizar informações do aluguel - ${err?.message}`,
           type: 'error',
         })
       })
@@ -80,7 +79,7 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
   }
 
   function getListCars() {
-    getAllCarsService()
+    getAllCarsService(httpClientProvider)
       .then((res) => {
         setCars(res.data.items)
       })
@@ -88,16 +87,14 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar fazer busca de carros - ${
-            err?.response?.data?.message || err?.message
-          }`,
+          text: `Erro ao tentar fazer busca de carros - ${err?.message}`,
           type: 'error',
         })
       })
   }
 
   function getListUsers() {
-    getUsersService()
+    getUsersService(httpClientProvider)
       .then((res) => {
         setUsers(res.data.items)
       })
@@ -105,9 +102,7 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar fazer busca de usuários - ${
-            err?.response?.data?.message || err?.message
-          }`,
+          text: `Erro ao tentar fazer busca de usuários - ${err?.message}`,
           type: 'error',
         })
       })

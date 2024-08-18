@@ -7,6 +7,7 @@ import { NewCategory } from './interface/NewCategory'
 import { createCategoryService } from '@/services/category/createCategory/CreateCategoryService'
 import { AlertContext } from '@/contexts/alertContext'
 import { Loading } from '@/components/_ui/Loading'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 type Props = {
   getCategories: () => void
@@ -30,7 +31,7 @@ export function CreateNewCategory({ getCategories }: Props) {
 
     setLoadingCreateNewCategory(true)
 
-    createCategoryService(newCategoryData)
+    createCategoryService(newCategoryData, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -46,16 +47,10 @@ export function CreateNewCategory({ getCategories }: Props) {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar cadastrar nova categoria - ${
-            err?.response?.data?.message || err?.message
-          }`,
+          text: `Erro ao tentar cadastrar nova categoria - ${err?.message}`,
           type: 'error',
         })
-        console.log(
-          `Erro ao tentar cadastrar nova categoria - ${
-            err?.response?.data?.message || err?.message
-          }`,
-        )
+        console.log(`Erro ao tentar cadastrar nova categoria - ${err?.message}`)
       })
       .finally(() => {
         setLoadingCreateNewCategory(false)

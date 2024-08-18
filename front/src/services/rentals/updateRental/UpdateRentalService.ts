@@ -1,4 +1,4 @@
-import http from '@/http/axios'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
 interface IRequest {
   _id: string
@@ -8,13 +8,10 @@ interface IRequest {
   expectedReturnDate: string | Date
 }
 
-export function updateRentalService({
-  _id,
-  car,
-  user,
-  startDate,
-  expectedReturnDate,
-}: IRequest) {
+export function updateRentalService(
+  { _id, car, user, startDate, expectedReturnDate }: IRequest,
+  httpClientProvider: IHttpClientProvider,
+) {
   const body = {
     car,
     user,
@@ -22,5 +19,5 @@ export function updateRentalService({
     expectedReturnDate,
   }
 
-  return http.put(`/rentals/${_id}`, body)
+  return httpClientProvider.put(`/rentals/${_id}`, body)
 }

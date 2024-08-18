@@ -5,6 +5,7 @@ import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { AlertContext } from '@/contexts/alertContext'
 import { updateSpecificationService } from '@/services/specifications/updateSpecificationService/UpdateSpecificationService'
 import style from './ModalEditSpecification.module.scss'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 interface Props {
   specificationToEdit: Specification
@@ -30,7 +31,7 @@ export function ModalEditSpecification({
 
     setLoadingUpdateSpecification(true)
 
-    updateSpecificationService(specificationData)
+    updateSpecificationService(specificationData, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -46,9 +47,7 @@ export function ModalEditSpecification({
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar atualizar informações da especificação - ${
-            err?.response?.data?.message || err?.message
-          }`,
+          text: `Erro ao tentar atualizar informações da especificação - ${err?.message}`,
           type: 'error',
         })
       })

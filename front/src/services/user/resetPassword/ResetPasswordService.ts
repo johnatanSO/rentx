@@ -1,4 +1,4 @@
-import http from '@/http/axios'
+import { IHttpClientProvider } from './../../../providers/httpClientProvider/IHttpClientProvider'
 
 interface IRequest {
   password: string
@@ -6,17 +6,16 @@ interface IRequest {
   refreshToken: string
 }
 
-export function resetPasswordService({
-  refreshToken,
-  password,
-  confirmPassword,
-}: IRequest) {
+export function resetPasswordService(
+  { refreshToken, password, confirmPassword }: IRequest,
+  httpClientProvider: IHttpClientProvider,
+) {
   const body = {
     password,
     confirmPassword,
   }
 
-  return http.post('/password/reset', body, {
+  return httpClientProvider.post('/password/reset', body, {
     params: {
       refreshToken,
     },

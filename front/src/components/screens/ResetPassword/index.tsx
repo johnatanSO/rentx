@@ -9,6 +9,7 @@ import { Loading } from '@/components/_ui/Loading'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { resetPasswordService } from '@/services/user/resetPassword/ResetPasswordService'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 type Props = {
   refreshToken: string
@@ -28,7 +29,10 @@ export function ResetPassword({ refreshToken }: Props) {
 
     setLoadingResetPassword(true)
 
-    resetPasswordService({ password, confirmPassword, refreshToken })
+    resetPasswordService(
+      { password, confirmPassword, refreshToken },
+      httpClientProvider,
+    )
       .then(() => {
         router.push('/authenticate')
         setAlertNotifyConfigs({
@@ -42,7 +46,7 @@ export function ResetPassword({ refreshToken }: Props) {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar alterar a senha - ${err?.response?.data?.message || err?.message}`,
+          text: `Erro ao tentar alterar a senha - ${err?.message}`,
           type: 'error',
         })
       })

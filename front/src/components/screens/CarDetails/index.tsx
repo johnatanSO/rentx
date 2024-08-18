@@ -17,6 +17,7 @@ import { Loading } from '@/components/_ui/Loading'
 import { getLocalUserService } from '@/services/user/getLocalUser/GetLocalUserService'
 import { formatCurrency } from '@/utils/format'
 import { Divider } from '@mui/material'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 type Props = {
   car: Car
@@ -46,10 +47,13 @@ export function CarDetails({ car }: Props) {
 
     setLoadingCreateRental(true)
 
-    createRentalService({
-      carId: car._id,
-      expectedReturnDate,
-    })
+    createRentalService(
+      {
+        carId: car._id,
+        expectedReturnDate,
+      },
+      httpClientProvider,
+    )
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -65,9 +69,7 @@ export function CarDetails({ car }: Props) {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar cadastrar aluguel do carro - ${
-            err?.response?.data?.message || err?.message
-          }`,
+          text: `Erro ao tentar cadastrar aluguel do carro - ${err?.message}`,
           type: 'error',
         })
       })

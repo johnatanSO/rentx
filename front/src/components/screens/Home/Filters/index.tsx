@@ -8,6 +8,7 @@ import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 export function Filters() {
   const defaultValuesFilter = {
@@ -59,7 +60,7 @@ export function Filters() {
   }
 
   async function getAllCategories() {
-    const { data } = await getAllCategoriesService()
+    const { data } = await getAllCategoriesService(httpClientProvider)
 
     setCategories(data.items)
   }

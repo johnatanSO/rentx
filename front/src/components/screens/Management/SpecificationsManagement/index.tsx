@@ -12,6 +12,7 @@ import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFieldsMobile'
 import { listAllSpecificationsService } from '@/services/specifications/listAllSpecifications/ListAllSpecificationsService'
 import { Divider } from '@mui/material'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 export function SpecificationsManagement() {
   const [specifications, setSpecifications] = useState<Specification[]>([])
@@ -45,7 +46,7 @@ export function SpecificationsManagement() {
 
   function getSpecifications() {
     setLoadingSpecifications(true)
-    listAllSpecificationsService()
+    listAllSpecificationsService(httpClientProvider)
       .then(({ data: { items } }) => {
         setSpecifications(items)
       })

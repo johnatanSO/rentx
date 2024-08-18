@@ -12,6 +12,7 @@ import { saveTokenService } from '@/services/token/saveToken/SaveTokenService'
 import { Loading } from '@/components/_ui/Loading'
 import { saveLocalUserService } from '@/services/user/saveLocalUser/SaveLocalUserService'
 import { saveRefreshToken } from '@/services/token/saveRefreshToken/SaveRefreshToken'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 export function Login() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
@@ -30,7 +31,7 @@ export function Login() {
 
     setLoadingAuthUser(true)
 
-    authenticateUserService(authData)
+    authenticateUserService(authData, httpClientProvider)
       .then((res) => {
         saveTokenService(res.data.token)
         saveRefreshToken(res.data.refreshToken)
@@ -49,16 +50,10 @@ export function Login() {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar realizar autenticação - ${
-            err?.response?.data?.message || err?.message
-          }`,
+          text: `Erro ao tentar realizar autenticação - ${err?.message}`,
           type: 'error',
         })
-        console.log(
-          `Erro ao tentar realizar autenticação - ${
-            err?.response?.data?.message || err?.message
-          }`,
-        )
+        console.log(`Erro ao tentar realizar autenticação - ${err?.message}`)
       })
       .finally(() => {
         setLoadingAuthUser(false)

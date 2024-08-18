@@ -12,6 +12,7 @@ import { Loading } from '@/components/_ui/Loading'
 import { useRouter } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 export function CreateAccount() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
@@ -34,7 +35,7 @@ export function CreateAccount() {
     event.preventDefault()
     setLoadingCreateNewUser(true)
 
-    createNewUserService(newUserData)
+    createNewUserService(newUserData, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -48,16 +49,12 @@ export function CreateAccount() {
       })
       .catch((err) => {
         console.log(
-          `Erro ao tentar realizar cadastro de usuário - ${
-            err?.response?.data?.message || err?.message
-          }`,
+          `Erro ao tentar realizar cadastro de usuário - ${err?.message}`,
         )
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar realizar cadastro de usuário - ${
-            err?.response?.data?.message || err?.message
-          }`,
+          text: `Erro ao tentar realizar cadastro de usuário - ${err?.message}`,
           type: 'error',
         })
       })

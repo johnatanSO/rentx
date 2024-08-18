@@ -1,4 +1,4 @@
-import http from '@/http/axios'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
 interface IRequest {
   name: string
@@ -12,17 +12,20 @@ interface IRequest {
   image: File | null
 }
 
-export function createNewCarService({
-  name,
-  description,
-  dailyRate,
-  licensePlate,
-  fineAmount,
-  brand,
-  categoryId,
-  transmission,
-  image,
-}: IRequest) {
+export function createNewCarService(
+  {
+    name,
+    description,
+    dailyRate,
+    licensePlate,
+    fineAmount,
+    brand,
+    categoryId,
+    transmission,
+    image,
+  }: IRequest,
+  httpClientProvider: IHttpClientProvider,
+) {
   const body = {
     name,
     description,
@@ -41,5 +44,5 @@ export function createNewCarService({
     formData.append(key, value.toString())
   }
 
-  return http.post('/cars', formData)
+  return httpClientProvider.post('/cars', formData)
 }

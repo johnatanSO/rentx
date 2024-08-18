@@ -10,6 +10,7 @@ import { finalizeRentalService } from '@/services/rentals/finalizeRental/Finaliz
 import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFieldsMobile'
 import { getRentalsService } from '@/services/rentals/getRentals/GetRentalsService'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 export function Rentals() {
   const {
@@ -31,7 +32,7 @@ export function Rentals() {
       open: true,
       onClickAgree: async () => {
         setLoadingRentals(true)
-        finalizeRentalService(rentalId)
+        finalizeRentalService(rentalId, httpClientProvider)
           .then(() => {
             setAlertNotifyConfigs({
               ...alertNotifyConfigs,
@@ -46,9 +47,7 @@ export function Rentals() {
             setAlertNotifyConfigs({
               ...alertNotifyConfigs,
               open: true,
-              text: `Erro ao tentar finalizar o aluguel - ${
-                err?.response?.data?.message || err?.message
-              }`,
+              text: `Erro ao tentar finalizar o aluguel - ${err?.message}`,
               type: 'error',
             })
           })
@@ -60,7 +59,7 @@ export function Rentals() {
 
   function getRentals() {
     setLoadingRentals(true)
-    getRentalsService()
+    getRentalsService(httpClientProvider)
       .then(({ data: { items } }) => {
         setRentals(items)
       })

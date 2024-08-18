@@ -10,6 +10,7 @@ import { EditInfosSection } from './partials/EditInfosSection'
 import { useContext } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
 import { deleteCarService } from '@/services/cars/deleteCar/DeleteCarService'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 type Props = {
   car: Car
@@ -33,7 +34,7 @@ export function CarInfos({ car }: Props) {
       text: 'Deseja mesmo deletar este carro? Após a confirmação, essa ação será irreversível',
       title: 'Alerta de confirmação',
       onClickAgree: async () => {
-        deleteCarService(carId)
+        deleteCarService(carId, httpClientProvider)
           .then(() => {
             setAlertNotifyConfigs({
               ...alertNotifyConfigs,
@@ -48,9 +49,7 @@ export function CarInfos({ car }: Props) {
             setAlertNotifyConfigs({
               ...alertNotifyConfigs,
               open: true,
-              text: `Erro ao tentar deletar este carro - ${
-                error?.response?.data?.message || error?.message
-              }`,
+              text: `Erro ao tentar deletar este carro - ${error?.message}`,
               type: 'error',
             })
           })

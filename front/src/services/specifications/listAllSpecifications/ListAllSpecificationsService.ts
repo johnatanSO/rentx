@@ -1,5 +1,7 @@
-import http from '@/http/axios'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
-export function listAllSpecificationsService() {
-  return http.get('/specifications/')
+export function listAllSpecificationsService(
+  httpClientProvider: IHttpClientProvider,
+) {
+  return httpClientProvider.get('/specifications/')
 }

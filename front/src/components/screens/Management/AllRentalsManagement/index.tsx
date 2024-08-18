@@ -15,6 +15,7 @@ import { useFieldsMobile } from './hooks/useFields'
 import { getAllRentalsService } from '@/services/rentals/getAllRentals/GetAllRentalsService'
 import { IFilters } from './interfaces/IFilters'
 import dayjs from 'dayjs'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 export function AllRentalsManagement() {
   const {
@@ -55,7 +56,7 @@ export function AllRentalsManagement() {
       open: true,
       onClickAgree: async () => {
         setLoadingRentals(true)
-        finalizeRentalService(rentalId)
+        finalizeRentalService(rentalId, httpClientProvider)
           .then(() => {
             setAlertNotifyConfigs({
               ...alertNotifyConfigs,
@@ -68,9 +69,7 @@ export function AllRentalsManagement() {
             setAlertNotifyConfigs({
               ...alertNotifyConfigs,
               open: true,
-              text: `Erro ao tentar finalizar o aluguel - ${
-                err?.response?.data?.message || err?.message
-              }`,
+              text: `Erro ao tentar finalizar o aluguel - ${err?.message}`,
               type: 'error',
             })
           })
@@ -82,7 +81,7 @@ export function AllRentalsManagement() {
 
   function getRentals() {
     setLoadingRentals(true)
-    getAllRentalsService(filters)
+    getAllRentalsService(filters, httpClientProvider)
       .then(({ data: { items } }) => {
         setRentals(items)
       })

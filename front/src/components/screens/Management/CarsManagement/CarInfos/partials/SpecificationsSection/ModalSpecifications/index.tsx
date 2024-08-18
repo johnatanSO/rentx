@@ -13,6 +13,7 @@ import { Checkbox, FormControlLabel, Popover, Typography } from '@mui/material'
 import { usePathname, useRouter } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 type Props = {
   car: Car
@@ -41,10 +42,13 @@ export function ModalSpecifications({ open, handleClose, car }: Props) {
     event.preventDefault()
     setLoadingAddSpecifications(true)
 
-    createCarSpecificationService({
-      carId: car._id,
-      specificationsIds: selectedSpecificationsIds,
-    })
+    createCarSpecificationService(
+      {
+        carId: car._id,
+        specificationsIds: selectedSpecificationsIds,
+      },
+      httpClientProvider,
+    )
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -61,9 +65,7 @@ export function ModalSpecifications({ open, handleClose, car }: Props) {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar adicionar especificações - ${
-            err?.response?.data?.message || err?.message
-          }`,
+          text: `Erro ao tentar adicionar especificações - ${err?.message}`,
           type: 'error',
         })
       })
@@ -91,7 +93,7 @@ export function ModalSpecifications({ open, handleClose, car }: Props) {
 
   function getSpecifications() {
     setLoadingSpecifications(true)
-    listAllSpecificationsService()
+    listAllSpecificationsService(httpClientProvider)
       .then(({ data }) => {
         setSpecifications(data.items)
       })
@@ -99,16 +101,10 @@ export function ModalSpecifications({ open, handleClose, car }: Props) {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao buscar especificações - ${
-            err?.response?.data?.message || err?.message
-          }`,
+          text: `Erro ao buscar especificações - ${err?.message}`,
           type: 'error',
         })
-        console.log(
-          `Erro ao buscar especificações - ${
-            err?.response?.data?.message || err?.message
-          }`,
-        )
+        console.log(`Erro ao buscar especificações - ${err?.message}`)
       })
       .finally(() => {
         setLoadingSpecifications(false)

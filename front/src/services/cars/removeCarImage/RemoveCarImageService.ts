@@ -1,10 +1,13 @@
-import http from '@/http/axios'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
 interface IRequest {
   carId: string
   imageId: string
 }
 
-export function removeCarImageService({ carId, imageId }: IRequest) {
-  return http.delete(`/cars/images/${carId}/${imageId}`)
+export function removeCarImageService(
+  { carId, imageId }: IRequest,
+  httpClientProvider: IHttpClientProvider,
+) {
+  return httpClientProvider.delete(`/cars/images/${carId}/${imageId}`)
 }

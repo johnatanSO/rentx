@@ -1,4 +1,4 @@
-import http from '@/http/axios'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
 interface IRequest {
   name: string
@@ -6,12 +6,15 @@ interface IRequest {
   isAdmin: boolean
 }
 
-export function updateUserInfosService({ name, email, isAdmin }: IRequest) {
+export function updateUserInfosService(
+  { name, email, isAdmin }: IRequest,
+  httpClientProvider: IHttpClientProvider,
+) {
   const body = {
     name,
     email,
     isAdmin,
   }
 
-  return http.put('/users/', body)
+  return httpClientProvider.put('/users/', body)
 }

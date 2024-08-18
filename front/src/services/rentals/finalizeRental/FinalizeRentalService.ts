@@ -1,5 +1,8 @@
-import http from '@/http/axios'
+import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
 
-export function finalizeRentalService(rentalId: string) {
-  return http.put(`/rentals/finalizeRental/${rentalId}`)
+export function finalizeRentalService(
+  rentalId: string,
+  httpClientProvider: IHttpClientProvider,
+) {
+  return httpClientProvider.put(`/rentals/finalizeRental/${rentalId}`)
 }
