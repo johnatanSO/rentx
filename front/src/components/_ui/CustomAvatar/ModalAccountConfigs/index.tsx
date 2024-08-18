@@ -12,6 +12,7 @@ import { AlertContext } from '@/contexts/alertContext'
 import { updateUserInfosService } from '@/services/user/updateUserInfos/UpdateUserInfosService'
 import { CustomTextField } from '../../CustomTextField'
 import { NewValuesUserInfos } from './interfaces/NewValuesUserInfos'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 type Props = {
   open: boolean
@@ -31,7 +32,7 @@ export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
 
   function onUpdateUserInfos(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    updateUserInfosService(newValuesUserInfos)
+    updateUserInfosService(newValuesUserInfos, httpClientProvider)
       .then((res) => {
         setUserInfo({
           ...userInfo,
@@ -53,7 +54,7 @@ export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
   }
 
   function onUpdateAvatar(avatarImage: File) {
-    updateAvatarService(avatarImage)
+    updateAvatarService(avatarImage, httpClientProvider)
       .then((res) => {
         setUserInfo({
           ...userInfo,

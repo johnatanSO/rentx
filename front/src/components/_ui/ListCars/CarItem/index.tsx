@@ -19,6 +19,7 @@ import { favoriteCarService } from '@/services/cars/favoriteCar/FavoriteCarServi
 import { AlertContext } from '@/contexts/alertContext'
 import { UserContext } from '@/contexts/userContext'
 import { useRouter } from 'next/navigation'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 type Props = {
   defaultImage: CarImage
@@ -51,7 +52,7 @@ export function CarItem({
       return
     }
 
-    favoriteCarService(carId)
+    favoriteCarService(carId, httpClientProvider)
       .then((res) => {
         setUserInfo({
           ...userInfo,
@@ -62,9 +63,7 @@ export function CarItem({
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar favoritar o carro - ${
-            err?.message
-          }`,
+          text: `Erro ao tentar favoritar o carro - ${err?.message}`,
           type: 'error',
         })
       })

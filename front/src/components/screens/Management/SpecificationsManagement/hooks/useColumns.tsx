@@ -7,6 +7,7 @@ import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { AlertContext } from '@/contexts/alertContext'
 import { useContext } from 'react'
 import { deleteSpecificationService } from '@/services/specifications/deleteSpecification/DeleteSpecificationService'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 interface Props {
   handleEditSpecification: (specification: Specification) => void
@@ -31,7 +32,7 @@ export function useColumns({
       title: 'Alerta de confirmação',
       text: 'Deseja realmente deletar esta especificação?',
       onClickAgree: async () => {
-        deleteSpecificationService(specificationId)
+        deleteSpecificationService(specificationId, httpClientProvider)
           .then(() => {
             setAlertNotifyConfigs({
               ...alertNotifyConfigs,
@@ -46,15 +47,11 @@ export function useColumns({
             setAlertNotifyConfigs({
               ...alertNotifyConfigs,
               open: true,
-              text: `Erro ao tentar deletar especificação - ${
-                err?.message
-              }`,
+              text: `Erro ao tentar deletar especificação - ${err?.message}`,
               type: 'error',
             })
             console.log(
-              `Erro ao tentar deletar especificação - ${
-                err?.message
-              }`,
+              `Erro ao tentar deletar especificação - ${err?.message}`,
             )
           })
       },

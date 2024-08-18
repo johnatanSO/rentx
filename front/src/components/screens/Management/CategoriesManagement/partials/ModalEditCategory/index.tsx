@@ -5,6 +5,7 @@ import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { AlertContext } from '@/contexts/alertContext'
 import { updateCategoryService } from '@/services/category/updateCategoryService/UpdateCategoryService'
 import style from './ModalEditCategory.module.scss'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 interface Props {
   getCategories: () => void
@@ -29,7 +30,7 @@ export function ModalEditCategory({
 
     setLoadingUpdateCategory(true)
 
-    updateCategoryService(categoryData)
+    updateCategoryService(categoryData, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -45,9 +46,7 @@ export function ModalEditCategory({
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar atualizar informações da categoria - ${
-            err?.message
-          }`,
+          text: `Erro ao tentar atualizar informações da categoria - ${err?.message}`,
           type: 'error',
         })
       })

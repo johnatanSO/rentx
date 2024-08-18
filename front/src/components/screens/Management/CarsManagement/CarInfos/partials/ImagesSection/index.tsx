@@ -12,6 +12,7 @@ import { updateCarImageService } from '@/services/cars/updateCarImage/UpdateCarI
 import { ModalZoomImage } from './ModalZoomImage'
 import { updateDefaultCarImageService } from '@/services/cars/updateDefaultCarImage/UpdateDefaultCarImageService'
 import style from './ImagesSection.module.scss'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 type Props = {
   car: Car
@@ -41,7 +42,7 @@ export function ImagesSection({ car }: Props) {
       title: 'Alerta de confirmação',
       text: 'Deseja realmente remover esta imagem?',
       onClickAgree: async () => {
-        removeCarImageService({ carId: car._id, imageId })
+        removeCarImageService({ carId: car._id, imageId }, httpClientProvider)
           .then(() => {
             setAlertNotifyConfigs({
               ...alertNotifyConfigs,
@@ -57,16 +58,10 @@ export function ImagesSection({ car }: Props) {
             setAlertNotifyConfigs({
               ...alertNotifyConfigs,
               open: true,
-              text: `Erro ao tentar remover imagem - ${
-                err?.message
-              }`,
+              text: `Erro ao tentar remover imagem - ${err?.message}`,
               type: 'success',
             })
-            console.log(
-              `Erro ao tentar remover imagem - ${
-                err?.message
-              }`,
-            )
+            console.log(`Erro ao tentar remover imagem - ${err?.message}`)
           })
       },
     })
@@ -87,7 +82,7 @@ export function ImagesSection({ car }: Props) {
   }
 
   async function updateImage(carImage: File) {
-    updateCarImageService({ carImage, carId: car._id })
+    updateCarImageService({ carImage, carId: car._id }, httpClientProvider)
       .then(() => {
         router.refresh()
         router.push(pathname)
@@ -96,9 +91,7 @@ export function ImagesSection({ car }: Props) {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar adicionar imagem - ${
-            err?.message
-          }`,
+          text: `Erro ao tentar adicionar imagem - ${err?.message}`,
           type: 'error',
         })
       })
@@ -124,7 +117,10 @@ export function ImagesSection({ car }: Props) {
   }
 
   async function updateDefaultImage(defaultImage: File) {
-    updateDefaultCarImageService({ defaultImage, carId: car._id })
+    updateDefaultCarImageService(
+      { defaultImage, carId: car._id },
+      httpClientProvider,
+    )
       .then(() => {
         router.refresh()
         router.push(pathname)
@@ -133,9 +129,7 @@ export function ImagesSection({ car }: Props) {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar atualizar imagem padrão - ${
-            err?.message
-          }`,
+          text: `Erro ao tentar atualizar imagem padrão - ${err?.message}`,
           type: 'error',
         })
       })

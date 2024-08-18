@@ -10,6 +10,7 @@ import { Loading } from '@/components/_ui/Loading'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { sendForgotPasswordService } from '@/services/user/sendForgotPassword/SendForgotPassword'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 export function ForgotPassword() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
@@ -23,7 +24,7 @@ export function ForgotPassword() {
 
     setLoadingSendMail(true)
 
-    sendForgotPasswordService(email)
+    sendForgotPasswordService(email, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,

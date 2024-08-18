@@ -6,6 +6,7 @@ import { getAllCategoriesService } from '@/services/category/getAllCategories/Ge
 import { IFilters } from '../interfaces/IFilters'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 export function Filters() {
   const defaultValuesFilter = {
@@ -46,7 +47,7 @@ export function Filters() {
   }
 
   async function getAllCategories() {
-    const { data } = await getAllCategoriesService()
+    const { data } = await getAllCategoriesService(httpClientProvider)
 
     setCategories(data.items)
   }

@@ -11,6 +11,7 @@ import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFieldsMobile'
 import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
 import { Divider } from '@mui/material'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 export function CategoriesManagement() {
   const [categories, setCategories] = useState<Category[]>([])
@@ -42,7 +43,7 @@ export function CategoriesManagement() {
 
   function getCategories() {
     setLoadingCategories(true)
-    getAllCategoriesService()
+    getAllCategoriesService(httpClientProvider)
       .then(({ data: { items } }) => {
         setCategories(items)
       })

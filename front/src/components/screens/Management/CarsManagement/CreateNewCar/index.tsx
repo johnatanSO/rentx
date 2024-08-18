@@ -18,6 +18,7 @@ import {
   faCheck,
   faImage,
 } from '@fortawesome/free-solid-svg-icons'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 export function CreateNewCar() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
@@ -43,7 +44,7 @@ export function CreateNewCar() {
 
     setLoadingCreateNewCar(true)
 
-    createNewCarService({ ...newCarData, image })
+    createNewCarService({ ...newCarData, image }, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -60,9 +61,7 @@ export function CreateNewCar() {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar cadastrar novo carro - ${
-            err?.message
-          }`,
+          text: `Erro ao tentar cadastrar novo carro - ${err?.message}`,
           type: 'error',
         })
       })
@@ -72,7 +71,7 @@ export function CreateNewCar() {
   }
 
   function getCategoriesList() {
-    getAllCategoriesService()
+    getAllCategoriesService(httpClientProvider)
       .then((res) => {
         setCategoriesList(res.data.items)
       })
@@ -80,9 +79,7 @@ export function CreateNewCar() {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar buscar categorias - ${
-            err?.message
-          }`,
+          text: `Erro ao tentar buscar categorias - ${err?.message}`,
           type: 'error',
         })
       })

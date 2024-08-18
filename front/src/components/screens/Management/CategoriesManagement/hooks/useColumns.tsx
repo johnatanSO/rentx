@@ -7,6 +7,7 @@ import style from '../CategoriesManagement.module.scss'
 import { deleteCategoryService } from '@/services/category/deleteCategory/DeleteCategoryService'
 import { useContext } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 interface Props {
   handleEditCategory: (categoryData: Category) => void
@@ -28,7 +29,7 @@ export function useColumns({ handleEditCategory, getCategories }: Props) {
       title: 'Alerta de confirmação',
       text: 'Deseja realmente deletar esta categoria?',
       onClickAgree: async () => {
-        deleteCategoryService(categoryId)
+        deleteCategoryService(categoryId, httpClientProvider)
           .then(() => {
             setAlertNotifyConfigs({
               ...alertNotifyConfigs,
@@ -42,16 +43,10 @@ export function useColumns({ handleEditCategory, getCategories }: Props) {
             setAlertNotifyConfigs({
               ...alertNotifyConfigs,
               open: true,
-              text: `Erro ao tentar deletar categoria - ${
-                err?.message
-              }`,
+              text: `Erro ao tentar deletar categoria - ${err?.message}`,
               type: 'error',
             })
-            console.log(
-              `Erro ao tentar deletar categoria - ${
-                err?.message
-              }`,
-            )
+            console.log(`Erro ao tentar deletar categoria - ${err?.message}`)
           })
       },
     })

@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react'
 import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFields'
 import { getAllCarsService } from '@/services/cars/getAllCars/GetAllCarsService'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 export function CarsManagement() {
   const router = useRouter()
@@ -34,7 +35,7 @@ export function CarsManagement() {
 
   function getCars() {
     setLoadingCars(true)
-    getAllCarsService()
+    getAllCarsService(httpClientProvider)
       .then(({ data: { items } }) => {
         setCars(items)
       })

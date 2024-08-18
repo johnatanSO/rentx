@@ -7,6 +7,7 @@ import { NewSpecification } from './interface/NewSpecification'
 import { createSpecificationService } from '@/services/specifications/createSpecification/CreateSpecificationService'
 import { AlertContext } from '@/contexts/alertContext'
 import { Loading } from '@/components/_ui/Loading'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 type Props = {
   getSpecifications: () => void
@@ -29,7 +30,7 @@ export function CreateNewSpecification({ getSpecifications }: Props) {
 
     setLoadingCreateNewSpecification(true)
 
-    createSpecificationService(newSpecificationData)
+    createSpecificationService(newSpecificationData, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -45,15 +46,11 @@ export function CreateNewSpecification({ getSpecifications }: Props) {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
           open: true,
-          text: `Erro ao tentar cadastrar nova especificação - ${
-            err?.message
-          }`,
+          text: `Erro ao tentar cadastrar nova especificação - ${err?.message}`,
           type: 'error',
         })
         console.log(
-          `Erro ao tentar cadastrar nova especificação - ${
-            err?.message
-          }`,
+          `Erro ao tentar cadastrar nova especificação - ${err?.message}`,
         )
       })
       .finally(() => {

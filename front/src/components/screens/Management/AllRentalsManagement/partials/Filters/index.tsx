@@ -12,6 +12,7 @@ import { MenuItem } from '@mui/material'
 import { Car } from '../../interfaces/Car'
 import { getAllCarsService } from '@/services/cars/getAllCars/GetAllCarsService'
 import { IFilters } from '../../interfaces/IFilters'
+import { httpClientProvider } from '@/providers/httpClientProvider'
 
 type Props = {
   filters: IFilters
@@ -84,7 +85,7 @@ export function Filters({ filters, setFilters }: Props) {
   }
 
   function getUsersList() {
-    getUsersService()
+    getUsersService(httpClientProvider)
       .then((res) => {
         setUsersList(res.data.items)
       })
@@ -100,7 +101,7 @@ export function Filters({ filters, setFilters }: Props) {
   }
 
   function getCarsList() {
-    getAllCarsService()
+    getAllCarsService(httpClientProvider)
       .then((res) => {
         setCarsList(res.data.items)
       })
