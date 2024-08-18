@@ -1,6 +1,6 @@
 import { ModalLayout } from '@/components/_ui/ModalLayout'
 import { Category } from '../../interfaces/Category'
-import { FormEvent, useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { AlertContext } from '@/contexts/alertContext'
 import { updateCategoryService } from '@/services/category/updateCategoryService/UpdateCategoryService'
@@ -24,14 +24,18 @@ export function ModalEditCategory({
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
   const [loadingUpdateCategory, setLoadingUpdateCategory] =
     useState<boolean>(false)
-  const [categoryData, setCategoryData] = useState<Category>(categoryToEdit)
 
-  const { handleSubmit, register } = useForm()
+  const { handleSubmit, register, reset } = useForm()
 
   function onUpdateCategory(data: any) {
     setLoadingUpdateCategory(true)
 
-    updateCategoryService(categoryData, httpClientProvider)
+    const values = {
+      ...data,
+      _id: categoryToEdit?._id,
+    }
+
+    updateCategoryService(values, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -56,6 +60,16 @@ export function ModalEditCategory({
       })
   }
 
+  useEffect(() => {
+    reset((formValues) => {
+      return {
+        ...formValues,
+        name: categoryToEdit?.name,
+        description: categoryToEdit?.description,
+      }
+    })
+  }, [])
+
   return (
     <ModalLayout
       handleClose={handleClose}
@@ -63,9 +77,7 @@ export function ModalEditCategory({
       title="Atualizar categoria"
       loading={loadingUpdateCategory}
       submitButtonText="Salvar"
-      onSubmit={() => {
-        handleSubmit(onUpdateCategory)
-      }}
+      onSubmit={handleSubmit(onUpdateCategory)}
       buttonStyle={{
         backgroundColor: '#3264ff',
       }}
