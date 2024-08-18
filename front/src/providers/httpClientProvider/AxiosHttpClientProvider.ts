@@ -21,16 +21,23 @@ export class AxiosHttpClientProvider implements IHttpClientProvider {
       async (config: any) => {
         const token = await getTokenService()
 
-        if (token) {
-          config.headers = {
+        return {
+          ...config,
+          headers: {
             ...config.headers,
-            Authorization: `Bearer ${token}`,
-          }
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
         }
-
-        return config
       },
       (error) => {
+        return Promise.reject(error)
+      },
+    )
+
+    this.httpIntance.interceptors.response.use(
+      (config: AxiosResponse) => config,
+      (error) => {
+        console.error('Error response interceptor', error)
         return Promise.reject(error)
       },
     )
