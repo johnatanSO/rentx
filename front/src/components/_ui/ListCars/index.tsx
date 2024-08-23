@@ -1,11 +1,11 @@
 import { EmptyItems } from '@/components/_ui/EmptyItems'
-import { Car } from './interfaces/Car'
 import { CarItem } from './CarItem'
 import style from './ListCars.module.scss'
 import { SkeletonCarItem } from './SkeletonCarItem'
+import { ICar } from '@/models/interfaces/ICar'
 
 type Props = {
-  cars: Car[]
+  cars: ICar[]
   loading: boolean
   emptyText?: string
 }

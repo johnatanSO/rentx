@@ -5,25 +5,33 @@ import { FormEvent, useContext, useState } from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { AlertContext } from '@/contexts/alertContext'
 import { useRouter } from 'next/navigation'
-
 import { Loading } from '@/components/_ui/Loading'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { sendForgotPasswordService } from '@/services/user/sendForgotPassword/SendForgotPassword'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { formForgotSchema, IFormForgot } from './interfaces/IFormForgot'
 
 export function ForgotPassword() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
 
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isLoading },
+  } = useForm<IFormForgot>({
+    defaultValues: {
+      email: '',
+    },
+    resolver: zodResolver(formForgotSchema),
+  })
+
   const router = useRouter()
-  const [email, setEmail] = useState<string>('')
-  const [loadingSendMail, setLoadingSendMail] = useState<boolean>(false)
 
-  function onSendMail(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-
-    setLoadingSendMail(true)
-
+  function onSendMail({ email }: IFormForgot) {
     sendForgotPasswordService(email, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
@@ -32,6 +40,9 @@ export function ForgotPassword() {
           text: 'E-mail de recuperação enviado com sucesso',
           type: 'success',
         })
+
+        reset()
+
         router.push('/authenticate')
       })
       .catch((err) => {
@@ -42,14 +53,11 @@ export function ForgotPassword() {
           type: 'error',
         })
       })
-      .finally(() => {
-        setLoadingSendMail(false)
-      })
   }
 
   return (
     <section className={style.forgotPasswordContainer}>
-      <form onSubmit={onSendMail}>
+      <form onSubmit={handleSubmit(onSendMail)}>
         <header>
           <button
             type="button"
@@ -66,16 +74,15 @@ export function ForgotPassword() {
             label="E-mail"
             type="email"
             className={style.input}
-            value={email}
-            onChange={(event) => {
-              setEmail(event.target.value)
-            }}
+            {...register('email')}
+            error={!!errors.email}
+            helperText={errors.email && errors.email.message}
           />
         </main>
 
         <footer>
-          <button disabled={loadingSendMail} type="submit">
-            {loadingSendMail ? <Loading size={21} /> : 'Enviar'}
+          <button disabled={isLoading} type="submit">
+            {isLoading ? <Loading size={21} /> : 'Enviar'}
           </button>
         </footer>
       </form>

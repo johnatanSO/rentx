@@ -1,16 +1,16 @@
 'use client'
 
-import { Filters } from './Filters'
 import style from './Home.module.scss'
 import { ListCars } from '@/components/_ui/ListCars'
 import { useCarsList } from './hooks/useCarsList'
+import { FilterCar } from '@/components/_ui/FilterCar'
 
 export function Home() {
   const { cars, loadingGetCars } = useCarsList()
 
   return (
     <div className={style.carsContainer}>
-      <Filters />
+      <FilterCar />
 
       <ListCars
         loading={loadingGetCars}

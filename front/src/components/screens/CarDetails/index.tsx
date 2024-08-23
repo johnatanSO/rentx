@@ -17,9 +17,10 @@ import { formatCurrency } from '@/utils/format'
 import { Divider } from '@mui/material'
 import { httpClientProvider } from '@/providers/httpClientProvider'
 import { useForm } from 'react-hook-form'
-import { INewRental } from './interfaces/INewRental'
+import { INewRental, newRentalSchema } from './interfaces/INewRental'
 import { ICar } from '@/models/interfaces/ICar'
 import { ICarImage } from '@/models/interfaces/ICarImage'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 type Props = {
   car: ICar
@@ -41,6 +42,7 @@ export function CarDetails({ car }: Props) {
     defaultValues: {
       expectedReturnDate: minExpectedReturnDate,
     },
+    resolver: zodResolver(newRentalSchema),
   })
 
   const expectedReturnDate = watch('expectedReturnDate')

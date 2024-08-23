@@ -1,22 +1,29 @@
-import { useEffect, useState, FormEvent, useCallback } from 'react'
-import style from './Filters.module.scss'
+import { useEffect, useState, useCallback } from 'react'
+import style from './FilterCar.module.scss'
 import { MenuItem } from '@mui/material'
-import { Category } from '../interfaces/Category'
 import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
-import { IFilters } from '../interfaces/IFilters'
-import { usePathname, useSearchParams, useRouter } from 'next/navigation'
+import { IFilters } from './interfaces/IFilters'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { ICategory } from '@/models/interfaces/ICategory'
+import { useForm } from 'react-hook-form'
+import { Loading } from '../Loading'
 
-export function Filters() {
-  const defaultValuesFilter = {
-    name: null,
-    categoryId: null,
-  }
-  const [filters, setFilters] = useState<IFilters>(defaultValuesFilter)
-  const [categories, setCategories] = useState<Category[]>([])
+export function FilterCar() {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isLoading },
+  } = useForm<IFilters>({
+    defaultValues: {
+      name: '',
+      categoryId: '',
+    },
+  })
+
+  const [categories, setCategories] = useState<ICategory[]>([])
 
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -32,10 +39,9 @@ export function Filters() {
     [searchParams],
   )
 
-  function onFilterCars(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-
+  function onFilterCars(filters: IFilters) {
     const currentName = searchParams.get('name')
+
     if (currentName !== filters.name) {
       router.push(
         `${pathname}?${createQueryString('name', filters.name || '')}`,
@@ -55,7 +61,7 @@ export function Filters() {
   }
 
   function handleClearFilters() {
-    setFilters(defaultValuesFilter)
+    reset()
     router.push(pathname)
   }
 
@@ -70,32 +76,23 @@ export function Filters() {
   }, [])
 
   return (
-    <form className={style.filtersContainer} onSubmit={onFilterCars}>
+    <form
+      className={style.filtersContainer}
+      onSubmit={handleSubmit(onFilterCars)}
+    >
       <CustomTextField
         size="medium"
         label="Nome"
         type="text"
         className={style.input}
-        value={filters.name}
-        onChange={(event) => {
-          setFilters({
-            ...filters,
-            name: event.target.value,
-          })
-        }}
+        {...register('name')}
       />
       <CustomTextField
         size="medium"
         label="Categoria"
         select
         className={style.input}
-        value={filters.categoryId}
-        onChange={(event) => {
-          setFilters({
-            ...filters,
-            categoryId: event.target.value,
-          })
-        }}
+        {...register('categoryId')}
       >
         {categories.map((category) => {
           return (
@@ -106,9 +103,8 @@ export function Filters() {
         })}
       </CustomTextField>
       <div className={style.buttonsContainer}>
-        <button type="submit">
-          Buscar
-          <FontAwesomeIcon className={style.icon} icon={faSearch} />
+        <button disabled={isLoading} type="submit">
+          {isLoading ? <Loading /> : 'Procurar'}
         </button>
         <button onClick={handleClearFilters} type="button">
           Limpar
