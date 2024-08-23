@@ -4,7 +4,7 @@ import style from './Login.module.scss'
 import { FormEvent, useContext, useState } from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import Link from 'next/link'
-import { AuthData } from './interfaces/AuthData'
+
 import { authenticateUserService } from '@/services/user/authenticateUser/AuthenticateUserService'
 import { AlertContext } from '@/contexts/alertContext'
 import { useRouter } from 'next/navigation'
@@ -13,25 +13,28 @@ import { Loading } from '@/components/_ui/Loading'
 import { saveLocalUserService } from '@/services/user/saveLocalUser/SaveLocalUserService'
 import { saveRefreshToken } from '@/services/token/saveRefreshToken/SaveRefreshToken'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { useForm } from 'react-hook-form'
+import { IFormAuth } from './interfaces/IFormAuth'
 
 export function Login() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
 
-  const defaultValuesAuthData = {
-    email: '',
-    password: '',
-  }
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isLoading },
+  } = useForm<IFormAuth>({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  })
 
   const router = useRouter()
-  const [authData, setAuthData] = useState<AuthData>(defaultValuesAuthData)
-  const [loadingAuthUser, setLoadingAuthUser] = useState<boolean>(false)
 
-  function onAuthenticate(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-
-    setLoadingAuthUser(true)
-
-    authenticateUserService(authData, httpClientProvider)
+  function onAuthenticate(formAuth: IFormAuth) {
+    authenticateUserService(formAuth, httpClientProvider)
       .then((res) => {
         saveTokenService(res.data.token)
         saveRefreshToken(res.data.refreshToken)
@@ -44,6 +47,8 @@ export function Login() {
           type: 'success',
         })
 
+        reset()
+
         router.push('/')
       })
       .catch((err) => {
@@ -55,14 +60,11 @@ export function Login() {
         })
         console.log(`Erro ao tentar realizar autenticação - ${err?.message}`)
       })
-      .finally(() => {
-        setLoadingAuthUser(false)
-      })
   }
 
   return (
     <section className={style.loginContainer}>
-      <form onSubmit={onAuthenticate}>
+      <form onSubmit={handleSubmit(onAuthenticate)}>
         <header>
           <h4>Entrar</h4>
         </header>
@@ -72,32 +74,25 @@ export function Login() {
             label="E-mail"
             type="email"
             className={style.input}
-            value={authData.email}
-            onChange={(event) => {
-              setAuthData({
-                ...authData,
-                email: event.target.value,
-              })
-            }}
+            {...register('email', { required: true })}
+            error={!!errors.email}
+            helperText={errors.email && errors.email.message}
           />
           <CustomTextField
             label="Senha"
             type="password"
             className={style.input}
-            value={authData.password}
-            onChange={(event) => {
-              setAuthData({
-                ...authData,
-                password: event.target.value,
-              })
-            }}
+            {...register('email', { required: true })}
+            error={!!errors.password}
+            helperText={errors.password && errors.password.message}
           />
         </main>
 
         <footer>
-          <button disabled={loadingAuthUser} type="submit">
-            {loadingAuthUser ? <Loading size={21} /> : 'Entrar'}
+          <button disabled={isLoading} type="submit">
+            {isLoading ? <Loading size={21} /> : 'Entrar'}
           </button>
+
           <Link className={style.link} href="/register">
             Criar conta
           </Link>

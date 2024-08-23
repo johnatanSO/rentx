@@ -7,9 +7,10 @@ import { sendContactService } from '@/services/user/sendContact/SendContactServi
 import { Divider } from '@mui/material'
 import { useContext } from 'react'
 import style from './Contact.module.scss'
-import { IFormContact } from './interfaces/IFormContact'
+import { formContactSchema, IFormContact } from './interfaces/IFormContact'
 import { httpClientProvider } from '@/providers/httpClientProvider'
 import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 export function Contact() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
@@ -25,6 +26,7 @@ export function Contact() {
       email: '',
       message: '',
     },
+    resolver: zodResolver(formContactSchema),
   })
 
   function onSendForm(formContact: IFormContact) {

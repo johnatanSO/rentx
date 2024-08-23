@@ -13,4 +13,5 @@ export interface ICar {
   description: string
   licensePlate: string
   category: ICategory
+  transmission: string
 }

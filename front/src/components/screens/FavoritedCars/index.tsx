@@ -2,10 +2,10 @@
 
 import { ListCars } from '@/components/_ui/ListCars'
 import style from './FavoritedCars.module.scss'
-import { Car } from './interfaces/Car'
+import { ICar } from '@/models/interfaces/ICar'
 
 interface Props {
-  favoritedCars: Car[]
+  favoritedCars: ICar[]
 }
 
 export function FavoritedCars({ favoritedCars }: Props) {

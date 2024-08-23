@@ -1,11 +1,11 @@
 import { getAvaliableCarsService } from '@/services/cars/getAvaliableCars/GetAvaliableCarsService'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { Car } from '../interfaces/Car'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { ICar } from '@/models/interfaces/ICar'
 
 export function useCarsList() {
-  const [cars, setCars] = useState<Car[]>([])
+  const [cars, setCars] = useState<ICar[]>([])
   const [loadingGetCars, setLoadingGetCars] = useState<boolean>(true)
   const searchParams = useSearchParams()
 
