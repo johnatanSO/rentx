@@ -2,14 +2,13 @@ import { CustomTextField } from '@/components/_ui/CustomTextField'
 import style from './Filters.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-
-import { User } from '../../interfaces/User'
+import { IUser } from '@/models/interfaces/IUser'
 import { getUsersService } from '@/services/user/getUsers/GetUsersService'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { FormEvent, useCallback, useContext, useEffect, useState } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
 import { MenuItem } from '@mui/material'
-import { Car } from '../../interfaces/Car'
+import { ICar } from '@/models/interfaces/ICar'
 import { getAllCarsService } from '@/services/cars/getAllCars/GetAllCarsService'
 import { IFilters } from '../../interfaces/IFilters'
 import { httpClientProvider } from '@/providers/httpClientProvider'
@@ -23,8 +22,8 @@ export function Filters({ filters, setFilters }: Props) {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
 
   const [otherFiltersOpened] = useState<boolean>(false)
-  const [usersList, setUsersList] = useState<User[]>([])
-  const [carsList, setCarsList] = useState<Car[]>([])
+  const [usersList, setUsersList] = useState<IUser[]>([])
+  const [carsList, setCarsList] = useState<ICar[]>([])
 
   const router = useRouter()
   const searchParams = useSearchParams()

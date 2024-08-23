@@ -9,7 +9,7 @@ interface IRequest {
 }
 
 export function updateRentalService(
-  { _id, car, user, startDate, expectedReturnDate }: IRequest,
+  { _id: idRental, car, user, startDate, expectedReturnDate }: IRequest,
   httpClientProvider: IHttpClientProvider,
 ) {
   const body = {
@@ -19,5 +19,5 @@ export function updateRentalService(
     expectedReturnDate,
   }
 
-  return httpClientProvider.put(`/rentals/${_id}`, body)
+  return httpClientProvider.put(`/rentals/${idRental}`, body)
 }

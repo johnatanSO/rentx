@@ -5,7 +5,7 @@ import { FormEvent, useContext, useState } from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import Link from 'next/link'
 import { Checkbox, FormControlLabel, Popover, Typography } from '@mui/material'
-import { NewUser } from './interfaces/NewUser'
+import { INewUser, newUserSchema } from './interfaces/INewUser'
 import { createNewUserService } from '@/services/user/createNewUser/CreateNewUserService'
 import { AlertContext } from '@/contexts/alertContext'
 import { Loading } from '@/components/_ui/Loading'
@@ -13,29 +13,42 @@ import { useRouter } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 export function CreateAccount() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-  const defaultValuesNewUser = {
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    driverLicense: '',
-    isAdmin: false,
-  }
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    setValue,
+    formState: { errors, isLoading },
+  } = useForm<INewUser>({
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      driverLicense: '',
+      isAdmin: false,
+    },
+    resolver: zodResolver(newUserSchema),
+  })
 
   const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
-  const [newUserData, setNewUserData] = useState<NewUser>(defaultValuesNewUser)
-  const [loadingCreateNewUser, setLoadingCreateNewUser] =
-    useState<boolean>(false)
 
-  function onRegister(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    setLoadingCreateNewUser(true)
+  const [password, confirmPassword, isAdmin] = watch([
+    'password',
+    'confirmPassword',
+    'isAdmin',
+  ])
 
-    createNewUserService(newUserData, httpClientProvider)
+  function onRegister(newUser: INewUser) {
+    createNewUserService(newUser, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -43,6 +56,8 @@ export function CreateAccount() {
           text: 'Usuário cadastrado com sucesso',
           type: 'success',
         })
+
+        reset()
 
         router.refresh()
         router.push('/authenticate')
@@ -58,14 +73,19 @@ export function CreateAccount() {
           type: 'error',
         })
       })
-      .finally(() => {
-        setLoadingCreateNewUser(false)
-      })
+  }
+
+  function getConfirmPasswordErrorMessage() {
+    if (errors.confirmPassword) return errors.confirmPassword.message
+
+    if (password !== confirmPassword) return 'Senhas são diferentes'
+
+    return undefined
   }
 
   return (
     <section className={style.createAccountContainer}>
-      <form onSubmit={onRegister}>
+      <form onSubmit={handleSubmit(onRegister)}>
         <header>
           <h4>Criar nova conta</h4>
         </header>
@@ -77,27 +97,20 @@ export function CreateAccount() {
             label="Nome"
             required
             className={style.input}
-            value={newUserData.name}
-            onChange={(event) => {
-              setNewUserData({
-                ...newUserData,
-                name: event?.target.value,
-              })
-            }}
+            {...register('name', { required: true })}
+            error={!!errors.name}
+            helperText={errors.name && errors.name.message}
           />
+
           <CustomTextField
             fullWidth
             type="email"
             label="E-mail"
             required
             className={style.input}
-            value={newUserData.email}
-            onChange={(event) => {
-              setNewUserData({
-                ...newUserData,
-                email: event?.target.value,
-              })
-            }}
+            {...register('email', { required: true })}
+            error={!!errors.email}
+            helperText={errors.email && errors.email.message}
           />
           <div className={style.passwordContainer}>
             <CustomTextField
@@ -106,27 +119,20 @@ export function CreateAccount() {
               label="Senha"
               required
               className={style.input}
-              value={newUserData.password}
-              onChange={(event) => {
-                setNewUserData({
-                  ...newUserData,
-                  password: event?.target.value,
-                })
-              }}
+              {...register('password', { required: true })}
+              error={!!errors.password}
+              helperText={errors.password && errors.password.message}
             />
+
             <CustomTextField
               fullWidth
               type="password"
               label="Confirmar senha"
               required
               className={style.input}
-              value={newUserData.confirmPassword}
-              onChange={(event) => {
-                setNewUserData({
-                  ...newUserData,
-                  confirmPassword: event?.target.value,
-                })
-              }}
+              {...register('confirmPassword', { required: true })}
+              error={!!errors.confirmPassword || password !== confirmPassword}
+              helperText={getConfirmPasswordErrorMessage()}
             />
           </div>
           <CustomTextField
@@ -135,13 +141,9 @@ export function CreateAccount() {
             label="Nº da carteira"
             required
             className={style.input}
-            value={newUserData.driverLicense}
-            onChange={(event) => {
-              setNewUserData({
-                ...newUserData,
-                driverLicense: event?.target.value,
-              })
-            }}
+            {...register('driverLicense', { required: true })}
+            error={!!errors.driverLicense}
+            helperText={errors.driverLicense && errors.driverLicense.message}
           />
 
           <div className={style.handleAdminContainer}>
@@ -156,12 +158,9 @@ export function CreateAccount() {
               }
               onChange={(event) => {
                 const target = event.target as unknown
-                const isAdmin = (target as { checked: boolean }).checked
+                const isAdminValue = (target as { checked: boolean }).checked
 
-                setNewUserData({
-                  ...newUserData,
-                  isAdmin,
-                })
+                setValue('isAdmin', isAdminValue)
               }}
               control={
                 <Checkbox
@@ -169,7 +168,7 @@ export function CreateAccount() {
                     marginLeft: '0.7rem',
                     '&.Mui-checked': { color: '#536d88' },
                   }}
-                  checked={newUserData.isAdmin}
+                  checked={isAdmin}
                 />
               }
             />
@@ -213,8 +212,8 @@ export function CreateAccount() {
         </main>
 
         <footer>
-          <button type="submit">
-            {loadingCreateNewUser ? <Loading size={22} /> : 'Criar conta'}
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? <Loading size={22} /> : 'Criar conta'}
           </button>
           <Link className={style.createAccountLink} href="/authenticate">
             Entrar com conta existente

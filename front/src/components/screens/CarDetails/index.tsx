@@ -1,13 +1,11 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { FormEvent, useContext, useState } from 'react'
-import { Car } from './interfaces/Car'
+import { useContext, useState } from 'react'
 import style from './CarDetails.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
-import { CarImage } from './interfaces/CarImage'
 import unknownCarImage from '../../../../public/assets/images/cars/unknownCarImage.png'
 import { createRentalService } from '@/services/rentals/createRental/CreateRentalService'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
@@ -18,39 +16,51 @@ import { getLocalUserService } from '@/services/user/getLocalUser/GetLocalUserSe
 import { formatCurrency } from '@/utils/format'
 import { Divider } from '@mui/material'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { useForm } from 'react-hook-form'
+import { INewRental } from './interfaces/INewRental'
+import { ICar } from '@/models/interfaces/ICar'
+import { ICarImage } from '@/models/interfaces/ICarImage'
 
 type Props = {
-  car: Car
+  car: ICar
 }
 
 export function CarDetails({ car }: Props) {
   const router = useRouter()
+
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
 
-  const [loadingCreateRental, setLoadingCreateRental] = useState<boolean>(false)
   const minExpectedReturnDate = dayjs().add(1, 'days').format('YYYY-MM-DD')
-  const [expectedReturnDate, setExpectedReturnDate] = useState<string>(
-    minExpectedReturnDate,
-  )
-  const [displayImage, setDisplayImage] = useState<CarImage>(
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { isLoading, errors },
+  } = useForm<INewRental>({
+    defaultValues: {
+      expectedReturnDate: minExpectedReturnDate,
+    },
+  })
+
+  const expectedReturnDate = watch('expectedReturnDate')
+
+  const [displayImage, setDisplayImage] = useState<ICarImage>(
     car.images[0] || car.defaultImage || null,
   )
 
-  async function onCreateNewRental(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-
+  async function onCreateNewRental(newRental: INewRental) {
     const userInfo = await getLocalUserService()
+
     if (!userInfo) {
       router.push('/authenticate')
       return
     }
 
-    setLoadingCreateRental(true)
-
     createRentalService(
       {
         carId: car._id,
-        expectedReturnDate,
+        expectedReturnDate: newRental.expectedReturnDate,
       },
       httpClientProvider,
     )
@@ -72,9 +82,6 @@ export function CarDetails({ car }: Props) {
           text: `Erro ao tentar cadastrar aluguel do carro - ${err?.message}`,
           type: 'error',
         })
-      })
-      .finally(() => {
-        setLoadingCreateRental(false)
       })
   }
 
@@ -193,23 +200,24 @@ export function CarDetails({ car }: Props) {
             </p>
           </div>
 
-          <form onSubmit={onCreateNewRental}>
+          <form onSubmit={handleSubmit(onCreateNewRental)}>
             <CustomTextField
               size="medium"
               type="date"
               InputLabelProps={{ shrink: true }}
               label="Data de devolução"
-              value={expectedReturnDate}
-              onChange={(event) => {
-                setExpectedReturnDate(event?.target.value)
-              }}
+              {...register('expectedReturnDate')}
+              error={!!errors.expectedReturnDate}
+              helperText={
+                errors.expectedReturnDate && errors.expectedReturnDate.message
+              }
             />
             <button
-              disabled={loadingCreateRental}
+              disabled={isLoading}
               className={style.rentalButton}
               type="submit"
             >
-              {loadingCreateRental ? <Loading size={21} /> : 'Alugar'}
+              {isLoading ? <Loading size={21} /> : 'Alugar'}
             </button>
           </form>
         </div>

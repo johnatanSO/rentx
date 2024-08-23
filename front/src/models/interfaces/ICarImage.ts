@@ -1,4 +1,4 @@
-export interface CarImage {
+export interface ICarImage {
   _id: string
   imageName: string
   carId: string

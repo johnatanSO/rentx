@@ -1,30 +1,34 @@
 'use client'
+
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { Loading } from '@/components/_ui/Loading'
 import { AlertContext } from '@/contexts/alertContext'
 import { sendContactService } from '@/services/user/sendContact/SendContactService'
 import { Divider } from '@mui/material'
-import { FormEvent, useContext, useState } from 'react'
+import { useContext } from 'react'
 import style from './Contact.module.scss'
-import { IFormData } from './interfaces/IFormData'
+import { IFormContact } from './interfaces/IFormContact'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { useForm } from 'react-hook-form'
 
 export function Contact() {
-  const defaultValuesFormData = {
-    name: '',
-    email: '',
-    message: '',
-  }
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
 
-  const [formData, setFormData] = useState<IFormData>(defaultValuesFormData)
-  const [loadingSendForm, setLoadingSendForm] = useState<boolean>(false)
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isLoading, errors },
+  } = useForm<IFormContact>({
+    defaultValues: {
+      name: '',
+      email: '',
+      message: '',
+    },
+  })
 
-  function onSendForm(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-
-    setLoadingSendForm(true)
-    sendContactService(formData, httpClientProvider)
+  function onSendForm(formContact: IFormContact) {
+    sendContactService(formContact, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -32,7 +36,8 @@ export function Contact() {
           text: 'Mensagem enviada com sucesso, em breve entraremos em contato',
           type: 'success',
         })
-        setFormData(defaultValuesFormData)
+
+        reset()
       })
       .catch((err) => {
         setAlertNotifyConfigs({
@@ -41,9 +46,6 @@ export function Contact() {
           text: `Erro ao tentar enviar mensagem - ${err?.message}`,
           type: 'error',
         })
-      })
-      .finally(() => {
-        setLoadingSendForm(false)
       })
   }
 
@@ -54,48 +56,38 @@ export function Contact() {
       </header>
 
       <section>
-        <form onSubmit={onSendForm}>
+        <form onSubmit={handleSubmit(onSendForm)}>
           <CustomTextField
             fullWidth
             label="Nome"
             placeholder="Digite o seu nome"
-            value={formData.name}
-            onChange={(event) => {
-              setFormData({
-                ...formData,
-                name: event.target.value,
-              })
-            }}
+            {...register('name')}
+            error={!!errors.name}
+            helperText={errors.name && errors.name.message}
           />
+
           <CustomTextField
             fullWidth
             label="E-mail"
             placeholder="Digite o seu e-mail"
-            value={formData.email}
-            onChange={(event) => {
-              setFormData({
-                ...formData,
-                email: event.target.value,
-              })
-            }}
+            {...register('email')}
+            error={!!errors.email}
+            helperText={errors.email && errors.email.message}
           />
+
           <CustomTextField
             fullWidth
             label="Mensagem"
             placeholder="Digite aqui a sua mensagem"
             multiline
             rows={5}
-            value={formData.message}
-            onChange={(event) => {
-              setFormData({
-                ...formData,
-                message: event.target.value,
-              })
-            }}
+            {...register('message')}
+            error={!!errors.message}
+            helperText={errors.message && errors.message.message}
           />
 
-          <button disabled={loadingSendForm} type="submit">
-            {loadingSendForm ? <Loading size={21} /> : 'Enviar'}
+          <button disabled={isLoading} type="submit">
+            {isLoading ? <Loading size={21} /> : 'Enviar'}
           </button>
         </form>
 

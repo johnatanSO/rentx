@@ -1,58 +1,59 @@
 import { ModalLayout } from '@/components/_ui/ModalLayout'
-import { Rental } from '../../interfaces/Rental'
-import { FormEvent, useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { AlertContext } from '@/contexts/alertContext'
 import { usePathname, useRouter } from 'next/navigation'
 import style from './ModalEditRental.module.scss'
 import { MenuItem } from '@mui/material'
-import { Car } from '../../interfaces/Car'
-import { User } from '../../interfaces/User'
 import { updateRentalService } from '@/services/rentals/updateRental/UpdateRentalService'
 import { getUsersService } from '@/services/user/getUsers/GetUsersService'
 import { getAllCarsService } from '@/services/cars/getAllCars/GetAllCarsService'
 import dayjs from 'dayjs'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { useForm } from 'react-hook-form'
+import { IRental } from '@/models/interfaces/IRental'
+import { IRentalEdit, rentalEditSchema } from '../../interfaces/IRentalEdit'
+import { ICar } from '@/models/interfaces/ICar'
+import { IUser } from '@/models/interfaces/IUser'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 interface Props {
-  rentalToEdit: Rental
+  rentalToEdit: IRental
   open: boolean
   handleClose: () => void
 }
 
-interface RentalToEdit {
-  _id: string
-  startDate: Date | string
-  endDate: Date | string
-  expectedReturnDate: Date | string
-  car: string
-  user: string
-}
-
 export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-  const [loadingUpdateRental, setLoadingUpdateRental] = useState<boolean>(false)
-  const [rentalData, setRentalData] = useState<RentalToEdit>({
-    ...rentalToEdit,
-    car: rentalToEdit.car._id,
-    user: rentalToEdit.user._id,
-    startDate: dayjs(rentalToEdit.startDate).format('YYYY-MM-DD'),
-    expectedReturnDate: dayjs(rentalToEdit.expectedReturnDate).format(
-      'YYYY-MM-DD',
-    ),
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isLoading },
+  } = useForm<IRentalEdit>({
+    defaultValues: {
+      ...rentalToEdit,
+      car: rentalToEdit.car._id,
+      user: rentalToEdit.user._id,
+      startDate: dayjs(rentalToEdit.startDate).format('YYYY-MM-DD'),
+      expectedReturnDate: dayjs(rentalToEdit.expectedReturnDate).format(
+        'YYYY-MM-DD',
+      ),
+    },
+    resolver: zodResolver(rentalEditSchema),
   })
-  const [cars, setCars] = useState<Car[]>([])
-  const [users, setUsers] = useState<User[]>([])
+
+  const [cars, setCars] = useState<ICar[]>([])
+  const [users, setUsers] = useState<IUser[]>([])
 
   const router = useRouter()
   const pathname = usePathname()
 
-  function onUpdateRental(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-
-    setLoadingUpdateRental(true)
-
-    updateRentalService(rentalData, httpClientProvider)
+  function onUpdateRental(rental: IRentalEdit) {
+    updateRentalService(
+      { ...rental, _id: rental._id || '' },
+      httpClientProvider,
+    )
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -63,6 +64,7 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
 
         router.refresh()
         router.push(pathname)
+
         handleClose()
       })
       .catch((err) => {
@@ -72,9 +74,6 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
           text: `Erro ao tentar atualizar informações do aluguel - ${err?.message}`,
           type: 'error',
         })
-      })
-      .finally(() => {
-        setLoadingUpdateRental(false)
       })
   }
 
@@ -118,9 +117,9 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
       handleClose={handleClose}
       open={open}
       title="Atualizar aluguel"
-      loading={loadingUpdateRental}
+      loading={isLoading}
       submitButtonText="Salvar informações"
-      onSubmit={onUpdateRental}
+      onSubmit={handleSubmit(onUpdateRental)}
       buttonStyle={{
         backgroundColor: '#3264ff',
       }}
@@ -130,13 +129,9 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
           label="Carro"
           size="small"
           select
-          value={rentalData.car}
-          onChange={(event) => {
-            setRentalData({
-              ...rentalData,
-              car: event?.target.value,
-            })
-          }}
+          {...register('car', { required: true })}
+          error={!!errors.car}
+          helperText={errors.car && errors.car.message}
         >
           {cars.map((car) => {
             return (
@@ -151,13 +146,9 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
           label="Cliente"
           size="small"
           select
-          value={rentalData.user}
-          onChange={(event) => {
-            setRentalData({
-              ...rentalData,
-              user: event?.target.value,
-            })
-          }}
+          {...register('user', { required: true })}
+          error={!!errors.user}
+          helperText={errors.user && errors.user.message}
         >
           {users.map((user) => {
             return (
@@ -171,25 +162,13 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
         <CustomTextField
           type="date"
           label="Data de inicio"
-          value={rentalData.startDate}
-          onChange={(event) => {
-            setRentalData({
-              ...rentalData,
-              startDate: event?.target.value,
-            })
-          }}
+          {...register('startDate', { required: true })}
         />
 
         <CustomTextField
           type="date"
           label="Previsão de entrega"
-          value={rentalData.expectedReturnDate}
-          onChange={(event) => {
-            setRentalData({
-              ...rentalData,
-              expectedReturnDate: event?.target.value,
-            })
-          }}
+          {...register('expectedReturnDate', { required: true })}
         />
       </div>
     </ModalLayout>

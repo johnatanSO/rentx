@@ -1,7 +1,7 @@
 'use client'
 
 import style from './ModalAccountConfigs.module.scss'
-import { FormEvent, useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { ModalLayout } from '../../ModalLayout'
 import { updateAvatarService } from '@/services/user/updateAvatar/UpdateAvatarService'
 import { Avatar } from '@mui/material'
@@ -11,8 +11,13 @@ import { UserContext } from '@/contexts/userContext'
 import { AlertContext } from '@/contexts/alertContext'
 import { updateUserInfosService } from '@/services/user/updateUserInfos/UpdateUserInfosService'
 import { CustomTextField } from '../../CustomTextField'
-import { NewValuesUserInfos } from './interfaces/NewValuesUserInfos'
+import {
+  INewValuesUserInfo,
+  newValuesUserInfoSchema,
+} from './interfaces/NewValuesUserInfo'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 type Props = {
   open: boolean
@@ -22,17 +27,21 @@ type Props = {
 
 export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
   const { userInfo, setUserInfo } = useContext(UserContext)
-
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-  const [loadingUpdateUserInfos, setLoadingUpdateUserInfos] =
-    useState<boolean>(false)
-  const [editMode, setEditMode] = useState<boolean>(false)
-  const [newValuesUserInfos, setNewValuesUserInfos] =
-    useState<NewValuesUserInfos>(userInfo as NewValuesUserInfos)
 
-  function onUpdateUserInfos(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    updateUserInfosService(newValuesUserInfos, httpClientProvider)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isLoading },
+  } = useForm<INewValuesUserInfo>({
+    defaultValues: userInfo as INewValuesUserInfo,
+    resolver: zodResolver(newValuesUserInfoSchema),
+  })
+
+  const [editMode, setEditMode] = useState<boolean>(false)
+
+  function onUpdateUserInfos(newValuesUserInfo: INewValuesUserInfo) {
+    updateUserInfosService(newValuesUserInfo, httpClientProvider)
       .then((res) => {
         setUserInfo({
           ...userInfo,
@@ -48,7 +57,6 @@ export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
         })
       })
       .finally(() => {
-        setLoadingUpdateUserInfos(false)
         setEditMode(false)
       })
   }
@@ -90,9 +98,9 @@ export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
       open={open}
       handleClose={handleClose}
       title="Configurações da conta"
-      loading={loadingUpdateUserInfos}
+      loading={isLoading}
       submitButtonText={editMode ? 'Salvar' : undefined}
-      onSubmit={editMode ? onUpdateUserInfos : undefined}
+      onSubmit={editMode ? handleSubmit(onUpdateUserInfos) : undefined}
     >
       <section className={style.avatarSection}>
         <Avatar className={style.avatar} alt="Avatar" src={avatarURL} />
@@ -138,13 +146,9 @@ export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
             required
             label="Nome"
             placeholder="Digite um nome"
-            value={newValuesUserInfos?.name}
-            onChange={(event) => {
-              setNewValuesUserInfos({
-                ...newValuesUserInfos,
-                name: event.target.value,
-              })
-            }}
+            {...register('name', { required: true })}
+            error={!!errors.name}
+            helperText={errors.name && errors.name.message}
           />
         ) : (
           <h5>Nome: {userInfo?.name || '--'}</h5>
@@ -155,13 +159,9 @@ export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
             required
             label="E-mail"
             placeholder="Digite o e-mail"
-            value={newValuesUserInfos?.email}
-            onChange={(event) => {
-              setNewValuesUserInfos({
-                ...newValuesUserInfos,
-                email: event.target.value,
-              })
-            }}
+            {...register('email', { required: true })}
+            error={!!errors.email}
+            helperText={errors.email && errors.email.message}
           />
         ) : (
           <h5>E-mail: {userInfo?.email || '--'}</h5>

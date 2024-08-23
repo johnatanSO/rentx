@@ -1,4 +1,4 @@
-export interface User {
+export interface ICategory {
   _id: string
   name: string
 }
