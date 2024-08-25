@@ -3,20 +3,20 @@
 import style from './ModalSpecifications.module.scss'
 import { ModalLayout } from '@/components/_ui/ModalLayout'
 import { FormEvent, useContext, useEffect, useState } from 'react'
-import { Specification } from '../../../interfaces/Specification'
 import { listAllSpecificationsService } from '@/services/specifications/listAllSpecifications/ListAllSpecificationsService'
 import { AlertContext } from '@/contexts/alertContext'
 import { createCarSpecificationService } from '@/services/cars/createCarSpecification/CreateCarSpecificationService'
-import { Car } from '../../../interfaces/Car'
 import { Loading } from '@/components/_ui/Loading'
 import { Checkbox, FormControlLabel, Popover, Typography } from '@mui/material'
 import { usePathname, useRouter } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { ICar } from '@/models/interfaces/ICar'
+import { ISpecification } from '@/models/interfaces/ISpecification'
 
 type Props = {
-  car: Car
+  car: ICar
   open: boolean
   handleClose: () => void
 }
@@ -33,7 +33,7 @@ export function ModalSpecifications({ open, handleClose, car }: Props) {
     useState<boolean>(false)
   const [loadingSpecifications, setLoadingSpecifications] =
     useState<boolean>(true)
-  const [specifications, setSpecifications] = useState<Specification[]>([])
+  const [specifications, setSpecifications] = useState<ISpecification[]>([])
   const [selectedSpecificationsIds, setSelectedSpecificationsIds] = useState<
     string[]
   >(car.specifications.map((specification) => specification._id))

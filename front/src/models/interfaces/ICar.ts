@@ -14,4 +14,7 @@ export interface ICar {
   licensePlate: string
   category: ICategory
   transmission: string
+  reasonUnavaliable: string
+  avaliable: boolean
+  brand: string
 }

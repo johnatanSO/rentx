@@ -1,9 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera, faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 import Image, { StaticImageData } from 'next/image'
-import { Car } from '../../interfaces/Car'
 import unknownCarImage from '../../../../../../../../public/assets/images/cars/unknownCarImage.png'
-import { CarImage } from '../../interfaces/CarImage'
 import { useContext, useState } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
 import { removeCarImageService } from '@/services/cars/removeCarImage/RemoveCarImageService'
@@ -13,9 +11,11 @@ import { ModalZoomImage } from './ModalZoomImage'
 import { updateDefaultCarImageService } from '@/services/cars/updateDefaultCarImage/UpdateDefaultCarImageService'
 import style from './ImagesSection.module.scss'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { ICar } from '@/models/interfaces/ICar'
+import { ICarImage } from '@/models/interfaces/ICarImage'
 
 type Props = {
-  car: Car
+  car: ICar
 }
 
 export function ImagesSection({ car }: Props) {
@@ -97,7 +97,7 @@ export function ImagesSection({ car }: Props) {
       })
   }
 
-  function handleClickImage(image: CarImage) {
+  function handleClickImage(image: ICarImage) {
     setModalZoomImageOpened(true)
     setImagePath(image?.path || unknownCarImage)
   }

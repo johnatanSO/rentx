@@ -3,7 +3,7 @@
 import style from './SpecificationsManagement.module.scss'
 import { TableComponent } from '@/components/_ui/TableComponent'
 import { useColumns } from './hooks/useColumns'
-import { Specification } from './interfaces/Specification'
+import { ISpecification } from '@/models/interfaces/ISpecification'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { CreateNewSpecification } from './CreateNewSpecification'
 import { useEffect, useState } from 'react'
@@ -15,10 +15,10 @@ import { Divider } from '@mui/material'
 import { httpClientProvider } from '@/providers/httpClientProvider'
 
 export function SpecificationsManagement() {
-  const [specifications, setSpecifications] = useState<Specification[]>([])
+  const [specifications, setSpecifications] = useState<ISpecification[]>([])
   const [searchString, setSearchString] = useState<string>('')
   const [specificationToEdit, setSpecificationToEdit] =
-    useState<Specification | null>(null)
+    useState<ISpecification | null>(null)
   const [modalEditSpecificationOpened, setModalEditSpecificationOpened] =
     useState<boolean>(false)
   const [loadingSpecifications, setLoadingSpecifications] =
@@ -27,7 +27,7 @@ export function SpecificationsManagement() {
   const columns = useColumns({ handleEditSpecification, getSpecifications })
   const itemFields = useFieldsMobile()
 
-  function handleEditSpecification(specification: Specification) {
+  function handleEditSpecification(specification: ISpecification) {
     setSpecificationToEdit(specification)
     setModalEditSpecificationOpened(true)
   }

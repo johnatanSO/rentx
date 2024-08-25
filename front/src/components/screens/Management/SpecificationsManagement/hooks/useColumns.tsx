@@ -1,5 +1,5 @@
 import { CellFunctionParams } from '@/components/_ui/TableComponent/interfaces'
-import { Specification } from '../interfaces/Specification'
+
 import dayjs from 'dayjs'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import style from '../SpecificationsManagement.module.scss'
@@ -8,9 +8,10 @@ import { AlertContext } from '@/contexts/alertContext'
 import { useContext } from 'react'
 import { deleteSpecificationService } from '@/services/specifications/deleteSpecification/DeleteSpecificationService'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { ISpecification } from '@/models/interfaces/ISpecification'
 
 interface Props {
-  handleEditSpecification: (specification: Specification) => void
+  handleEditSpecification: (specification: ISpecification) => void
   getSpecifications: () => void
 }
 
@@ -62,19 +63,19 @@ export function useColumns({
     {
       field: 'name',
       headerName: 'Nome',
-      valueFormatter: (params: CellFunctionParams<Specification>) =>
+      valueFormatter: (params: CellFunctionParams<ISpecification>) =>
         params.value,
     },
     {
       field: 'description',
       headerName: 'Descrição',
-      valueFormatter: (params: CellFunctionParams<Specification>) =>
+      valueFormatter: (params: CellFunctionParams<ISpecification>) =>
         params.value,
     },
     {
       field: 'createdAt',
       headerName: 'Data de cadastro',
-      valueFormatter: (params: CellFunctionParams<Specification>) =>
+      valueFormatter: (params: CellFunctionParams<ISpecification>) =>
         dayjs(params.value).format('DD/MM/YYYY - HH:mm'),
     },
     {
@@ -82,7 +83,7 @@ export function useColumns({
       type: 'actions',
       headerName: '',
       flex: 1,
-      cellRenderer: (params: CellFunctionParams<Specification>) => {
+      cellRenderer: (params: CellFunctionParams<ISpecification>) => {
         return (
           <div className={style.actionsContainer}>
             <button

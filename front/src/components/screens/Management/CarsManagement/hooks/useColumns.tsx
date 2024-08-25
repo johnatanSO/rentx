@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import { CellFunctionParams } from '@/components/_ui/TableComponent/interfaces'
 import unknownCarImage from '../../../../../../public/assets/images/cars/unknownCarImage.png'
-import { Car } from '../interfaces/Car'
 import style from '../CarsManagement.module.scss'
 import { formatCurrency } from '@/utils/format'
 import Link from 'next/link'
+import { ICar } from '@/models/interfaces/ICar'
 
 export function useColumns() {
   function formatTransmissionType(type: string) {
@@ -16,7 +16,7 @@ export function useColumns() {
     {
       headerName: 'Carro',
       field: 'defaultImage',
-      cellRenderer: (params: CellFunctionParams<Car>) => {
+      cellRenderer: (params: CellFunctionParams<ICar>) => {
         return (
           <Link href={`/management/cars/${params.data._id}`}>
             <div className={style.carModelContainer}>
@@ -36,31 +36,31 @@ export function useColumns() {
     {
       headerName: 'Placa',
       field: 'licensePlate',
-      valueFormatter: (params: CellFunctionParams<Car>) => params.value,
+      valueFormatter: (params: CellFunctionParams<ICar>) => params.value,
     },
     {
       headerName: 'Transmissão',
       field: 'transmission',
-      valueFormatter: (params: CellFunctionParams<Car>) =>
+      valueFormatter: (params: CellFunctionParams<ICar>) =>
         formatTransmissionType(params.value),
     },
     {
       headerName: 'Valor diário',
       field: 'dailyRate',
-      valueFormatter: (params: CellFunctionParams<Car>) =>
+      valueFormatter: (params: CellFunctionParams<ICar>) =>
         formatCurrency(params.value || 0),
     },
     {
       headerName: 'Disponível',
       field: 'avaliable',
-      valueFormatter: (params: CellFunctionParams<Car>) =>
+      valueFormatter: (params: CellFunctionParams<ICar>) =>
         params.value ? 'Sim' : 'Não',
     },
     {
       headerName: '',
       field: 'actions',
       type: 'actions',
-      cellRenderer: (params: CellFunctionParams<Car>) => {
+      cellRenderer: (params: CellFunctionParams<ICar>) => {
         return (
           <div className={style.actionsContainer}>
             <Link

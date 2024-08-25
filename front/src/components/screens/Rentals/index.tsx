@@ -3,7 +3,6 @@
 import style from './Rentals.module.scss'
 import { useContext, useEffect, useState } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
-import { Rental } from './interfaces/Rental'
 import { TableComponent } from '@/components/_ui/TableComponent'
 import { useColumns } from './hooks/useColumns'
 import { finalizeRentalService } from '@/services/rentals/finalizeRental/FinalizeRentalService'
@@ -11,6 +10,7 @@ import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFieldsMobile'
 import { getRentalsService } from '@/services/rentals/getRentals/GetRentalsService'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { IRental } from '@/models/interfaces/IRental'
 
 export function Rentals() {
   const {
@@ -20,7 +20,7 @@ export function Rentals() {
     setAlertConfirmConfigs,
   } = useContext(AlertContext)
 
-  const [rentals, setRentals] = useState<Rental[]>([])
+  const [rentals, setRentals] = useState<IRental[]>([])
   const [loadingRentals, setLoadingRentals] = useState<boolean>(true)
 
   const columns = useColumns({ onFinalizeRental })

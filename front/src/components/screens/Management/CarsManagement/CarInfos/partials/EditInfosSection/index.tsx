@@ -1,25 +1,27 @@
 'use client'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Car } from '../../interfaces/Car'
+
 import style from './EditInfosSection.module.scss'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { Checkbox, FormControlLabel, FormGroup, MenuItem } from '@mui/material'
 import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
-import { Category } from '../../interfaces/Category'
+
 import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
 import { AlertContext } from '@/contexts/alertContext'
 import { updateCarInfosService } from '@/services/cars/updateCarInfos/UpdateCarInfosService'
 import { usePathname, useRouter } from 'next/navigation'
 import { Loading } from '@/components/_ui/Loading'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { ICar } from '@/models/interfaces/ICar'
+import { ICategory } from '@/models/interfaces/ICategory'
 
 type Props = {
-  car: Car
+  car: ICar
 }
 
-interface CarData extends Omit<Car, 'category'> {
+interface CarData extends Omit<ICar, 'category'> {
   categoryId: string
 }
 
@@ -35,7 +37,7 @@ export function EditInfosSection({ car }: Props) {
     categoryId: category._id,
   })
 
-  const [categoriesList, setCategoriesList] = useState<Category[]>([])
+  const [categoriesList, setCategoriesList] = useState<ICategory[]>([])
   const [loadingUpdateInfos, setLoadingUpdateInfos] = useState<boolean>(false)
 
   function onUpdateCarInfos(event: FormEvent<HTMLFormElement>) {

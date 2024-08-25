@@ -1,13 +1,14 @@
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import style from './SpecificationsSection.module.scss'
-import { Car } from '../../interfaces/Car'
+
 import { useState } from 'react'
 import { ModalSpecifications } from './ModalSpecifications'
 import { Divider } from '@mui/material'
+import { ICar } from '@/models/interfaces/ICar'
 
 type Props = {
-  car: Car
+  car: ICar
 }
 
 export function SpecificationsSection({ car }: Props) {

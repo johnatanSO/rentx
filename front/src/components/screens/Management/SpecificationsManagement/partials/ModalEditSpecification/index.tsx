@@ -1,14 +1,14 @@
 import { ModalLayout } from '@/components/_ui/ModalLayout'
-import { Specification } from '../../interfaces/Specification'
 import { FormEvent, useContext, useState } from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { AlertContext } from '@/contexts/alertContext'
 import { updateSpecificationService } from '@/services/specifications/updateSpecificationService/UpdateSpecificationService'
 import style from './ModalEditSpecification.module.scss'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { ISpecification } from '@/models/interfaces/ISpecification'
 
 interface Props {
-  specificationToEdit: Specification
+  specificationToEdit: ISpecification
   open: boolean
   handleClose: () => void
   getSpecifications: () => void
@@ -24,7 +24,7 @@ export function ModalEditSpecification({
   const [loadingUpdateSpecification, setLoadingUpdateSpecification] =
     useState<boolean>(false)
   const [specificationData, setSpecificationData] =
-    useState<Specification>(specificationToEdit)
+    useState<ISpecification>(specificationToEdit)
 
   function onUpdateSpecification(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()

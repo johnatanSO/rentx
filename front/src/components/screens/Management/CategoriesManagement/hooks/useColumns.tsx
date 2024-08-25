@@ -1,5 +1,4 @@
 import { CellFunctionParams } from '@/components/_ui/TableComponent/interfaces'
-import { Category } from '../interfaces/Category'
 import dayjs from 'dayjs'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
@@ -8,9 +7,10 @@ import { deleteCategoryService } from '@/services/category/deleteCategory/Delete
 import { useContext } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { ICategory } from '@/models/interfaces/ICategory'
 
 interface Props {
-  handleEditCategory: (categoryData: Category) => void
+  handleEditCategory: (categoryData: ICategory) => void
   getCategories: () => void
 }
 
@@ -56,24 +56,24 @@ export function useColumns({ handleEditCategory, getCategories }: Props) {
     {
       field: 'name',
       headerName: 'Nome',
-      valueFormatter: (params: CellFunctionParams<Category>) => params.value,
+      valueFormatter: (params: CellFunctionParams<ICategory>) => params.value,
     },
     {
       field: 'description',
       headerName: 'Descrição',
-      valueFormatter: (params: CellFunctionParams<Category>) => params.value,
+      valueFormatter: (params: CellFunctionParams<ICategory>) => params.value,
     },
     {
       field: 'createdAt',
       headerName: 'Data de cadastro',
-      valueFormatter: (params: CellFunctionParams<Category>) =>
+      valueFormatter: (params: CellFunctionParams<ICategory>) =>
         dayjs(params.value).format('DD/MM/YYYY - HH:mm'),
     },
     {
       field: 'actions',
       headerName: '',
       type: 'actions',
-      cellRenderer: (params: CellFunctionParams<Category>) => {
+      cellRenderer: (params: CellFunctionParams<ICategory>) => {
         return (
           <div className={style.actionsContainer}>
             <button

@@ -2,7 +2,7 @@
 
 import { TableComponent } from '@/components/_ui/TableComponent'
 import style from './AllRentalsManagement.module.scss'
-import { Rental } from './interfaces/Rental'
+import { IRental } from '@/models/interfaces/IRental'
 import { useColumns } from './hooks/useColumns'
 import { useContext, useEffect, useState } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
@@ -25,7 +25,7 @@ export function AllRentalsManagement() {
     setAlertConfirmConfigs,
   } = useContext(AlertContext)
 
-  const [rentals, setRentals] = useState<Rental[]>([])
+  const [rentals, setRentals] = useState<IRental[]>([])
   const [loadingRentals, setLoadingRentals] = useState<boolean>(true)
 
   const defaultValuesFilter = {
@@ -40,12 +40,12 @@ export function AllRentalsManagement() {
 
   const [modalEditRentalOpened, setModalEditRentalOpened] =
     useState<boolean>(false)
-  const [rentalToEdit, setRentalToEdit] = useState<Rental | null>(null)
+  const [rentalToEdit, setRentalToEdit] = useState<IRental | null>(null)
 
   const columns = useColumns({ onFinalizeRental, handleEditRental })
   const itemFields = useFieldsMobile()
 
-  function handleEditRental(rental: Rental) {
+  function handleEditRental(rental: IRental) {
     setRentalToEdit(rental)
     setModalEditRentalOpened(true)
   }

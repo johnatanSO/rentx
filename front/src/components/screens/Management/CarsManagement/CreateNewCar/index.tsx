@@ -4,7 +4,6 @@ import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { MenuItem } from '@mui/material'
 import { FormEvent, useContext, useEffect, useState } from 'react'
 import { NewCar } from './interfaces/NewCar'
-import { Category } from './interfaces/Category'
 import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
 import { AlertContext } from '@/contexts/alertContext'
 import style from './CreateNewCar.module.scss'
@@ -19,6 +18,7 @@ import {
   faImage,
 } from '@fortawesome/free-solid-svg-icons'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { ICategory } from '@/models/interfaces/ICategory'
 
 export function CreateNewCar() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
@@ -35,7 +35,7 @@ export function CreateNewCar() {
   }
 
   const [newCarData, setNewCarData] = useState<NewCar>(defaultValuesNewCar)
-  const [categoriesList, setCategoriesList] = useState<Category[]>([])
+  const [categoriesList, setCategoriesList] = useState<ICategory[]>([])
   const [loadingCreateNewCar, setLoadingCreateNewCar] = useState<boolean>(false)
   const [image, setImage] = useState<File | null>(null)
 

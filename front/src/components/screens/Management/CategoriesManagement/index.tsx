@@ -1,7 +1,6 @@
 'use client'
 import style from './CategoriesManagement.module.scss'
 import { TableComponent } from '@/components/_ui/TableComponent'
-import { Category } from './interfaces/Category'
 import { useColumns } from './hooks/useColumns'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { CreateNewCategory } from './CreateNewCategory'
@@ -12,11 +11,12 @@ import { useFieldsMobile } from './hooks/useFieldsMobile'
 import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
 import { Divider } from '@mui/material'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { ICategory } from '@/models/interfaces/ICategory'
 
 export function CategoriesManagement() {
-  const [categories, setCategories] = useState<Category[]>([])
+  const [categories, setCategories] = useState<ICategory[]>([])
   const [searchString, setSearchString] = useState<string>('')
-  const [categoryToEdit, setCategoryToEdit] = useState<Category | null>(null)
+  const [categoryToEdit, setCategoryToEdit] = useState<ICategory | null>(null)
   const [modalEditCategoryOpened, setModalEditCategoryOpened] =
     useState<boolean>(false)
   const [loadingCategories, setLoadingCategories] = useState<boolean>(true)
@@ -24,7 +24,7 @@ export function CategoriesManagement() {
   const columns = useColumns({ handleEditCategory, getCategories })
   const itemFields = useFieldsMobile()
 
-  function handleEditCategory(category: Category) {
+  function handleEditCategory(category: ICategory) {
     setCategoryToEdit(category)
     setModalEditCategoryOpened(true)
   }

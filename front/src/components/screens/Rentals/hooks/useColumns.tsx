@@ -1,12 +1,12 @@
 import { CellFunctionParams } from '@/components/_ui/TableComponent/interfaces'
 import dayjs from 'dayjs'
-import { Rental } from '../interfaces/Rental'
-import { Car } from '../interfaces/Car'
+import { IRental } from '@/models/interfaces/IRental'
 import style from '../Rentals.module.scss'
 import Image from 'next/image'
 import unknownCarImage from '../../../../../public/assets/images/cars/unknownCarImage.png'
 import { formatCurrency } from '@/utils/format'
 import Link from 'next/link'
+import { ICar } from '@/models/interfaces/ICar'
 
 type Props = {
   onFinalizeRental: (rentalId: string) => void
@@ -22,7 +22,7 @@ export function useColumns({ onFinalizeRental }: Props) {
     {
       headerName: 'Carro',
       field: 'car',
-      cellRenderer: (params: CellFunctionParams<Car>) => {
+      cellRenderer: (params: CellFunctionParams<ICar>) => {
         return (
           <Link href={`/cars/${params.value._id}`}>
             <div className={style.carModelContainer}>
@@ -43,25 +43,25 @@ export function useColumns({ onFinalizeRental }: Props) {
     {
       headerName: 'Placa',
       field: 'licensePlate',
-      valueFormatter: (params: CellFunctionParams<Rental>) =>
+      valueFormatter: (params: CellFunctionParams<IRental>) =>
         params.data.car.licensePlate,
     },
     {
       headerName: 'Inicio',
       field: 'startDate',
-      valueFormatter: (params: CellFunctionParams<Rental>) =>
+      valueFormatter: (params: CellFunctionParams<IRental>) =>
         dayjs(params.value).format('DD/MM/YYYY - HH:mm'),
     },
     {
       headerName: 'Previsão de entrega',
       field: 'expectedReturnDate',
-      valueFormatter: (params: CellFunctionParams<Rental>) =>
+      valueFormatter: (params: CellFunctionParams<IRental>) =>
         dayjs(params.value).format('DD/MM/YYYY'),
     },
     {
       headerName: 'Status',
       field: 'status',
-      cellRenderer: (params: CellFunctionParams<Rental>) => {
+      cellRenderer: (params: CellFunctionParams<IRental>) => {
         return (
           <span className={getStatusTag(params?.data?.endDate?.toString())}>
             {!params?.data?.endDate ? 'Em andamento' : 'Finalizado'}
@@ -72,7 +72,7 @@ export function useColumns({ onFinalizeRental }: Props) {
     {
       headerName: 'Data de entrega',
       field: 'endDate',
-      valueFormatter: (params: CellFunctionParams<Rental>) =>
+      valueFormatter: (params: CellFunctionParams<IRental>) =>
         params?.value
           ? dayjs(params?.value).format('DD/MM/YYYY - HH:mm')
           : '--',
@@ -80,14 +80,14 @@ export function useColumns({ onFinalizeRental }: Props) {
     {
       headerName: 'Valor total',
       field: 'total',
-      valueFormatter: (params: CellFunctionParams<Rental>) =>
+      valueFormatter: (params: CellFunctionParams<IRental>) =>
         formatCurrency(params?.value || 0),
     },
     {
       headerName: '',
       field: 'returnCar',
       type: 'actions',
-      cellRenderer: (params: CellFunctionParams<Rental>) => {
+      cellRenderer: (params: CellFunctionParams<IRental>) => {
         if (!params.data.endDate) {
           return (
             <div className={style.actionsContainer}>

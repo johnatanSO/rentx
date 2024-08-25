@@ -1,5 +1,4 @@
 import { ModalLayout } from '@/components/_ui/ModalLayout'
-import { Category } from '../../interfaces/Category'
 import { useContext, useState } from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { AlertContext } from '@/contexts/alertContext'
@@ -7,10 +6,11 @@ import { updateCategoryService } from '@/services/category/updateCategoryService
 import style from './ModalEditCategory.module.scss'
 import { httpClientProvider } from '@/providers/httpClientProvider'
 import { useForm } from 'react-hook-form'
+import { ICategory } from '@/models/interfaces/ICategory'
 
 interface Props {
   getCategories: () => void
-  categoryToEdit: Category
+  categoryToEdit: ICategory
   open: boolean
   handleClose: () => void
 }
@@ -25,17 +25,17 @@ export function ModalEditCategory({
   const [loadingUpdateCategory, setLoadingUpdateCategory] =
     useState<boolean>(false)
 
-  const { handleSubmit, register } = useForm<Category>({
+  const { handleSubmit, register } = useForm<ICategory>({
     defaultValues: {
       ...categoryToEdit,
     },
   })
 
-  function onUpdateCategory(data: Category) {
+  function onUpdateCategory(category: ICategory) {
     setLoadingUpdateCategory(true)
 
     const values = {
-      ...data,
+      ...category,
       _id: categoryToEdit?._id,
     }
 

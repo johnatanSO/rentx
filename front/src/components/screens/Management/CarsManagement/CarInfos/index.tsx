@@ -1,5 +1,4 @@
 'use client'
-import { Car } from './interfaces/Car'
 import style from './CarInfos.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faTrash } from '@fortawesome/free-solid-svg-icons'
@@ -11,9 +10,10 @@ import { useContext } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
 import { deleteCarService } from '@/services/cars/deleteCar/DeleteCarService'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { ICar } from '@/models/interfaces/ICar'
 
 type Props = {
-  car: Car
+  car: ICar
 }
 
 export function CarInfos({ car }: Props) {

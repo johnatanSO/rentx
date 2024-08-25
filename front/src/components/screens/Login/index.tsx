@@ -1,7 +1,7 @@
 'use client'
 
 import style from './Login.module.scss'
-import { FormEvent, useContext, useState } from 'react'
+import { useContext } from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import Link from 'next/link'
 
@@ -14,7 +14,8 @@ import { saveLocalUserService } from '@/services/user/saveLocalUser/SaveLocalUse
 import { saveRefreshToken } from '@/services/token/saveRefreshToken/SaveRefreshToken'
 import { httpClientProvider } from '@/providers/httpClientProvider'
 import { useForm } from 'react-hook-form'
-import { IFormAuth } from './interfaces/IFormAuth'
+import { formAuthSchema, IFormAuth } from './interfaces/IFormAuth'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 export function Login() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
@@ -29,6 +30,7 @@ export function Login() {
       email: '',
       password: '',
     },
+    resolver: zodResolver(formAuthSchema),
   })
 
   const router = useRouter()

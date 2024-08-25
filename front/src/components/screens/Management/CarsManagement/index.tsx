@@ -1,7 +1,6 @@
 'use client'
 
 import { TableComponent } from '@/components/_ui/TableComponent'
-import { Car } from './interfaces/Car'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import style from './CarsManagement.module.scss'
 import { useColumns } from './hooks/useColumns'
@@ -13,13 +12,14 @@ import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFields'
 import { getAllCarsService } from '@/services/cars/getAllCars/GetAllCarsService'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { ICar } from '@/models/interfaces/ICar'
 
 export function CarsManagement() {
   const router = useRouter()
   const pathname = usePathname()
 
   const [searchString, setSearchString] = useState<string>('')
-  const [cars, setCars] = useState<Car[]>([])
+  const [cars, setCars] = useState<ICar[]>([])
   const [loadingCars, setLoadingCars] = useState<boolean>(true)
 
   const filteredCars = cars.filter((car) =>
