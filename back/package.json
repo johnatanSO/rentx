@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node-dev --transpile-only ./src/shared/infra/http/server.ts",
     "build": "tsc",
-    "test": "jest",
-    "start": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
