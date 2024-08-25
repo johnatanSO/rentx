@@ -1,7 +1,7 @@
 'use client'
 
 import style from './ForgotPassword.module.scss'
-import { FormEvent, useContext, useState } from 'react'
+import { useContext } from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { AlertContext } from '@/contexts/alertContext'
 import { useRouter } from 'next/navigation'
