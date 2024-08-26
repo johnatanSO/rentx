@@ -41,11 +41,7 @@ export function CreateAccount() {
   const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
 
-  const [password, confirmPassword, isAdmin] = watch([
-    'password',
-    'confirmPassword',
-    'isAdmin',
-  ])
+  const isAdmin = watch('isAdmin')
 
   function onRegister(newUser: INewUser) {
     createNewUserService(newUser, httpClientProvider)
@@ -73,14 +69,6 @@ export function CreateAccount() {
           type: 'error',
         })
       })
-  }
-
-  function getConfirmPasswordErrorMessage() {
-    if (errors.confirmPassword) return errors.confirmPassword.message
-
-    if (password !== confirmPassword) return 'Senhas são diferentes'
-
-    return undefined
   }
 
   return (
@@ -131,8 +119,10 @@ export function CreateAccount() {
               required
               className={style.input}
               {...register('confirmPassword', { required: true })}
-              error={!!errors.confirmPassword || password !== confirmPassword}
-              helperText={getConfirmPasswordErrorMessage()}
+              error={!!errors.confirmPassword}
+              helperText={
+                errors.confirmPassword && errors.confirmPassword.message
+              }
             />
           </div>
           <CustomTextField

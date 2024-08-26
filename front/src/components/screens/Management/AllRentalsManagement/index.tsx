@@ -9,13 +9,12 @@ import { AlertContext } from '@/contexts/alertContext'
 import { finalizeRentalService } from '@/services/rentals/finalizeRental/FinalizeRentalService'
 import { useSearchParams } from 'next/navigation'
 import { ModalEditRental } from './partials/ModalEditRental'
-import { Filters } from './partials/Filters'
+import { FilterRentals } from './partials/FilterRentals'
 import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFields'
 import { getAllRentalsService } from '@/services/rentals/getAllRentals/GetAllRentalsService'
-import { IFilters } from './interfaces/IFilters'
-import dayjs from 'dayjs'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { IFilters } from './interfaces/IFilters'
 
 export function AllRentalsManagement() {
   const {
@@ -28,14 +27,6 @@ export function AllRentalsManagement() {
   const [rentals, setRentals] = useState<IRental[]>([])
   const [loadingRentals, setLoadingRentals] = useState<boolean>(true)
 
-  const defaultValuesFilter = {
-    filterStartDate: dayjs().startOf('month').format('YYYY-MM-DD'),
-    filterEndDate: dayjs().endOf('month').format('YYYY-MM-DD'),
-    userId: null,
-    carId: null,
-  }
-
-  const [filters, setFilters] = useState<IFilters>(defaultValuesFilter)
   const searchParams = useSearchParams()
 
   const [modalEditRentalOpened, setModalEditRentalOpened] =
@@ -81,6 +72,14 @@ export function AllRentalsManagement() {
 
   function getRentals() {
     setLoadingRentals(true)
+
+    const filters: IFilters = {
+      carId: searchParams.get('carId'),
+      filterEndDate: searchParams.get('filterEndDate'),
+      filterStartDate: searchParams.get('filterStartDate'),
+      userId: searchParams.get('userId'),
+    }
+
     getAllRentalsService(filters, httpClientProvider)
       .then(({ data: { items } }) => {
         setRentals(items)
@@ -102,7 +101,7 @@ export function AllRentalsManagement() {
       <header className={style.header}>
         <h2>Todos os alugueis</h2>
 
-        <Filters filters={filters} setFilters={setFilters} />
+        <FilterRentals />
       </header>
 
       <section className={style.tableSection}>

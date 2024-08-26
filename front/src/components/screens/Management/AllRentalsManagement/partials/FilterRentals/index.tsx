@@ -4,22 +4,34 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { getUsersService } from '@/services/user/getUsers/GetUsersService'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { FormEvent, useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
 import { MenuItem } from '@mui/material'
 import { ICar } from '@/models/interfaces/ICar'
 import { getAllCarsService } from '@/services/cars/getAllCars/GetAllCarsService'
-import { IFilters } from '../../interfaces/IFilters'
 import { httpClientProvider } from '@/providers/httpClientProvider'
 import { IUser } from '@/models/interfaces/IUser'
+import { useForm } from 'react-hook-form'
+import dayjs from 'dayjs'
+import { filterRentalsSchema, IFilters } from '../../interfaces/IFilters'
+import { zodResolver } from '@hookform/resolvers/zod'
 
-type Props = {
-  filters: IFilters
-  setFilters: (filters: IFilters) => void
-}
-
-export function Filters({ filters, setFilters }: Props) {
+export function FilterRentals() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<IFilters>({
+    defaultValues: {
+      filterStartDate: dayjs().startOf('month').format('YYYY-MM-DD'),
+      filterEndDate: dayjs().endOf('month').format('YYYY-MM-DD'),
+      userId: null,
+      carId: null,
+    },
+    resolver: zodResolver(filterRentalsSchema),
+  })
 
   const [otherFiltersOpened] = useState<boolean>(false)
   const [usersList, setUsersList] = useState<IUser[]>([])
@@ -39,10 +51,9 @@ export function Filters({ filters, setFilters }: Props) {
     [searchParams],
   )
 
-  function onFilterRentals(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-
+  function onFilterRentals(filters: IFilters) {
     const currentFilterEndDate = searchParams.get('filterEndDate')
+
     if (
       !currentFilterEndDate ||
       currentFilterEndDate !== filters.filterEndDate
@@ -56,6 +67,7 @@ export function Filters({ filters, setFilters }: Props) {
     }
 
     const currentFilterStartDate = searchParams.get('filterStartDate')
+
     if (
       !currentFilterStartDate ||
       currentFilterStartDate !== filters.filterStartDate
@@ -69,6 +81,7 @@ export function Filters({ filters, setFilters }: Props) {
     }
 
     const currentFilterUser = searchParams.get('userId')
+
     if (currentFilterUser !== filters.userId) {
       router.push(
         `${pathname}?${createQueryString('userId', filters.userId || '')}`,
@@ -76,6 +89,7 @@ export function Filters({ filters, setFilters }: Props) {
     }
 
     const currentFilterCar = searchParams.get('carId')
+
     if (currentFilterCar !== filters.carId) {
       router.push(
         `${pathname}?${createQueryString('carId', filters.carId || '')}`,
@@ -121,19 +135,17 @@ export function Filters({ filters, setFilters }: Props) {
 
   return (
     <div className={style.filtersContainer}>
-      <form className={style.filterDateContainer} onSubmit={onFilterRentals}>
+      <form
+        className={style.filterDateContainer}
+        onSubmit={handleSubmit(onFilterRentals)}
+      >
         <CustomTextField
           className={style.input}
           label="Data do aluguel (Inicial)"
           type="date"
           InputLabelProps={{ shrink: true }}
-          value={filters.filterStartDate}
-          onChange={(event) => {
-            setFilters({
-              ...filters,
-              filterStartDate: event?.target.value,
-            })
-          }}
+          {...register('filterStartDate')}
+          error={!!errors.filterStartDate}
         />
 
         <CustomTextField
@@ -141,13 +153,8 @@ export function Filters({ filters, setFilters }: Props) {
           label="Data do aluguel (Final)"
           type="date"
           InputLabelProps={{ shrink: true }}
-          value={filters.filterEndDate}
-          onChange={(event) => {
-            setFilters({
-              ...filters,
-              filterEndDate: event?.target.value,
-            })
-          }}
+          {...register('filterEndDate')}
+          error={!!errors.filterEndDate}
         />
 
         <button type="submit">
@@ -162,13 +169,8 @@ export function Filters({ filters, setFilters }: Props) {
             className={style.input}
             label="Cliente"
             select
-            value={filters.userId}
-            onChange={(event) => {
-              setFilters({
-                ...filters,
-                userId: event?.target.value,
-              })
-            }}
+            {...register('userId')}
+            error={!!errors.userId}
           >
             <MenuItem value="all">Todos</MenuItem>
             {usersList.map((user) => {
@@ -184,13 +186,8 @@ export function Filters({ filters, setFilters }: Props) {
             className={style.input}
             label="Carro"
             select
-            value={filters.carId}
-            onChange={(event) => {
-              setFilters({
-                ...filters,
-                carId: event?.target.value,
-              })
-            }}
+            {...register('carId')}
+            error={!!errors.carId}
           >
             <MenuItem value="all">Todos</MenuItem>
             {carsList.map((car) => {
