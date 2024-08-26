@@ -6,12 +6,12 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper/modules'
 import Image from 'next/image'
 import 'swiper/css'
-import { useCreateBrands } from './hooks/useColumns'
+import { useBrands } from './hooks/useBrands'
 
 export function Footer() {
   const year = new Date().getFullYear()
 
-  const brands = useCreateBrands()
+  const brands = useBrands()
 
   return (
     <footer className={style.footerContainer}>

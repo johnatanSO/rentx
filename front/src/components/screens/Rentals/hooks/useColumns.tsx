@@ -22,19 +22,19 @@ export function useColumns({ onFinalizeRental }: Props) {
     {
       headerName: 'Carro',
       field: 'car',
-      cellRenderer: (params: CellFunctionParams<ICar>) => {
+      cellRenderer: ({ data: { car } }: CellFunctionParams<IRental>) => {
         return (
-          <Link href={`/cars/${params.value._id}`}>
+          <Link href={`/cars/${car._id}`}>
             <div className={style.carModelContainer}>
               <Image
                 alt="Avatar do carro"
                 className={style.carImage}
                 width={500}
                 height={500}
-                src={params.value.defaultImage?.path || unknownCarImage}
+                src={car.defaultImage?.path || unknownCarImage}
               />
 
-              <b className={style.carName}>{params.value.name}</b>
+              <b className={style.carName}>{car.name}</b>
             </div>
           </Link>
         )
@@ -43,8 +43,8 @@ export function useColumns({ onFinalizeRental }: Props) {
     {
       headerName: 'Placa',
       field: 'licensePlate',
-      valueFormatter: (params: CellFunctionParams<IRental>) =>
-        params.data.car.licensePlate,
+      valueFormatter: ({ data: { car } }: CellFunctionParams<IRental>) =>
+        car.licensePlate,
     },
     {
       headerName: 'Inicio',
@@ -81,7 +81,7 @@ export function useColumns({ onFinalizeRental }: Props) {
       headerName: 'Valor total',
       field: 'total',
       valueFormatter: (params: CellFunctionParams<IRental>) =>
-        formatCurrency(params?.value || 0),
+        formatCurrency(Number(params.value || 0)),
     },
     {
       headerName: '',

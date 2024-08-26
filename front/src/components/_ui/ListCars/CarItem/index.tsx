@@ -2,7 +2,6 @@
 import { useContext } from 'react'
 import Image from 'next/image'
 import style from './CarItem.module.scss'
-import { CarImage } from '../interfaces/CarImage'
 import unknownCarImage from '../../../../../public/assets/images/cars/unknownCarImage.png'
 import { formatCurrency } from '@/utils/format'
 import Link from 'next/link'
@@ -13,20 +12,20 @@ import {
   faArrowsRotate,
   faDroplet,
 } from '@fortawesome/free-solid-svg-icons'
-
-import { Specification } from '../interfaces/Specification'
 import { favoriteCarService } from '@/services/cars/favoriteCar/FavoriteCarService'
 import { AlertContext } from '@/contexts/alertContext'
 import { UserContext } from '@/contexts/userContext'
 import { useRouter } from 'next/navigation'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { ICarImage } from '@/models/interfaces/ICarImage'
+import { ISpecification } from '@/models/interfaces/ISpecification'
 
 type Props = {
-  defaultImage: CarImage
+  defaultImage: ICarImage
   name: string
   dailyRate: number
   carId: string
-  specifications: Specification[]
+  specifications: ISpecification[]
   transmission: string
 }
 

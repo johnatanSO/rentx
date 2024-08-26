@@ -25,7 +25,7 @@ export function useColumns() {
                 className={style.carImage}
                 width={500}
                 height={500}
-                src={params.value?.path || unknownCarImage}
+                src={params.data.defaultImage?.path || unknownCarImage}
               />
               <b className={style.carName}>{params.data.name}</b>
             </div>
@@ -42,13 +42,13 @@ export function useColumns() {
       headerName: 'Transmissão',
       field: 'transmission',
       valueFormatter: (params: CellFunctionParams<ICar>) =>
-        formatTransmissionType(params.value),
+        formatTransmissionType(String(params.value)),
     },
     {
       headerName: 'Valor diário',
       field: 'dailyRate',
       valueFormatter: (params: CellFunctionParams<ICar>) =>
-        formatCurrency(params.value || 0),
+        formatCurrency(Number(params.value || 0)),
     },
     {
       headerName: 'Disponível',

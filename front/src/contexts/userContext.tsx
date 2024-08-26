@@ -4,24 +4,14 @@ import { getLocalUserService } from '@/services/user/getLocalUser/GetLocalUserSe
 import { saveLocalUserService } from '@/services/user/saveLocalUser/SaveLocalUserService'
 import { ReactNode, createContext, useState, useEffect } from 'react'
 
-interface UserInfo {
-  _id: string
-  name: string
-  email: string
-  isAdmin: boolean
-  avatar: string
-  avatarURL: string
-  favoriteCars: string[]
-}
-
 interface UserContextComponentProps {
   children: ReactNode
-  serverUserInfo: UserInfo
+  serverUserInfo: IUser
 }
 
 interface UserContextInterface {
-  userInfo: UserInfo | null
-  setUserInfo: (userInfo: UserInfo | null) => void
+  userInfo: IUser | null
+  setUserInfo: (userInfo: IUser | null) => void
 }
 
 export const UserContext = createContext({} as UserContextInterface)
@@ -30,19 +20,17 @@ export function UserContextComponent({
   children,
   serverUserInfo,
 }: UserContextComponentProps) {
-  const [userInfo, setUserInfo] = useState<UserInfo | null>(
-    serverUserInfo || null,
-  )
+  const [userInfo, setUserInfo] = useState<IUser | null>(serverUserInfo || null)
 
-  async function saveUserHandler(updatedInfos: UserInfo) {
-    const localUser: UserInfo = await getLocalUserService()
+  async function saveUserHandler(updatedInfos: IUser) {
+    const localUser: IUser = await getLocalUserService()
     saveLocalUserService({
       userData: { ...localUser, ...updatedInfos },
     })
   }
 
   useEffect(() => {
-    saveUserHandler(userInfo as UserInfo)
+    saveUserHandler(userInfo as IUser)
   }, [userInfo])
 
   return (

@@ -8,7 +8,7 @@ import audiLogo from '../../../../../public/assets/logos/brands/audiLogo.png'
 import mercedezLogo from '../../../../../public/assets/logos/brands/mercedezLogo.png'
 import mitsubishiLogo from '../../../../../public/assets/logos/brands/mitsubishiLogo.png'
 
-export function useCreateBrands() {
+export function useBrands() {
   return [
     {
       path: porscheLogo,

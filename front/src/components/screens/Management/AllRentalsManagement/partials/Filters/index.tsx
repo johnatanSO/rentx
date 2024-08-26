@@ -2,7 +2,6 @@ import { CustomTextField } from '@/components/_ui/CustomTextField'
 import style from './Filters.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import { IUser } from '@/models/interfaces/IUser'
 import { getUsersService } from '@/services/user/getUsers/GetUsersService'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { FormEvent, useCallback, useContext, useEffect, useState } from 'react'
@@ -12,6 +11,7 @@ import { ICar } from '@/models/interfaces/ICar'
 import { getAllCarsService } from '@/services/cars/getAllCars/GetAllCarsService'
 import { IFilters } from '../../interfaces/IFilters'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { IUser } from '@/models/interfaces/IUser'
 
 type Props = {
   filters: IFilters

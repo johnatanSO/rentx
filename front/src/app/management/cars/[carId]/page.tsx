@@ -8,8 +8,8 @@ type PageProps = {
   }
 }
 
-export default async function CarDetailsPage({ params }: PageProps) {
-  const { data } = await getCarDetailsService(params.carId, httpClientProvider)
+export default async function CarDetailsPage({ params: { carId } }: PageProps) {
+  const { data } = await getCarDetailsService(carId, httpClientProvider)
 
   const car = data.item
 

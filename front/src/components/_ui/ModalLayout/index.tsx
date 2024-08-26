@@ -2,7 +2,7 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Modal, Box } from '@mui/material'
-import { ReactNode } from 'react'
+import { CSSProperties, ReactNode } from 'react'
 import style from './ModalLayout.module.scss'
 import { Loading } from '@/components/_ui/Loading'
 
@@ -14,8 +14,8 @@ interface Props {
   handleClose: () => void
   onSubmit?: (data: any) => void | Promise<void>
   loading?: boolean
-  customStyle?: any
-  buttonStyle?: any
+  customStyle?: CSSProperties
+  buttonStyle?: CSSProperties
 }
 
 export function ModalLayout({
