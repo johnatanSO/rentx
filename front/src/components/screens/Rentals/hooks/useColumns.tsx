@@ -6,7 +6,6 @@ import Image from 'next/image'
 import unknownCarImage from '../../../../../public/assets/images/cars/unknownCarImage.png'
 import { formatCurrency } from '@/utils/format'
 import Link from 'next/link'
-import { ICar } from '@/models/interfaces/ICar'
 
 type Props = {
   onFinalizeRental: (rentalId: string) => void

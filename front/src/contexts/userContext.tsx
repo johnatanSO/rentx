@@ -1,5 +1,6 @@
 'use client'
 
+import { IUser } from '@/models/interfaces/IUser'
 import { getLocalUserService } from '@/services/user/getLocalUser/GetLocalUserService'
 import { saveLocalUserService } from '@/services/user/saveLocalUser/SaveLocalUserService'
 import { ReactNode, createContext, useState, useEffect } from 'react'

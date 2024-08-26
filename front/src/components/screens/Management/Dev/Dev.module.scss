@@ -31,41 +31,41 @@
 .scriptsContainer {
   header {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     gap: 1rem;
-  
+
     .submitButton {
       padding: 0.5rem 1rem;
       border: none;
       border-radius: 20px;
       margin-left: auto;
       width: 170px;
-  
+
       font-size: 0.875rem;
       font-weight: 500;
-  
+
       cursor: pointer;
       transition: filter 0.2s;
-  
+
       color: $white-color;
       background: $green-color-100;
-  
+
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.6rem;
-  
+
       &:not(:disabled):hover {
         filter: brightness(0.7);
       }
-  
+
       &:disabled {
         opacity: 0.5;
         cursor: not-allowed;
       }
     }
   }
-  
+
   .uploadCategoriesSection {
     display: flex;
     flex-direction: column;
