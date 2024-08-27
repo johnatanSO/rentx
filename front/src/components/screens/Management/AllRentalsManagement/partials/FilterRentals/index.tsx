@@ -1,5 +1,5 @@
 import { CustomTextField } from '@/components/_ui/CustomTextField'
-import style from './Filters.module.scss'
+import style from './FilterRentals.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { getUsersService } from '@/services/user/getUsers/GetUsersService'
