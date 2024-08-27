@@ -1,17 +1,8 @@
 import { ModalLayout } from '@/components/_ui/ModalLayout'
-import { useContext } from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
-import { AlertContext } from '@/contexts/alertContext'
-import { updateSpecificationService } from '@/services/specifications/updateSpecificationService/UpdateSpecificationService'
 import style from './ModalEditSpecification.module.scss'
-import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { ISpecification } from '@/models/interfaces/ISpecification'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  formEditSpecificationSchema,
-  IFormEditSpecification,
-} from '../../interface/IFormEditSpecification'
+import { useEditSpecification } from '../../hooks/useEditSpecification'
 
 interface Props {
   specificationToEdit: ISpecification
@@ -26,39 +17,17 @@ export function ModalEditSpecification({
   handleClose,
   getSpecifications,
 }: Props) {
-  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-
   const {
+    errors,
     handleSubmit,
+    isSubmitting,
+    onUpdateSpecification,
     register,
-    formState: { errors, isSubmitting },
-  } = useForm<IFormEditSpecification>({
-    defaultValues: specificationToEdit,
-    resolver: zodResolver(formEditSpecificationSchema),
+  } = useEditSpecification({
+    handleClose,
+    getSpecifications,
+    specificationToEdit,
   })
-
-  function onUpdateSpecification(specification: IFormEditSpecification) {
-    updateSpecificationService(specification, httpClientProvider)
-      .then(() => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: 'Informações da especificação atualizadas com sucesso',
-          type: 'success',
-        })
-
-        getSpecifications()
-        handleClose()
-      })
-      .catch((err) => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Erro ao tentar atualizar informações da especificação - ${err?.message}`,
-          type: 'error',
-        })
-      })
-  }
 
   return (
     <ModalLayout

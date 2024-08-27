@@ -2,64 +2,21 @@
 
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import style from './CreateNewSpecification.module.scss'
-import { useContext } from 'react'
-import {
-  INewSpecification,
-  newSpecificationSchema,
-} from '../interface/INewSpecification'
-import { createSpecificationService } from '@/services/specifications/createSpecification/CreateSpecificationService'
-import { AlertContext } from '@/contexts/alertContext'
 import { Loading } from '@/components/_ui/Loading'
-import { httpClientProvider } from '@/providers/HttpClientProvider'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { useCreateSpecification } from '../hooks/useCreateSpecification'
 
 type Props = {
   getSpecifications: () => void
 }
 
 export function CreateNewSpecification({ getSpecifications }: Props) {
-  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-
   const {
-    register,
+    errors,
     handleSubmit,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm<INewSpecification>({
-    defaultValues: {
-      name: '',
-      description: '',
-    },
-    resolver: zodResolver(newSpecificationSchema),
-  })
-
-  function onCreateNewSpecification(newSpecification: INewSpecification) {
-    createSpecificationService(newSpecification, httpClientProvider)
-      .then(() => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: 'Especificação cadastrada com sucesso',
-          type: 'success',
-        })
-
-        reset()
-
-        getSpecifications()
-      })
-      .catch((err) => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Erro ao tentar cadastrar nova especificação - ${err?.message}`,
-          type: 'error',
-        })
-        console.log(
-          `Erro ao tentar cadastrar nova especificação - ${err?.message}`,
-        )
-      })
-  }
+    isSubmitting,
+    onCreateNewSpecification,
+    register,
+  } = useCreateSpecification({ getSpecifications })
 
   return (
     <form
