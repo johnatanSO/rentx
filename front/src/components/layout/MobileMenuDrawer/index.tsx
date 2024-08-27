@@ -1,7 +1,6 @@
 'use client'
+
 import { Drawer } from '@mui/material'
-import { usePathname, useRouter } from 'next/navigation'
-import { useContext, useState } from 'react'
 import style from './MobileMenuDrawer.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -11,40 +10,16 @@ import {
   faGears,
   faHouse,
 } from '@fortawesome/free-solid-svg-icons'
-import { UserContext } from '@/contexts/userContext'
-import { LayoutContext } from '@/contexts/layoutContext'
+import { useMobileMenuDrawer } from './hooks/useMobileMenuDrawer'
 
 export function MobileMenuDrawer() {
-  const { userInfo } = useContext(UserContext)
-  const { menuMobileOpened, setMenuMobileOpened } = useContext(LayoutContext)
-
-  const router = useRouter()
-  const pathname = usePathname()
-
-  const [activeMenu, setActiveMenu] = useState<string>(getDefaultMenu())
-
-  function getDefaultMenu() {
-    if (pathname.includes('/rentals')) return 'rentals'
-    if (pathname.includes('/favoriteds')) return 'favoriteds'
-    if (pathname.includes('/about')) return 'about'
-    if (pathname.includes('/contact')) return 'contact'
-    if (pathname.includes('/management')) return 'management'
-    return ''
-  }
-
-  function getActiveMenu(menuName: string) {
-    if (activeMenu === menuName) {
-      return style.menuActive
-    }
-
-    return undefined
-  }
-
-  function handleChangeMenuItem(menuName: string) {
-    setActiveMenu(menuName)
-    router.push(`/${menuName}`)
-    setMenuMobileOpened(false)
-  }
+  const {
+    getActiveMenu,
+    setMenuMobileOpened,
+    handleChangeMenuItem,
+    menuMobileOpened,
+    userInfo,
+  } = useMobileMenuDrawer()
 
   return (
     <Drawer

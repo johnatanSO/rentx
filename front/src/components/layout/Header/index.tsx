@@ -10,50 +10,17 @@ import {
   faBars,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useContext, useState, useEffect } from 'react'
-import { UserContext } from '@/contexts/userContext'
 import Link from '../../../../node_modules/next/link'
-import { usePathname, useRouter } from 'next/navigation'
-import { LayoutContext } from '@/contexts/layoutContext'
+import { useHeader } from './hooks/useHeader'
 
 export function Header() {
-  const { userInfo } = useContext(UserContext)
-  const { menuMobileOpened, setMenuMobileOpened } = useContext(LayoutContext)
-
-  const pathname = usePathname()
-  const router = useRouter()
-
-  function getDefaultMenu() {
-    if (pathname.includes('/rentals')) return 'rentals'
-    if (pathname.includes('/favoriteds')) return 'favoriteds'
-    if (pathname.includes('/about')) return 'about'
-    if (pathname.includes('/contact')) return 'contact'
-    if (pathname.includes('/management')) return 'management'
-    return ''
-  }
-
-  const [activeMenu, setActiveMenu] = useState<string>(getDefaultMenu())
-
-  function getActiveMenu(menuName: string) {
-    if (activeMenu === menuName) {
-      return style.menuActive
-    }
-
-    return undefined
-  }
-
-  function handleChangeMenuItem(menuName: string) {
-    setActiveMenu(menuName)
-    router.push(`/${menuName}`)
-  }
-
-  useEffect(() => {
-    if (pathname === '/') {
-      setActiveMenu('')
-      return
-    }
-    setActiveMenu(getDefaultMenu())
-  }, [pathname])
+  const {
+    getActiveMenu,
+    handleChangeMenuItem,
+    menuMobileOpened,
+    setMenuMobileOpened,
+    userInfo,
+  } = useHeader()
 
   return (
     <header className={style.headerContainer}>
