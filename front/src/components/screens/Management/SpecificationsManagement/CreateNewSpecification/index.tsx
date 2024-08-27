@@ -2,12 +2,17 @@
 
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import style from './CreateNewSpecification.module.scss'
-import { FormEvent, useState, useContext } from 'react'
-import { NewSpecification } from './interface/NewSpecification'
+import { useContext } from 'react'
+import {
+  INewSpecification,
+  newSpecificationSchema,
+} from '../interface/INewSpecification'
 import { createSpecificationService } from '@/services/specifications/createSpecification/CreateSpecificationService'
 import { AlertContext } from '@/contexts/alertContext'
 import { Loading } from '@/components/_ui/Loading'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 type Props = {
   getSpecifications: () => void
@@ -16,21 +21,21 @@ type Props = {
 export function CreateNewSpecification({ getSpecifications }: Props) {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
 
-  const defaultValuesNewSpecification = {
-    name: '',
-    description: '',
-  }
-  const [newSpecificationData, setNewSpecificationData] =
-    useState<NewSpecification>(defaultValuesNewSpecification)
-  const [loadingCreateNewSpecification, setLoadingCreateNewSpecification] =
-    useState<boolean>(false)
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<INewSpecification>({
+    defaultValues: {
+      name: '',
+      description: '',
+    },
+    resolver: zodResolver(newSpecificationSchema),
+  })
 
-  function onCreateNewSpecification(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-
-    setLoadingCreateNewSpecification(true)
-
-    createSpecificationService(newSpecificationData, httpClientProvider)
+  function onCreateNewSpecification(newSpecification: INewSpecification) {
+    createSpecificationService(newSpecification, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -39,7 +44,8 @@ export function CreateNewSpecification({ getSpecifications }: Props) {
           type: 'success',
         })
 
-        setNewSpecificationData(defaultValuesNewSpecification)
+        reset()
+
         getSpecifications()
       })
       .catch((err) => {
@@ -53,29 +59,26 @@ export function CreateNewSpecification({ getSpecifications }: Props) {
           `Erro ao tentar cadastrar nova especificação - ${err?.message}`,
         )
       })
-      .finally(() => {
-        setLoadingCreateNewSpecification(false)
-      })
   }
 
   return (
-    <form className={style.formContainer} onSubmit={onCreateNewSpecification}>
+    <form
+      className={style.formContainer}
+      onSubmit={handleSubmit(onCreateNewSpecification)}
+    >
       <h2>Nova especificação</h2>
 
       <CustomTextField
         placeholder="Digite o nome"
         type="text"
         size="small"
-        label="Nome"
+        label="Nome *"
         className={style.input}
-        value={newSpecificationData.name}
-        onChange={(event) => {
-          setNewSpecificationData({
-            ...newSpecificationData,
-            name: event?.target.value,
-          })
-        }}
+        {...register('name', { required: true })}
+        error={!!errors.name}
+        helperText={errors.name && errors.name.message}
       />
+
       <CustomTextField
         multiline
         rows={3}
@@ -83,17 +86,11 @@ export function CreateNewSpecification({ getSpecifications }: Props) {
         type="text"
         size="small"
         label="Descrição"
-        value={newSpecificationData.description}
         className={style.descriptionInput}
-        onChange={(event) => {
-          setNewSpecificationData({
-            ...newSpecificationData,
-            description: event?.target.value,
-          })
-        }}
+        {...register('description')}
       />
-      <button disabled={loadingCreateNewSpecification} type="submit">
-        {loadingCreateNewSpecification ? <Loading size={21} /> : 'Cadastrar'}
+      <button disabled={isSubmitting} type="submit">
+        {isSubmitting ? <Loading size={21} /> : 'Cadastrar'}
       </button>
     </form>
   )

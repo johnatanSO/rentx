@@ -2,12 +2,15 @@
 
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import style from './CreateNewCategory.module.scss'
-import { FormEvent, useContext, useState } from 'react'
-import { NewCategory } from './interface/NewCategory'
+import { useContext } from 'react'
+import { INewCategory } from '../interface/INewCategory'
 import { createCategoryService } from '@/services/category/createCategory/CreateCategoryService'
 import { AlertContext } from '@/contexts/alertContext'
 import { Loading } from '@/components/_ui/Loading'
 import { httpClientProvider } from '@/providers/httpClientProvider'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { newCarSchema } from '../../CarsManagement/interfaces/INewCar'
 
 type Props = {
   getCategories: () => void
@@ -16,22 +19,21 @@ type Props = {
 export function CreateNewCategory({ getCategories }: Props) {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
 
-  const defaultValuesNewCategory = {
-    name: '',
-    description: '',
-  }
-  const [newCategoryData, setNewCategoryData] = useState<NewCategory>(
-    defaultValuesNewCategory,
-  )
-  const [loadingCreateNewCategory, setLoadingCreateNewCategory] =
-    useState<boolean>(false)
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<INewCategory>({
+    defaultValues: {
+      name: '',
+      description: '',
+    },
+    resolver: zodResolver(newCarSchema),
+  })
 
-  function onCreateNewCategory(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-
-    setLoadingCreateNewCategory(true)
-
-    createCategoryService(newCategoryData, httpClientProvider)
+  function onCreateNewCategory(newCategory: INewCategory) {
+    createCategoryService(newCategory, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -40,7 +42,8 @@ export function CreateNewCategory({ getCategories }: Props) {
           type: 'success',
         })
 
-        setNewCategoryData(defaultValuesNewCategory)
+        reset()
+
         getCategories()
       })
       .catch((err) => {
@@ -52,29 +55,26 @@ export function CreateNewCategory({ getCategories }: Props) {
         })
         console.log(`Erro ao tentar cadastrar nova categoria - ${err?.message}`)
       })
-      .finally(() => {
-        setLoadingCreateNewCategory(false)
-      })
   }
 
   return (
-    <form className={style.formContainer} onSubmit={onCreateNewCategory}>
+    <form
+      className={style.formContainer}
+      onSubmit={handleSubmit(onCreateNewCategory)}
+    >
       <h2>Nova categoria</h2>
 
       <CustomTextField
         placeholder="Digite o nome"
         type="text"
         size="small"
-        label="Nome"
-        value={newCategoryData.name}
+        label="Nome *"
         className={style.input}
-        onChange={(event) => {
-          setNewCategoryData({
-            ...newCategoryData,
-            name: event?.target.value,
-          })
-        }}
+        {...register('name', { required: true })}
+        error={!!errors.name}
+        helperText={errors.name && errors.name.message}
       />
+
       <CustomTextField
         multiline
         rows={3}
@@ -82,17 +82,11 @@ export function CreateNewCategory({ getCategories }: Props) {
         type="text"
         size="small"
         label="Descrição"
-        value={newCategoryData.description}
         className={style.descriptionInput}
-        onChange={(event) => {
-          setNewCategoryData({
-            ...newCategoryData,
-            description: event?.target.value,
-          })
-        }}
+        {...register('description')}
       />
-      <button disabled={loadingCreateNewCategory} type="submit">
-        {loadingCreateNewCategory ? <Loading size={21} /> : 'Cadastrar'}
+      <button disabled={isSubmitting} type="submit">
+        {isSubmitting ? <Loading size={21} /> : 'Cadastrar'}
       </button>
     </form>
   )

@@ -1,13 +1,11 @@
 'use client'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import style from './EditInfosSection.module.scss'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { Checkbox, FormControlLabel, FormGroup, MenuItem } from '@mui/material'
-import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
-
+import { useContext, useEffect, useState } from 'react'
 import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
 import { AlertContext } from '@/contexts/alertContext'
 import { updateCarInfosService } from '@/services/cars/updateCarInfos/UpdateCarInfosService'
@@ -16,35 +14,43 @@ import { Loading } from '@/components/_ui/Loading'
 import { httpClientProvider } from '@/providers/httpClientProvider'
 import { ICar } from '@/models/interfaces/ICar'
 import { ICategory } from '@/models/interfaces/ICategory'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import {
+  formEditCarSchema,
+  IFormEditCar,
+} from '../../../interfaces/IFormEditCar'
 
 type Props = {
   car: ICar
 }
 
-interface CarData extends Omit<ICar, 'category'> {
-  categoryId: string
-}
-
 export function EditInfosSection({ car }: Props) {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
+
+  const { category, ...carData } = car
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors, isSubmitting },
+  } = useForm<IFormEditCar>({
+    defaultValues: {
+      ...carData,
+      categoryId: category._id,
+    },
+    resolver: zodResolver(formEditCarSchema),
+  })
+
+  const avaliable = watch('avaliable')
 
   const router = useRouter()
   const pathname = usePathname()
 
-  const { category, ...restCar } = car
-  const [carData, setCarData] = useState<CarData>({
-    ...restCar,
-    categoryId: category._id,
-  })
-
   const [categoriesList, setCategoriesList] = useState<ICategory[]>([])
-  const [loadingUpdateInfos, setLoadingUpdateInfos] = useState<boolean>(false)
 
-  function onUpdateCarInfos(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-
-    setLoadingUpdateInfos(true)
-
+  function onUpdateCarInfos(carData: IFormEditCar) {
     updateCarInfosService(carData, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
@@ -65,9 +71,6 @@ export function EditInfosSection({ car }: Props) {
           type: 'error',
         })
       })
-      .finally(() => {
-        setLoadingUpdateInfos(false)
-      })
   }
 
   function getCategoriesList() {
@@ -85,31 +88,21 @@ export function EditInfosSection({ car }: Props) {
       })
   }
 
-  function inputValueHandler(event: ChangeEvent<HTMLInputElement>) {
-    const value = event.target.value
-    const name = event.target.name
-
-    setCarData({
-      ...carData,
-      [name]: value,
-    })
-  }
-
   useEffect(() => {
     getCategoriesList()
   }, [])
 
   return (
-    <form onSubmit={onUpdateCarInfos} className={style.section}>
+    <form onSubmit={handleSubmit(onUpdateCarInfos)} className={style.section}>
       <header>
         <h3>Informações</h3>
 
         <button
-          disabled={loadingUpdateInfos}
+          disabled={isSubmitting}
           className={style.saveInfosButton}
           type="submit"
         >
-          {loadingUpdateInfos ? (
+          {isSubmitting ? (
             <Loading color="#00b37e" size={21} />
           ) : (
             <>
@@ -126,10 +119,10 @@ export function EditInfosSection({ car }: Props) {
           placeholder="Digite o nome"
           type="text"
           size="small"
-          name="name"
-          label="Nome do carro"
-          value={carData.name}
-          onChange={inputValueHandler}
+          label="Nome do carro *"
+          {...register('name', { required: true })}
+          error={!!errors.name}
+          helperText={errors.name && errors.name.message}
         />
 
         <CustomTextField
@@ -137,10 +130,10 @@ export function EditInfosSection({ car }: Props) {
           placeholder="Digite a placa"
           type="text"
           size="small"
-          label="Placa"
-          name="licensePlate"
-          value={carData.licensePlate}
-          onChange={inputValueHandler}
+          label="Placa *"
+          {...register('licensePlate', { required: true })}
+          error={!!errors.licensePlate}
+          helperText={errors.licensePlate && errors.licensePlate.message}
         />
 
         <CustomTextField
@@ -148,10 +141,10 @@ export function EditInfosSection({ car }: Props) {
           placeholder="Digite o valor da diária"
           type="number"
           size="small"
-          label="Valor da diária"
-          value={carData.dailyRate}
-          name="dailyRate"
-          onChange={inputValueHandler}
+          label="Valor da diária *"
+          {...register('dailyRate', { required: true })}
+          error={!!errors.dailyRate}
+          helperText={errors.dailyRate && errors.dailyRate.message}
         />
 
         <CustomTextField
@@ -160,19 +153,16 @@ export function EditInfosSection({ car }: Props) {
           type="number"
           size="small"
           label="Valor da multa"
-          value={carData.fineAmount}
-          name="fineAmount"
-          onChange={inputValueHandler}
+          {...register('fineAmount')}
         />
+
         <CustomTextField
           className={style.input}
           placeholder="Digite a marca"
           type="text"
           size="small"
           label="Marca"
-          value={carData.brand}
-          name="brand"
-          onChange={inputValueHandler}
+          {...register('brand')}
         />
 
         <CustomTextField
@@ -180,10 +170,10 @@ export function EditInfosSection({ car }: Props) {
           placeholder="Selecione a categoria"
           select
           size="small"
-          label="Categoria"
-          value={carData.categoryId}
-          name="categoryId"
-          onChange={inputValueHandler}
+          label="Categoria *"
+          {...register('categoryId', { required: true })}
+          error={!!errors.categoryId}
+          helperText={errors.categoryId && errors.categoryId.message}
         >
           {categoriesList.map((category) => {
             return (
@@ -200,9 +190,7 @@ export function EditInfosSection({ car }: Props) {
           select
           size="small"
           label="Transmissão"
-          value={carData.transmission}
-          name="transmission"
-          onChange={inputValueHandler}
+          {...register('transmission')}
         >
           <MenuItem value="automatic">Automático</MenuItem>
           <MenuItem value="manual">Manual</MenuItem>
@@ -216,14 +204,12 @@ export function EditInfosSection({ car }: Props) {
                 marginLeft: '0.4rem',
                 '&.Mui-checked': { color: '#536d88' },
               }}
+              {...register('avaliable')}
               onChange={(event) => {
-                setCarData({
-                  ...carData,
-                  avaliable: event.target.checked,
-                  reasonUnavaliable: '',
-                })
+                setValue('avaliable', event.target.checked)
+                setValue('reasonUnavaliable', '')
               }}
-              checked={carData.avaliable}
+              checked={avaliable}
             />
           }
         />
@@ -246,9 +232,7 @@ export function EditInfosSection({ car }: Props) {
                 : {}),
             }}
             label="Motivo da indisponibilidade"
-            value={carData.reasonUnavaliable}
-            name="reasonUnavaliable"
-            onChange={inputValueHandler}
+            {...register('reasonUnavaliable')}
           />
 
           <CustomTextField
@@ -260,9 +244,7 @@ export function EditInfosSection({ car }: Props) {
             rows={3}
             sx={{ display: 'flex', flex: 1 }}
             label="Descrição"
-            value={carData.description}
-            name="description"
-            onChange={inputValueHandler}
+            {...register('description')}
           />
         </FormGroup>
       </div>

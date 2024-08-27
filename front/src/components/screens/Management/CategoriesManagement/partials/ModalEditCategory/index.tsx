@@ -1,5 +1,5 @@
 import { ModalLayout } from '@/components/_ui/ModalLayout'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { AlertContext } from '@/contexts/alertContext'
 import { updateCategoryService } from '@/services/category/updateCategoryService/UpdateCategoryService'
@@ -7,6 +7,7 @@ import style from './ModalEditCategory.module.scss'
 import { httpClientProvider } from '@/providers/httpClientProvider'
 import { useForm } from 'react-hook-form'
 import { ICategory } from '@/models/interfaces/ICategory'
+import { IFormEditCategory } from '../../interface/IFormEditCategory'
 
 interface Props {
   getCategories: () => void
@@ -22,18 +23,16 @@ export function ModalEditCategory({
   handleClose,
 }: Props) {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-  const [loadingUpdateCategory, setLoadingUpdateCategory] =
-    useState<boolean>(false)
 
-  const { handleSubmit, register } = useForm<ICategory>({
-    defaultValues: {
-      ...categoryToEdit,
-    },
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting },
+  } = useForm<IFormEditCategory>({
+    defaultValues: categoryToEdit,
   })
 
-  function onUpdateCategory(category: ICategory) {
-    setLoadingUpdateCategory(true)
-
+  function onUpdateCategory(category: IFormEditCategory) {
     const values = {
       ...category,
       _id: categoryToEdit?._id,
@@ -59,9 +58,6 @@ export function ModalEditCategory({
           type: 'error',
         })
       })
-      .finally(() => {
-        setLoadingUpdateCategory(false)
-      })
   }
 
   return (
@@ -69,7 +65,7 @@ export function ModalEditCategory({
       handleClose={handleClose}
       open={open}
       title="Atualizar categoria"
-      loading={loadingUpdateCategory}
+      loading={isSubmitting}
       submitButtonText="Salvar"
       onSubmit={handleSubmit(onUpdateCategory)}
       buttonStyle={{
@@ -77,7 +73,13 @@ export function ModalEditCategory({
       }}
     >
       <div className={style.fields}>
-        <CustomTextField label="Nome" size="small" {...register('name')} />
+        <CustomTextField
+          label="Nome"
+          size="small"
+          {...register('name', { required: true })}
+          error={!!errors.name}
+          helperText={errors.name && errors.name.message}
+        />
         <CustomTextField
           label="Descrição"
           multiline

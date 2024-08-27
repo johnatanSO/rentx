@@ -1,11 +1,17 @@
 import { ModalLayout } from '@/components/_ui/ModalLayout'
-import { FormEvent, useContext, useState } from 'react'
+import { useContext } from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { AlertContext } from '@/contexts/alertContext'
 import { updateSpecificationService } from '@/services/specifications/updateSpecificationService/UpdateSpecificationService'
 import style from './ModalEditSpecification.module.scss'
 import { httpClientProvider } from '@/providers/httpClientProvider'
 import { ISpecification } from '@/models/interfaces/ISpecification'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import {
+  formEditSpecificationSchema,
+  IFormEditSpecification,
+} from '../../interface/IFormEditSpecification'
 
 interface Props {
   specificationToEdit: ISpecification
@@ -21,17 +27,18 @@ export function ModalEditSpecification({
   getSpecifications,
 }: Props) {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-  const [loadingUpdateSpecification, setLoadingUpdateSpecification] =
-    useState<boolean>(false)
-  const [specificationData, setSpecificationData] =
-    useState<ISpecification>(specificationToEdit)
 
-  function onUpdateSpecification(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting },
+  } = useForm<IFormEditSpecification>({
+    defaultValues: specificationToEdit,
+    resolver: zodResolver(formEditSpecificationSchema),
+  })
 
-    setLoadingUpdateSpecification(true)
-
-    updateSpecificationService(specificationData, httpClientProvider)
+  function onUpdateSpecification(specification: IFormEditSpecification) {
+    updateSpecificationService(specification, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -51,9 +58,6 @@ export function ModalEditSpecification({
           type: 'error',
         })
       })
-      .finally(() => {
-        setLoadingUpdateSpecification(false)
-      })
   }
 
   return (
@@ -61,36 +65,27 @@ export function ModalEditSpecification({
       handleClose={handleClose}
       open={open}
       title="Atualizar especificação"
-      loading={loadingUpdateSpecification}
+      loading={isSubmitting}
       submitButtonText="Salvar"
-      onSubmit={onUpdateSpecification}
+      onSubmit={handleSubmit(onUpdateSpecification)}
       buttonStyle={{
         backgroundColor: '#3264ff',
       }}
     >
       <div className={style.fields}>
         <CustomTextField
-          label="Nome"
+          label="Nome *"
           size="small"
-          value={specificationData.name}
-          onChange={(event) => {
-            setSpecificationData({
-              ...specificationData,
-              name: event?.target.value,
-            })
-          }}
+          {...register('name', { required: true })}
+          error={!!errors.name}
+          helperText={errors.name && errors.name.message}
         />
+
         <CustomTextField
           label="Descrição"
           multiline
           rows={3}
-          value={specificationData.description}
-          onChange={(event) => {
-            setSpecificationData({
-              ...specificationData,
-              description: event?.target.value,
-            })
-          }}
+          {...register('description')}
         />
       </div>
     </ModalLayout>

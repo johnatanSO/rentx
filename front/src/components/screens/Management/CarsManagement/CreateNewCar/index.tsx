@@ -3,7 +3,7 @@
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { MenuItem } from '@mui/material'
 import { FormEvent, useContext, useEffect, useState } from 'react'
-import { NewCar } from './interfaces/NewCar'
+import { INewCar, newCarSchema } from '../interfaces/INewCar'
 import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
 import { AlertContext } from '@/contexts/alertContext'
 import style from './CreateNewCar.module.scss'
@@ -19,32 +19,37 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { httpClientProvider } from '@/providers/httpClientProvider'
 import { ICategory } from '@/models/interfaces/ICategory'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 export function CreateNewCar() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-  const router = useRouter()
-  const defaultValuesNewCar = {
-    name: '',
-    description: '',
-    dailyRate: 0,
-    licensePlate: '',
-    fineAmount: 0,
-    brand: '',
-    categoryId: '',
-    transmission: '',
-  }
 
-  const [newCarData, setNewCarData] = useState<NewCar>(defaultValuesNewCar)
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<INewCar>({
+    defaultValues: {
+      name: '',
+      description: '',
+      dailyRate: 0,
+      licensePlate: '',
+      fineAmount: 0,
+      brand: '',
+      categoryId: '',
+      transmission: '',
+    },
+    resolver: zodResolver(newCarSchema),
+  })
+  const router = useRouter()
+
   const [categoriesList, setCategoriesList] = useState<ICategory[]>([])
-  const [loadingCreateNewCar, setLoadingCreateNewCar] = useState<boolean>(false)
   const [image, setImage] = useState<File | null>(null)
 
-  function onCreateNewCar(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-
-    setLoadingCreateNewCar(true)
-
-    createNewCarService({ ...newCarData, image }, httpClientProvider)
+  function onCreateNewCar(newCar: INewCar) {
+    createNewCarService({ ...newCar, image }, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -53,7 +58,7 @@ export function CreateNewCar() {
           type: 'success',
         })
 
-        setNewCarData(defaultValuesNewCar)
+        reset()
 
         router.back()
       })
@@ -64,9 +69,6 @@ export function CreateNewCar() {
           text: `Erro ao tentar cadastrar novo carro - ${err?.message}`,
           type: 'error',
         })
-      })
-      .finally(() => {
-        setLoadingCreateNewCar(false)
       })
   }
 
@@ -104,7 +106,10 @@ export function CreateNewCar() {
   }, [])
 
   return (
-    <form className={style.formContainer} onSubmit={onCreateNewCar}>
+    <form
+      className={style.formContainer}
+      onSubmit={handleSubmit(onCreateNewCar)}
+    >
       <header className={style.header}>
         <button
           className={style.backButton}
@@ -118,10 +123,10 @@ export function CreateNewCar() {
 
         <button
           className={style.registerButton}
-          disabled={loadingCreateNewCar}
+          disabled={isSubmitting}
           type="submit"
         >
-          {loadingCreateNewCar ? (
+          {isSubmitting ? (
             <Loading size={21} />
           ) : (
             <>
@@ -141,30 +146,21 @@ export function CreateNewCar() {
             placeholder="Digite o nome"
             type="text"
             size="small"
-            label="Nome do carro"
-            value={newCarData.name}
-            onChange={(event) => {
-              setNewCarData({
-                ...newCarData,
-                name: event?.target.value,
-              })
-            }}
+            label="Nome do carro *"
+            {...register('name', { required: true })}
+            error={!!errors.name}
+            helperText={errors.name && errors.name.message}
           />
 
           <CustomTextField
             className={style.input}
             placeholder="Digite a placa"
             type="text"
-            required
             size="small"
-            label="Placa"
-            value={newCarData.licensePlate}
-            onChange={(event) => {
-              setNewCarData({
-                ...newCarData,
-                licensePlate: event?.target.value,
-              })
-            }}
+            label="Placa *"
+            {...register('licensePlate', { required: true })}
+            error={!!errors.licensePlate}
+            helperText={errors.licensePlate && errors.licensePlate.message}
           />
 
           <CustomTextField
@@ -172,15 +168,10 @@ export function CreateNewCar() {
             placeholder="Digite o valor da diária"
             type="number"
             size="small"
-            label="Valor da diária"
-            value={newCarData.dailyRate}
-            onChange={(event) => {
-              const value = Number(event.target.value)
-              setNewCarData({
-                ...newCarData,
-                dailyRate: value,
-              })
-            }}
+            label="Valor da diária *"
+            {...register('dailyRate', { required: true })}
+            error={!!errors.dailyRate}
+            helperText={errors.dailyRate && errors.dailyRate.message}
           />
 
           <CustomTextField
@@ -189,14 +180,7 @@ export function CreateNewCar() {
             type="number"
             size="small"
             label="Valor da multa"
-            value={newCarData.fineAmount}
-            onChange={(event) => {
-              const value = Number(event.target.value)
-              setNewCarData({
-                ...newCarData,
-                fineAmount: value,
-              })
-            }}
+            {...register('fineAmount')}
           />
           <CustomTextField
             className={style.input}
@@ -204,29 +188,18 @@ export function CreateNewCar() {
             type="text"
             size="small"
             label="Marca"
-            value={newCarData.brand}
-            onChange={(event) => {
-              setNewCarData({
-                ...newCarData,
-                brand: event?.target.value,
-              })
-            }}
+            {...register('brand')}
           />
 
           <CustomTextField
             className={style.input}
             placeholder="Selecione a categoria"
             select
-            required
             size="small"
-            label="Categoria"
-            value={newCarData.categoryId}
-            onChange={(event) => {
-              setNewCarData({
-                ...newCarData,
-                categoryId: event.target.value,
-              })
-            }}
+            label="Categoria *"
+            {...register('categoryId', { required: true })}
+            error={!!errors.categoryId}
+            helperText={errors.categoryId && errors.categoryId.message}
           >
             {categoriesList.map((category) => {
               return (
@@ -243,13 +216,7 @@ export function CreateNewCar() {
             select
             size="small"
             label="Transmissão"
-            value={newCarData.transmission}
-            onChange={(event) => {
-              setNewCarData({
-                ...newCarData,
-                transmission: event.target.value,
-              })
-            }}
+            {...register('transmission')}
           >
             <MenuItem value="automatic">Automático</MenuItem>
             <MenuItem value="manual">Manual</MenuItem>
@@ -264,13 +231,7 @@ export function CreateNewCar() {
             multiline
             rows={3}
             label="Descrição"
-            value={newCarData.description}
-            onChange={(event) => {
-              setNewCarData({
-                ...newCarData,
-                description: event?.target.value,
-              })
-            }}
+            {...register('description')}
           />
         </div>
       </section>

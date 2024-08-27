@@ -14,6 +14,8 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { httpClientProvider } from '@/providers/httpClientProvider'
 import { ICar } from '@/models/interfaces/ICar'
 import { ISpecification } from '@/models/interfaces/ISpecification'
+import { useForm } from 'react-hook-form'
+import { IFormAddSpecifications } from '../../../../interfaces/IFormAddSpecifications'
 
 type Props = {
   car: ICar
@@ -24,24 +26,33 @@ type Props = {
 export function ModalSpecifications({ open, handleClose, car }: Props) {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
 
+  const {
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { isSubmitting },
+  } = useForm<IFormAddSpecifications>({
+    defaultValues: {
+      selectedSpecificationsIds: car.specifications.map(
+        (specification) => specification._id,
+      ),
+    },
+  })
+
   const router = useRouter()
   const pathname = usePathname()
+  const selectedSpecificationsIds = watch('selectedSpecificationsIds')
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   const [popoverText, setPopoverText] = useState<string | null>(null)
-  const [loadingAddSpecifications, setLoadingAddSpecifications] =
-    useState<boolean>(false)
+
   const [loadingSpecifications, setLoadingSpecifications] =
     useState<boolean>(true)
   const [specifications, setSpecifications] = useState<ISpecification[]>([])
-  const [selectedSpecificationsIds, setSelectedSpecificationsIds] = useState<
-    string[]
-  >(car.specifications.map((specification) => specification._id))
 
-  function onAddSpecifications(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    setLoadingAddSpecifications(true)
-
+  function onAddSpecifications({
+    selectedSpecificationsIds,
+  }: IFormAddSpecifications) {
     createCarSpecificationService(
       {
         carId: car._id,
@@ -69,9 +80,6 @@ export function ModalSpecifications({ open, handleClose, car }: Props) {
           type: 'error',
         })
       })
-      .finally(() => {
-        setLoadingAddSpecifications(false)
-      })
   }
 
   function handleSelectSpecification(specificationId: string) {
@@ -81,11 +89,11 @@ export function ModalSpecifications({ open, handleClose, car }: Props) {
           selectedSpecificationId !== specificationId,
       )
 
-      setSelectedSpecificationsIds(filteredSpecifications)
+      setValue('selectedSpecificationsIds', filteredSpecifications)
       return
     }
 
-    setSelectedSpecificationsIds([
+    setValue('selectedSpecificationsIds', [
       ...(selectedSpecificationsIds as string[]),
       specificationId,
     ])
@@ -120,9 +128,9 @@ export function ModalSpecifications({ open, handleClose, car }: Props) {
       title="Selecione as especificações"
       handleClose={handleClose}
       open={open}
-      loading={loadingAddSpecifications}
+      loading={isSubmitting}
       submitButtonText="Confirmar"
-      onSubmit={onAddSpecifications}
+      onSubmit={handleSubmit(onAddSpecifications)}
     >
       {loadingSpecifications ? (
         <Loading color="#536d88" size={21} />
