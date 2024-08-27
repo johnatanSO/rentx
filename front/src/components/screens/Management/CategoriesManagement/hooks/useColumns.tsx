@@ -6,7 +6,7 @@ import style from '../CategoriesManagement.module.scss'
 import { deleteCategoryService } from '@/services/category/deleteCategory/DeleteCategoryService'
 import { useContext } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
-import { httpClientProvider } from '@/providers/httpClientProvider'
+import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { ICategory } from '@/models/interfaces/ICategory'
 
 interface Props {

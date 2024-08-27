@@ -12,7 +12,7 @@ import { Loading } from '@/components/_ui/Loading'
 import { useRouter } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
-import { httpClientProvider } from '@/providers/httpClientProvider'
+import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 

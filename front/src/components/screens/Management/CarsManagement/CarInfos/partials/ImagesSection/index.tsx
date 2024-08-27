@@ -10,7 +10,7 @@ import { updateCarImageService } from '@/services/cars/updateCarImage/UpdateCarI
 import { ModalZoomImage } from './ModalZoomImage'
 import { updateDefaultCarImageService } from '@/services/cars/updateDefaultCarImage/UpdateDefaultCarImageService'
 import style from './ImagesSection.module.scss'
-import { httpClientProvider } from '@/providers/httpClientProvider'
+import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { ICar } from '@/models/interfaces/ICar'
 import { ICarImage } from '@/models/interfaces/ICarImage'
 

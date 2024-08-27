@@ -10,7 +10,7 @@ import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFieldsMobile'
 import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
 import { Divider } from '@mui/material'
-import { httpClientProvider } from '@/providers/httpClientProvider'
+import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { ICategory } from '@/models/interfaces/ICategory'
 
 export function CategoriesManagement() {

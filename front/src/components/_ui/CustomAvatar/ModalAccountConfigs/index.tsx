@@ -15,7 +15,7 @@ import {
   INewValuesUserInfo,
   newValuesUserInfoSchema,
 } from './interfaces/NewValuesUserInfo'
-import { httpClientProvider } from '@/providers/httpClientProvider'
+import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 

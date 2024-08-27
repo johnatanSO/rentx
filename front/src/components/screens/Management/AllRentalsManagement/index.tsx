@@ -13,7 +13,7 @@ import { FilterRentals } from './partials/FilterRentals'
 import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFields'
 import { getAllRentalsService } from '@/services/rentals/getAllRentals/GetAllRentalsService'
-import { httpClientProvider } from '@/providers/httpClientProvider'
+import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { IFilters } from './interfaces/IFilters'
 
 export function AllRentalsManagement() {

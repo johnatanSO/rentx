@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react'
 import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFields'
 import { getAllCarsService } from '@/services/cars/getAllCars/GetAllCarsService'
-import { httpClientProvider } from '@/providers/httpClientProvider'
+import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { ICar } from '@/models/interfaces/ICar'
 
 export function CarsManagement() {

@@ -1,7 +1,7 @@
 import { getAvaliableCarsService } from '@/services/cars/getAvaliableCars/GetAvaliableCarsService'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { httpClientProvider } from '@/providers/httpClientProvider'
+import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { ICar } from '@/models/interfaces/ICar'
 
 export function useCarsList() {

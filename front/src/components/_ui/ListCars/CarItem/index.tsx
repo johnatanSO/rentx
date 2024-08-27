@@ -16,7 +16,7 @@ import { favoriteCarService } from '@/services/cars/favoriteCar/FavoriteCarServi
 import { AlertContext } from '@/contexts/alertContext'
 import { UserContext } from '@/contexts/userContext'
 import { useRouter } from 'next/navigation'
-import { httpClientProvider } from '@/providers/httpClientProvider'
+import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { ICarImage } from '@/models/interfaces/ICarImage'
 import { ISpecification } from '@/models/interfaces/ISpecification'
 

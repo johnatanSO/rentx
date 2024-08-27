@@ -5,7 +5,7 @@ import { getAllCategoriesService } from '@/services/category/getAllCategories/Ge
 import { IFilters } from './interfaces/IFilters'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
-import { httpClientProvider } from '@/providers/httpClientProvider'
+import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { ICategory } from '@/models/interfaces/ICategory'
 import { useForm } from 'react-hook-form'
 import { Loading } from '../Loading'

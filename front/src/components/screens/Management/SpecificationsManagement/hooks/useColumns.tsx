@@ -7,7 +7,7 @@ import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { AlertContext } from '@/contexts/alertContext'
 import { useContext } from 'react'
 import { deleteSpecificationService } from '@/services/specifications/deleteSpecification/DeleteSpecificationService'
-import { httpClientProvider } from '@/providers/httpClientProvider'
+import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { ISpecification } from '@/models/interfaces/ISpecification'
 
 interface Props {

@@ -9,7 +9,7 @@ import { updateRentalService } from '@/services/rentals/updateRental/UpdateRenta
 import { getUsersService } from '@/services/user/getUsers/GetUsersService'
 import { getAllCarsService } from '@/services/cars/getAllCars/GetAllCarsService'
 import dayjs from 'dayjs'
-import { httpClientProvider } from '@/providers/httpClientProvider'
+import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { useForm } from 'react-hook-form'
 import { IRental } from '@/models/interfaces/IRental'
 import { IRentalEdit, rentalEditSchema } from '../../interfaces/IRentalEdit'

@@ -8,7 +8,7 @@ import { AlertContext } from '@/contexts/alertContext'
 import { useRouter } from 'next/navigation'
 import { uploadCategoriesService } from '@/services/category/uploadCategoriesService/UploadCategoriesService'
 import { Loading } from '@/components/_ui/Loading'
-import { httpClientProvider } from '@/providers/httpClientProvider'
+import { httpClientProvider } from '@/providers/HttpClientProvider'
 
 export function Dev() {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)

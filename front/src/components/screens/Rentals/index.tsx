@@ -9,7 +9,7 @@ import { finalizeRentalService } from '@/services/rentals/finalizeRental/Finaliz
 import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFieldsMobile'
 import { getRentalsService } from '@/services/rentals/getRentals/GetRentalsService'
-import { httpClientProvider } from '@/providers/httpClientProvider'
+import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { IRental } from '@/models/interfaces/IRental'
 
 export function Rentals() {

@@ -1,4 +1,4 @@
-import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
+import { IHttpClientProvider } from '@/providers/HttpClientProvider/IHttpClientProvider'
 import dayjs from 'dayjs'
 
 interface IRequest {

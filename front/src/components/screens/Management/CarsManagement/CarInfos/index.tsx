@@ -9,7 +9,7 @@ import { EditInfosSection } from './partials/EditInfosSection'
 import { useContext } from 'react'
 import { AlertContext } from '@/contexts/alertContext'
 import { deleteCarService } from '@/services/cars/deleteCar/DeleteCarService'
-import { httpClientProvider } from '@/providers/httpClientProvider'
+import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { ICar } from '@/models/interfaces/ICar'
 
 type Props = {

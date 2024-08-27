@@ -1,6 +1,6 @@
 import { FavoritedCars } from '@/components/screens/FavoritedCars'
 import { HttpStatusCode } from '@/models/enums/HttpStatusCode'
-import { httpClientProvider } from '@/providers/httpClientProvider'
+import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { getFavoritedCarsService } from '@/services/user/getFavoritedCars/GetFavoritedCarsService'
 import { verifyUserSessionService } from '@/services/user/verifyUserSession/VerifyUserSessionService'
 

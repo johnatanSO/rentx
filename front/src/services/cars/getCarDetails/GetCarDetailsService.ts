@@ -1,4 +1,4 @@
-import { IHttpClientProvider } from '@/providers/httpClientProvider/IHttpClientProvider'
+import { IHttpClientProvider } from '@/providers/HttpClientProvider/IHttpClientProvider'
 
 export function getCarDetailsService(
   carId: string,

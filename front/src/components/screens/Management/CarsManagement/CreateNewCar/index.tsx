@@ -17,7 +17,7 @@ import {
   faCheck,
   faImage,
 } from '@fortawesome/free-solid-svg-icons'
-import { httpClientProvider } from '@/providers/httpClientProvider'
+import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { ICategory } from '@/models/interfaces/ICategory'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'

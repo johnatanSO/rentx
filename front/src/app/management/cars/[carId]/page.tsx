@@ -1,5 +1,5 @@
 import { CarInfos } from '@/components/screens/Management/CarsManagement/CarInfos'
-import { httpClientProvider } from '@/providers/httpClientProvider'
+import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { getCarDetailsService } from '@/services/cars/getCarDetails/GetCarDetailsService'
 
 type PageProps = {

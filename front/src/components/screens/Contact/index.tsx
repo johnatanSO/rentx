@@ -8,7 +8,7 @@ import { Divider } from '@mui/material'
 import { useContext } from 'react'
 import style from './Contact.module.scss'
 import { formContactSchema, IFormContact } from './interfaces/IFormContact'
-import { httpClientProvider } from '@/providers/httpClientProvider'
+import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
