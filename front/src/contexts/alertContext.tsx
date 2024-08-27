@@ -2,31 +2,18 @@
 import { ReactNode, createContext, useState } from 'react'
 import { AlertConfirm } from '@/components/layout/AlertConfirm/index'
 import { AlertNotify } from '@/components/layout/AlertNotify/index'
+import { IAlertConfirm } from '@/models/interfaces/IAlertConfirm'
+import { IAlertNotify } from '@/models/interfaces/IAlertNotify'
 
 interface AlertContextComponentProps {
   children: ReactNode
 }
 
-interface AlertConfirmConfigs {
-  open: boolean
-  title: string
-  text: string
-  handleClose: () => void
-  onClickAgree(): Promise<void>
-}
-
-interface AlertNotifyConfigs {
-  open: boolean
-  type: 'success' | 'error'
-  text: string
-  handleClose: () => void
-}
-
 interface AlertContextInterface {
-  alertConfirmConfigs: AlertConfirmConfigs
-  setAlertConfirmConfigs: (alertConfigs: AlertConfirmConfigs) => void
-  alertNotifyConfigs: AlertNotifyConfigs
-  setAlertNotifyConfigs: (notifyConfigs: AlertNotifyConfigs) => void
+  alertConfirmConfigs: IAlertConfirm
+  setAlertConfirmConfigs: (alertConfigs: IAlertConfirm) => void
+  alertNotifyConfigs: IAlertNotify
+  setAlertNotifyConfigs: (notifyConfigs: IAlertNotify) => void
 }
 
 export const AlertContext = createContext({} as AlertContextInterface)
@@ -34,22 +21,22 @@ export const AlertContext = createContext({} as AlertContextInterface)
 export function AlertContextComponent({
   children,
 }: AlertContextComponentProps) {
-  const [alertConfirmConfigs, setAlertConfirmConfigs] =
-    useState<AlertConfirmConfigs>({
+  const [alertConfirmConfigs, setAlertConfirmConfigs] = useState<IAlertConfirm>(
+    {
       open: false,
       title: '',
       text: '',
       handleClose: onCloseAlertConfirm,
       onClickAgree: async () => undefined,
-    })
+    },
+  )
 
-  const [alertNotifyConfigs, setAlertNotifyConfigs] =
-    useState<AlertNotifyConfigs>({
-      open: false,
-      text: '',
-      type: 'success',
-      handleClose: onCloseNotify,
-    })
+  const [alertNotifyConfigs, setAlertNotifyConfigs] = useState<IAlertNotify>({
+    open: false,
+    text: '',
+    type: 'success',
+    handleClose: onCloseNotify,
+  })
 
   function onCloseNotify() {
     setAlertNotifyConfigs({
