@@ -1,13 +1,8 @@
 import { ModalLayout } from '@/components/_ui/ModalLayout'
-import { useContext } from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
-import { AlertContext } from '@/contexts/alertContext'
-import { updateCategoryService } from '@/services/category/updateCategoryService/UpdateCategoryService'
 import style from './ModalEditCategory.module.scss'
-import { httpClientProvider } from '@/providers/HttpClientProvider'
-import { useForm } from 'react-hook-form'
 import { ICategory } from '@/models/interfaces/ICategory'
-import { IFormEditCategory } from '../../interface/IFormEditCategory'
+import { useEditCategory } from '../../hooks/useEditCategory'
 
 interface Props {
   getCategories: () => void
@@ -22,43 +17,8 @@ export function ModalEditCategory({
   open,
   handleClose,
 }: Props) {
-  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-
-  const {
-    handleSubmit,
-    register,
-    formState: { errors, isSubmitting },
-  } = useForm<IFormEditCategory>({
-    defaultValues: categoryToEdit,
-  })
-
-  function onUpdateCategory(category: IFormEditCategory) {
-    const values = {
-      ...category,
-      _id: categoryToEdit?._id,
-    }
-
-    updateCategoryService(values, httpClientProvider)
-      .then(() => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: 'Informações da categoria atualizadas com sucesso',
-          type: 'success',
-        })
-
-        getCategories()
-        handleClose()
-      })
-      .catch((err) => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Erro ao tentar atualizar informações da categoria - ${err?.message}`,
-          type: 'error',
-        })
-      })
-  }
+  const { errors, handleSubmit, isSubmitting, onUpdateCategory, register } =
+    useEditCategory({ getCategories, handleClose, categoryToEdit })
 
   return (
     <ModalLayout
@@ -74,7 +34,7 @@ export function ModalEditCategory({
     >
       <div className={style.fields}>
         <CustomTextField
-          label="Nome"
+          label="Nome *"
           size="small"
           {...register('name', { required: true })}
           error={!!errors.name}

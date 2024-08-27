@@ -2,60 +2,16 @@
 
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import style from './CreateNewCategory.module.scss'
-import { useContext } from 'react'
-import { INewCategory } from '../interface/INewCategory'
-import { createCategoryService } from '@/services/category/createCategory/CreateCategoryService'
-import { AlertContext } from '@/contexts/alertContext'
 import { Loading } from '@/components/_ui/Loading'
-import { httpClientProvider } from '@/providers/HttpClientProvider'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { newCarSchema } from '../../CarsManagement/interfaces/INewCar'
+import { useCreateCategory } from '../hooks/useCreateCategory'
 
 type Props = {
   getCategories: () => void
 }
 
 export function CreateNewCategory({ getCategories }: Props) {
-  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-
-  const {
-    register,
-    reset,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<INewCategory>({
-    defaultValues: {
-      name: '',
-      description: '',
-    },
-    resolver: zodResolver(newCarSchema),
-  })
-
-  function onCreateNewCategory(newCategory: INewCategory) {
-    createCategoryService(newCategory, httpClientProvider)
-      .then(() => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: 'Categoria cadastrada com sucesso',
-          type: 'success',
-        })
-
-        reset()
-
-        getCategories()
-      })
-      .catch((err) => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Erro ao tentar cadastrar nova categoria - ${err?.message}`,
-          type: 'error',
-        })
-        console.log(`Erro ao tentar cadastrar nova categoria - ${err?.message}`)
-      })
-  }
+  const { errors, handleSubmit, isSubmitting, onCreateNewCategory, register } =
+    useCreateCategory({ getCategories })
 
   return (
     <form

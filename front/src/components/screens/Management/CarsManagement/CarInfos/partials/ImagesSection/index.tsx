@@ -1,18 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCamera, faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
-import Image, { StaticImageData } from 'next/image'
-import unknownCarImage from '../../../../../../../../public/assets/images/cars/unknownCarImage.png'
-import { useContext, useState } from 'react'
-import { AlertContext } from '@/contexts/alertContext'
-import { removeCarImageService } from '@/services/cars/removeCarImage/RemoveCarImageService'
-import { usePathname, useRouter } from 'next/navigation'
-import { updateCarImageService } from '@/services/cars/updateCarImage/UpdateCarImageService'
+import Image from 'next/image'
 import { ModalZoomImage } from './ModalZoomImage'
-import { updateDefaultCarImageService } from '@/services/cars/updateDefaultCarImage/UpdateDefaultCarImageService'
 import style from './ImagesSection.module.scss'
-import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { ICar } from '@/models/interfaces/ICar'
-import { ICarImage } from '@/models/interfaces/ICarImage'
+import { useCarImage } from '../../../hooks/useCarImage'
 
 type Props = {
   car: ICar
@@ -20,120 +12,16 @@ type Props = {
 
 export function ImagesSection({ car }: Props) {
   const {
-    alertNotifyConfigs,
-    setAlertNotifyConfigs,
-    alertConfirmConfigs,
-    setAlertConfirmConfigs,
-  } = useContext(AlertContext)
-
-  const router = useRouter()
-  const pathname = usePathname()
-
-  const [modalZoomImageOpened, setModalZoomImageOpened] =
-    useState<boolean>(false)
-  const [imagePath, setImagePath] = useState<
-    string | undefined | StaticImageData
-  >(undefined)
-
-  function handleRemoveImage(imageId: string) {
-    setAlertConfirmConfigs({
-      ...alertConfirmConfigs,
-      open: true,
-      title: 'Alerta de confirmação',
-      text: 'Deseja realmente remover esta imagem?',
-      onClickAgree: async () => {
-        removeCarImageService({ carId: car._id, imageId }, httpClientProvider)
-          .then(() => {
-            setAlertNotifyConfigs({
-              ...alertNotifyConfigs,
-              open: true,
-              text: 'Imagem removida com sucesso',
-              type: 'success',
-            })
-
-            router.refresh()
-            router.push(pathname)
-          })
-          .catch((err) => {
-            setAlertNotifyConfigs({
-              ...alertNotifyConfigs,
-              open: true,
-              text: `Erro ao tentar remover imagem - ${err?.message}`,
-              type: 'success',
-            })
-            console.log(`Erro ao tentar remover imagem - ${err?.message}`)
-          })
-      },
-    })
-  }
-
-  function handleSetImage() {
-    const inputFile = document.createElement('input')
-    inputFile.type = 'file'
-    inputFile.onchange = async (event: Event) => {
-      const target = event.target as HTMLInputElement
-
-      const file = (target.files || [])[0] as File
-
-      await updateImage(file)
-    }
-
-    inputFile.click()
-  }
-
-  async function updateImage(carImage: File) {
-    updateCarImageService({ carImage, carId: car._id }, httpClientProvider)
-      .then(() => {
-        router.refresh()
-        router.push(pathname)
-      })
-      .catch((err) => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Erro ao tentar adicionar imagem - ${err?.message}`,
-          type: 'error',
-        })
-      })
-  }
-
-  function handleClickImage(image: ICarImage) {
-    setModalZoomImageOpened(true)
-    setImagePath(image?.path || unknownCarImage)
-  }
-
-  function handleUpdateDefaultImage() {
-    const inputFile = document.createElement('input')
-    inputFile.type = 'file'
-    inputFile.onchange = async (event: Event) => {
-      const target = event.target as HTMLInputElement
-
-      const file = (target.files || [])[0] as File
-
-      await updateDefaultImage(file)
-    }
-
-    inputFile.click()
-  }
-
-  async function updateDefaultImage(defaultImage: File) {
-    updateDefaultCarImageService(
-      { defaultImage, carId: car._id },
-      httpClientProvider,
-    )
-      .then(() => {
-        router.refresh()
-        router.push(pathname)
-      })
-      .catch((err) => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Erro ao tentar atualizar imagem padrão - ${err?.message}`,
-          type: 'error',
-        })
-      })
-  }
+    handleClickImage,
+    handleRemoveImage,
+    handleSetImage,
+    handleUpdateDefaultImage,
+    unknownCarImage,
+    imagePath,
+    modalZoomImageOpened,
+    setImagePath,
+    setModalZoomImageOpened,
+  } = useCarImage({ car })
 
   return (
     <>

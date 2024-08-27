@@ -1,75 +1,27 @@
 'use client'
 
 import style from './CreateAccount.module.scss'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import Link from 'next/link'
 import { Checkbox, FormControlLabel, Popover, Typography } from '@mui/material'
-import { INewUser, newUserSchema } from './interfaces/INewUser'
-import { createNewUserService } from '@/services/user/createNewUser/CreateNewUserService'
-import { AlertContext } from '@/contexts/alertContext'
 import { Loading } from '@/components/_ui/Loading'
-import { useRouter } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
-import { httpClientProvider } from '@/providers/HttpClientProvider'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { useCreateAccount } from './hooks/useCreateAccount'
 
 export function CreateAccount() {
-  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    watch,
-    setValue,
-    formState: { errors, isSubmitting },
-  } = useForm<INewUser>({
-    defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      driverLicense: '',
-      isAdmin: false,
-    },
-    resolver: zodResolver(newUserSchema),
-  })
-
-  const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
 
-  const isAdmin = watch('isAdmin')
-
-  function onRegister(newUser: INewUser) {
-    createNewUserService(newUser, httpClientProvider)
-      .then(() => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: 'Usuário cadastrado com sucesso',
-          type: 'success',
-        })
-
-        reset()
-
-        router.refresh()
-        router.push('/authenticate')
-      })
-      .catch((err) => {
-        console.log(
-          `Erro ao tentar realizar cadastro de usuário - ${err?.message}`,
-        )
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Erro ao tentar realizar cadastro de usuário - ${err?.message}`,
-          type: 'error',
-        })
-      })
-  }
+  const {
+    errors,
+    handleSubmit,
+    isAdmin,
+    isSubmitting,
+    onRegister,
+    register,
+    setValue,
+  } = useCreateAccount()
 
   return (
     <section className={style.createAccountContainer}>

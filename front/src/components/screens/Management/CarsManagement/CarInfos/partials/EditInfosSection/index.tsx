@@ -5,92 +5,26 @@ import style from './EditInfosSection.module.scss'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { Checkbox, FormControlLabel, FormGroup, MenuItem } from '@mui/material'
-import { useContext, useEffect, useState } from 'react'
-import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
-import { AlertContext } from '@/contexts/alertContext'
-import { updateCarInfosService } from '@/services/cars/updateCarInfos/UpdateCarInfosService'
-import { usePathname, useRouter } from 'next/navigation'
 import { Loading } from '@/components/_ui/Loading'
-import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { ICar } from '@/models/interfaces/ICar'
-import { ICategory } from '@/models/interfaces/ICategory'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  formEditCarSchema,
-  IFormEditCar,
-} from '../../../interfaces/IFormEditCar'
+import { useCategoryList } from '@/hooks/useCategoryList'
+import { useEditCar } from '../../../hooks/useEditCar'
 
 type Props = {
   car: ICar
 }
 
 export function EditInfosSection({ car }: Props) {
-  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-
-  const { category, ...carData } = car
+  const { categories } = useCategoryList()
   const {
-    register,
+    avaliable,
+    errors,
     handleSubmit,
+    isSubmitting,
+    onUpdateCarInfos,
+    register,
     setValue,
-    watch,
-    formState: { errors, isSubmitting },
-  } = useForm<IFormEditCar>({
-    defaultValues: {
-      ...carData,
-      categoryId: category._id,
-    },
-    resolver: zodResolver(formEditCarSchema),
-  })
-
-  const avaliable = watch('avaliable')
-
-  const router = useRouter()
-  const pathname = usePathname()
-
-  const [categoriesList, setCategoriesList] = useState<ICategory[]>([])
-
-  function onUpdateCarInfos(carData: IFormEditCar) {
-    updateCarInfosService(carData, httpClientProvider)
-      .then(() => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: 'Informações do carro atualizadas com sucesso',
-          type: 'success',
-        })
-
-        router.refresh()
-        router.push(pathname)
-      })
-      .catch((err) => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Erro ao tentar atualizar informações do carro - ${err?.message}`,
-          type: 'error',
-        })
-      })
-  }
-
-  function getCategoriesList() {
-    getAllCategoriesService(httpClientProvider)
-      .then((res) => {
-        setCategoriesList(res.data.items)
-      })
-      .catch((err) => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Erro ao tentar buscar categorias - ${err?.message}`,
-          type: 'error',
-        })
-      })
-  }
-
-  useEffect(() => {
-    getCategoriesList()
-  }, [])
+  } = useEditCar({ car })
 
   return (
     <form onSubmit={handleSubmit(onUpdateCarInfos)} className={style.section}>
@@ -175,7 +109,7 @@ export function EditInfosSection({ car }: Props) {
           error={!!errors.categoryId}
           helperText={errors.categoryId && errors.categoryId.message}
         >
-          {categoriesList.map((category) => {
+          {categories.map((category) => {
             return (
               <MenuItem key={category._id} value={category._id}>
                 {category.name}
@@ -216,7 +150,7 @@ export function EditInfosSection({ car }: Props) {
 
         <FormGroup className={style.textAreaContainer}>
           <CustomTextField
-            disabled={carData.avaliable}
+            disabled={avaliable}
             className={style.input}
             placeholder="Motivo do carro estar indisponível"
             type="text"
@@ -227,9 +161,7 @@ export function EditInfosSection({ car }: Props) {
             sx={{
               display: 'flex',
               flex: 1,
-              ...(carData.avaliable
-                ? { opacity: '0.4', cursor: 'not-allowed' }
-                : {}),
+              ...(avaliable ? { opacity: '0.4', cursor: 'not-allowed' } : {}),
             }}
             label="Motivo da indisponibilidade"
             {...register('reasonUnavaliable')}

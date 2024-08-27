@@ -2,60 +2,18 @@
 import style from './CarInfos.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faTrash } from '@fortawesome/free-solid-svg-icons'
-import { useRouter } from 'next/navigation'
 import { ImagesSection } from './partials/ImagesSection'
 import { SpecificationsSection } from './partials/SpecificationsSection'
 import { EditInfosSection } from './partials/EditInfosSection'
-import { useContext } from 'react'
-import { AlertContext } from '@/contexts/alertContext'
-import { deleteCarService } from '@/services/cars/deleteCar/DeleteCarService'
-import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { ICar } from '@/models/interfaces/ICar'
+import { useDeleteCar } from '../hooks/useDeleteCar'
 
 type Props = {
   car: ICar
 }
 
 export function CarInfos({ car }: Props) {
-  const {
-    setAlertConfirmConfigs,
-    alertConfirmConfigs,
-    setAlertNotifyConfigs,
-    alertNotifyConfigs,
-  } = useContext(AlertContext)
-  const router = useRouter()
-
-  function handleDeleteCar() {
-    const carId = car._id.toString()
-
-    setAlertConfirmConfigs({
-      ...alertConfirmConfigs,
-      open: true,
-      text: 'Deseja mesmo deletar este carro? Após a confirmação, essa ação será irreversível',
-      title: 'Alerta de confirmação',
-      onClickAgree: async () => {
-        deleteCarService(carId, httpClientProvider)
-          .then(() => {
-            setAlertNotifyConfigs({
-              ...alertNotifyConfigs,
-              open: true,
-              text: 'Carro deletado com sucesso',
-              type: 'success',
-            })
-
-            router.back()
-          })
-          .catch((error) => {
-            setAlertNotifyConfigs({
-              ...alertNotifyConfigs,
-              open: true,
-              text: `Erro ao tentar deletar este carro - ${error?.message}`,
-              type: 'error',
-            })
-          })
-      },
-    })
-  }
+  const { handleDeleteCar, router } = useDeleteCar({ car })
 
   return (
     <>

@@ -7,24 +7,13 @@ import { useColumns } from './hooks/useColumns'
 import { usePathname, useRouter } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { useEffect, useState } from 'react'
 import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFields'
-import { getAllCarsService } from '@/services/cars/getAllCars/GetAllCarsService'
-import { httpClientProvider } from '@/providers/HttpClientProvider'
-import { ICar } from '@/models/interfaces/ICar'
+import { useAllCarList } from '@/hooks/useAllCarList'
 
 export function CarsManagement() {
   const router = useRouter()
   const pathname = usePathname()
-
-  const [searchString, setSearchString] = useState<string>('')
-  const [cars, setCars] = useState<ICar[]>([])
-  const [loadingCars, setLoadingCars] = useState<boolean>(true)
-
-  const filteredCars = cars.filter((car) =>
-    car.name.toLowerCase().includes(searchString.toLowerCase()),
-  )
 
   const columns = useColumns()
   const itemFields = useFieldsMobile()
@@ -33,23 +22,7 @@ export function CarsManagement() {
     router.push(pathname + '/createNew')
   }
 
-  function getCars() {
-    setLoadingCars(true)
-    getAllCarsService(httpClientProvider)
-      .then(({ data: { items } }) => {
-        setCars(items)
-      })
-      .catch((error) => {
-        console.error(error)
-      })
-      .finally(() => {
-        setLoadingCars(false)
-      })
-  }
-
-  useEffect(() => {
-    getCars()
-  }, [])
+  const { cars, loadingCars, searchString, setSearchString } = useAllCarList()
 
   return (
     <>
@@ -75,11 +48,7 @@ export function CarsManagement() {
       />
       <section className={style.tableSection}>
         <div className={style.viewDesktop}>
-          <TableComponent
-            columns={columns}
-            rows={filteredCars}
-            loading={loadingCars}
-          />
+          <TableComponent columns={columns} rows={cars} loading={loadingCars} />
         </div>
         <div className={style.viewMobile}>
           <ListMobile

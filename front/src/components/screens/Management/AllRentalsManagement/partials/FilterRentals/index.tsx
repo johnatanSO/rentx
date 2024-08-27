@@ -2,136 +2,22 @@ import { CustomTextField } from '@/components/_ui/CustomTextField'
 import style from './FilterRentals.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import { getUsersService } from '@/services/user/getUsers/GetUsersService'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useContext, useEffect, useState } from 'react'
-import { AlertContext } from '@/contexts/alertContext'
 import { MenuItem } from '@mui/material'
-import { ICar } from '@/models/interfaces/ICar'
-import { getAllCarsService } from '@/services/cars/getAllCars/GetAllCarsService'
-import { httpClientProvider } from '@/providers/HttpClientProvider'
-import { IUser } from '@/models/interfaces/IUser'
-import { useForm } from 'react-hook-form'
-import dayjs from 'dayjs'
-import { filterRentalsSchema, IFilters } from '../../interfaces/IFilters'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { useUserList } from '@/hooks/useUserList'
+import { useAllCarList } from '@/hooks/useAllCarList'
+import { useFilterRentals } from '../../hooks/useFilterRentals'
 
 export function FilterRentals() {
-  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-
   const {
+    errors,
     handleSubmit,
+    onFilterRentals,
+    otherFiltersOpened,
     register,
-    formState: { errors },
-  } = useForm<IFilters>({
-    defaultValues: {
-      filterStartDate: dayjs().startOf('month').format('YYYY-MM-DD'),
-      filterEndDate: dayjs().endOf('month').format('YYYY-MM-DD'),
-      userId: null,
-      carId: null,
-    },
-    resolver: zodResolver(filterRentalsSchema),
-  })
+  } = useFilterRentals()
 
-  const [otherFiltersOpened] = useState<boolean>(false)
-  const [usersList, setUsersList] = useState<IUser[]>([])
-  const [carsList, setCarsList] = useState<ICar[]>([])
-
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
-
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams)
-      params.set(name, value)
-
-      return params.toString()
-    },
-    [searchParams],
-  )
-
-  function onFilterRentals(filters: IFilters) {
-    const currentFilterEndDate = searchParams.get('filterEndDate')
-
-    if (
-      !currentFilterEndDate ||
-      currentFilterEndDate !== filters.filterEndDate
-    ) {
-      router.push(
-        `${pathname}?${createQueryString(
-          'filterEndDate',
-          filters.filterEndDate || '',
-        )}`,
-      )
-    }
-
-    const currentFilterStartDate = searchParams.get('filterStartDate')
-
-    if (
-      !currentFilterStartDate ||
-      currentFilterStartDate !== filters.filterStartDate
-    ) {
-      router.push(
-        `${pathname}?${createQueryString(
-          'filterStartDate',
-          filters.filterStartDate || '',
-        )}`,
-      )
-    }
-
-    const currentFilterUser = searchParams.get('userId')
-
-    if (currentFilterUser !== filters.userId) {
-      router.push(
-        `${pathname}?${createQueryString('userId', filters.userId || '')}`,
-      )
-    }
-
-    const currentFilterCar = searchParams.get('carId')
-
-    if (currentFilterCar !== filters.carId) {
-      router.push(
-        `${pathname}?${createQueryString('carId', filters.carId || '')}`,
-      )
-    }
-  }
-
-  function getUsersList() {
-    getUsersService(httpClientProvider)
-      .then((res) => {
-        setUsersList(res.data.items)
-      })
-      .catch((err) => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Erro ao tentar buscar lista de usuários - ${err?.message}`,
-          type: 'error',
-        })
-        console.log(`Erro ao tentar buscar lista de usuários - ${err?.message}`)
-      })
-  }
-
-  function getCarsList() {
-    getAllCarsService(httpClientProvider)
-      .then((res) => {
-        setCarsList(res.data.items)
-      })
-      .catch((err) => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Erro ao tentar buscar lista de carros - ${err?.message}`,
-          type: 'error',
-        })
-      })
-  }
-
-  useEffect(() => {
-    getUsersList()
-    getCarsList()
-  }, [])
+  const { users } = useUserList()
+  const { cars } = useAllCarList()
 
   return (
     <div className={style.filtersContainer}>
@@ -173,7 +59,7 @@ export function FilterRentals() {
             error={!!errors.userId}
           >
             <MenuItem value="all">Todos</MenuItem>
-            {usersList.map((user) => {
+            {users.map((user) => {
               return (
                 <MenuItem value={user._id} key={user._id}>
                   {user.name}
@@ -190,7 +76,7 @@ export function FilterRentals() {
             error={!!errors.carId}
           >
             <MenuItem value="all">Todos</MenuItem>
-            {carsList.map((car) => {
+            {cars.map((car) => {
               return (
                 <MenuItem value={car._id} key={car._id}>
                   {car.name} - {car.licensePlate}

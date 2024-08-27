@@ -2,99 +2,32 @@
 
 import { TableComponent } from '@/components/_ui/TableComponent'
 import style from './AllRentalsManagement.module.scss'
-import { IRental } from '@/models/interfaces/IRental'
 import { useColumns } from './hooks/useColumns'
-import { useContext, useEffect, useState } from 'react'
-import { AlertContext } from '@/contexts/alertContext'
-import { finalizeRentalService } from '@/services/rentals/finalizeRental/FinalizeRentalService'
-import { useSearchParams } from 'next/navigation'
 import { ModalEditRental } from './partials/ModalEditRental'
 import { FilterRentals } from './partials/FilterRentals'
 import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFields'
-import { getAllRentalsService } from '@/services/rentals/getAllRentals/GetAllRentalsService'
-import { httpClientProvider } from '@/providers/HttpClientProvider'
-import { IFilters } from './interfaces/IFilters'
+import { useFinalizeRental } from '../../../../hooks/useFinalizeRental'
+import { useAllRentalList } from '../../../../hooks/useAllRentalList'
 
 export function AllRentalsManagement() {
-  const {
-    alertNotifyConfigs,
-    setAlertNotifyConfigs,
-    alertConfirmConfigs,
-    setAlertConfirmConfigs,
-  } = useContext(AlertContext)
+  const { getRentals, loadingRentals, rentals, setLoadingRentals } =
+    useAllRentalList()
 
-  const [rentals, setRentals] = useState<IRental[]>([])
-  const [loadingRentals, setLoadingRentals] = useState<boolean>(true)
+  const { onFinalizeRental } = useFinalizeRental({
+    setLoadingRentals,
+    getRentals,
+  })
 
-  const searchParams = useSearchParams()
-
-  const [modalEditRentalOpened, setModalEditRentalOpened] =
-    useState<boolean>(false)
-  const [rentalToEdit, setRentalToEdit] = useState<IRental | null>(null)
-
-  const columns = useColumns({ onFinalizeRental, handleEditRental })
   const itemFields = useFieldsMobile()
 
-  function handleEditRental(rental: IRental) {
-    setRentalToEdit(rental)
-    setModalEditRentalOpened(true)
-  }
-
-  function onFinalizeRental(rentalId: string) {
-    setAlertConfirmConfigs({
-      ...alertConfirmConfigs,
-      open: true,
-      onClickAgree: async () => {
-        setLoadingRentals(true)
-        finalizeRentalService(rentalId, httpClientProvider)
-          .then(() => {
-            setAlertNotifyConfigs({
-              ...alertNotifyConfigs,
-              open: true,
-              text: 'Aluguel finalizado com sucesso',
-              type: 'success',
-            })
-          })
-          .catch((err) => {
-            setAlertNotifyConfigs({
-              ...alertNotifyConfigs,
-              open: true,
-              text: `Erro ao tentar finalizar o aluguel - ${err?.message}`,
-              type: 'error',
-            })
-          })
-      },
-      text: 'Tem certeza que deseja finalizar este aluguel?',
-      title: 'Alerta de confirmação',
-    })
-  }
-
-  function getRentals() {
-    setLoadingRentals(true)
-
-    const filters: IFilters = {
-      carId: searchParams.get('carId'),
-      filterEndDate: searchParams.get('filterEndDate'),
-      filterStartDate: searchParams.get('filterStartDate'),
-      userId: searchParams.get('userId'),
-    }
-
-    getAllRentalsService(filters, httpClientProvider)
-      .then(({ data: { items } }) => {
-        setRentals(items)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-      .finally(() => {
-        setLoadingRentals(false)
-      })
-  }
-
-  useEffect(() => {
-    getRentals()
-  }, [searchParams])
+  const {
+    columns,
+    modalEditRentalOpened,
+    rentalToEdit,
+    setModalEditRentalOpened,
+    setRentalToEdit,
+  } = useColumns({ onFinalizeRental })
 
   return (
     <>

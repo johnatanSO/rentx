@@ -6,65 +6,30 @@ import { useColumns } from './hooks/useColumns'
 import { ISpecification } from '@/models/interfaces/ISpecification'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { CreateNewSpecification } from './CreateNewSpecification'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { ModalEditSpecification } from './partials/ModalEditSpecification'
 import { ListMobile } from '@/components/_ui/ListMobile'
 import { useFieldsMobile } from './hooks/useFieldsMobile'
-import { listAllSpecificationsService } from '@/services/specifications/listAllSpecifications/ListAllSpecificationsService'
 import { Divider } from '@mui/material'
-import { httpClientProvider } from '@/providers/HttpClientProvider'
+import { useSpecificationList } from '@/hooks/useSpecificationList'
 
 export function SpecificationsManagement() {
-  const [specifications, setSpecifications] = useState<ISpecification[]>([])
-  const [searchString, setSearchString] = useState<string>('')
-  const [specificationToEdit, setSpecificationToEdit] =
-    useState<ISpecification | null>(null)
-  const [modalEditSpecificationOpened, setModalEditSpecificationOpened] =
-    useState<boolean>(false)
-  const [loadingSpecifications, setLoadingSpecifications] =
-    useState<boolean>(true)
+  const {
+    loadingSpecifications,
+    searchString,
+    setSearchString,
+    specifications,
+    getSpecifications,
+  } = useSpecificationList()
 
-  const columns = useColumns({ handleEditSpecification, getSpecifications })
+  const {
+    columns,
+    modalEditSpecificationOpened,
+    specificationToEdit,
+    setModalEditSpecificationOpened,
+  } = useColumns({ getSpecifications })
+
   const itemFields = useFieldsMobile()
-
-  function handleEditSpecification(specification: ISpecification) {
-    setSpecificationToEdit(specification)
-    setModalEditSpecificationOpened(true)
-  }
-
-  function filterByName() {
-    setLoadingSpecifications(true)
-    const filteredSpecifications = specifications.filter((specification) =>
-      specification.name
-        .toLowerCase()
-        .trim()
-        .includes(searchString.toLowerCase().trim()),
-    )
-    setLoadingSpecifications(false)
-    setSpecifications(filteredSpecifications)
-  }
-
-  function getSpecifications() {
-    setLoadingSpecifications(true)
-    listAllSpecificationsService(httpClientProvider)
-      .then(({ data: { items } }) => {
-        setSpecifications(items)
-      })
-      .catch((error) => {
-        console.error(error)
-      })
-      .finally(() => {
-        setLoadingSpecifications(false)
-      })
-  }
-
-  useEffect(() => {
-    filterByName()
-  }, [searchString])
-
-  useEffect(() => {
-    getSpecifications()
-  }, [])
 
   return (
     <>

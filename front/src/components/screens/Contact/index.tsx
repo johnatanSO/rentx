@@ -2,54 +2,13 @@
 
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { Loading } from '@/components/_ui/Loading'
-import { AlertContext } from '@/contexts/alertContext'
-import { sendContactService } from '@/services/user/sendContact/SendContactService'
 import { Divider } from '@mui/material'
-import { useContext } from 'react'
 import style from './Contact.module.scss'
-import { formContactSchema, IFormContact } from './interfaces/IFormContact'
-import { httpClientProvider } from '@/providers/HttpClientProvider'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { useContact } from './hooks/useContact'
 
 export function Contact() {
-  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { isSubmitting, errors },
-  } = useForm<IFormContact>({
-    defaultValues: {
-      name: '',
-      email: '',
-      message: '',
-    },
-    resolver: zodResolver(formContactSchema),
-  })
-
-  function onSendForm(formContact: IFormContact) {
-    sendContactService(formContact, httpClientProvider)
-      .then(() => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: 'Mensagem enviada com sucesso, em breve entraremos em contato',
-          type: 'success',
-        })
-
-        reset()
-      })
-      .catch((err) => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Erro ao tentar enviar mensagem - ${err?.message}`,
-          type: 'error',
-        })
-      })
-  }
+  const { errors, handleSubmit, isSubmitting, onSendForm, register } =
+    useContact()
 
   return (
     <section className={style.contactContainer}>

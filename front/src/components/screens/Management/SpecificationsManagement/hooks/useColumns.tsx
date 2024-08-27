@@ -5,20 +5,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import style from '../SpecificationsManagement.module.scss'
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { AlertContext } from '@/contexts/alertContext'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { deleteSpecificationService } from '@/services/specifications/deleteSpecification/DeleteSpecificationService'
 import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { ISpecification } from '@/models/interfaces/ISpecification'
 
 interface Props {
-  handleEditSpecification: (specification: ISpecification) => void
   getSpecifications: () => void
 }
 
-export function useColumns({
-  handleEditSpecification,
-  getSpecifications,
-}: Props) {
+export function useColumns({ getSpecifications }: Props) {
+  const [specificationToEdit, setSpecificationToEdit] =
+    useState<ISpecification | null>(null)
+  const [modalEditSpecificationOpened, setModalEditSpecificationOpened] =
+    useState<boolean>(false)
+
   const {
     alertNotifyConfigs,
     setAlertNotifyConfigs,
@@ -59,54 +60,64 @@ export function useColumns({
     })
   }
 
-  return [
-    {
-      field: 'name',
-      headerName: 'Nome',
-      valueFormatter: (params: CellFunctionParams<ISpecification>) =>
-        params.value,
-    },
-    {
-      field: 'description',
-      headerName: 'Descrição',
-      valueFormatter: (params: CellFunctionParams<ISpecification>) =>
-        params.value,
-    },
-    {
-      field: 'createdAt',
-      headerName: 'Data de cadastro',
-      valueFormatter: (params: CellFunctionParams<ISpecification>) =>
-        dayjs(params.value).format('DD/MM/YYYY - HH:mm'),
-    },
-    {
-      field: 'actions',
-      type: 'actions',
-      headerName: '',
-      flex: 1,
-      cellRenderer: (params: CellFunctionParams<ISpecification>) => {
-        return (
-          <div className={style.actionsContainer}>
-            <button
-              onClick={() => {
-                handleEditSpecification(params.data)
-              }}
-              className={style.editButton}
-              type="button"
-            >
-              <FontAwesomeIcon className={style.icon} icon={faPen} />
-            </button>
-            <button
-              onClick={() => {
-                handleDeleteSpecification(params.data._id)
-              }}
-              className={style.deleteButton}
-              type="button"
-            >
-              <FontAwesomeIcon className={style.icon} icon={faTrash} />
-            </button>
-          </div>
-        )
+  function handleEditSpecification(specification: ISpecification) {
+    setSpecificationToEdit(specification)
+    setModalEditSpecificationOpened(true)
+  }
+
+  return {
+    columns: [
+      {
+        field: 'name',
+        headerName: 'Nome',
+        valueFormatter: (params: CellFunctionParams<ISpecification>) =>
+          params.value,
       },
-    },
-  ]
+      {
+        field: 'description',
+        headerName: 'Descrição',
+        valueFormatter: (params: CellFunctionParams<ISpecification>) =>
+          params.value,
+      },
+      {
+        field: 'createdAt',
+        headerName: 'Data de cadastro',
+        valueFormatter: (params: CellFunctionParams<ISpecification>) =>
+          dayjs(params.value).format('DD/MM/YYYY - HH:mm'),
+      },
+      {
+        field: 'actions',
+        type: 'actions',
+        headerName: '',
+        flex: 1,
+        cellRenderer: (params: CellFunctionParams<ISpecification>) => {
+          return (
+            <div className={style.actionsContainer}>
+              <button
+                onClick={() => {
+                  handleEditSpecification(params.data)
+                }}
+                className={style.editButton}
+                type="button"
+              >
+                <FontAwesomeIcon className={style.icon} icon={faPen} />
+              </button>
+              <button
+                onClick={() => {
+                  handleDeleteSpecification(params.data._id)
+                }}
+                className={style.deleteButton}
+                type="button"
+              >
+                <FontAwesomeIcon className={style.icon} icon={faTrash} />
+              </button>
+            </div>
+          )
+        },
+      },
+    ],
+    specificationToEdit,
+    modalEditSpecificationOpened,
+    setModalEditSpecificationOpened,
+  }
 }

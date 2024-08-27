@@ -2,13 +2,7 @@
 
 import { CustomTextField } from '@/components/_ui/CustomTextField'
 import { MenuItem } from '@mui/material'
-import { FormEvent, useContext, useEffect, useState } from 'react'
-import { INewCar, newCarSchema } from '../interfaces/INewCar'
-import { getAllCategoriesService } from '@/services/category/getAllCategories/GetAllCategoriesService'
-import { AlertContext } from '@/contexts/alertContext'
 import style from './CreateNewCar.module.scss'
-import { createNewCarService } from '@/services/cars/createNewCar/CreateNewCarService'
-import { useRouter } from 'next/navigation'
 import { Loading } from '@/components/_ui/Loading'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -17,93 +11,22 @@ import {
   faCheck,
   faImage,
 } from '@fortawesome/free-solid-svg-icons'
-import { httpClientProvider } from '@/providers/HttpClientProvider'
-import { ICategory } from '@/models/interfaces/ICategory'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { useCreateCar } from '../hooks/useCreateCar'
+import { useCategoryList } from '@/hooks/useCategoryList'
 
 export function CreateNewCar() {
-  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-
   const {
-    register,
+    errors,
     handleSubmit,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm<INewCar>({
-    defaultValues: {
-      name: '',
-      description: '',
-      dailyRate: 0,
-      licensePlate: '',
-      fineAmount: 0,
-      brand: '',
-      categoryId: '',
-      transmission: '',
-    },
-    resolver: zodResolver(newCarSchema),
-  })
-  const router = useRouter()
+    isSubmitting,
+    onCreateNewCar,
+    register,
+    router,
+    image,
+    handleSetImage,
+  } = useCreateCar()
 
-  const [categoriesList, setCategoriesList] = useState<ICategory[]>([])
-  const [image, setImage] = useState<File | null>(null)
-
-  function onCreateNewCar(newCar: INewCar) {
-    createNewCarService({ ...newCar, image }, httpClientProvider)
-      .then(() => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: 'Carro cadastrado com sucesso',
-          type: 'success',
-        })
-
-        reset()
-
-        router.back()
-      })
-      .catch((err) => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Erro ao tentar cadastrar novo carro - ${err?.message}`,
-          type: 'error',
-        })
-      })
-  }
-
-  function getCategoriesList() {
-    getAllCategoriesService(httpClientProvider)
-      .then((res) => {
-        setCategoriesList(res.data.items)
-      })
-      .catch((err) => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Erro ao tentar buscar categorias - ${err?.message}`,
-          type: 'error',
-        })
-      })
-  }
-
-  function handleSetImage() {
-    const inputFile = document.createElement('input')
-    inputFile.type = 'file'
-    inputFile.onchange = async (event: Event) => {
-      const target = event.target as HTMLInputElement
-
-      const file = (target.files || [])[0] as File
-
-      setImage(file)
-    }
-
-    inputFile.click()
-  }
-
-  useEffect(() => {
-    getCategoriesList()
-  }, [])
+  const { categories } = useCategoryList()
 
   return (
     <form
@@ -201,7 +124,7 @@ export function CreateNewCar() {
             error={!!errors.categoryId}
             helperText={errors.categoryId && errors.categoryId.message}
           >
-            {categoriesList.map((category) => {
+            {categories.map((category) => {
               return (
                 <MenuItem key={category._id} value={category._id}>
                   {category.name}

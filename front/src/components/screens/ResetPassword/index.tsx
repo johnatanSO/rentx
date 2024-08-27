@@ -1,70 +1,25 @@
 'use client'
 
 import style from './ResetPassword.module.scss'
-import { useContext } from 'react'
 import { CustomTextField } from '@/components/_ui/CustomTextField'
-import { AlertContext } from '@/contexts/alertContext'
-import { useRouter } from 'next/navigation'
 import { Loading } from '@/components/_ui/Loading'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
-import { resetPasswordService } from '@/services/user/resetPassword/ResetPasswordService'
-import { httpClientProvider } from '@/providers/HttpClientProvider'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  formResetPasswordSchema,
-  IFormResetPassword,
-} from './interfaces/IFormResetPassword'
+import { useResetPassword } from './hooks/useResetPassword'
 
 type Props = {
   refreshToken: string
 }
 
 export function ResetPassword({ refreshToken }: Props) {
-  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-
   const {
-    register,
+    errors,
     handleSubmit,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm<IFormResetPassword>({
-    defaultValues: {
-      password: '',
-      confirmPassword: '',
-    },
-    resolver: zodResolver(formResetPasswordSchema),
-  })
-
-  const router = useRouter()
-
-  function onResetPassword({ password, confirmPassword }: IFormResetPassword) {
-    resetPasswordService(
-      { password, confirmPassword, refreshToken },
-      httpClientProvider,
-    )
-      .then(() => {
-        reset()
-
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: 'Senha alterada com sucesso',
-          type: 'success',
-        })
-
-        router.push('/authenticate')
-      })
-      .catch((err) => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Erro ao tentar alterar a senha - ${err?.message}`,
-          type: 'error',
-        })
-      })
-  }
+    isSubmitting,
+    onResetPassword,
+    register,
+    router,
+  } = useResetPassword({ refreshToken })
 
   return (
     <section className={style.forgotPasswordContainer}>

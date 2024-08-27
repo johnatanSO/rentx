@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { ICar } from '@/models/interfaces/ICar'
 
-export function useCarsList() {
+export function useAvaliableCarsList() {
   const [cars, setCars] = useState<ICar[]>([])
   const [loadingGetCars, setLoadingGetCars] = useState<boolean>(true)
   const searchParams = useSearchParams()
