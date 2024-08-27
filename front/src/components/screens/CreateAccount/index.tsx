@@ -25,7 +25,7 @@ export function CreateAccount() {
     reset,
     watch,
     setValue,
-    formState: { errors, isLoading },
+    formState: { errors, isSubmitting },
   } = useForm<INewUser>({
     defaultValues: {
       name: '',
@@ -202,8 +202,8 @@ export function CreateAccount() {
         </main>
 
         <footer>
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? <Loading size={22} /> : 'Criar conta'}
+          <button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? <Loading size={22} /> : 'Criar conta'}
           </button>
           <Link className={style.createAccountLink} href="/authenticate">
             Entrar com conta existente

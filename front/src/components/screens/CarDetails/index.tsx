@@ -37,7 +37,7 @@ export function CarDetails({ car }: Props) {
     register,
     handleSubmit,
     watch,
-    formState: { isLoading, errors },
+    formState: { isSubmitting, errors },
   } = useForm<INewRental>({
     defaultValues: {
       expectedReturnDate: minExpectedReturnDate,
@@ -215,11 +215,11 @@ export function CarDetails({ car }: Props) {
               }
             />
             <button
-              disabled={isLoading}
+              disabled={isSubmitting}
               className={style.rentalButton}
               type="submit"
             >
-              {isLoading ? <Loading size={21} /> : 'Alugar'}
+              {isSubmitting ? <Loading size={21} /> : 'Alugar'}
             </button>
           </form>
         </div>

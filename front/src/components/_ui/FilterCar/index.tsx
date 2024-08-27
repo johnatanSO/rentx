@@ -15,7 +15,7 @@ export function FilterCar() {
     register,
     handleSubmit,
     reset,
-    formState: { isLoading },
+    formState: { isSubmitting },
   } = useForm<IFilters>({
     defaultValues: {
       name: '',
@@ -103,8 +103,8 @@ export function FilterCar() {
         })}
       </CustomTextField>
       <div className={style.buttonsContainer}>
-        <button disabled={isLoading} type="submit">
-          {isLoading ? <Loading /> : 'Procurar'}
+        <button disabled={isSubmitting} type="submit">
+          {isSubmitting ? <Loading /> : 'Procurar'}
         </button>
         <button onClick={handleClearFilters} type="button">
           Limpar

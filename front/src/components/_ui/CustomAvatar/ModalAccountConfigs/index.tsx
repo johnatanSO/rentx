@@ -32,7 +32,7 @@ export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
   const {
     register,
     handleSubmit,
-    formState: { errors, isLoading },
+    formState: { errors, isSubmitting },
   } = useForm<INewValuesUserInfo>({
     defaultValues: userInfo as INewValuesUserInfo,
     resolver: zodResolver(newValuesUserInfoSchema),
@@ -98,7 +98,7 @@ export function ModalAccountConfigs({ open, handleClose, avatarURL }: Props) {
       open={open}
       handleClose={handleClose}
       title="Configurações da conta"
-      loading={isLoading}
+      loading={isSubmitting}
       submitButtonText={editMode ? 'Salvar' : undefined}
       onSubmit={editMode ? handleSubmit(onUpdateUserInfos) : undefined}
     >

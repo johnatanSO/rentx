@@ -29,7 +29,7 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
   const {
     register,
     handleSubmit,
-    formState: { errors, isLoading },
+    formState: { errors, isSubmitting },
   } = useForm<IRentalEdit>({
     defaultValues: {
       ...rentalToEdit,
@@ -117,7 +117,7 @@ export function ModalEditRental({ rentalToEdit, open, handleClose }: Props) {
       handleClose={handleClose}
       open={open}
       title="Atualizar aluguel"
-      loading={isLoading}
+      loading={isSubmitting}
       submitButtonText="Salvar informações"
       onSubmit={handleSubmit(onUpdateRental)}
       buttonStyle={{

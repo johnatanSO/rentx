@@ -21,7 +21,7 @@ export function ForgotPassword() {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isLoading },
+    formState: { errors, isSubmitting },
   } = useForm<IFormForgot>({
     defaultValues: {
       email: '',
@@ -81,8 +81,8 @@ export function ForgotPassword() {
         </main>
 
         <footer>
-          <button disabled={isLoading} type="submit">
-            {isLoading ? <Loading size={21} /> : 'Enviar'}
+          <button disabled={isSubmitting} type="submit">
+            {isSubmitting ? <Loading size={21} /> : 'Enviar'}
           </button>
         </footer>
       </form>

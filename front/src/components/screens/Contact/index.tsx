@@ -19,7 +19,7 @@ export function Contact() {
     register,
     handleSubmit,
     reset,
-    formState: { isLoading, errors },
+    formState: { isSubmitting, errors },
   } = useForm<IFormContact>({
     defaultValues: {
       name: '',
@@ -88,8 +88,8 @@ export function Contact() {
             helperText={errors.message && errors.message.message}
           />
 
-          <button disabled={isLoading} type="submit">
-            {isLoading ? <Loading size={21} /> : 'Enviar'}
+          <button disabled={isSubmitting} type="submit">
+            {isSubmitting ? <Loading size={21} /> : 'Enviar'}
           </button>
         </form>
 

@@ -24,7 +24,7 @@ export function Login() {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isLoading },
+    formState: { errors, isSubmitting },
   } = useForm<IFormAuth>({
     defaultValues: {
       email: '',
@@ -91,8 +91,8 @@ export function Login() {
         </main>
 
         <footer>
-          <button disabled={isLoading} type="submit">
-            {isLoading ? <Loading size={21} /> : 'Entrar'}
+          <button disabled={isSubmitting} type="submit">
+            {isSubmitting ? <Loading size={21} /> : 'Entrar'}
           </button>
 
           <Link className={style.link} href="/register">
