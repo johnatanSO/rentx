@@ -6,7 +6,10 @@
 <h4>Frontend </h4>
 <ul>
   
-    - NextJS 13 / ReactJS, 
+    - NextJS 13 / ReactJS,
+    - React Hook Form;
+    - Zod;
+    - Context API;
     - Sass / CSS (Modules);
     - Typescript / Javascript;
     - Axios;
