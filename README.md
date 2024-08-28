@@ -31,7 +31,7 @@
  
 ### ***Observação importante***
 #### É interessante que o sistema seja testado com uma conta de administrador, pois assim o usuário terá acesso à todas as funcionalidades disponíveis.
-#### Para criar a conta, é só ir em Login > Criar nova conta > Inserir todos os dados.
+#### Para criar a conta, é só ir em Login > Criar nova conta > Inserir todos os dados > Marcar a caixa "Administrador".
 
 <hr /> 
 
