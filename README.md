@@ -2,7 +2,9 @@
 
 <h3> 💻 Sobre o projeto</h3>
 
-<p>Esse é um sistema construído para realizar/gerenciar os alugueis de carros de um estabelecimento, feito utilizando as seguintes tecnologias:  </p>
+<p>Esse é um sistema construído para realizar/gerenciar os alugueis de carros de um estabelecimento.  </p>
+<p>Usuários comuns podem realizar alugueis e acompanhar os alugueis já realizados, e usuários admistrativos podem gerenciar todos os dados do sistema, como: Carros, categorias, alugueis, etc.</p>
+<h2>🚀 Tecnologias utilizadas </h2>
 <h4>Frontend </h4>
 <ul>
   
@@ -52,7 +54,7 @@
   <h4>(Usuário administrador)</h4>
   <ul>
     <li>Cadastro e gerenciamento de todos os carros, disponíveis ou indisponíveis com opção de editar as informações;</li>
-    <li>Upload de imagens dos carros (Armazenamento na AWS S3);</li>
+    <li>Upload de imagens dos carros (Armazenamento no Firebase);</li>
     <li>Cadastro e gerenciamento de categorias;</li>
     <li>Importação de categorias através de arquivo .CSV (Modelo de exemplo disponível para download na página);</li>
     <li>Cadastro e gerenciamento de especificações;</li>
