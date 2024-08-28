@@ -1,6 +1,6 @@
 import { usePathname, useRouter } from 'next/navigation'
 import { useContext, useEffect, useState } from 'react'
-import style from './Header.module.scss'
+import style from '../Header.module.scss'
 import { UserContext } from '@/contexts/userContext'
 import { LayoutContext } from '@/contexts/layoutContext'
 

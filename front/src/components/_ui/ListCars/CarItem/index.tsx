@@ -1,5 +1,5 @@
 'use client'
-import { useContext } from 'react'
+
 import Image from 'next/image'
 import style from './CarItem.module.scss'
 import unknownCarImage from '../../../../../public/assets/images/cars/unknownCarImage.png'
@@ -12,13 +12,10 @@ import {
   faArrowsRotate,
   faDroplet,
 } from '@fortawesome/free-solid-svg-icons'
-import { favoriteCarService } from '@/services/cars/favoriteCar/FavoriteCarService'
-import { AlertContext } from '@/contexts/alertContext'
-import { UserContext } from '@/contexts/userContext'
-import { useRouter } from 'next/navigation'
-import { httpClientProvider } from '@/providers/HttpClientProvider'
 import { ICarImage } from '@/models/interfaces/ICarImage'
 import { ISpecification } from '@/models/interfaces/ISpecification'
+import { useFavorite } from '../hooks/useFavorite'
+import { useCarItem } from '../hooks/useCarItem'
 
 type Props = {
   defaultImage: ICarImage
@@ -37,41 +34,8 @@ export function CarItem({
   specifications,
   transmission,
 }: Props) {
-  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
-  const { userInfo, setUserInfo } = useContext(UserContext)
-  const router = useRouter()
-
-  const favorited = userInfo
-    ? !!userInfo?.favoriteCars?.find((favoriteCarId) => favoriteCarId === carId)
-    : false
-
-  function favoriteCar(carId: string) {
-    if (!userInfo) {
-      router.push('/authenticate')
-      return
-    }
-
-    favoriteCarService(carId, httpClientProvider)
-      .then((res) => {
-        setUserInfo({
-          ...userInfo,
-          ...res.data.user,
-        })
-      })
-      .catch((err) => {
-        setAlertNotifyConfigs({
-          ...alertNotifyConfigs,
-          open: true,
-          text: `Erro ao tentar favoritar o carro - ${err?.message}`,
-          type: 'error',
-        })
-      })
-  }
-
-  function formatTransmissionType(type: string) {
-    if (type === 'automatic') return 'Automático'
-    return 'Manual'
-  }
+  const { favoriteCar, favorited } = useFavorite({ carId })
+  const { formatTransmissionType } = useCarItem()
 
   return (
     <li className={style.carItem}>

@@ -1,6 +1,6 @@
 import { usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
-import style from './SidebarManagement.module.scss'
+import style from '../SidebarManagement.module.scss'
 
 export function useSidebarManagement() {
   const pathname = usePathname()

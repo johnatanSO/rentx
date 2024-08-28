@@ -1,5 +1,5 @@
 import { usePathname, useRouter } from 'next/navigation'
-import style from './MobileManagementMenu.module.scss'
+import style from '../MobileManagementMenu.module.scss'
 import { useState } from 'react'
 
 export function useMobileManagementMenu() {

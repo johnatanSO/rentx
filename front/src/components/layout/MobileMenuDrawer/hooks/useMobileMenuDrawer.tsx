@@ -1,7 +1,7 @@
 import { LayoutContext } from '@/contexts/layoutContext'
 import { UserContext } from '@/contexts/userContext'
 import { useContext, useState } from 'react'
-import style from './MobileMenuDrawer.module.scss'
+import style from '../MobileMenuDrawer.module.scss'
 import { usePathname, useRouter } from 'next/navigation'
 
 export function useMobileMenuDrawer() {

@@ -11,7 +11,7 @@ import { useBrands } from './hooks/useBrands'
 export function Footer() {
   const year = new Date().getFullYear()
 
-  const brands = useBrands()
+  const { brands } = useBrands()
 
   return (
     <footer className={style.footerContainer}>
