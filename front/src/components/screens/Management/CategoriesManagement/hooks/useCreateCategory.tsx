@@ -27,8 +27,8 @@ export function useCreateCategory({ getCategories }: Props) {
     resolver: zodResolver(newCarSchema),
   })
 
-  function onCreateNewCategory(newCategory: INewCategory) {
-    createCategoryService(newCategory, httpClientProvider)
+  async function onCreateNewCategory(newCategory: INewCategory) {
+    await createCategoryService(newCategory, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,

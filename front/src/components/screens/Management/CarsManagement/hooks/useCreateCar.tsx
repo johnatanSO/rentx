@@ -33,8 +33,8 @@ export function useCreateCar() {
     resolver: zodResolver(newCarSchema),
   })
 
-  function onCreateNewCar(newCar: INewCar) {
-    createNewCarService({ ...newCar, image }, httpClientProvider)
+  async function onCreateNewCar(newCar: INewCar) {
+    await createNewCarService({ ...newCar, image }, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,

@@ -37,8 +37,8 @@ export function useEditRental({ rentalToEdit, handleClose }: Props) {
     resolver: zodResolver(rentalEditSchema),
   })
 
-  function onUpdateRental(rental: IRentalEdit) {
-    updateRentalService(
+  async function onUpdateRental(rental: IRentalEdit) {
+    await updateRentalService(
       { ...rental, _id: rental._id || '' },
       httpClientProvider,
     )

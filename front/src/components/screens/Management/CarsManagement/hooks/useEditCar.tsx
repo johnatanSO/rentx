@@ -35,8 +35,8 @@ export function useEditCar({ car }: Props) {
   const router = useRouter()
   const pathname = usePathname()
 
-  function onUpdateCarInfos(carData: IFormEditCar) {
-    updateCarInfosService(carData, httpClientProvider)
+  async function onUpdateCarInfos(carData: IFormEditCar) {
+    await updateCarInfosService(carData, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,

@@ -33,8 +33,8 @@ export function useCreateAccount() {
 
   const isAdmin = watch('isAdmin')
 
-  function onRegister(newUser: INewUser) {
-    createNewUserService(newUser, httpClientProvider)
+  async function onRegister(newUser: INewUser) {
+    await createNewUserService(newUser, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,

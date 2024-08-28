@@ -26,8 +26,8 @@ export function useEditUser() {
 
   const [editMode, setEditMode] = useState<boolean>(false)
 
-  function onUpdateUserInfos(newValuesUserInfo: INewValuesUserInfo) {
-    updateUserInfosService(newValuesUserInfo, httpClientProvider)
+  async function onUpdateUserInfos(newValuesUserInfo: INewValuesUserInfo) {
+    await updateUserInfosService(newValuesUserInfo, httpClientProvider)
       .then((res) => {
         setUserInfo({
           ...userInfo,

@@ -36,14 +36,14 @@ export function useFilterRentals() {
     [searchParams],
   )
 
-  function onFilterRentals(filters: IFilters) {
+  async function onFilterRentals(filters: IFilters) {
     const currentFilterEndDate = searchParams.get('filterEndDate')
 
     if (
       !currentFilterEndDate ||
       currentFilterEndDate !== filters.filterEndDate
     ) {
-      router.push(
+      await router.push(
         `${pathname}?${createQueryString(
           'filterEndDate',
           filters.filterEndDate || '',
@@ -57,7 +57,7 @@ export function useFilterRentals() {
       !currentFilterStartDate ||
       currentFilterStartDate !== filters.filterStartDate
     ) {
-      router.push(
+      await router.push(
         `${pathname}?${createQueryString(
           'filterStartDate',
           filters.filterStartDate || '',
@@ -68,7 +68,7 @@ export function useFilterRentals() {
     const currentFilterUser = searchParams.get('userId')
 
     if (currentFilterUser !== filters.userId) {
-      router.push(
+      await router.push(
         `${pathname}?${createQueryString('userId', filters.userId || '')}`,
       )
     }
@@ -76,7 +76,7 @@ export function useFilterRentals() {
     const currentFilterCar = searchParams.get('carId')
 
     if (currentFilterCar !== filters.carId) {
-      router.push(
+      await router.push(
         `${pathname}?${createQueryString('carId', filters.carId || '')}`,
       )
     }

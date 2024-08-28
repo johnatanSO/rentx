@@ -33,10 +33,10 @@ export function useAddSpecifications({ car, handleClose }: Props) {
   const router = useRouter()
   const pathname = usePathname()
 
-  function onAddSpecifications({
+  async function onAddSpecifications({
     selectedSpecificationsIds,
   }: IFormAddSpecifications) {
-    createCarSpecificationService(
+    await createCarSpecificationService(
       {
         carId: car._id,
         specificationsIds: selectedSpecificationsIds,

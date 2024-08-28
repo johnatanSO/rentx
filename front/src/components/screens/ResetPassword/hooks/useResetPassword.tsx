@@ -32,8 +32,11 @@ export function useResetPassword({ refreshToken }: Props) {
 
   const router = useRouter()
 
-  function onResetPassword({ password, confirmPassword }: IFormResetPassword) {
-    resetPasswordService(
+  async function onResetPassword({
+    password,
+    confirmPassword,
+  }: IFormResetPassword) {
+    await resetPasswordService(
       { password, confirmPassword, refreshToken },
       httpClientProvider,
     )

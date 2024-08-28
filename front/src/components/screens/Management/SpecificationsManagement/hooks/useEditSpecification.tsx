@@ -32,8 +32,8 @@ export function useEditSpecification({
     resolver: zodResolver(formEditSpecificationSchema),
   })
 
-  function onUpdateSpecification(specification: IFormEditSpecification) {
-    updateSpecificationService(specification, httpClientProvider)
+  async function onUpdateSpecification(specification: IFormEditSpecification) {
+    await updateSpecificationService(specification, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,

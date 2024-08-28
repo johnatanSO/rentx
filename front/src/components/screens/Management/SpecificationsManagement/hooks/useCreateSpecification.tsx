@@ -29,8 +29,8 @@ export function useCreateSpecification({ getSpecifications }: Props) {
     resolver: zodResolver(newSpecificationSchema),
   })
 
-  function onCreateNewSpecification(newSpecification: INewSpecification) {
-    createSpecificationService(newSpecification, httpClientProvider)
+  async function onCreateNewSpecification(newSpecification: INewSpecification) {
+    await createSpecificationService(newSpecification, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,

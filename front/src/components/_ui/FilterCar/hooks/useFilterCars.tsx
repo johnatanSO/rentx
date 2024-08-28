@@ -31,11 +31,11 @@ export function useFilterCars() {
     [searchParams],
   )
 
-  function onFilterCars(filters: IFilters) {
+  async function onFilterCars(filters: IFilters) {
     const currentName = searchParams.get('name')
 
     if (currentName !== filters.name) {
-      router.push(
+      await router.push(
         `${pathname}?${createQueryString('name', filters.name || '')}`,
       )
     }
@@ -43,7 +43,7 @@ export function useFilterCars() {
     const currentCategoryId = searchParams.get('categoryId')
 
     if (currentCategoryId !== filters.categoryId) {
-      router.push(
+      await router.push(
         `${pathname}?${createQueryString(
           'categoryId',
           filters.categoryId || '',

@@ -28,8 +28,8 @@ export function useAuthenticate() {
 
   const router = useRouter()
 
-  function onAuthenticate(formAuth: IFormAuth) {
-    authenticateUserService(formAuth, httpClientProvider)
+  async function onAuthenticate(formAuth: IFormAuth) {
+    await authenticateUserService(formAuth, httpClientProvider)
       .then((res) => {
         saveTokenService(res.data.token)
         saveRefreshToken(res.data.refreshToken)

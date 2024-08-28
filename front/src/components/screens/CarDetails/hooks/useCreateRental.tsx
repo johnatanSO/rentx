@@ -48,7 +48,7 @@ export function useCreateRental({ car }: Props) {
       return
     }
 
-    createRentalService(
+    await createRentalService(
       {
         carId: car._id,
         expectedReturnDate: newRental.expectedReturnDate,

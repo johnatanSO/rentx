@@ -30,13 +30,13 @@ export function useEditCategory({
 
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
 
-  function onUpdateCategory(category: IFormEditCategory) {
+  async function onUpdateCategory(category: IFormEditCategory) {
     const values = {
       ...category,
       _id: categoryToEdit?._id,
     }
 
-    updateCategoryService(values, httpClientProvider)
+    await updateCategoryService(values, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,

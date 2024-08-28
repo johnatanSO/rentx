@@ -24,8 +24,8 @@ export function useForgotPassword() {
     resolver: zodResolver(formForgotSchema),
   })
 
-  function onSendMail({ email }: IFormForgot) {
-    sendForgotPasswordService(email, httpClientProvider)
+  async function onSendMail({ email }: IFormForgot) {
+    await sendForgotPasswordService(email, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,

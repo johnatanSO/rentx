@@ -23,8 +23,8 @@ export function useContact() {
     resolver: zodResolver(formContactSchema),
   })
 
-  function onSendForm(formContact: IFormContact) {
-    sendContactService(formContact, httpClientProvider)
+  async function onSendForm(formContact: IFormContact) {
+    await sendContactService(formContact, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
