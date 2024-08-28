@@ -86,8 +86,8 @@
 <h4>Tela de login do sistema</h4>
 <table>
   <tr>
-    <td><img width="700px" src="https://github.com/user-attachments/assets/398220b9-f93c-4b60-917e-c1d633f1b73e" /></td>
-    <td><img height="470px" src="https://github.com/user-attachments/assets/6b4f9870-17e4-4831-b2f0-58001eb15f16" /></td>
+    <td><img src="https://github.com/user-attachments/assets/398220b9-f93c-4b60-917e-c1d633f1b73e" /></td>
+    <td><img width="700px" src="https://github.com/user-attachments/assets/6b4f9870-17e4-4831-b2f0-58001eb15f16" /></td>
   </tr>
 </table>
 <hr />
@@ -97,8 +97,8 @@
 <i>Recomendo cadastrar como administrador para que seja possível testar todas as funcionalidades do sistema</i>
 <table>
   <tr>
-    <td><img width="700px" src="https://github.com/user-attachments/assets/e1406edb-f064-4728-a272-c161bf2e88c8" /></td>
-    <td><img height="470px" src="https://github.com/user-attachments/assets/f3e10e47-b8f0-4081-8886-55a70132ab04" /></td>
+    <td><img src="https://github.com/user-attachments/assets/e1406edb-f064-4728-a272-c161bf2e88c8" /></td>
+    <td><img width="700px" src="https://github.com/user-attachments/assets/f3e10e47-b8f0-4081-8886-55a70132ab04" /></td>
   </tr>
 </table>
 <hr />
@@ -108,8 +108,8 @@
 <i>Para exibir o modal, basta clicar no avatar no canto superior direito e depois no nome do usuário</i>
 <table>
   <tr>
-    <td><img width="700px" src="https://github.com/user-attachments/assets/e2a1cd5e-d9c4-4ab1-a61b-19070c647dc2" /></td>
-    <td><img height="470px" src="https://github.com/user-attachments/assets/d119c70d-b26b-461b-8406-156dc093f648" /></td>
+    <td><img src="https://github.com/user-attachments/assets/e2a1cd5e-d9c4-4ab1-a61b-19070c647dc2" /></td>
+    <td><img width="700px" src="https://github.com/user-attachments/assets/d119c70d-b26b-461b-8406-156dc093f648" /></td>
   </tr>
 </table>
 <hr />
@@ -118,8 +118,8 @@
 <h4>Tela inicial para usuários</h4>
 <table>
   <tr>
-    <td><img width="700px" src="https://github.com/user-attachments/assets/4f71cbcc-6f63-4a51-9127-e5c86086787a" /></td>
-    <td><img height="470px" src="https://github.com/user-attachments/assets/ed556d41-d6b7-40ad-973c-2ea7ed64b482" /></td>
+    <td><img src="https://github.com/user-attachments/assets/4f71cbcc-6f63-4a51-9127-e5c86086787a" /></td>
+    <td><img width="700px" src="https://github.com/user-attachments/assets/ed556d41-d6b7-40ad-973c-2ea7ed64b482" /></td>
   </tr>
 </table>
 <hr />
@@ -129,8 +129,8 @@
 <i>Selecione a data que deseja e as informações referentes ao aluguel serão atualizadas</i>
 <table>
   <tr>
-    <td><img width="700px" src="https://github.com/user-attachments/assets/0ad8422c-7bd9-419f-afe7-2b1ef5cb1a98" /></td>
-    <td><img height="470px" src="https://github.com/user-attachments/assets/9d018af0-9143-4e5c-8ae4-8335262f15d3" /></td>
+    <td><img src="https://github.com/user-attachments/assets/0ad8422c-7bd9-419f-afe7-2b1ef5cb1a98" /></td>
+    <td><img width="700px" src="https://github.com/user-attachments/assets/9d018af0-9143-4e5c-8ae4-8335262f15d3" /></td>
   </tr>
 </table>
 <hr />
@@ -140,8 +140,8 @@
 <i>É exibido o status do aluguel e as informações referentes à ele. Para finalizar o aluguel, clique em "Devolver carro"</i>
 <table>
   <tr>
-    <td><img width="700px" src="https://github.com/user-attachments/assets/79d4f2f1-3b31-46c5-94f5-c0e5a36e6ff5" /></td>
-    <td><img height="470px" src="https://github.com/user-attachments/assets/de24ea1c-9ab5-4e31-b2de-66f2bd0a623f" /></td>
+    <td><img src="https://github.com/user-attachments/assets/79d4f2f1-3b31-46c5-94f5-c0e5a36e6ff5" /></td>
+    <td><img width="700px" src="https://github.com/user-attachments/assets/de24ea1c-9ab5-4e31-b2de-66f2bd0a623f" /></td>
   </tr>
 </table>
 <hr />
@@ -150,8 +150,8 @@
 <h4>Tela com os carros favoritados pelo usuário</h4>
 <table>
   <tr>
-    <td><img width="700px" src="https://github.com/user-attachments/assets/57d81822-a7bd-4fea-8dc6-2aaf56d07591" /></td>
-    <td><img height="470px" src="https://github.com/user-attachments/assets/05a41fb3-9cae-49ef-95ef-d69c7ef484e8" /></td>
+    <td><img src="https://github.com/user-attachments/assets/57d81822-a7bd-4fea-8dc6-2aaf56d07591" /></td>
+    <td><img width="700px" src="https://github.com/user-attachments/assets/05a41fb3-9cae-49ef-95ef-d69c7ef484e8" /></td>
   </tr>
 </table>
 <hr />
@@ -160,8 +160,8 @@
 <h4>Tela com informações sobre o sistema</h4>
 <table>
   <tr>
-    <td><img width="700px" src="https://github.com/user-attachments/assets/95e3828c-1d27-407b-9e5c-4d2a8302c331" /></td>
-    <td><img height="470px" src="https://github.com/user-attachments/assets/ccf1b10e-46b6-40fb-899c-7213106e79b9" /></td>
+    <td><img src="https://github.com/user-attachments/assets/95e3828c-1d27-407b-9e5c-4d2a8302c331" /></td>
+    <td><img width="700px" src="https://github.com/user-attachments/assets/ccf1b10e-46b6-40fb-899c-7213106e79b9" /></td>
   </tr>
 </table>
 <hr />
@@ -170,8 +170,8 @@
 <h4>Tela para contato</h4>
 <table>
   <tr>
-    <td><img width="700px" src="https://github.com/user-attachments/assets/fc8d3f30-49f0-4276-aefe-5d42c5b9e7ba" /></td>
-    <td><img height="470px" src="https://github.com/user-attachments/assets/6dabb885-82c4-4046-b55e-a9d3f0ea53b2" /></td>
+    <td><img src="https://github.com/user-attachments/assets/fc8d3f30-49f0-4276-aefe-5d42c5b9e7ba" /></td>
+    <td><img width="700px" src="https://github.com/user-attachments/assets/6dabb885-82c4-4046-b55e-a9d3f0ea53b2" /></td>
   </tr>
 </table>
 <hr />
@@ -181,8 +181,8 @@
 <i>Nesta tela são listados todos os carros cadastrados no sistema. Caso queira cadastrar um novo, é só clicar em "Cadastrar novo" no canto superior direito</i><br />
 <table>
   <tr>
-    <td><img width="700px" src="https://github.com/user-attachments/assets/c1051302-05bd-42dc-9d86-86e6d38d0b3d" /></td>
-    <td><img height="470px" src="https://github.com/user-attachments/assets/01935e20-f67a-480a-8613-f812061f6fb6" /></td>
+    <td><img src="https://github.com/user-attachments/assets/c1051302-05bd-42dc-9d86-86e6d38d0b3d" /></td>
+    <td><img width="700px" src="https://github.com/user-attachments/assets/01935e20-f67a-480a-8613-f812061f6fb6" /></td>
   </tr>
 </table>
 <hr />
@@ -192,8 +192,8 @@
 <i>Preencha as informações do carro, insira uma imagem caso queira e clique em "Finalizar" no canto superior direito</i>
 <table>
   <tr>
-    <td><img width="700px" src="https://github.com/user-attachments/assets/b28e8162-5e03-4c26-b1a1-035c1105c0c1" /></td>
-    <td><img height="470px" src="https://github.com/user-attachments/assets/974ba3ac-51ed-491c-a0de-85d602b9484e" /></td>
+    <td><img src="https://github.com/user-attachments/assets/b28e8162-5e03-4c26-b1a1-035c1105c0c1" /></td>
+    <td><img width="700px" src="https://github.com/user-attachments/assets/974ba3ac-51ed-491c-a0de-85d602b9484e" /></td>
   </tr>
 </table>
 <hr />
@@ -203,8 +203,8 @@
 <i>Nesta tela é possível alterar as informações do carro, como imagens, nome, placa, categoria, etc.</i>
 <table>
   <tr>
-    <td><img width="700px" src="https://github.com/user-attachments/assets/e192d540-48eb-452c-a330-550e5a250d0f" /></td>
-    <td><img height="470px" src="https://github.com/user-attachments/assets/743c892f-534d-493d-ade5-3e5dcb57d6d8" /></td>
+    <td><img src="https://github.com/user-attachments/assets/e192d540-48eb-452c-a330-550e5a250d0f" /></td>
+    <td><img width="700px" src="https://github.com/user-attachments/assets/743c892f-534d-493d-ade5-3e5dcb57d6d8" /></td>
   </tr>
 </table>
 <hr />
@@ -214,8 +214,8 @@
 <i>Nesta tela são listadas todas as categorias cadastradas com a possibilidade de editar, excluir ou cadastrar uma nova.</i>
 <table>
   <tr>
-    <td><img width="700px" src="https://github.com/user-attachments/assets/149b979b-eed0-4809-b502-e344e0ffefd4" /></td>
-    <td><img height="470px" src="https://github.com/user-attachments/assets/60863d94-844a-4da8-8bb0-fafe92664a82" /></td>
+    <td><img src="https://github.com/user-attachments/assets/149b979b-eed0-4809-b502-e344e0ffefd4" /></td>
+    <td><img width="700px" src="https://github.com/user-attachments/assets/60863d94-844a-4da8-8bb0-fafe92664a82" /></td>
   </tr>
 </table>
 <hr />
@@ -225,8 +225,8 @@
 <i>Nesta tela são listados todos os alugueis de todos os usuários</i>
 <table>
   <tr>
-    <td><img width="700px" src="https://github.com/user-attachments/assets/099482ad-125c-41dc-805b-b27a00e0036b" /></td>
-    <td><img height="470px" src="https://github.com/user-attachments/assets/46767fb6-100d-422f-a53a-a8cf5460b806" /></td>
+    <td><img src="https://github.com/user-attachments/assets/099482ad-125c-41dc-805b-b27a00e0036b" /></td>
+    <td><img width="700px" src="https://github.com/user-attachments/assets/46767fb6-100d-422f-a53a-a8cf5460b806" /></td>
   </tr>
 </table>
 <hr />
@@ -235,8 +235,8 @@
 <h4>Modal para edição de aluguel</h4>
 <table>
   <tr>
-    <td><img width="700px" src="https://github.com/user-attachments/assets/6c6e6e4e-5cdd-488b-8d2c-ea326268ad49" /></td>
-    <td><img height="470px" src="https://github.com/user-attachments/assets/72172834-1551-4962-bf99-ff3a4d395e0c" /></td>
+    <td><img src="https://github.com/user-attachments/assets/6c6e6e4e-5cdd-488b-8d2c-ea326268ad49" /></td>
+    <td><img width="700px" src="https://github.com/user-attachments/assets/72172834-1551-4962-bf99-ff3a4d395e0c" /></td>
   </tr>
 </table>
 <hr />
@@ -246,8 +246,8 @@
 <i>Nesta tela é possível importar categorias através de um arquivo .csv. Ele deverá estar formatado separado por pipe (pipe). Baixe o arquivo de exemplo.</i><br />
 <table>
   <tr>
-    <td><img width="700px" src="https://github.com/user-attachments/assets/8388a2a6-e155-460c-94b5-063d11db8e08" /></td>
-    <td><img height="470px" src="https://github.com/user-attachments/assets/a65758cd-66af-413e-9995-557828e91e45" /></td>
+    <td><img src="https://github.com/user-attachments/assets/8388a2a6-e155-460c-94b5-063d11db8e08" /></td>
+    <td><img width="700px" src="https://github.com/user-attachments/assets/a65758cd-66af-413e-9995-557828e91e45" /></td>
   </tr>
 </table>
 <hr />
