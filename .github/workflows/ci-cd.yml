@@ -18,6 +18,7 @@ jobs:
           node-version: 18
 
       - run: cd back
+      - run: ls
       - run: npm ci
       - run: npm run test
 
