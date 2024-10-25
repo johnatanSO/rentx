@@ -84,7 +84,7 @@ describe('Create rental', () => {
       await createRentalUseCase.execute({
         carId: fakeCarId.toString(),
         userId: fakeUserId.toString(),
-        expectedReturnDate: dayjs().add(5, 'hours').toDate(),
+        expectedReturnDate: dayjs().utc().add(5, 'hours').toDate(),
       })
     }).rejects.toBeInstanceOf(AppError)
   })
