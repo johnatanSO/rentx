@@ -2,7 +2,7 @@ import { Model } from 'mongoose'
 import { Car, CarModel } from '../../infra/mongoose/entities/Car'
 import { ICarsRepository, ICreateNewCarDTO } from './ICarsRepository'
 
-// asa
+// asa s
 export class CarsRepository implements ICarsRepository {
   private model: Model<Car>
   constructor() {
