@@ -19,10 +19,8 @@ jobs:
         with: 
           node-version: 18
 
-      - run: cd back
-      - run: ls
-      - run: npm install
-      - run: npm run test
+      - run: cd back && npm ci
+      - run: cd back && npm run test
 
   build-image:
     needs: tests
