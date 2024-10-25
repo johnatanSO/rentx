@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev --transpile-only ./src/shared/infra/http/server.ts",
+    "start:prod": "node dist/src/shared/infra/http/server.js",
     "build": "tsc",
     "test": "jest"
   },
