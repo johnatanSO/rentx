@@ -16,7 +16,8 @@ jobs:
         uses: actions/setup-node@v4
         with: 
           node-version: 18
-        
+
+      - run: cd back
       - run: npm ci
       - run: npm run test
 
@@ -33,7 +34,7 @@ jobs:
         run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
 
       - name: 'Build docker image'
-        run: docker build -t johnatanso/rentx-webservice -f Dockerfile.production .
+        run: docker build -t johnatanso/rentx-webservice -f /back/Dockerfile.production .
       
       - name: 'Push image to Docker Hu'
         run: docker push johnatanso/rentx-webservice:latest
