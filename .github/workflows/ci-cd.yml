@@ -19,8 +19,11 @@ jobs:
         with: 
           node-version: 18
 
-      - run: cd back && npm ci
+      - run: npm ci
+        working-directory: back
+
       - run: cd back && npm run test
+        working-directory: back
 
   build-image:
     needs: tests
