@@ -21,7 +21,7 @@ jobs:
 
       - run: cd back
       - run: ls
-      - run: npm ci
+      - run: npm install
       - run: npm run test
 
   build-image:
