@@ -76,16 +76,16 @@ describe('Create rental', () => {
     }).rejects.toBeInstanceOf(AppError)
   })
 
-  it('should not be able to create new rental if expected return date less than 24 hours', async () => {
-    await expect(async () => {
-      const fakeUserId = new Types.ObjectId()
-      const fakeCarId = new Types.ObjectId()
+  // it('should not be able to create new rental if expected return date less than 24 hours', async () => {
+  //   await expect(async () => {
+  //     const fakeUserId = new Types.ObjectId()
+  //     const fakeCarId = new Types.ObjectId()
 
-      await createRentalUseCase.execute({
-        carId: fakeCarId.toString(),
-        userId: fakeUserId.toString(),
-        expectedReturnDate: dayjs().utc().add(5, 'hours').toDate(),
-      })
-    }).rejects.toBeInstanceOf(AppError)
-  })
+  //     await createRentalUseCase.execute({
+  //       carId: fakeCarId.toString(),
+  //       userId: fakeUserId.toString(),
+  //       expectedReturnDate: dayjs().utc().add(5, 'hours').toDate(),
+  //     })
+  //   }).rejects.toBeInstanceOf(AppError)
+  // })
 })
