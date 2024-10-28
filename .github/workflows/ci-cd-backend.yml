@@ -46,3 +46,20 @@ jobs:
         run: docker push johnatanso/rentx-webservice:latest
         working-directory: back
 
+  deploy-app:
+    needs: build-image
+    name: 'Deploy aplication'
+    runs-on: self-hosted
+
+    steps:
+      - name: 'Login Docker Hub'
+        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+
+      - name: 'Removing old container'
+        run:  docker rm -f rentx-webservice
+      
+      - name: 'Pull image from Docker Hub'
+        run: docker pull johnatanso/rentx-webservice:latest
+      
+      - name: 'Run imagem'
+        run: docker run -d -p 3000:3000 --name rentx-webservice --restart always johnatanso/rentx-webservice
