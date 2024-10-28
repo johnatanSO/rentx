@@ -62,4 +62,4 @@ jobs:
         run: docker pull johnatanso/rentx-webservice:latest
       
       - name: 'Run imagem'
-        run: docker run -d -p 3000:3000 --name rentx-webservice --restart always johnatanso/rentx-webservice
+        run: docker run -d -p 3333:3333 --name rentx-webservice --restart always johnatanso/rentx-webservice
