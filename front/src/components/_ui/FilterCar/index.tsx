@@ -28,6 +28,7 @@ export function FilterCar() {
         className={style.input}
         {...register('name')}
       />
+
       <CustomTextField
         size="medium"
         label="Categoria"

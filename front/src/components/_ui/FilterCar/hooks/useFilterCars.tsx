@@ -34,16 +34,16 @@ export function useFilterCars() {
   async function onFilterCars(filters: IFilters) {
     const currentName = searchParams.get('name')
 
-    if (currentName !== filters.name) {
-      await router.push(
+    if (filters.name && currentName !== filters.name) {
+      router.push(
         `${pathname}?${createQueryString('name', filters.name || '')}`,
       )
     }
 
     const currentCategoryId = searchParams.get('categoryId')
 
-    if (currentCategoryId !== filters.categoryId) {
-      await router.push(
+    if (filters.categoryId && currentCategoryId !== filters.categoryId) {
+      router.push(
         `${pathname}?${createQueryString(
           'categoryId',
           filters.categoryId || '',

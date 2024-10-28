@@ -32,6 +32,10 @@
         background: $gray-color-100;
       }
     }
+
+    h2 {
+      color: $gray-color-400;
+    }
   }
 
   section {
@@ -54,6 +58,8 @@
         width: 100%;
         max-height: 500px;
         border: 1px solid $gray-color-200;
+
+        animation: appear 0.2s;
       }
 
       .otherImagesList {
@@ -202,5 +208,14 @@
         }
       }
     }
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

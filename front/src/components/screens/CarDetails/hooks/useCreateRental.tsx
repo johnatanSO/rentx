@@ -19,7 +19,7 @@ export function useCreateRental({ car }: Props) {
   const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
 
   const [displayImage, setDisplayImage] = useState<ICarImage>(
-    car.images[0] || car.defaultImage || null,
+    car.defaultImage || car.images[0] || null,
   )
 
   const router = useRouter()

@@ -51,9 +51,23 @@ export function CarDetails({ car }: Props) {
             alt="Imagem do carro"
           />
 
-          {car.images.length > 0 && (
-            <ul className={style.otherImagesList}>
-              {car.images.map((image) => {
+          <ul className={style.otherImagesList}>
+            <li
+              className={style.imageContainer}
+              onClick={() => {
+                setDisplayImage(car.defaultImage)
+              }}
+            >
+              <Image
+                className={style.image}
+                alt="Car image"
+                width={500}
+                height={300}
+                src={car.defaultImage?.path || unknownCarImage}
+              />
+            </li>
+            {car.images.length > 0 &&
+              car.images.map((image) => {
                 return (
                   <li
                     key={image._id}
@@ -72,8 +86,7 @@ export function CarDetails({ car }: Props) {
                   </li>
                 )
               })}
-            </ul>
-          )}
+          </ul>
         </div>
 
         <Divider flexItem orientation="vertical" />
