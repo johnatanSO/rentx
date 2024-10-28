@@ -36,10 +36,13 @@ jobs:
 
       - name: 'Login Docker Hub'
         run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+        working-directory: back
 
       - name: 'Build docker image'
-        run: docker build -t johnatanso/rentx-webservice -f back/Dockerfile.production .
+        run: docker build -t johnatanso/rentx-webservice -f Dockerfile.production .
+        working-directory: back
       
       - name: 'Push image to Docker Hu'
         run: docker push johnatanso/rentx-webservice:latest
+        working-directory: back
 
