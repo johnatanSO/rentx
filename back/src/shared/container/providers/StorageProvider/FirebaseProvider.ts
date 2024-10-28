@@ -45,6 +45,8 @@ export class FirebaseProvider implements IStorageProvider {
       stream.on('finish', async () => {
         await file.makePublic()
 
+        await fs.promises.unlink(originalName)
+
         const imageURL = `${this.STORAGE_URL}/${this.BUCKET_URL}/${folder}/${imageName}`
 
         resolve(imageURL)
