@@ -30,7 +30,7 @@ export function Login() {
             label="Senha"
             type="password"
             className={style.input}
-            {...register('email', { required: true })}
+            {...register('password', { required: true })}
             error={!!errors.password}
             helperText={errors.password && errors.password.message}
           />
