@@ -39,7 +39,7 @@ jobs:
         working-directory: back
 
       - name: 'Build docker image'
-        run: docker build -t johnatanso/rentx-webservice -f Dockerfile.production .
+        run: docker build -t johnatanso/rentx-webservice:latest -f Dockerfile.production .
         working-directory: back
       
       - name: 'Push image to Docker Hu'
