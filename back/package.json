@@ -52,11 +52,12 @@
     "nodemailer": "^6.9.8",
     "npm": "^10.4.0",
     "pg": "^8.11.3",
-    "reflect-metadata": "^0.1.13",
+    "reflect-metadata": "^0.1.14",
     "socket.io": "^4.7.3",
     "supertest": "^6.3.3",
     "swagger-ui-express": "^5.0.0",
     "tsyringe": "^4.8.0",
+    "typeorm": "^0.3.20",
     "uuid": "^9.0.0"
   }
 }

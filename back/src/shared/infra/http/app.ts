@@ -3,19 +3,20 @@ import express, { Express, NextFunction, Request, Response } from 'express'
 import 'express-async-errors'
 import { router } from './routes'
 import cors from 'cors'
-import dbConnection from '../mongodb'
+import dbConnection from '../typeorm'
 import '../../container'
 import { AppError } from '../../errors/AppError'
 import * as dotenv from 'dotenv'
-import { Mongoose } from 'mongoose'
+import { DataSource } from 'typeorm'
+
 dotenv.config()
 
 interface CustomExpress extends Express {
-  mongo?: Mongoose
+  db?: DataSource
 }
 
 const app: CustomExpress = express()
-app.mongo = dbConnection
+app.db = dbConnection
 
 app.use(express.json())
 app.use(cors())

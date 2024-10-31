@@ -1,5 +1,5 @@
-import { Car } from '../../../cars/infra/mongoose/entities/Car'
-import { IUser } from '../../infra/mongoose/entities/User'
+import { Car } from '../../../cars/infra/typeorm/entities/Car'
+import { User } from '../../infra/typeorm/entities/User'
 
 export interface ICreateUserDTO {
   name: string
@@ -10,12 +10,12 @@ export interface ICreateUserDTO {
 }
 
 export interface IUsersRepository {
-  create: (newUserData: ICreateUserDTO) => Promise<IUser>
-  findByEmail: (email: string) => Promise<IUser>
-  findById: (_id: string) => Promise<IUser>
+  create: (newUserData: ICreateUserDTO) => Promise<User>
+  findByEmail: (email: string) => Promise<User>
+  findById: (_id: string) => Promise<User>
   update: (filters: any, updateFields: any) => Promise<void>
   addCarToFavorite: (carId: string, userId: string) => Promise<void>
   removeFavoritedCar: (carId: string, userId: string) => Promise<void>
-  list: () => Promise<IUser[]>
+  list: () => Promise<User[]>
   listFavoriteCars(userId: string): Promise<Car[]>
 }
