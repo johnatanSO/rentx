@@ -2,10 +2,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
   ManyToMany,
   ManyToOne,
-  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm'
@@ -40,20 +38,19 @@ export class Car {
   @Column()
   brand: string
 
-  @ManyToOne(() => Category, (category) => category)
+  @ManyToOne(() => Category, (category) => category._id)
   category: Category
 
   @CreateDateColumn()
   createdAt: Date
 
-  @OneToMany(() => CarImage, (image) => image)
+  @OneToOne(() => CarImage, (image) => image._id)
   images: CarImage[]
 
-  @OneToOne(() => CarImage, (image) => image)
+  @OneToOne(() => CarImage, (image) => image._id)
   defaultImage: CarImage
 
-  @ManyToMany(() => Specification, (specification) => specification.cars)
-  @JoinTable()
+  @ManyToMany(() => Specification, (specification) => specification._id)
   specifications: Specification[]
 
   @Column()
@@ -63,6 +60,6 @@ export class Car {
   transmission: string
 
   constructor(newCarData: ICreateNewCarDTO) {
-    Object.assign(newCarData)
+    Object.assign(this, newCarData)
   }
 }

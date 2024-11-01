@@ -41,6 +41,6 @@ export class User {
   favoriteCars: Car[]
 
   constructor(userData: ICreateUserDTO) {
-    Object.assign(userData)
+    Object.assign(this, userData)
   }
 }

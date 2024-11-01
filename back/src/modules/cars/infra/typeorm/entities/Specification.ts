@@ -7,10 +7,10 @@ export class Specification {
   @PrimaryGeneratedColumn('uuid')
   _id: string
 
-  @ManyToMany(() => Car, (car) => car.specifications)
+  @ManyToMany(() => Car, (car) => car._id)
   cars: Car[]
 
   constructor(newSpecificationData: ICreateSpecificationDTO) {
-    Object.assign(newSpecificationData)
+    Object.assign(this, newSpecificationData)
   }
 }
