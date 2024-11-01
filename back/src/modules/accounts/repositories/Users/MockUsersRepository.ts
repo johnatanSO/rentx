@@ -1,7 +1,8 @@
 import { Types } from 'mongoose'
 import { IUser } from '../../infra/mongoose/entities/User'
-import { ICreateUserDTO, IUsersRepository } from './IUsersRepository'
+import { IUsersRepository } from './IUsersRepository'
 import { Car } from '../../../cars/infra/mongoose/entities/Car'
+import { ICreateUserDTO } from '../../dtos/User'
 
 export class MockUsersRepository implements IUsersRepository {
   users: IUser[]

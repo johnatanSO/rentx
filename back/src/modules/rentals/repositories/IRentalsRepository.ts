@@ -1,10 +1,5 @@
+import { ICreateRentalDTO } from '../dtos/Rental'
 import { Rental } from '../infra/mongoose/entities/Rental'
-
-export interface ICreateRentalDTO {
-  userId: string
-  carId: string
-  expectedReturnDate: Date
-}
 
 export interface IListRentalsDTO {
   userId: string
