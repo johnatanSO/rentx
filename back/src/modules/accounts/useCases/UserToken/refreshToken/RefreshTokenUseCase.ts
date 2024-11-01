@@ -4,6 +4,7 @@ import { IUsersTokensRepository } from '../../../repositories/UsersTokens/IUsers
 import auth from '../../../../../config/auth'
 import { AppError } from '../../../../../shared/errors/AppError'
 import { IDateProvider } from '../../../../../shared/container/providers/DateProvider/IDateProvider'
+import { UserToken } from '../../../infra/typeorm/entities/UserToken'
 
 interface IPayload {
   sub: string
@@ -54,11 +55,13 @@ export class RefreshTokenUseCase {
 
     const expiresDate = this.dateProvider.addDays(auth.expiresRefreshTokenDays)
 
-    await this.usersTokensRepository.create({
+    const newUserToken = new UserToken({
       user: userId,
       refreshToken,
       expiresDate,
     })
+
+    await this.usersTokensRepository.save(newUserToken)
 
     const newToken = sign({}, auth.secretToken, {
       subject: userId,
