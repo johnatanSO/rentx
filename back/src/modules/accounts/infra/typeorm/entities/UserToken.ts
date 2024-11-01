@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm'
 import { User } from './User'
-import { ICreateUserTokenDTO } from '../../../repositories/UsersTokens/IUsersTokensRepository'
+import { ICreateUserTokenDTO } from '../../../dtos/UserTokens'
 
 @Entity('usertoken')
 export class UserToken {

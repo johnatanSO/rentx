@@ -1,8 +1,8 @@
 import { inject, injectable } from 'tsyringe'
-import { IUser } from '../../../infra/mongoose/entities/User'
 import { IUsersRepository } from '../../../repositories/Users/IUsersRepository'
 import { hash } from 'bcrypt'
 import { AppError } from '../../../../../shared/errors/AppError'
+import { User } from '../../../infra/typeorm/entities/User'
 
 interface IRequest {
   name: string
@@ -27,8 +27,11 @@ export class CreateNewUserUseCase {
     confirmPassword,
     driverLicense,
     isAdmin,
-  }: IRequest): Promise<IUser> {
+  }: IRequest): Promise<User> {
+    if (!email) throw new AppError('E-mail não enviado')
+
     const alreadyExistUser = await this.usersRepository.findByEmail(email)
+
     if (alreadyExistUser) {
       throw new AppError('Já existe um usuário com este e-mail cadastrado')
     }
@@ -38,13 +41,16 @@ export class CreateNewUserUseCase {
     }
 
     const hashPassword = await hash(password, 10)
-    const newUser = await this.usersRepository.create({
+    const newUser = new User({
       name,
       email,
       password: hashPassword,
+      confirmPassword,
       driverLicense,
       isAdmin,
     })
+
+    await this.usersRepository.save(newUser)
 
     return newUser
   }

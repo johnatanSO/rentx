@@ -14,6 +14,8 @@ import { RentalsRepository } from '../../modules/rentals/repositories/RentalsRep
 import './providers'
 import { IUsersTokensRepository } from '../../modules/accounts/repositories/UsersTokens/IUsersTokensRepository'
 import { UsersTokensRepository } from '../../modules/accounts/repositories/UsersTokens/UsersTokensRepository'
+import { TypeOrmUsersRepository } from '../../modules/accounts/repositories/Users/TypeormUsersRepository'
+import { TypeormUsersTokensRepository } from '../../modules/accounts/repositories/UsersTokens/TypeormUsersTokensRepository'
 
 container.registerSingleton<ICategoriesRepository>(
   'CategoriesRepository',
@@ -27,7 +29,7 @@ container.registerSingleton<ISpecificationsRepository>(
 
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
-  UsersRepository,
+  TypeOrmUsersRepository,
 )
 
 container.registerSingleton<ICarsImagesRepository>(
@@ -42,7 +44,7 @@ container.registerSingleton<IRentalsRepository>(
 
 container.registerSingleton<IUsersTokensRepository>(
   'UsersTokensRepository',
-  UsersTokensRepository,
+  TypeormUsersTokensRepository,
 )
 
 container.registerSingleton<ICarsRepository>('CarsRepository', CarsRepository)
