@@ -1,6 +1,6 @@
 import { Types } from 'mongoose'
 import { AppError } from '../../../../shared/errors/AppError'
-import { MockRentalsRepository } from '../../repositories/MockRentalsRepository'
+import { MockRentalsRepository } from '../../repositories/in-memory/MockRentalsRepository'
 import { UpdateRentalUseCase } from './UpdateRentalUseCase'
 import { DayjsDateProvider } from '../../../../shared/container/providers/DateProvider/DayjsDateProvider'
 

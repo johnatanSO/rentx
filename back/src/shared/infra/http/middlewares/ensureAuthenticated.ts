@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import { verify } from 'jsonwebtoken'
 import { AppError } from '../../../errors/AppError'
 import auth from '../../../../config/auth'
-import { UsersRepository } from '../../../../modules/accounts/repositories/Users/UsersRepository'
+import { TypeormUsersRepository } from '../../../../modules/accounts/infra/typeorm/repositories/TypeormUsersRepository'
 
 export async function ensureAuthenticated(
   req: Request,
@@ -17,7 +17,7 @@ export async function ensureAuthenticated(
     const { secretToken } = auth
     const { sub: userId } = verify(token, secretToken)
 
-    const usersRepository = new UsersRepository()
+    const usersRepository = new TypeormUsersRepository()
     const user = await usersRepository.findById(userId.toString())
 
     if (!user) throw new AppError('Usuário inválido', 401)

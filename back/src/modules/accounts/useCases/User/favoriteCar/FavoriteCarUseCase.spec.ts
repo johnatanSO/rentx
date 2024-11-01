@@ -1,5 +1,5 @@
 import { Types } from 'mongoose'
-import { MockUsersRepository } from '../../../repositories/Users/MockUsersRepository'
+import { MockUsersRepository } from '../../../repositories/in-memory/MockUsersRepository'
 import { FavoriteCarUseCase } from './FavoriteCarUseCase'
 import { AppError } from '../../../../../shared/errors/AppError'
 

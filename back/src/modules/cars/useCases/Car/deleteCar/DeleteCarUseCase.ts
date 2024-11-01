@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 import { AppError } from '../../../../../shared/errors/AppError'
-import { ICarsRepository } from '../../../repositories/Cars/ICarsRepository'
+import { ICarsRepository } from '../../../repositories/ICarsRepository'
 
 @injectable()
 export class DeleteCarUseCase {

@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 import { IUser } from '../../../infra/mongoose/entities/User'
-import { IUsersRepository } from '../../../repositories/Users/IUsersRepository'
+import { IUsersRepository } from '../../../repositories/IUsersRepository'
 
 @injectable()
 export class ListAllUsersUseCase {

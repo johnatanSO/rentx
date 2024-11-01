@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe'
-import { ICarsRepository } from '../../../repositories/Cars/ICarsRepository'
+import { ICarsRepository } from '../../../repositories/ICarsRepository'
 import { Car } from '../../../infra/mongoose/entities/Car'
 
 @injectable()

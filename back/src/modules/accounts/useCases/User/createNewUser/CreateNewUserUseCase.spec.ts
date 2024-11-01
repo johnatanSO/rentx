@@ -1,5 +1,5 @@
 import { CreateNewUserUseCase } from './CreateNewUserUseCase'
-import { MockUsersRepository } from '../../../repositories/Users/MockUsersRepository'
+import { MockUsersRepository } from '../../../repositories/in-memory/MockUsersRepository'
 import { AppError } from '../../../../../shared/errors/AppError'
 
 let mockUsersRepository: MockUsersRepository

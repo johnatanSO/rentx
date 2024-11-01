@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 import { Category } from '../../../infra/mongoose/entities/Category'
-import { ICategoriesRepository } from '../../../repositories/Categories/ICategoriesRepository'
+import { ICategoriesRepository } from '../../../repositories/ICategoriesRepository'
 
 @injectable()
 export class ListCategoriesUseCase {

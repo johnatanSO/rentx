@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe'
-import { ICarsRepository } from '../../../repositories/Cars/ICarsRepository'
-import { ICarsImagesRepository } from '../../../repositories/CarsImages/ICarsImagesRepository'
+import { ICarsRepository } from '../../../repositories/ICarsRepository'
+import { ICarsImagesRepository } from '../../../repositories/ICarsImagesRepository'
 import { IStorageProvider } from '../../../../../shared/container/providers/StorageProvider/IStorageProvider'
 import { AppError } from '../../../../../shared/errors/AppError'
 

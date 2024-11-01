@@ -1,4 +1,4 @@
-import { MockUsersRepository } from '../../../repositories/Users/MockUsersRepository'
+import { MockUsersRepository } from '../../../repositories/in-memory/MockUsersRepository'
 import { ListAllUsersUseCase } from './ListAllUsersUseCase'
 
 let mockUserSRepository: MockUsersRepository

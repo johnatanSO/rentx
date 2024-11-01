@@ -1,7 +1,7 @@
 import { sign } from 'jsonwebtoken'
 import { DayjsDateProvider } from '../../../../../shared/container/providers/DateProvider/DayjsDateProvider'
 import { AppError } from '../../../../../shared/errors/AppError'
-import { MockUsersTokensRepository } from '../../../repositories/UsersTokens/MockUsersTokensRepository'
+import { MockUsersTokensRepository } from '../../../repositories/in-memory/MockUsersTokensRepository'
 import { RefreshTokenUseCase } from './RefreshTokenUseCase'
 import auth from '../../../../../config/auth'
 import dayjs from 'dayjs'

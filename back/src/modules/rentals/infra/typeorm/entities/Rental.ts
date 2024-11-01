@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -15,17 +16,25 @@ export class Rental {
   @PrimaryGeneratedColumn('uuid')
   _id: string
 
-  @ManyToOne(() => Car, (car) => car._id)
+  @Column()
+  carId: string
+
+  @ManyToOne(() => Car)
+  @JoinColumn({ name: 'carId' })
   car: Car
 
-  @ManyToOne(() => User, (user) => user._id)
+  @Column()
+  userId: string
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'userId' })
   user: User
 
   @Column()
-  startDate: Date
+  startDate: string
 
   @Column()
-  endDate: Date
+  endDate: string
 
   @Column()
   expectedReturnDate: Date

@@ -1,6 +1,6 @@
-import { ICreateCategoryDTO } from './../../../repositories/Categories/ICategoriesRepository'
+import { ICreateCategoryDTO } from '../../../repositories/ICategoriesRepository'
 import { Category } from '../../../infra/mongoose/entities/Category'
-import { ICategoriesRepository } from '../../../repositories/Categories/ICategoriesRepository'
+import { ICategoriesRepository } from '../../../repositories/ICategoriesRepository'
 import { inject, injectable } from 'tsyringe'
 import { AppError } from '../../../../../shared/errors/AppError'
 

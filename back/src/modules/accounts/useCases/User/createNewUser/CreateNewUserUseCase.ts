@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe'
-import { IUsersRepository } from '../../../repositories/Users/IUsersRepository'
+import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { hash } from 'bcrypt'
 import { AppError } from '../../../../../shared/errors/AppError'
 import { User } from '../../../infra/typeorm/entities/User'
@@ -41,16 +41,14 @@ export class CreateNewUserUseCase {
     }
 
     const hashPassword = await hash(password, 10)
-    const newUser = new User({
+
+    const newUser = await this.usersRepository.create({
       name,
       email,
       password: hashPassword,
-      confirmPassword,
       driverLicense,
       isAdmin,
     })
-
-    await this.usersRepository.save(newUser)
 
     return newUser
   }

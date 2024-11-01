@@ -1,4 +1,4 @@
-import { ICategoriesRepository } from '../../../repositories/Categories/ICategoriesRepository'
+import { ICategoriesRepository } from '../../../repositories/ICategoriesRepository'
 import fs from 'fs'
 import { parse } from 'csv-parse'
 import { Category } from '../../../infra/mongoose/entities/Category'

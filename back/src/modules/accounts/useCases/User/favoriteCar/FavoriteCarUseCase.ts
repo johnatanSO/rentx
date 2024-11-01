@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe'
-import { IUsersRepository } from '../../../repositories/Users/IUsersRepository'
+import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { AppError } from '../../../../../shared/errors/AppError'
 import { IUser } from '../../../infra/mongoose/entities/User'
 

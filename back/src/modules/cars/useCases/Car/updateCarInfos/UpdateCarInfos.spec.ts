@@ -1,4 +1,4 @@
-import { ICarsRepository } from './../../../repositories/Cars/ICarsRepository'
+import { ICarsRepository } from '../../../repositories/ICarsRepository'
 import { MockCarsRepository } from '../../../repositories/Cars/MockCarsRepository'
 import { Types } from 'mongoose'
 import { UpdateCarInfosUseCase } from './UpdateCarInfosUseCase'

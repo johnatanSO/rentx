@@ -1,14 +1,24 @@
-import { Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm'
-import { ICreateSpecificationDTO } from '../../../repositories/Specifitacions/ISpecificationsRepository'
-import { Car } from './Car'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
+import { ICreateSpecificationDTO } from '../../../dtos/Specification'
 
 @Entity('specification')
 export class Specification {
   @PrimaryGeneratedColumn('uuid')
   _id: string
 
-  @ManyToMany(() => Car, (car) => car._id)
-  cars: Car[]
+  @Column()
+  name: string
+
+  @Column()
+  description: string
+
+  @CreateDateColumn()
+  createdAt: Date
 
   constructor(newSpecificationData: ICreateSpecificationDTO) {
     Object.assign(this, newSpecificationData)

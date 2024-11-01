@@ -1,45 +1,43 @@
 import { container } from 'tsyringe'
-import { IUsersRepository } from '../../modules/accounts/repositories/Users/IUsersRepository'
-import { UsersRepository } from '../../modules/accounts/repositories/Users/UsersRepository'
-import { CarsRepository } from '../../modules/cars/repositories/Cars/CarsRepository'
-import { ICarsRepository } from '../../modules/cars/repositories/Cars/ICarsRepository'
-import { CarsImagesRepository } from '../../modules/cars/repositories/CarsImages/CarsImagesRepository'
-import { ICarsImagesRepository } from '../../modules/cars/repositories/CarsImages/ICarsImagesRepository'
-import CategoriesRepository from '../../modules/cars/repositories/Categories/CategoriesRepository'
-import { ICategoriesRepository } from '../../modules/cars/repositories/Categories/ICategoriesRepository'
-import { ISpecificationsRepository } from '../../modules/cars/repositories/Specifitacions/ISpecificationsRepository'
-import { SpecificationsRepository } from '../../modules/cars/repositories/Specifitacions/SpecificationsRepository'
+import { IUsersRepository } from '../../modules/accounts/repositories/IUsersRepository'
+import { ICarsRepository } from '../../modules/cars/repositories/ICarsRepository'
+import { ICarsImagesRepository } from '../../modules/cars/repositories/ICarsImagesRepository'
+import { ICategoriesRepository } from '../../modules/cars/repositories/ICategoriesRepository'
+import { ISpecificationsRepository } from '../../modules/cars/repositories/ISpecificationsRepository'
 import { IRentalsRepository } from '../../modules/rentals/repositories/IRentalsRepository'
-import { RentalsRepository } from '../../modules/rentals/repositories/RentalsRepository'
+import { IUsersTokensRepository } from '../../modules/accounts/repositories/IUsersTokensRepository'
+import { TypeormCategoriesRepository } from '../../modules/cars/infra/typeorm/repositories/TypeormCategoriesRepository'
+import { TypeormSpecificationsRepository } from '../../modules/cars/infra/typeorm/repositories/TypeormSpecificationsRepository'
+import { TypeormCarsImagesRepository } from '../../modules/cars/infra/typeorm/repositories/TypeormCarsImagesRepository'
+import { TypeormRentalsRepository } from '../../modules/rentals/infra/typeorm/repositories/TypeormRentalsRepository'
+import { TypeormUsersTokensRepository } from '../../modules/accounts/infra/typeorm/repositories/TypeormUsersTokensRepository'
+import { TypeormCarsRepository } from '../../modules/cars/infra/typeorm/repositories/TypeormCarsRepository'
+import { TypeormUsersRepository } from '../../modules/accounts/infra/typeorm/repositories/TypeormUsersRepository'
 import './providers'
-import { IUsersTokensRepository } from '../../modules/accounts/repositories/UsersTokens/IUsersTokensRepository'
-import { UsersTokensRepository } from '../../modules/accounts/repositories/UsersTokens/UsersTokensRepository'
-import { TypeOrmUsersRepository } from '../../modules/accounts/repositories/Users/TypeormUsersRepository'
-import { TypeormUsersTokensRepository } from '../../modules/accounts/repositories/UsersTokens/TypeormUsersTokensRepository'
 
 container.registerSingleton<ICategoriesRepository>(
   'CategoriesRepository',
-  CategoriesRepository,
+  TypeormCategoriesRepository,
 )
 
 container.registerSingleton<ISpecificationsRepository>(
   'SpecificationsRepository',
-  SpecificationsRepository,
+  TypeormSpecificationsRepository,
 )
 
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
-  TypeOrmUsersRepository,
+  TypeormUsersRepository,
 )
 
 container.registerSingleton<ICarsImagesRepository>(
   'CarsImagesRepository',
-  CarsImagesRepository,
+  TypeormCarsImagesRepository,
 )
 
 container.registerSingleton<IRentalsRepository>(
   'RentalsRepository',
-  RentalsRepository,
+  TypeormRentalsRepository,
 )
 
 container.registerSingleton<IUsersTokensRepository>(
@@ -47,4 +45,7 @@ container.registerSingleton<IUsersTokensRepository>(
   TypeormUsersTokensRepository,
 )
 
-container.registerSingleton<ICarsRepository>('CarsRepository', CarsRepository)
+container.registerSingleton<ICarsRepository>(
+  'CarsRepository',
+  TypeormCarsRepository,
+)

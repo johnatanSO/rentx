@@ -1,5 +1,5 @@
 export interface ICreateUserTokenDTO {
-  user: string
+  userId: string
   expiresDate: Date
   refreshToken: string
 }

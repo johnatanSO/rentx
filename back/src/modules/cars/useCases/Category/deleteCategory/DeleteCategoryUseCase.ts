@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe'
-import { ICategoriesRepository } from '../../../repositories/Categories/ICategoriesRepository'
+import { ICategoriesRepository } from '../../../repositories/ICategoriesRepository'
 import { AppError } from '../../../../../shared/errors/AppError'
 
 @injectable()

@@ -1,6 +1,6 @@
-import { UsersRepository } from './../../../../modules/accounts/repositories/Users/UsersRepository'
 import { NextFunction, Request, Response } from 'express'
 import { AppError } from '../../../errors/AppError'
+import { TypeormUsersRepository } from '../../../../modules/accounts/infra/typeorm/repositories/TypeormUsersRepository'
 
 export async function ensureAdmin(
   req: Request,
@@ -9,7 +9,7 @@ export async function ensureAdmin(
 ) {
   const { _id: idUser } = req.user
 
-  const usersRepository = new UsersRepository()
+  const usersRepository = new TypeormUsersRepository()
 
   const user = await usersRepository.findById(idUser)
 

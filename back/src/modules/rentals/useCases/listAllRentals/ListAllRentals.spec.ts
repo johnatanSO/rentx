@@ -1,5 +1,5 @@
 import { Types } from 'mongoose'
-import { MockRentalsRepository } from '../../repositories/MockRentalsRepository'
+import { MockRentalsRepository } from '../../repositories/in-memory/MockRentalsRepository'
 import { ListAllRentalsUseCase } from './ListAllRentalsUseCase'
 import dayjs from 'dayjs'
 

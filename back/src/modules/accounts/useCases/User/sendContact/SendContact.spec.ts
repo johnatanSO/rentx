@@ -1,6 +1,6 @@
 import { MockMailProvider } from '../../../../../shared/container/providers/MailProvider/MockMailProvider'
 import { AppError } from '../../../../../shared/errors/AppError'
-import { MockUsersRepository } from '../../../repositories/Users/MockUsersRepository'
+import { MockUsersRepository } from '../../../repositories/in-memory/MockUsersRepository'
 import { SendContactUseCase } from './SendContactUseCase'
 
 let mockUsersRepository: MockUsersRepository

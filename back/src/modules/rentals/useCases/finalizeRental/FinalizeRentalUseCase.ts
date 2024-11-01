@@ -1,8 +1,8 @@
 import { inject, injectable } from 'tsyringe'
 import { IRentalsRepository } from '../../repositories/IRentalsRepository'
-import { ICarsRepository } from '../../../cars/repositories/Cars/ICarsRepository'
+import { ICarsRepository } from '../../../cars/repositories/ICarsRepository'
 import { AppError } from '../../../../shared/errors/AppError'
-import { IUsersRepository } from '../../../accounts/repositories/Users/IUsersRepository'
+import { IUsersRepository } from '../../../accounts/repositories/IUsersRepository'
 import { IDateProvider } from '../../../../shared/container/providers/DateProvider/IDateProvider'
 
 interface IRequest {

@@ -1,5 +1,5 @@
-import { ISpecificationsRepository } from './../../../repositories/Specifitacions/ISpecificationsRepository'
-import { ICarsRepository } from './../../../repositories/Cars/ICarsRepository'
+import { ISpecificationsRepository } from '../../../repositories/ISpecificationsRepository'
+import { ICarsRepository } from '../../../repositories/ICarsRepository'
 import { inject, injectable } from 'tsyringe'
 import { AppError } from '../../../../../shared/errors/AppError'
 

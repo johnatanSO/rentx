@@ -1,8 +1,8 @@
 import { DayjsDateProvider } from '../../../../../shared/container/providers/DateProvider/DayjsDateProvider'
 import { MockMailProvider } from '../../../../../shared/container/providers/MailProvider/MockMailProvider'
 import { AppError } from '../../../../../shared/errors/AppError'
-import { MockUsersRepository } from '../../../repositories/Users/MockUsersRepository'
-import { MockUsersTokensRepository } from '../../../repositories/UsersTokens/MockUsersTokensRepository'
+import { MockUsersRepository } from '../../../repositories/in-memory/MockUsersRepository'
+import { MockUsersTokensRepository } from '../../../repositories/in-memory/MockUsersTokensRepository'
 import { SendForgotPasswordMailUseCase } from './SendForgotPasswordMailUseCase'
 
 let mockUsersRepository: MockUsersRepository

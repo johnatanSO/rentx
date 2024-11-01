@@ -1,5 +1,4 @@
 import { DataSource } from 'typeorm'
-import {} from '../../../modules/accounts/infra/mongoose/entities/User'
 import path from 'path'
 
 export const myDataSource = new DataSource({

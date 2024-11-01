@@ -1,9 +1,10 @@
 import { inject, injectable } from 'tsyringe'
 import { AppError } from '../../../../shared/errors/AppError'
-import { Rental } from '../../infra/mongoose/entities/Rental'
+
 import { IRentalsRepository } from '../../repositories/IRentalsRepository'
 import { IDateProvider } from '../../../../shared/container/providers/DateProvider/IDateProvider'
-import { ICarsRepository } from '../../../cars/repositories/Cars/ICarsRepository'
+import { ICarsRepository } from '../../../cars/repositories/ICarsRepository'
+import { Rental } from '../../infra/typeorm/entities/Rental'
 
 interface IRequest {
   userId: string
@@ -67,10 +68,12 @@ export class CreateRentalUseCase {
       expectedReturnDate: expectedReturnDateEndDay,
     })
 
-    await this.carsRepository.updateOne(carId, {
-      avaliable: false,
-      reasonUnavaliable: 'Carro está alugado no momento',
-    })
+    const car = await this.carsRepository.findById(carId)
+
+    car.avaliable = false
+    car.reasonUnavaliable = 'Carro está alugado no momento'
+
+    await this.carsRepository.update(car)
 
     return newRental
   }

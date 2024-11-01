@@ -1,5 +1,5 @@
 import { AppError } from '../../../../../shared/errors/AppError'
-import { MockUsersRepository } from '../../../repositories/Users/MockUsersRepository'
+import { MockUsersRepository } from '../../../repositories/in-memory/MockUsersRepository'
 import { UpdateUserInfosUseCase } from './UpdateUserInfosUseCase'
 
 let mockUsersRepository: MockUsersRepository

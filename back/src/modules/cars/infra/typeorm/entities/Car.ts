@@ -2,12 +2,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm'
-import { ICreateNewCarDTO } from '../../../repositories/Cars/ICarsRepository'
+import { ICreateNewCarDTO } from '../../../dtos/Car'
 import { Category } from './Category'
 import { CarImage } from './CarImage'
 import { Specification } from './Specification'
@@ -38,19 +40,23 @@ export class Car {
   @Column()
   brand: string
 
+  @Column()
+  categoryId: string
+
   @ManyToOne(() => Category, (category) => category._id)
+  @JoinColumn({ name: 'categoryId' })
   category: Category
 
   @CreateDateColumn()
   createdAt: Date
 
-  @OneToOne(() => CarImage, (image) => image._id)
+  @OneToMany(() => CarImage, (image) => image._id)
   images: CarImage[]
 
   @OneToOne(() => CarImage, (image) => image._id)
   defaultImage: CarImage
 
-  @ManyToMany(() => Specification, (specification) => specification._id)
+  @ManyToMany(() => Specification)
   specifications: Specification[]
 
   @Column()

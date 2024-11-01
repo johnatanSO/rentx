@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 import { Specification } from '../../../infra/mongoose/entities/Specification'
-import { ISpecificationsRepository } from '../../../repositories/Specifitacions/ISpecificationsRepository'
+import { ISpecificationsRepository } from '../../../repositories/ISpecificationsRepository'
 
 @injectable()
 export class ListSpecificationsUseCase {

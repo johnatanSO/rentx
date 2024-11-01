@@ -1,6 +1,6 @@
 import { sign, verify } from 'jsonwebtoken'
 import { inject, injectable } from 'tsyringe'
-import { IUsersTokensRepository } from '../../../repositories/UsersTokens/IUsersTokensRepository'
+import { IUsersTokensRepository } from '../../../repositories/IUsersTokensRepository'
 import auth from '../../../../../config/auth'
 import { AppError } from '../../../../../shared/errors/AppError'
 import { IDateProvider } from '../../../../../shared/container/providers/DateProvider/IDateProvider'

@@ -3,7 +3,7 @@ import { inject, injectable } from 'tsyringe'
 import {
   ICreateSpecificationDTO,
   ISpecificationsRepository,
-} from '../../../repositories/Specifitacions/ISpecificationsRepository'
+} from '../../../repositories/ISpecificationsRepository'
 import { AppError } from '../../../../../shared/errors/AppError'
 
 @injectable()

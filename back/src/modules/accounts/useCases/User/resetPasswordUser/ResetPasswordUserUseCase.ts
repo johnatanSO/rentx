@@ -1,8 +1,8 @@
 import { inject, injectable } from 'tsyringe'
-import { IUsersTokensRepository } from '../../../repositories/UsersTokens/IUsersTokensRepository'
+import { IUsersTokensRepository } from '../../../repositories/IUsersTokensRepository'
 import { AppError } from '../../../../../shared/errors/AppError'
 import { IDateProvider } from '../../../../../shared/container/providers/DateProvider/IDateProvider'
-import { IUsersRepository } from '../../../repositories/Users/IUsersRepository'
+import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { hash } from 'bcrypt'
 
 interface IRequest {

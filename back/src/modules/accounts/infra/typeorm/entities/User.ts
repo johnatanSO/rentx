@@ -2,11 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
+  JoinColumn,
+  ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm'
 import { Car } from '../../../../cars/infra/typeorm/entities/Car'
-import { ICreateUserDTO } from '../../../repositories/Users/IUsersRepository'
+import { ICreateUserDTO } from '../../../dtos/User'
 
 @Entity('user')
 export class User {
@@ -37,10 +38,10 @@ export class User {
   @Column()
   avatarURL: string
 
-  @OneToMany(() => Car, (car) => car._id)
+  @ManyToMany(() => Car)
   favoriteCars: Car[]
 
-  constructor(userData: ICreateUserDTO) {
-    Object.assign(this, userData)
+  constructor(newUserData: ICreateUserDTO) {
+    Object.assign(this, newUserData)
   }
 }

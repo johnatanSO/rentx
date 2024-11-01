@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 
-import { IUsersRepository } from './../../../repositories/Users/IUsersRepository'
+import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { IUser } from '../../../infra/mongoose/entities/User'
 import { IStorageProvider } from '../../../../../shared/container/providers/StorageProvider/IStorageProvider'
 import { AppError } from '../../../../../shared/errors/AppError'

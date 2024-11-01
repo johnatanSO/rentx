@@ -1,6 +1,6 @@
 import { MockStorageProvider } from '../../../../../shared/container/providers/StorageProvider/MockStorageProvider'
 import { AppError } from '../../../../../shared/errors/AppError'
-import { MockUsersRepository } from '../../../repositories/Users/MockUsersRepository'
+import { MockUsersRepository } from '../../../repositories/in-memory/MockUsersRepository'
 import { UpdateUserAvatarUseCase } from './UpdateUserAvatarUseCase'
 
 let mockUsersRepository: MockUsersRepository

@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe'
-import { IUsersRepository } from '../../../repositories/Users/IUsersRepository'
-import { IUsersTokensRepository } from '../../../repositories/UsersTokens/IUsersTokensRepository'
+import { IUsersRepository } from '../../../repositories/IUsersRepository'
+import { IUsersTokensRepository } from '../../../repositories/IUsersTokensRepository'
 import { AppError } from '../../../../../shared/errors/AppError'
 import { v4 as uuidv4 } from 'uuid'
 import { IDateProvider } from '../../../../../shared/container/providers/DateProvider/IDateProvider'

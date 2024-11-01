@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm'
@@ -13,7 +14,11 @@ export class UserToken {
   @PrimaryGeneratedColumn('uuid')
   _id: string
 
-  @ManyToOne(() => User, (user) => user._id)
+  @Column()
+  userId: string
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'userId' })
   user: User
 
   @Column()

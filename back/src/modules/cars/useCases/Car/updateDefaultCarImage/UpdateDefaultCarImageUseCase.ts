@@ -1,7 +1,7 @@
 import { AppError } from '../../../../../shared/errors/AppError'
 import { inject, injectable } from 'tsyringe'
-import { ICarsImagesRepository } from '../../../repositories/CarsImages/ICarsImagesRepository'
-import { ICarsRepository } from '../../../repositories/Cars/ICarsRepository'
+import { ICarsImagesRepository } from '../../../repositories/ICarsImagesRepository'
+import { ICarsRepository } from '../../../repositories/ICarsRepository'
 import { IStorageProvider } from '../../../../../shared/container/providers/StorageProvider/IStorageProvider'
 
 interface IRequest {

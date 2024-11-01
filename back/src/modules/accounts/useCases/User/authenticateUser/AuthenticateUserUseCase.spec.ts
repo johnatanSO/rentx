@@ -1,9 +1,9 @@
 import 'reflect-metadata'
 import { AppError } from '../../../../../shared/errors/AppError'
-import { MockUsersRepository } from '../../../repositories/Users/MockUsersRepository'
+import { MockUsersRepository } from '../../../repositories/in-memory/MockUsersRepository'
 import { CreateNewUserUseCase } from '../createNewUser/CreateNewUserUseCase'
 import { AuthenticateUserUseCase } from './AuthenticateUserUseCase'
-import { MockUsersTokensRepository } from '../../../repositories/UsersTokens/MockUsersTokensRepository'
+import { MockUsersTokensRepository } from '../../../repositories/in-memory/MockUsersTokensRepository'
 import { DayjsDateProvider } from '../../../../../shared/container/providers/DateProvider/DayjsDateProvider'
 
 let mockUsersRepository: MockUsersRepository

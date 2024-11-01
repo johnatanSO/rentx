@@ -2,19 +2,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm'
-import { ICreateCategoryDTO } from '../../../repositories/Categories/ICategoriesRepository'
-import { Car } from './Car'
+import { ICreateCategoryDTO } from '../../../dtos/Category'
 
 @Entity('category')
 export class Category {
   @PrimaryGeneratedColumn('uuid')
   _id: string
-
-  @OneToMany(() => Car, (car) => car._id)
-  cars: Car[]
 
   @Column()
   name: string

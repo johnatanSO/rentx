@@ -2,19 +2,17 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm'
-import { ICreateImageDTO } from '../../../repositories/CarsImages/ICarsImagesRepository'
-import { Car } from './Car'
+import { ICreateImageDTO } from '../../../dtos/CarImage'
 
 @Entity('carimage')
 export class CarImage {
   @PrimaryGeneratedColumn('uuid')
   _id: string
 
-  @OneToOne(() => Car, (car) => car._id)
-  car: Car
+  @Column()
+  carId: string
 
   @Column()
   imageName: string

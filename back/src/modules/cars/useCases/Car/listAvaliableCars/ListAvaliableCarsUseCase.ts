@@ -1,4 +1,4 @@
-import { ICarsRepository } from '../../../repositories/Cars/ICarsRepository'
+import { ICarsRepository } from '../../../repositories/ICarsRepository'
 import { inject, injectable } from 'tsyringe'
 import { Car } from '../../../infra/mongoose/entities/Car'
 
