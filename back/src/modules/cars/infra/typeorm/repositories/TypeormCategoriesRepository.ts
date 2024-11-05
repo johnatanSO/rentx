@@ -1,13 +1,14 @@
-import { getRepository, Repository } from 'typeorm'
+import { Repository } from 'typeorm'
 import { ICreateCategoryDTO } from '../../../dtos/Category'
 import { ICategoriesRepository } from '../../../repositories/ICategoriesRepository'
 import { Category } from '../entities/Category'
+import { app } from '../../../../../shared/infra/http/app'
 
 export class TypeormCategoriesRepository implements ICategoriesRepository {
   repository: Repository<Category>
 
   constructor() {
-    this.repository = getRepository(Category)
+    this.repository = app.db.getRepository(Category)
   }
 
   async create({ name, description }: ICreateCategoryDTO): Promise<Category> {

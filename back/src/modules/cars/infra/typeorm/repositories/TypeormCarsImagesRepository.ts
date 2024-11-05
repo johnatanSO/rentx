@@ -1,13 +1,14 @@
-import { getRepository, Repository } from 'typeorm'
+import { Repository } from 'typeorm'
 import { ICreateImageDTO } from '../../../dtos/CarImage'
 import { ICarsImagesRepository } from '../../../repositories/ICarsImagesRepository'
 import { CarImage } from '../entities/CarImage'
+import { app } from '../../../../../shared/infra/http/app'
 
 export class TypeormCarsImagesRepository implements ICarsImagesRepository {
   repository: Repository<CarImage>
 
   constructor() {
-    this.repository = getRepository(CarImage)
+    this.repository = app.db.getRepository(CarImage)
   }
 
   async create({ carId, imageName, path }: ICreateImageDTO): Promise<CarImage> {

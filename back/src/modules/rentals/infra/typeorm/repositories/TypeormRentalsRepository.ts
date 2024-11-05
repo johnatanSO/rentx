@@ -1,13 +1,14 @@
-import { getRepository, Repository } from 'typeorm'
+import { Repository } from 'typeorm'
 import { ICreateRentalDTO, IListRentalsDTO } from '../../../dtos/Rental'
 import { IRentalsRepository } from '../../../repositories/IRentalsRepository'
 import { Rental } from '../entities/Rental'
+import { app } from '../../../../../shared/infra/http/app'
 
 export class TypeormRentalsRepository implements IRentalsRepository {
   repository: Repository<Rental>
 
   constructor() {
-    this.repository = getRepository(Rental)
+    this.repository = app.db.getRepository(Rental)
   }
 
   async findOpenRentalByCar(carId: string): Promise<Rental> {

@@ -1,7 +1,8 @@
-import { getRepository, In, Repository } from 'typeorm'
+import { In, Repository } from 'typeorm'
 import { ICreateSpecificationDTO } from '../../../dtos/Specification'
 import { ISpecificationsRepository } from '../../../repositories/ISpecificationsRepository'
 import { Specification } from '../entities/Specification'
+import { app } from '../../../../../shared/infra/http/app'
 
 export class TypeormSpecificationsRepository
   implements ISpecificationsRepository
@@ -9,7 +10,7 @@ export class TypeormSpecificationsRepository
   repository: Repository<Specification>
 
   constructor() {
-    this.repository = getRepository(Specification)
+    this.repository = app.db.getRepository(Specification)
   }
 
   async create({

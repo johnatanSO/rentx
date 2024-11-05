@@ -1,13 +1,14 @@
-import { getRepository, Repository } from 'typeorm'
+import { Repository } from 'typeorm'
 import { ICreateNewCarDTO } from '../../../dtos/Car'
 import { ICarsRepository } from '../../../repositories/ICarsRepository'
 import { Car } from '../entities/Car'
+import { app } from '../../../../../shared/infra/http/app'
 
 export class TypeormCarsRepository implements ICarsRepository {
   repository: Repository<Car>
 
   constructor() {
-    this.repository = getRepository(Car)
+    this.repository = app.db.getRepository(Car)
   }
 
   async create({
