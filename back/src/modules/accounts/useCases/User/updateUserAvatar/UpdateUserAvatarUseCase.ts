@@ -1,9 +1,8 @@
 import { inject, injectable } from 'tsyringe'
-
 import { IUsersRepository } from '../../../repositories/IUsersRepository'
-import { IUser } from '../../../infra/mongoose/entities/User'
 import { IStorageProvider } from '../../../../../shared/container/providers/StorageProvider/IStorageProvider'
 import { AppError } from '../../../../../shared/errors/AppError'
+import { User } from '../../../infra/typeorm/entities/User'
 
 interface IRequest {
   userId: string
@@ -22,7 +21,7 @@ export class UpdateUserAvatarUseCase {
     this.storageProvider = storageProvider
   }
 
-  async execute({ userId, avatarImage }: IRequest): Promise<IUser> {
+  async execute({ userId, avatarImage }: IRequest): Promise<User> {
     if (!avatarImage) throw new AppError('Imagem não enviada')
     if (!userId) throw new AppError('_id do usuário não enviado')
 
@@ -35,18 +34,10 @@ export class UpdateUserAvatarUseCase {
 
     const path = await this.storageProvider.uploadImage(avatarImage, 'avatar')
 
-    const filters = {
-      _id: userId,
-    }
+    user.avatar = avatarImage
+    user.avatarURL = path
 
-    const updateFields = {
-      $set: {
-        avatar: avatarImage,
-        avatarURL: path,
-      },
-    }
-
-    await this.usersRepository.update(filters, updateFields)
+    await this.usersRepository.update(user)
 
     return await this.usersRepository.findById(userId)
   }

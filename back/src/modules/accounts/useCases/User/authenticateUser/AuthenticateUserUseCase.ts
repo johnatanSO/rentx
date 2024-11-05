@@ -3,10 +3,10 @@ import { sign } from 'jsonwebtoken'
 import { inject, injectable } from 'tsyringe'
 import { AppError } from '../../../../../shared/errors/AppError'
 import { IUsersRepository } from '../../../repositories/IUsersRepository'
-import { Car } from '../../../../cars/infra/mongoose/entities/Car'
 import { IUsersTokensRepository } from '../../../repositories/IUsersTokensRepository'
 import auth from '../../../../../config/auth'
 import { IDateProvider } from '../../../../../shared/container/providers/DateProvider/IDateProvider'
+import { Car } from '../../../../cars/infra/typeorm/entities/Car'
 
 interface IRequest {
   email: string
@@ -59,12 +59,12 @@ export class AuthenticateUserUseCase {
     } = auth
 
     const token = sign({}, secretToken, {
-      subject: user._id.toString(),
+      subject: user._id,
       expiresIn: expiresInToken,
     })
 
     const refreshToken = sign({ email }, secretRefreshToken, {
-      subject: user._id.toString(),
+      subject: user._id,
       expiresIn: expiresInRefreshToken,
     })
 
@@ -73,7 +73,7 @@ export class AuthenticateUserUseCase {
     )
 
     await this.usersTokensRepository.create({
-      user: user._id.toString(),
+      userId: user._id,
       refreshToken,
       expiresDate: refreshTokenExpiresDate,
     })
@@ -86,7 +86,7 @@ export class AuthenticateUserUseCase {
         email: user.email,
         isAdmin: user.isAdmin,
         avatar: user.avatar,
-        favoriteCars: user.favoriteCars as Car[],
+        favoriteCars: user.favoriteCars,
         avatarURL: user.avatarURL,
       },
     }

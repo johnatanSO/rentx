@@ -44,13 +44,13 @@ export class ResetPasswordUserUseCase {
 
     if (expired) throw new AppError('Token de recuperação de senha expirado')
 
-    const userId = userToken.user._id
     const encryptedPassword = await hash(password, 10)
 
-    await this.usersRepository.update(
-      { _id: userId },
-      { $set: { password: encryptedPassword } },
-    )
+    const user = await this.usersRepository.findById(userToken.user._id)
+
+    user.password = encryptedPassword
+
+    await this.usersRepository.update(user)
 
     await this.usersTokensRepository.deleteById(userToken._id.toString())
   }

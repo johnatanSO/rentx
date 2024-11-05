@@ -3,6 +3,7 @@ import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { User } from '../entities/User'
 import { ICreateUserDTO } from '../../../dtos/User'
 import { app } from '../../../../../shared/infra/http/app'
+import { Car } from '../../../../cars/infra/typeorm/entities/Car'
 
 export class TypeormUsersRepository implements IUsersRepository {
   private repository: Repository<User>
@@ -39,5 +40,14 @@ export class TypeormUsersRepository implements IUsersRepository {
 
   async findById(_id: string): Promise<User> {
     return await this.repository.findOneBy({ _id })
+  }
+
+  async list(): Promise<User[]> {
+    return await this.repository.find()
+  }
+
+  async listFavoriteCars(userId: string): Promise<Car[]> {
+    const user = await this.repository.findOneBy({ _id: userId })
+    return user.favoriteCars
   }
 }

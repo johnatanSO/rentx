@@ -46,7 +46,7 @@ export class RefreshTokenUseCase {
 
     if (!userToken) throw new AppError('Refresh token não encontrado')
 
-    await this.usersTokensRepository.deleteById(userToken._id.toString())
+    await this.usersTokensRepository.deleteById(userToken._id)
 
     const refreshToken = sign({ email }, auth.secretRefreshToken, {
       subject: userId,
@@ -55,13 +55,11 @@ export class RefreshTokenUseCase {
 
     const expiresDate = this.dateProvider.addDays(auth.expiresRefreshTokenDays)
 
-    const newUserToken = new UserToken({
-      user: userId,
-      refreshToken,
+    await this.usersTokensRepository.create({
       expiresDate,
+      refreshToken,
+      userId,
     })
-
-    await this.usersTokensRepository.save(newUserToken)
 
     const newToken = sign({}, auth.secretToken, {
       subject: userId,

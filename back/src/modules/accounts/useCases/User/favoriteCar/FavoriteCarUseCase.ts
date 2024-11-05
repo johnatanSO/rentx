@@ -1,7 +1,8 @@
 import { inject, injectable } from 'tsyringe'
 import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { AppError } from '../../../../../shared/errors/AppError'
-import { IUser } from '../../../infra/mongoose/entities/User'
+import { User } from '../../../infra/typeorm/entities/User'
+import { Car } from '../../../../cars/infra/typeorm/entities/Car'
 
 interface IRequest {
   carId: string
@@ -15,7 +16,7 @@ export class FavoriteCarUseCase {
     this.usersRepository = usersRepository
   }
 
-  async execute({ carId, userId }: IRequest): Promise<IUser> {
+  async execute({ carId, userId }: IRequest): Promise<User> {
     if (!carId) throw new AppError('_id do carro não enviado')
 
     const user = await this.usersRepository.findById(userId)
@@ -25,9 +26,13 @@ export class FavoriteCarUseCase {
     )
 
     if (carAlreadyFavorited) {
-      await this.usersRepository.removeFavoritedCar(carId, userId)
+      user.favoriteCars = user.favoriteCars.filter(
+        (car) => car.toString() !== carId,
+      )
+      await this.usersRepository.update(user)
     } else {
-      await this.usersRepository.addCarToFavorite(carId, userId)
+      user.favoriteCars = [...user.favoriteCars, carId as any]
+      await this.usersRepository.update(user)
     }
 
     const updatedUser = await this.usersRepository.findById(userId)

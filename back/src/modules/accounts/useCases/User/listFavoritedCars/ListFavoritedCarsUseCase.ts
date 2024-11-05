@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 import { IUsersRepository } from '../../../repositories/IUsersRepository'
-import { Car } from '../../../../cars/infra/mongoose/entities/Car'
+import { Car } from '../../../../cars/infra/typeorm/entities/Car'
 
 @injectable()
 export class ListFavoritedCarsUseCase {
