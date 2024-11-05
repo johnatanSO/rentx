@@ -1,13 +1,14 @@
-import { getRepository, Repository } from 'typeorm'
+import { Repository } from 'typeorm'
 import { IUsersTokensRepository } from '../../../repositories/IUsersTokensRepository'
 import { UserToken } from '../entities/UserToken'
 import { ICreateUserTokenDTO } from '../../../dtos/UserTokens'
+import { app } from '../../../../../shared/infra/http/app'
 
 export class TypeormUsersTokensRepository implements IUsersTokensRepository {
   private repository: Repository<UserToken>
 
   constructor() {
-    this.repository = getRepository(UserToken)
+    this.repository = app.db.getRepository(UserToken)
   }
 
   async create({
