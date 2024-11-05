@@ -73,7 +73,7 @@ export class CreateCarUseCase {
         path: imageURL,
       })
 
-      newCar.defaultImage = carImage._id as any
+      newCar.defaultImageId = carImage._id
 
       await this.carsRepository.update(newCar)
 

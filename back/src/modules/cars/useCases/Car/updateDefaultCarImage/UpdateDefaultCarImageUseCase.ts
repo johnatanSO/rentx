@@ -29,7 +29,7 @@ export class UpdateDefaultCarImageUseCase {
     if (!carId) throw new AppError('_id do carro não informado')
 
     const car = await this.carsRepository.findById(carId)
-    if (!car) throw new AppError('Carro não encontrado ')
+    if (!car) throw new AppError('Carro não encontrado')
 
     if (car.defaultImage) {
       await this.storageProvider.deleteImage(car.defaultImage.imageName, 'cars')
@@ -43,7 +43,7 @@ export class UpdateDefaultCarImageUseCase {
       path,
     })
 
-    car.defaultImage = carImage._id as any
+    car.defaultImageId = carImage._id
 
     await this.carsRepository.update(car)
   }

@@ -43,17 +43,21 @@ export class Car {
   @Column()
   categoryId: string
 
-  @ManyToOne(() => Category, (category) => category._id)
+  @ManyToOne(() => Category)
   @JoinColumn({ name: 'categoryId' })
   category: Category
 
   @CreateDateColumn()
   createdAt: Date
 
-  @OneToMany(() => CarImage, (image) => image._id)
+  @OneToMany(() => CarImage, (image) => image)
   images: CarImage[]
 
-  @OneToOne(() => CarImage, (image) => image._id)
+  @Column()
+  defaultImageId: string
+
+  @OneToOne(() => CarImage)
+  @JoinColumn({ name: 'defaultImageId' })
   defaultImage: CarImage
 
   @ManyToMany(() => Specification)
