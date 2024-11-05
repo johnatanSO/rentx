@@ -6,7 +6,7 @@ import {
 } from 'typeorm'
 import { ICreateSpecificationDTO } from '../../../dtos/Specification'
 
-@Entity('specification')
+@Entity('specifications')
 export class Specification {
   @PrimaryGeneratedColumn('uuid')
   _id: string

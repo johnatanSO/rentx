@@ -11,7 +11,7 @@ import { Car } from '../../../../cars/infra/typeorm/entities/Car'
 import { User } from '../../../../accounts/infra/typeorm/entities/User'
 import { ICreateRentalDTO } from '../../../dtos/Rental'
 
-@Entity('rental')
+@Entity('rentals')
 export class Rental {
   @PrimaryGeneratedColumn('uuid')
   _id: string

@@ -6,7 +6,7 @@ import {
 } from 'typeorm'
 import { ICreateImageDTO } from '../../../dtos/CarImage'
 
-@Entity('carimage')
+@Entity('carimages')
 export class CarImage {
   @PrimaryGeneratedColumn('uuid')
   _id: string

@@ -13,7 +13,6 @@ import { ICreateNewCarDTO } from '../../../dtos/Car'
 import { Category } from './Category'
 import { CarImage } from './CarImage'
 import { Specification } from './Specification'
-import { User } from '../../../../accounts/infra/typeorm/entities/User'
 
 @Entity('cars')
 export class Car {

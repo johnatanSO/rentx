@@ -6,7 +6,7 @@ import {
 } from 'typeorm'
 import { ICreateCategoryDTO } from '../../../dtos/Category'
 
-@Entity('category')
+@Entity('categories')
 export class Category {
   @PrimaryGeneratedColumn('uuid')
   _id: string
