@@ -28,6 +28,9 @@ export class UploadCarImageUseCase {
     if (!carId) throw new AppError('_id do carro não informado')
     if (!image) throw new AppError('Imagem não enviada')
 
+    const car = await this.carsRepository.findById(carId)
+    if (!car) throw new AppError('Carro inválido')
+
     const path = await this.storageProvider.uploadImage(image, 'cars')
 
     const carImage = await this.carsImagesRepository.create({
@@ -36,6 +39,8 @@ export class UploadCarImageUseCase {
       path,
     })
 
-    await this.carsRepository.addImage(carId, carImage._id.toString())
+    car.images = [...car.images, carImage._id as any]
+
+    await this.carsRepository.update(car)
   }
 }

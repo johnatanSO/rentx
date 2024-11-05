@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 import { IRentalsRepository } from '../../repositories/IRentalsRepository'
-import { Rental } from '../../infra/mongoose/entities/Rental'
+import { Rental } from '../../infra/typeorm/entities/Rental'
 
 interface IRequest {
   filterStartDate: string

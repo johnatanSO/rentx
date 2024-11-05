@@ -66,10 +66,13 @@ export class FinalizeRentalUseCase {
       rentalTotalValue = fineTotal + rentalTotalValue
     }
 
-    await this.carsRepository.updateOne(car._id.toString(), {
-      avaliable: true,
-    })
+    car.avaliable = true
 
-    await this.rentalsRepository.finalizeRental(rentalId, rentalTotalValue)
+    await this.carsRepository.update(car)
+
+    rental.total = rentalTotalValue
+    rental.endDate = this.dateProvider.dateNow()
+
+    await this.rentalsRepository.update(rental)
   }
 }

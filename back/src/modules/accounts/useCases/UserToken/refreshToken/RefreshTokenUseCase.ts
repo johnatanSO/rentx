@@ -4,7 +4,6 @@ import { IUsersTokensRepository } from '../../../repositories/IUsersTokensReposi
 import auth from '../../../../../config/auth'
 import { AppError } from '../../../../../shared/errors/AppError'
 import { IDateProvider } from '../../../../../shared/container/providers/DateProvider/IDateProvider'
-import { UserToken } from '../../../infra/typeorm/entities/UserToken'
 
 interface IPayload {
   sub: string

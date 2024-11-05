@@ -73,9 +73,11 @@ export class UpdateRentalUseCase {
       throw new AppError('Duração do aluguel deve ter no mínimo 24 horas')
     }
 
+    const utcStartDate = this.dateProvider.convertToUTC(startDate)
+
     rental.carId = car
     rental.userId = user
-    rental.startDate = this.dateProvider.convertToUTC(startDate)
+    rental.startDate = new Date(utcStartDate)
     rental.expectedReturnDate = expectedReturnDateEndDay
 
     await this.rentalsRepository.update(rental)

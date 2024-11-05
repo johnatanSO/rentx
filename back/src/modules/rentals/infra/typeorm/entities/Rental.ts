@@ -31,10 +31,10 @@ export class Rental {
   user: User
 
   @Column()
-  startDate: string
+  startDate: Date
 
   @Column()
-  endDate: string
+  endDate: Date
 
   @Column()
   expectedReturnDate: Date

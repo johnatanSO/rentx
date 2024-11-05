@@ -1,10 +1,8 @@
-import { Specification } from '../../../infra/mongoose/entities/Specification'
 import { inject, injectable } from 'tsyringe'
-import {
-  ICreateSpecificationDTO,
-  ISpecificationsRepository,
-} from '../../../repositories/ISpecificationsRepository'
+import { ISpecificationsRepository } from '../../../repositories/ISpecificationsRepository'
 import { AppError } from '../../../../../shared/errors/AppError'
+import { ICreateSpecificationDTO } from '../../../dtos/Specification'
+import { Specification } from '../../../infra/typeorm/entities/Specification'
 
 @injectable()
 export class CreateSpecificationUseCase {

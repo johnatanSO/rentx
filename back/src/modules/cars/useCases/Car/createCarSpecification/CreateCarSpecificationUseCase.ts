@@ -34,12 +34,10 @@ export class CreateCarSpecificationUseCase {
     const specifications =
       await this.specificationsRepository.findByIds(specificationsIds)
 
-    const newSpecificationsIds = specifications.map(
+    carExists.specifications = specifications.map(
       (specification) => specification._id,
-    )
+    ) as any
 
-    await this.carsRepository.updateOne(carId, {
-      specifications: newSpecificationsIds,
-    })
+    await this.carsRepository.update(carExists)
   }
 }

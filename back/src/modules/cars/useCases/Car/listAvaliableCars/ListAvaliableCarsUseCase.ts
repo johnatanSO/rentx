@@ -1,6 +1,6 @@
+import { Car } from '../../../infra/typeorm/entities/Car'
 import { ICarsRepository } from '../../../repositories/ICarsRepository'
 import { inject, injectable } from 'tsyringe'
-import { Car } from '../../../infra/mongoose/entities/Car'
 
 interface IRequest {
   name?: string

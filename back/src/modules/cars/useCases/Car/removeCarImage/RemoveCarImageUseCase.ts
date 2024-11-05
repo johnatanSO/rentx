@@ -28,12 +28,16 @@ export class RemoveCarImageUseCase {
     if (!imageId) throw new AppError('_id da imagem não enviado')
     if (!carId) throw new AppError('_id do carro não enviado')
 
+    const car = await this.carsRepository.findById(carId)
+    if (!car) throw new AppError('Carro inválido')
+
     const image = await this.carsImagesRepository.findById(imageId)
     if (!image) throw new AppError('Imagem não encontrada')
 
     await this.storageProvider.deleteImage(image.imageName, 'folder')
 
-    await this.carsRepository.removeImage(carId, imageId)
+    car.images = car.images.filter((carImage) => (carImage as any) !== imageId)
+    await this.carsRepository.update(car)
 
     await this.carsImagesRepository.delete(imageId)
   }

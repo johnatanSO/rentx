@@ -54,8 +54,8 @@ export class TypeormRentalsRepository implements IRentalsRepository {
   }: IListRentalsDTO): Promise<Rental[]> {
     return await this.repository.findBy({
       carId,
-      endDate: filterEndDate,
-      startDate: filterStartDate,
+      endDate: new Date(filterEndDate),
+      startDate: new Date(filterStartDate),
       userId,
     })
   }

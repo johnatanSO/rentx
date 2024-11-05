@@ -1,5 +1,5 @@
 import { AppError } from '../../../../../shared/errors/AppError'
-import { Car } from '../../../infra/mongoose/entities/Car'
+import { Car } from '../../../infra/typeorm/entities/Car'
 import { ICarsRepository } from '../../../repositories/ICarsRepository'
 import { inject, injectable } from 'tsyringe'
 

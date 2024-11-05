@@ -24,9 +24,9 @@ export class UpdateCategoryUseCase {
 
     if (!category) throw new AppError('_id da categoria inválido')
 
-    await this.categoriesRepository.update(categoryId, {
-      name,
-      description,
-    })
+    category.name = name
+    category.description = description
+
+    await this.categoriesRepository.update(category)
   }
 }

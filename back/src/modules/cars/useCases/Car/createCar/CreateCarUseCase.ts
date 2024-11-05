@@ -1,9 +1,9 @@
 import { AppError } from './../../../../../shared/errors/AppError'
 import { inject, injectable } from 'tsyringe'
-import { Car } from '../../../infra/mongoose/entities/Car'
 import { ICarsRepository } from '../../../repositories/ICarsRepository'
 import { ICarsImagesRepository } from '../../../repositories/ICarsImagesRepository'
 import { IStorageProvider } from '../../../../../shared/container/providers/StorageProvider/IStorageProvider'
+import { Car } from '../../../infra/typeorm/entities/Car'
 
 interface IRequest {
   name: string
@@ -68,16 +68,16 @@ export class CreateCarUseCase {
       )
 
       const carImage = await this.carsImagesRepository.create({
-        carId: newCar._id.toString(),
+        carId: newCar._id,
         imageName: defaultImage,
         path: imageURL,
       })
 
-      await this.carsRepository.updateOne(newCar._id.toString(), {
-        defaultImage: carImage._id.toString(),
-      })
+      newCar.defaultImage = carImage._id as any
 
-      return await this.carsRepository.findById(newCar._id.toString())
+      await this.carsRepository.update(newCar)
+
+      return await this.carsRepository.findById(newCar._id)
     }
 
     return newCar

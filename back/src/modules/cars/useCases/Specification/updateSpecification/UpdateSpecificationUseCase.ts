@@ -30,9 +30,9 @@ export class UpdateSpecificationUseCase {
 
     if (!specification) throw new AppError('_id da especificação inválido')
 
-    await this.specificationsRepository.update(specificationId, {
-      name,
-      description,
-    })
+    specification.name = name
+    specification.description = description
+
+    await this.specificationsRepository.update(specification)
   }
 }

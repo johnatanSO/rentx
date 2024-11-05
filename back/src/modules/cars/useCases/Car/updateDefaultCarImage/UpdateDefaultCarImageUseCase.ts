@@ -43,8 +43,8 @@ export class UpdateDefaultCarImageUseCase {
       path,
     })
 
-    await this.carsRepository.updateOne(carId, {
-      defaultImage: carImage._id.toString(),
-    })
+    car.defaultImage = carImage._id as any
+
+    await this.carsRepository.update(car)
   }
 }

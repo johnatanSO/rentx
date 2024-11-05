@@ -54,16 +54,8 @@ export class TypeormCarsRepository implements ICarsRepository {
     await this.repository.save(data)
   }
 
-  async addImage(_id: string, imageId: string): Promise<void> {
-    throw new Error('add image')
-  }
-
   async listAll(): Promise<Car[]> {
     return await this.repository.find()
-  }
-
-  async removeImage(carId: string, imageId: string): Promise<void> {
-    throw new Error('removeImage')
   }
 
   async delete(carId: string): Promise<void> {

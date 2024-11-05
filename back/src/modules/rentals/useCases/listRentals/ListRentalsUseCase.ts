@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe'
 import { AppError } from '../../../../shared/errors/AppError'
 import { IRentalsRepository } from '../../repositories/IRentalsRepository'
-import { Rental } from '../../infra/mongoose/entities/Rental'
+import { Rental } from '../../infra/typeorm/entities/Rental'
 
 @injectable()
 export class ListRentalsUseCase {
