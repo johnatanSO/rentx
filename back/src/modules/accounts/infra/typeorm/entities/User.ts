@@ -2,14 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm'
 import { Car } from '../../../../cars/infra/typeorm/entities/Car'
 import { ICreateUserDTO } from '../../../dtos/User'
 
-@Entity('user')
+@Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
   _id: string
@@ -26,16 +25,16 @@ export class User {
   @Column()
   driverLicense: string
 
-  @Column()
+  @Column({ default: false })
   isAdmin: boolean
 
   @CreateDateColumn()
   createdAt: Date
 
-  @Column()
+  @Column({ default: null })
   avatar: string
 
-  @Column()
+  @Column({ default: null })
   avatarURL: string
 
   @ManyToMany(() => Car)

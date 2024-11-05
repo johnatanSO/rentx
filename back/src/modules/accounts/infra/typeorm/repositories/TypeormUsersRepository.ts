@@ -1,13 +1,14 @@
-import { getRepository, Repository } from 'typeorm'
+import { Repository } from 'typeorm'
 import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { User } from '../entities/User'
 import { ICreateUserDTO } from '../../../dtos/User'
+import { app } from '../../../../../shared/infra/http/app'
 
 export class TypeormUsersRepository implements IUsersRepository {
   private repository: Repository<User>
 
   constructor() {
-    this.repository = getRepository(User)
+    this.repository = app.db.getRepository(User)
   }
 
   async update(data: User): Promise<void> {

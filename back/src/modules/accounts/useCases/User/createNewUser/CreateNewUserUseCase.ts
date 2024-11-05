@@ -29,6 +29,9 @@ export class CreateNewUserUseCase {
     isAdmin,
   }: IRequest): Promise<User> {
     if (!email) throw new AppError('E-mail não enviado')
+    if (!password) throw new AppError('Senha não enviada')
+    if (!name) throw new AppError('Nome não enviado')
+    if (!driverLicense) throw new AppError('N° da carteira não enviado')
 
     const alreadyExistUser = await this.usersRepository.findByEmail(email)
 

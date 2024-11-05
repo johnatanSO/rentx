@@ -12,7 +12,7 @@ export const myDataSource = new DataSource({
     path.join(__dirname, '/../../../modules/**/infra/typeorm/entities/*.ts'),
   ],
   logging: false,
-  synchronize: false,
+  synchronize: true,
 })
 
 myDataSource

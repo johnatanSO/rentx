@@ -9,7 +9,7 @@ import {
 import { User } from './User'
 import { ICreateUserTokenDTO } from '../../../dtos/UserTokens'
 
-@Entity('usertoken')
+@Entity('usertokens')
 export class UserToken {
   @PrimaryGeneratedColumn('uuid')
   _id: string
