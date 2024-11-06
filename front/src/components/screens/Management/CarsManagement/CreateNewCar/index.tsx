@@ -92,7 +92,7 @@ export function CreateNewCar() {
             type="number"
             size="small"
             label="Valor da diária *"
-            {...register('dailyRate', { required: true })}
+            {...register('dailyRate', { required: true, valueAsNumber: true })}
             error={!!errors.dailyRate}
             helperText={errors.dailyRate && errors.dailyRate.message}
           />
@@ -103,7 +103,7 @@ export function CreateNewCar() {
             type="number"
             size="small"
             label="Valor da multa"
-            {...register('fineAmount')}
+            {...register('fineAmount', { valueAsNumber: true })}
           />
           <CustomTextField
             className={style.input}
