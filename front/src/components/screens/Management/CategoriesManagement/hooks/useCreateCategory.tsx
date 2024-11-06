@@ -1,7 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { newCarSchema } from '../../CarsManagement/interfaces/INewCar'
-import { INewCategory } from '../interface/INewCategory'
+import { INewCategory, newCategorySchema } from '../interface/INewCategory'
 import { AlertContext } from '@/contexts/alertContext'
 import { useContext } from 'react'
 import { createCategoryService } from '@/services/category/createCategory/CreateCategoryService'
@@ -24,7 +23,7 @@ export function useCreateCategory({ getCategories }: Props) {
       name: '',
       description: '',
     },
-    resolver: zodResolver(newCarSchema),
+    resolver: zodResolver(newCategorySchema),
   })
 
   async function onCreateNewCategory(newCategory: INewCategory) {
