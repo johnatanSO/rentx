@@ -25,7 +25,7 @@ export class CreateCarUseCase {
   constructor(
     @inject('CarsRepository') carsRepository: ICarsRepository,
     @inject('CarsImagesRepository') carsImagesRepository: ICarsImagesRepository,
-    @inject('FirebaseProvider') storageProvider: IStorageProvider,
+    @inject('StorageProvider') storageProvider: IStorageProvider,
   ) {
     this.carsRepository = carsRepository
     this.carsImagesRepository = carsImagesRepository
