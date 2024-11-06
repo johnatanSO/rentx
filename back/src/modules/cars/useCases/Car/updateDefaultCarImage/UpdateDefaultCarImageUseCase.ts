@@ -33,6 +33,7 @@ export class UpdateDefaultCarImageUseCase {
 
     if (car.defaultImage) {
       await this.storageProvider.deleteImage(car.defaultImage.imageName, 'cars')
+      car.defaultImage = null
     }
 
     const path = await this.storageProvider.uploadImage(defaultImage, 'cars')
@@ -43,6 +44,7 @@ export class UpdateDefaultCarImageUseCase {
       path,
     })
 
+    car.defaultImage = carImage
     car.defaultImageId = carImage._id
 
     await this.carsRepository.update(car)

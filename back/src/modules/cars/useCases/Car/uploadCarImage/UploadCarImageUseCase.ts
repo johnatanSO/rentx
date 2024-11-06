@@ -39,7 +39,7 @@ export class UploadCarImageUseCase {
       path,
     })
 
-    car.images = [...car.images, carImage._id as any]
+    car.images.push(carImage)
 
     await this.carsRepository.update(car)
   }

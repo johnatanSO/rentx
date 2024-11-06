@@ -2,9 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm'
 import { ICreateImageDTO } from '../../../dtos/CarImage'
+import { Car } from './Car'
 
 @Entity('carimages')
 export class CarImage {
@@ -13,6 +16,10 @@ export class CarImage {
 
   @Column()
   carId: string
+
+  @ManyToOne(() => Car, (car) => car.images)
+  @JoinColumn({ name: 'carId' })
+  car: Car
 
   @Column()
   imageName: string

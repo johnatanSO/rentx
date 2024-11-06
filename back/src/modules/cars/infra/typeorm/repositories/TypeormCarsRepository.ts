@@ -44,11 +44,21 @@ export class TypeormCarsRepository implements ICarsRepository {
     brand?: string,
     name?: string,
   ): Promise<Car[]> {
-    return await this.repository.findBy({ categoryId, brand, name })
+    return await this.repository.find({
+      where: { categoryId, brand, name },
+      relations: ['images'],
+      select: ['name', 'description'],
+    })
   }
 
   async findById(carId: string): Promise<Car> {
-    return await this.repository.findOneBy({ _id: carId })
+    return await this.repository.findOne({
+      where: {
+        _id: carId,
+      },
+      relations: ['images'],
+      select: ['name', 'description'],
+    })
   }
 
   async update(data: Car): Promise<void> {

@@ -50,13 +50,13 @@ export class Car {
   @CreateDateColumn()
   createdAt: Date
 
-  @OneToMany(() => CarImage, (image) => image)
+  @OneToMany(() => CarImage, (image) => image.car)
   images: CarImage[]
 
   @Column({ default: null })
   defaultImageId: string
 
-  @OneToOne(() => CarImage)
+  @OneToOne(() => CarImage, (image) => image.car)
   @JoinColumn({ name: 'defaultImageId' })
   defaultImage: CarImage
 
