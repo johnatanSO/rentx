@@ -19,28 +19,28 @@ export class Car {
   @PrimaryGeneratedColumn('uuid')
   _id: string
 
-  @Column()
+  @Column({ default: null })
   name: string
 
-  @Column()
+  @Column({ default: null })
   description: string
 
-  @Column()
+  @Column({ default: 0 })
   dailyRate: number
 
-  @Column()
+  @Column({ default: true })
   avaliable: boolean
 
-  @Column()
+  @Column({ default: null })
   licensePlate: string
 
-  @Column()
+  @Column({ default: 0 })
   fineAmount: number
 
-  @Column()
+  @Column({ default: null })
   brand: string
 
-  @Column()
+  @Column({ default: null })
   categoryId: string
 
   @ManyToOne(() => Category)
@@ -53,7 +53,7 @@ export class Car {
   @OneToMany(() => CarImage, (image) => image)
   images: CarImage[]
 
-  @Column()
+  @Column({ default: null })
   defaultImageId: string
 
   @OneToOne(() => CarImage)
@@ -63,10 +63,10 @@ export class Car {
   @ManyToMany(() => Specification)
   specifications: Specification[]
 
-  @Column()
+  @Column({ default: null })
   reasonUnavaliable?: string
 
-  @Column()
+  @Column({ default: null })
   transmission: string
 
   constructor(newCarData: ICreateNewCarDTO) {
