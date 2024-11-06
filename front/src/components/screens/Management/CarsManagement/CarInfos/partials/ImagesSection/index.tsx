@@ -66,7 +66,7 @@ export function ImagesSection({ car }: Props) {
               <span className={style.imageTag}>Imagem principal</span>
             </li>
 
-            {car.images.map((carImage, index) => {
+            {car?.images.map((carImage, index) => {
               return (
                 <li
                   key={carImage._id}

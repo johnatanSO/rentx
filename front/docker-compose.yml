@@ -5,8 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: rentx-front
-    ports:
-      - 3005:3005
+    network_mode: host
     volumes:
       - .:/usr/app
     

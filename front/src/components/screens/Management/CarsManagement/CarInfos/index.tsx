@@ -15,6 +15,8 @@ type Props = {
 export function CarInfos({ car }: Props) {
   const { handleDeleteCar, router } = useDeleteCar({ car })
 
+  console.log('CARRO', car)
+
   return (
     <>
       <header className={style.header}>
