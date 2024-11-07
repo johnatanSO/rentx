@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
@@ -61,6 +62,7 @@ export class Car {
   defaultImage: CarImage
 
   @ManyToMany(() => Specification)
+  @JoinTable()
   specifications: Specification[]
 
   @Column({ default: null })

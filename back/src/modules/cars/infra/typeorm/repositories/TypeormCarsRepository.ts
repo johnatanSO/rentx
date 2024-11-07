@@ -46,8 +46,7 @@ export class TypeormCarsRepository implements ICarsRepository {
   ): Promise<Car[]> {
     return await this.repository.find({
       where: { categoryId, brand, name },
-      relations: ['images'],
-      select: ['name', 'description'],
+      relations: ['images', 'category', 'specifications'],
     })
   }
 
@@ -56,8 +55,7 @@ export class TypeormCarsRepository implements ICarsRepository {
       where: {
         _id: carId,
       },
-      relations: ['images'],
-      select: ['name', 'description'],
+      relations: ['images', 'category', 'specifications'],
     })
   }
 
