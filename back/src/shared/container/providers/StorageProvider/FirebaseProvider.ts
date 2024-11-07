@@ -4,10 +4,8 @@ import { resolve } from 'path'
 import { Bucket } from '@google-cloud/storage'
 import { getStorage } from 'firebase-admin/storage'
 import { ServiceAccount, cert, initializeApp } from 'firebase-admin/app'
-
 import upload from '../../../../config/upload'
 import { IStorageProvider } from './IStorageProvider'
-import serviceAccount from '../../../../config/firebaseKey.json'
 import { AppError } from '../../../errors/AppError'
 
 export class FirebaseProvider implements IStorageProvider {
@@ -17,7 +15,11 @@ export class FirebaseProvider implements IStorageProvider {
 
   constructor() {
     initializeApp({
-      credential: cert(serviceAccount as ServiceAccount),
+      credential: cert({
+        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+        privateKey: process.env.FIREBASE_PRIVATE_KEY,
+        projectId: process.env.FIREBASE_PROJECT_ID,
+      } as ServiceAccount),
       storageBucket: this.BUCKET_URL,
     })
 
