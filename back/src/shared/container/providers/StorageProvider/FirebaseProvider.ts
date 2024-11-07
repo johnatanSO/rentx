@@ -37,8 +37,11 @@ export class FirebaseProvider implements IStorageProvider {
     })
 
     return new Promise<string>((resolve, reject) => {
-      stream.on('error', (error) => {
+      stream.on('error', async (error) => {
         console.error(error)
+
+        await fs.promises.unlink(originalName)
+
         reject(new AppError(error.message))
       })
 
